@@ -1,36 +1,25 @@
 import React from 'react';
-import { Sparkles } from 'lucide-react';
 
 export const HeroBanner: React.FC = () => {
   return (
-    <section className="relative overflow-hidden border-b border-zinc-200 bg-[#FFFBEB] py-10 sm:py-14">
-      {/* Background with subtle Afro's menu texture */}
+    <section className="relative overflow-hidden w-full max-w-full h-44 sm:h-56 md:h-72 lg:h-80 flex items-center justify-center select-none bg-zinc-950">
+      {/* Authentic Afros Menu Header Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-15"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-102"
         style={{
           backgroundImage: "url('/assets/afros/images/afros-menu-header.jpg')",
         }}
         aria-hidden="true"
       />
 
-      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-black text-[#FFD100] text-xs font-black uppercase tracking-widest shadow-xs">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>PROPER FOOD • NO SHORTCUTS</span>
-        </div>
+      {/* Subtle darkening overlay to ensure MENU pops vividly */}
+      <div className="absolute inset-0 bg-black/20" aria-hidden="true" />
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-black tracking-tight uppercase leading-tight">
-          Online Food Menu
+      {/* Centered Large Bold White MENU Title matching reference media_1792250052103.png */}
+      <div className="relative z-10 text-center px-4">
+        <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[100px] font-black font-black-grotesque text-white uppercase tracking-wider drop-shadow-[0_4px_20px_rgba(0,0,0,0.7)] leading-none">
+          MENU
         </h1>
-
-        <div className="text-sm sm:text-base text-zinc-700 max-w-xl mx-auto font-medium space-y-1">
-          <p className="font-extrabold text-black">
-            100% Fresh Chicken • Real Hand-Cut Potato Tjips • 5 Signature Bastings
-          </p>
-          <p className="text-zinc-500 text-xs sm:text-sm">
-            Cooked to order over hot flames. Choose collection at Shop 5, The Junction, or delivery to your door.
-          </p>
-        </div>
       </div>
     </section>
   );

@@ -18,6 +18,8 @@ export type CategoryId =
   | 'burgers'
   | 'wraps'
   | 'flamed'
+  | 'schnitzel'
+  | 'pops'
   | 'schnitzel_pops'
   | 'salads'
   | 'breakfast'
@@ -28,6 +30,8 @@ export interface MenuCategory {
   name: string;
   icon: string | React.ReactNode;
   description: string;
+  subtitle?: string;
+  tagBox?: string;
 }
 
 export interface MenuItem {
@@ -43,6 +47,7 @@ export interface MenuItem {
   includesSide?: boolean;
   sideOptions?: string[];
   badge?: string;
+  subtitle?: string;
 }
 
 export interface CartCustomization {

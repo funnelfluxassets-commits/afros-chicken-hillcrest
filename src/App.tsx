@@ -25,7 +25,7 @@ import { DeliveryDriverView } from './components/DeliveryDriverView';
 import { StaffLoginModal } from './components/StaffLoginModal';
 import { OrderTrackerView } from './components/OrderTrackerView';
 import { ErrorBoundary } from './components/ErrorBoundary';
-import { MENU_ITEMS, CATEGORIES } from './data/menuData';
+import { MENU_ITEMS, CATEGORIES, FLAVOURS } from './data/menuData';
 import { CategoryId, MenuItem, PageView, LiveOrder, StaffRole } from './types';
 import { CheckoutPayload, isPayFastStaffTestMode, setPayFastStaffTestMode } from './services/payment';
 import { subscribeToOrders, getCurrentOrderId, setCurrentOrderId, createLiveOrder, recordCancelledOrder } from './services/orderService';
@@ -496,75 +496,271 @@ const MainContent: React.FC = () => {
             activeCategory={activeCategory}
             onSelectCategory={(id) => {
               setActiveCategory(id);
-              const menuElem = document.getElementById('menu-section');
-              if (menuElem) {
-                menuElem.scrollIntoView({ behavior: 'smooth' });
+              if (id === 'all') {
+                const menuElem = document.getElementById('menu-section');
+                if (menuElem) {
+                  menuElem.scrollIntoView({ behavior: 'smooth' });
+                }
+              } else {
+                const catElem = document.getElementById(`cat-${id}`);
+                if (catElem) {
+                  catElem.scrollIntoView({ behavior: 'smooth' });
+                }
               }
             }}
           />
 
           {/* ── Main Menu Section ──────────────────────────────────────────────── */}
-          <main id="menu-section" className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        
-        {/* Search & Filter Header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
-          <div>
-            <div className="flex items-center gap-2">
-              <Flame className="w-5 h-5 text-[#b89500] fill-[#FFD100]" />
-              <h2 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tight">
-                {activeCategory === 'all'
-                  ? 'Our Complete Menu'
-                  : CATEGORIES.find((c) => c.id === activeCategory)?.name || 'Menu'}
-              </h2>
+          <main id="menu-section" className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-10">
+            {/* Search Bar Header */}
+            <div className="max-w-5xl mx-auto mb-8 sm:mb-12">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-zinc-200">
+                <div className="text-left w-full sm:w-auto">
+                  <div className="flex items-center gap-2">
+                    <Flame className="w-5 h-5 text-[#b89500] fill-[#FFD100]" />
+                    <h2 className="text-lg sm:text-xl font-black text-black uppercase tracking-wider font-black-grotesque">
+                      Fresh Flame-Grilled Durban Menu
+                    </h2>
+                  </div>
+                  <p className="text-xs text-zinc-500 font-medium mt-0.5">
+                    Click any item to choose basting flavour, sides, and extras
+                  </p>
+                </div>
+
+                {/* Search Input */}
+                <div className="relative w-full sm:w-72">
+                  <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search chicken, wrap, wings, drinks..."
+                    className="w-full pl-9 pr-8 py-2 rounded-lg bg-zinc-50 border border-zinc-300 text-xs text-black placeholder-zinc-400 focus:outline-none focus:border-black transition-colors font-medium"
+                  />
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      onClick={() => setSearchQuery('')}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-black text-xs font-bold p-1 cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
-            <p className="text-xs sm:text-sm text-zinc-600 mt-0.5 font-medium">
-              {activeCategory === 'all'
-                ? 'All flame-grilled chicken, wraps, wings, burgers, sides, and ice-cold drinks.'
-                : CATEGORIES.find((c) => c.id === activeCategory)?.description}
-            </p>
-          </div>
 
-          {/* Search Bar */}
-          <div className="relative w-full sm:w-72">
-            <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search chicken, wrap, wings, drinks..."
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-zinc-50 border border-zinc-300 text-xs text-black placeholder-zinc-400 focus:outline-none focus:border-black transition-colors font-medium"
-            />
-          </div>
-        </div>
+            {/* If searching, display search results */}
+            {searchQuery.trim() ? (
+              <div className="max-w-5xl mx-auto">
+                <div className="mb-6 flex items-center justify-between">
+                  <h3 className="text-xl font-black text-black uppercase tracking-tight">
+                    Search Results for "{searchQuery}"
+                  </h3>
+                  <span className="text-xs font-bold text-zinc-500">
+                    {filteredItems.length} {filteredItems.length === 1 ? 'item' : 'items'} found
+                  </span>
+                </div>
 
-        {/* Menu Grid */}
-        {filteredItems.length === 0 ? (
-          <div className="p-12 text-center rounded-3xl bg-zinc-50 border border-zinc-200 space-y-2">
-            <span className="text-3xl">🔍</span>
-            <h3 className="text-base font-black text-black uppercase">No items found</h3>
-            <p className="text-xs text-zinc-200">
-              Try searching for something else or reset your category filter.
-            </p>
-            <button
-              type="button"
-              onClick={() => {
-                setSearchQuery('');
-                setActiveCategory('all');
-              }}
-              className="px-4 py-2 rounded-xl bg-[#FFD100] hover:bg-[#ffe14d] text-black text-xs font-black uppercase tracking-wider mt-2 cursor-pointer border border-black/10"
-            >
-              Show All Items
-            </button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
-            {filteredItems.map((item) => (
-              <FoodCard key={item.id} item={item} onSelect={(i) => setSelectedItem(i)} />
-            ))}
-          </div>
-        )}
+                {filteredItems.length === 0 ? (
+                  <div className="p-12 text-center rounded-2xl bg-zinc-50 border border-zinc-200 space-y-2">
+                    <span className="text-3xl">🔍</span>
+                    <h3 className="text-base font-black text-black uppercase">No items found</h3>
+                    <p className="text-xs text-zinc-500">
+                      Try searching with different keywords or view all categories below.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setSearchQuery('')}
+                      className="px-4 py-2 rounded-xl bg-[#FFD100] hover:bg-[#ffe14d] text-black text-xs font-black uppercase tracking-wider mt-2 cursor-pointer border border-black/10"
+                    >
+                      Clear Search
+                    </button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {filteredItems.map((item) => (
+                      <div
+                        key={item.id}
+                        onClick={() => setSelectedItem(item)}
+                        className="bg-white border border-zinc-200 border-b-[3px] border-b-black rounded-none p-4 sm:p-5 flex items-center justify-between hover:border-black hover:shadow-md transition-all cursor-pointer group select-none"
+                      >
+                        <div className="pr-3 flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <h3 className="text-xs sm:text-sm font-black text-black uppercase tracking-wider group-hover:text-black">
+                              {item.name}
+                            </h3>
+                            {item.badge && (
+                              <span className="hidden sm:inline-block px-1.5 py-0.5 bg-[#FFD100] text-black text-[9px] font-black uppercase tracking-wider">
+                                {item.badge}
+                              </span>
+                            )}
+                          </div>
+                          {item.subtitle && (
+                            <p className="text-[11px] sm:text-xs text-zinc-500 font-medium mt-1">
+                              {item.subtitle}
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2.5 shrink-0 ml-3">
+                          <span className="text-xs sm:text-sm font-black text-black tracking-tight whitespace-nowrap">
+                            R{item.price.toFixed(0)}
+                          </span>
+                          <span
+                            className="w-7 h-7 rounded-full bg-[#FFD100] group-hover:bg-black group-hover:text-[#FFD100] text-black flex items-center justify-center font-black text-xs transition-colors shadow-2xs shrink-0"
+                            title="Customize & Add"
+                          >
+                            +
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              /* Continuous Separated Category Sections matching reference screenshots */
+              <div className="space-y-12 sm:space-y-16">
+                {CATEGORIES.map((category) => {
+                  const catItems = MENU_ITEMS.filter((i) => i.categoryId === category.id);
+                  if (catItems.length === 0) return null;
 
-      </main>
+                  return (
+                    <React.Fragment key={category.id}>
+                      {/* Authentic Black Banner before Schnitzel (media_1792250052064.png) */}
+                      {category.id === 'schnitzel' && (
+                        <div className="bg-black text-white max-w-5xl mx-auto my-8 sm:my-14 px-6 sm:px-12 py-7 sm:py-8 border-b-4 border-b-[#FFD100] shadow-md">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            {/* Left Column: ADD SOME MORE */}
+                            <div className="flex flex-col justify-center md:border-r md:border-zinc-800 md:pr-10">
+                              <h4 className="text-[#FFD100] font-black text-xs sm:text-sm uppercase tracking-wider mb-3">
+                                ADD SOME MORE
+                              </h4>
+                              <div className="space-y-2 text-xs sm:text-sm font-bold text-white tracking-widest max-w-xs">
+                                <div className="flex justify-between items-center border-b border-zinc-800/80 pb-1.5">
+                                  <span>AVO</span>
+                                  <span>18</span>
+                                </div>
+                                <div className="flex justify-between items-center border-b border-zinc-800/80 pb-1.5">
+                                  <span>CHEESE</span>
+                                  <span>10</span>
+                                </div>
+                                <div className="flex justify-between items-center pb-0.5">
+                                  <span>BACON</span>
+                                  <span>18</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Right Column: CHOOSE YOUR AFRO'S FLAVOUR */}
+                            <div className="flex flex-col items-center justify-center">
+                              <div className="flex items-center justify-center gap-2.5 sm:gap-4 mb-3">
+                                {FLAVOURS.map((f) => (
+                                  <div
+                                    key={f.id}
+                                    className="flex flex-col items-center group cursor-pointer"
+                                    title={`${f.name} — ${f.description}`}
+                                  >
+                                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex items-center justify-center bg-white shadow-md border border-zinc-200 hover:scale-110 transition-transform">
+                                      {f.badgeUrl ? (
+                                        <img
+                                          src={f.badgeUrl}
+                                          alt={f.name}
+                                          className="w-full h-full object-contain p-0.5"
+                                        />
+                                      ) : (
+                                        <span className="text-sm">{f.emoji}</span>
+                                      )}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                              <div className="w-full max-w-xs h-[1px] bg-[#FFD100]/60 my-2" />
+                              <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-white text-center">
+                                CHOOSE YOUR AFRO'S FLAVOUR
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Category Section */}
+                      <section
+                        id={`cat-${category.id}`}
+                        className="scroll-mt-32 sm:scroll-mt-36"
+                      >
+                        {/* Centered Category Title */}
+                        <div className="text-center mb-6 sm:mb-8">
+                          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black font-black-grotesque text-black tracking-wide uppercase">
+                            {category.name}
+                          </h2>
+
+                          {/* Signature Brand Yellow Underline */}
+                          <div className="w-14 sm:w-16 h-1 bg-[#FFD100] mx-auto mt-2 mb-3.5" />
+
+                          {/* Subtitle if present (e.g. Wraps, Salads) */}
+                          {category.subtitle && (
+                            <p className="text-zinc-800 text-xs sm:text-sm font-medium italic text-center max-w-2xl mx-auto mb-3 px-4">
+                              {category.subtitle}
+                            </p>
+                          )}
+
+                          {/* Rectangular Tag Box if present */}
+                          {category.tagBox && (
+                            <div className="flex justify-center mt-3">
+                              <span className="inline-block border border-black bg-white px-5 sm:px-7 py-1.5 sm:py-2 text-[10px] sm:text-xs font-black uppercase tracking-widest text-black shadow-2xs">
+                                {category.tagBox}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* 2-Column Cards Grid matching media_1792250052062.png, 063.png, 064.png */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+                          {catItems.map((item) => (
+                            <div
+                              key={item.id}
+                              onClick={() => setSelectedItem(item)}
+                              className="bg-white border border-zinc-200 border-b-[3px] border-b-black rounded-none p-4 sm:p-5 flex items-center justify-between hover:border-black hover:shadow-md transition-all cursor-pointer group select-none"
+                            >
+                              <div className="pr-3 flex-1 min-w-0">
+                                <div className="flex items-center gap-2">
+                                  <h3 className="text-xs sm:text-sm font-black text-black uppercase tracking-wider group-hover:text-black">
+                                    {item.name}
+                                  </h3>
+                                  {item.badge && (
+                                    <span className="hidden sm:inline-block px-1.5 py-0.5 bg-[#FFD100] text-black text-[9px] font-black uppercase tracking-wider">
+                                      {item.badge}
+                                    </span>
+                                  )}
+                                </div>
+                                {item.subtitle && (
+                                  <p className="text-[11px] sm:text-xs text-zinc-500 font-medium mt-1">
+                                    {item.subtitle}
+                                  </p>
+                                )}
+                              </div>
+                              <div className="flex items-center gap-2.5 shrink-0 ml-3">
+                                <span className="text-xs sm:text-sm font-black text-black tracking-tight whitespace-nowrap">
+                                  R{item.price.toFixed(0)}
+                                </span>
+                                <span
+                                  className="w-7 h-7 rounded-full bg-[#FFD100] group-hover:bg-black group-hover:text-[#FFD100] text-black flex items-center justify-center font-black text-xs transition-colors shadow-2xs shrink-0"
+                                  title="Customize & Add"
+                                >
+                                  +
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </section>
+                    </React.Fragment>
+                  );
+                })}
+              </div>
+            )}
+          </main>
 
           {/* Brand Highlights & Flavour Meter */}
           <BrandHighlights />

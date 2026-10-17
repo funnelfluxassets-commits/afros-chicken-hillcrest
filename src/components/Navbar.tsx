@@ -64,6 +64,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
               <img
                 src="/assets/afros/logos/afros-logo.png"
                 alt="Afro's Chicken"
+                height="48"
+                style={{ maxHeight: '48px', width: 'auto' }}
                 className="h-10 sm:h-12 w-auto object-contain transform group-hover:scale-102 transition-transform"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';

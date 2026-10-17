@@ -16,7 +16,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
       <section className="relative w-full h-[280px] xs:h-[340px] sm:h-[420px] md:h-[480px] lg:h-[540px] overflow-hidden bg-[#F3CD17] flex items-center justify-center">
         {/* Burger and Tjips Photo on Wooden Board with Yellow Studio Background */}
         <div
-          className="absolute inset-0 bg-cover bg-[position:center_38%] sm:bg-center"
+          className="absolute inset-0 bg-cover bg-[position:36%_center]"
           style={{
             backgroundImage: "url('/assets/afros/pages/afros-home-page-banner.png')",
           }}

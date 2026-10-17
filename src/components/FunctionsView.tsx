@@ -70,7 +70,7 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-[#FFD100] selection:text-black pb-20">
+    <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-[#FFD100] selection:text-black pb-20 w-full max-w-full overflow-x-hidden">
       {/* HERO SECTION */}
       <section className="relative overflow-hidden py-16 sm:py-24 border-b border-zinc-200 bg-[#FFFDF0] text-center">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">

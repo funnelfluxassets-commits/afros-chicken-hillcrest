@@ -286,7 +286,7 @@ const MainContent: React.FC = () => {
   }, [activeCategory, searchQuery]);
 
   return (
-    <div className="min-h-screen bg-white text-zinc-900 flex flex-col font-sans selection:bg-[#FFD100] selection:text-black pb-16 lg:pb-0">
+    <div className="min-h-screen bg-white text-zinc-900 flex flex-col font-sans selection:bg-[#FFD100] selection:text-black pb-16 lg:pb-0 w-full max-w-full overflow-x-hidden relative">
       
       {/* PayFast Sandbox Notice Banner (After Return from Gateway) */}
       {payfastNotice && (

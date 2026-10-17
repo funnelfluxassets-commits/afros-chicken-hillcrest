@@ -10,7 +10,7 @@ interface TeamViewProps {
 
 export const TeamView: React.FC<TeamViewProps> = ({ onNavigate, onOpenStoreModal }) => {
   return (
-    <div className="min-h-screen bg-[#0d0d11] text-zinc-100 flex flex-col selection:bg-rose-500 selection:text-white">
+    <div className="min-h-screen bg-[#0d0d11] text-zinc-100 flex flex-col selection:bg-[#FFD100] selection:text-black w-full max-w-full overflow-x-hidden">
       
       {/* ── Header Design sitting directly underneath main navbar with African Art Design & Black Center Block ── */}
       <section className="relative overflow-hidden border-b border-white/10 bg-black min-h-[250px] sm:min-h-[290px] md:min-h-[330px] flex items-center justify-center py-10 sm:py-14">

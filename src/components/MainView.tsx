@@ -40,9 +40,9 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-[#FFD100] selection:text-black">
+    <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-[#FFD100] selection:text-black w-full max-w-full overflow-x-hidden">
       {/* ── 1. HERO BANNER: THE REAL MAKOYA ─────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-[#F3CD17] border-b border-black/10">
+      <section className="relative overflow-hidden bg-[#F3CD17] border-b border-black/10 w-full max-w-full">
         {/* DESKTOP HERO VIEW (md and larger screens) */}
         <div className="hidden md:block relative min-h-[580px] lg:min-h-[660px] xl:min-h-[720px] flex items-center">
           {/* Full-width authentic Afros hero image */}
@@ -173,7 +173,7 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
       </section>
 
       {/* ── 2. ORIGIN STORY & 2-CARD COLLAGE (EXACT AFROS REPLICATION) ───────── */}
-      <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
+      <section className="py-16 sm:py-24 bg-white relative overflow-hidden w-full max-w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
@@ -245,7 +245,7 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
       </section>
 
       {/* ── 3. SLIDING BANNER: HOWZIT.HEITA.HELLO.HOEGAANIT (RIGHT TO LEFT) ── */}
-      <section className="bg-white py-6 sm:py-10 overflow-hidden border-y border-zinc-200 select-none">
+      <section className="bg-white py-6 sm:py-10 overflow-hidden border-y border-zinc-200 select-none w-full max-w-full">
         <div className="animate-marquee-left flex items-center whitespace-nowrap">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="flex items-center shrink-0 pr-8">
@@ -259,7 +259,7 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
 
       {/* ── 4. SEAMLESS FOOD OPTIONS MOSAIC GRID (CENTERED QUICK BITES) ─────── */}
       {/* Exactly replicating the authentic Afros 3-column top + 2-column bottom layout */}
-      <section className="bg-white">
+      <section className="bg-white w-full max-w-full overflow-hidden">
         {/* Top 5 Categories: 3 Columns (Left 2, Center Tall Quick Bites, Right 2) */}
         <div className="grid grid-cols-1 md:grid-cols-3">
           {/* LEFT COLUMN: FLAMED (top) & BREAKFAST (bottom) */}
@@ -400,7 +400,7 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
       </section>
 
       {/* ── 5. HILLCREST SHOP CARD & DETAILS ─────────────────────────────────── */}
-      <section id="hillcrest-shop" className="py-16 sm:py-20 bg-white">
+      <section id="hillcrest-shop" className="py-16 sm:py-20 bg-white w-full max-w-full overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="bg-zinc-50 border border-zinc-200 rounded-3xl p-8 sm:p-12 shadow-sm">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">

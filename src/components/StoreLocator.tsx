@@ -109,7 +109,7 @@ export const StoreLocatorSection: React.FC = () => {
             <span>Store Location & Directions</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-black tracking-tight uppercase">
-            VISIT OUR PINETOWN SHOP
+            VISIT OUR HILLCREST SHOP
           </h2>
           <p className="text-sm sm:text-base text-zinc-700 mt-2 font-medium">
             Fresh flame-grilled food served daily. Drop in for collection or order straight to your doorstep.

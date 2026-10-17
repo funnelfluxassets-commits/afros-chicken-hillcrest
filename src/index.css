@@ -36,17 +36,36 @@
   --brand-black: #111111;
 }
 
-html, body, button, input, select, textarea {
-  font-family: 'BrandonGrotesque-Bold', 'Brandon Grotesque-Black', sans-serif;
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  max-width: 100vw;
   background-color: #FFFFFF;
   color: #18181B;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  position: relative;
+}
+
+#root {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}
+
+html, body, button, input, select, textarea {
+  font-family: 'BrandonGrotesque-Bold', 'Brandon Grotesque-Black', sans-serif;
 }
 
 .font-black-grotesque {
@@ -87,17 +106,18 @@ body {
   display: flex;
   width: max-content;
   animation: marquee-left 22s linear infinite;
+  contain: layout;
 }
 
 .animate-marquee-left:hover {
   animation-play-state: paused;
 }
 
-/* Hero Animations matching Afros website (slowed down by 50% with 100% more travel distance) */
+/* Hero Animations matching Afros website (responsive: subtle travel on mobile, full travel on desktop) */
 @keyframes slideInLeftShort {
   0% {
     opacity: 0;
-    transform: translateX(-220px);
+    transform: translateX(-40px);
   }
   100% {
     opacity: 1;
@@ -108,11 +128,35 @@ body {
 @keyframes slideInRightShort {
   0% {
     opacity: 0;
-    transform: translateX(220px);
+    transform: translateX(40px);
   }
   100% {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@media (min-width: 768px) {
+  @keyframes slideInLeftShort {
+    0% {
+      opacity: 0;
+      transform: translateX(-220px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRightShort {
+    0% {
+      opacity: 0;
+      transform: translateX(220px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 }
 

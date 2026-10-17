@@ -16,7 +16,7 @@ import { LiveOrder, OrderStatus, OrderTimelineEvent } from '../types';
 
 // Firebase configuration with environment fallback
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || 'AIzaSyD7mtioVx_BXYHog2LxKXV7bpdDunioO3w',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || '',
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || 'wrap-and-wings.firebaseapp.com',
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || 'wrap-and-wings',
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || 'wrap-and-wings.firebasestorage.app',

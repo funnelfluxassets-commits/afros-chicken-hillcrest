@@ -10,7 +10,7 @@ import { MenuCategory, MenuItem, Flavour } from '../types';
 export const FLAVOURS: Flavour[] = [
   {
     id: 'bbq',
-    name: 'BBQ Braai',
+    name: 'BBQ',
     emoji: '🍶',
     color: '#A16207',
     bgClass: 'bg-amber-700/20',
@@ -40,7 +40,7 @@ export const FLAVOURS: Flavour[] = [
   },
   {
     id: 'chilli',
-    name: 'Original Chilli',
+    name: 'Chilli',
     emoji: '🔥',
     color: '#EF4444',
     bgClass: 'bg-red-500/20',
@@ -50,7 +50,7 @@ export const FLAVOURS: Flavour[] = [
   },
   {
     id: 'fifty_fifty',
-    name: '50 / 50 Blend',
+    name: '50 / 50',
     emoji: '⚡',
     color: '#F59E0B',
     bgClass: 'bg-yellow-500/25',
@@ -70,7 +70,7 @@ export const CATEGORIES: MenuCategory[] = [
   },
   {
     id: 'burgers',
-    name: 'BURGERS & SARMIES',
+    name: 'BURGERS',
     icon: '🍔',
     description: 'Juicy chicken breast burgers and pulled chicken sarmies on fresh artisanal bread.',
     tagBox: 'CHOOSE GRILLED OR CRISPY PANKO',

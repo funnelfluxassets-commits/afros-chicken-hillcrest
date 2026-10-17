@@ -30,7 +30,7 @@ export const StoreModal: React.FC<StoreModalProps> = ({ isOpen, onClose }) => {
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-500 hover:text-black cursor-pointer"
+            className="p-1.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-black cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -52,9 +52,9 @@ export const StoreModal: React.FC<StoreModalProps> = ({ isOpen, onClose }) => {
                 }}
                 className={`p-4 rounded-2xl border transition-all flex items-start justify-between gap-3 ${
                   isSelected
-                    ? 'bg-rose-500/15 border-rose-500 ring-1 ring-rose-500'
+                    ? 'bg-[#FFD100]/20 border-black ring-1 ring-black'
                     : isActive
-                    ? 'bg-zinc-50/80 hover:bg-zinc-800/80 border-zinc-200 cursor-pointer'
+                    ? 'bg-zinc-50 hover:bg-zinc-100 border-zinc-200 cursor-pointer'
                     : 'bg-zinc-50/50 border-zinc-200 opacity-60'
                 }`}
               >
@@ -62,11 +62,11 @@ export const StoreModal: React.FC<StoreModalProps> = ({ isOpen, onClose }) => {
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-black text-black">{store.name}</span>
                     {isActive ? (
-                      <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full">
+                      <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
                         OPEN NOW
                       </span>
                     ) : (
-                      <span className="text-[10px] font-bold bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full">
+                      <span className="text-[10px] font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">
                         COMING SOON
                       </span>
                     )}
@@ -74,15 +74,15 @@ export const StoreModal: React.FC<StoreModalProps> = ({ isOpen, onClose }) => {
                   <div className="text-xs text-zinc-700">{store.address}</div>
                   <div className="text-[11px] text-zinc-500 flex items-center gap-3 pt-1">
                     <span className="flex items-center gap-1">
-                      <Clock className="w-3 h-3 text-amber-400" />
+                      <Clock className="w-3 h-3 text-zinc-600" />
                       {store.hours}
                     </span>
-                    <span className="text-[#FFD100] font-semibold">{store.landmark}</span>
+                    <span className="text-black font-semibold">{store.landmark}</span>
                   </div>
                 </div>
 
                 {isSelected && (
-                  <div className="w-6 h-6 rounded-full bg-rose-500 text-black flex items-center justify-center shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-black text-[#FFD100] flex items-center justify-center shrink-0">
                     <Check className="w-3.5 h-3.5 stroke-[3]" />
                   </div>
                 )}
@@ -99,7 +99,7 @@ export const StoreLocatorSection: React.FC = () => {
   const flagship = STORES[0];
 
   return (
-    <section id="store-locator" className="py-14 sm:py-20 bg-zinc-50 border-t border-zinc-200">
+    <section id="store-locator" className="py-14 sm:py-20 bg-white border-t border-zinc-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Section Heading */}
@@ -120,7 +120,7 @@ export const StoreLocatorSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Left: Flagship Store Details Card */}
-          <div className="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-white border border-zinc-200 shadow-md flex flex-col justify-between space-y-6">
+          <div className="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-zinc-100 border border-zinc-200 shadow-sm flex flex-col justify-between space-y-6">
             <div>
               <div className="inline-block px-3 py-1 bg-[#FFD100] text-black text-xs font-black uppercase mb-3">
                 HILLCREST STORE • NOW OPEN
@@ -131,7 +131,7 @@ export const StoreLocatorSection: React.FC = () => {
 
               <div className="space-y-4 pt-6 text-sm text-zinc-700">
                 <div className="flex items-start gap-3">
-                  <div className="p-2.5 rounded-xl bg-zinc-100 text-black shrink-0">
+                  <div className="p-2.5 rounded-xl bg-white border border-zinc-200 shadow-sm text-black shrink-0">
                     <MapPin className="w-5 h-5 text-black" />
                   </div>
                   <div>
@@ -142,7 +142,7 @@ export const StoreLocatorSection: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="p-2.5 rounded-xl bg-zinc-100 text-black shrink-0">
+                  <div className="p-2.5 rounded-xl bg-white border border-zinc-200 shadow-sm text-black shrink-0">
                     <Clock className="w-5 h-5 text-black" />
                   </div>
                   <div>
@@ -153,7 +153,7 @@ export const StoreLocatorSection: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="p-2.5 rounded-xl bg-zinc-100 text-black shrink-0">
+                  <div className="p-2.5 rounded-xl bg-white border border-zinc-200 shadow-sm text-black shrink-0">
                     <Phone className="w-5 h-5 text-black" />
                   </div>
                   <div>
@@ -185,7 +185,7 @@ export const StoreLocatorSection: React.FC = () => {
                 href={SOCIAL_LINKS.whatsappDirect}
                 target="_blank"
                 rel="noreferrer"
-                className="py-3 px-4 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-black font-bold text-xs flex items-center justify-center gap-1.5 border border-zinc-300 transition-colors"
+                className="py-3 px-4 rounded-xl bg-white hover:bg-zinc-50 text-black font-bold text-xs flex items-center justify-center gap-1.5 border border-zinc-300 shadow-sm transition-colors"
               >
                 <Phone className="w-4 h-4 text-emerald-600" />
                 <span>WhatsApp Us</span>
@@ -197,12 +197,12 @@ export const StoreLocatorSection: React.FC = () => {
           <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
             
             {/* Interactive Map Visual */}
-            <div className="rounded-3xl overflow-hidden border border-zinc-200 bg-white shadow-md aspect-[16/9] relative">
+            <div className="rounded-3xl overflow-hidden border border-zinc-200 bg-zinc-100 shadow-sm aspect-[16/9] relative">
               <iframe
                 title="Afro’s Chicken Shop (Hillcrest) Location"
                 src={
                   flagship.mapEmbedUrl ||
-                  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1163.082511830803!2d30.85500734324751!3d-29.811872099023525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef6ff609bbeefc7%3A0xb1b982704527f3d7!2sWrap%20and%20Wing%20Co!5e1!3m2!1sen!2sza!4v1791152071878!5m2!1sen!2sza'
+                  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d600!2d30.7665!3d-29.7766!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef6e382d56cbb3b%3A0x7d6f5f3e9c5c9e2!2sAfro%27s%20Chicken%20Shop%20Hillcrest!5e0!3m2!1sen!2sza!4v1792178000000!5m2!1sen!2sza'
                 }
                 width="100%"
                 height="100%"
@@ -224,7 +224,7 @@ export const StoreLocatorSection: React.FC = () => {
             </div>
 
             {/* Franchise Expansion Teaser */}
-            <div className="p-6 rounded-3xl bg-white border border-zinc-200 shadow-md flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="p-6 rounded-3xl bg-zinc-100 border border-zinc-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="space-y-1 text-center sm:text-left">
                 <div className="inline-flex items-center gap-1 text-[11px] font-black uppercase tracking-wider text-black bg-[#FFD100] px-2 py-0.5">
                   <Sparkles className="w-3.5 h-3.5" />
@@ -241,7 +241,7 @@ export const StoreLocatorSection: React.FC = () => {
                   href={SOCIAL_LINKS.facebook}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-3.5 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-xs font-bold text-black border border-zinc-300 transition-colors flex items-center gap-2"
+                  className="px-3.5 py-2.5 rounded-xl bg-white hover:bg-zinc-50 text-xs font-bold text-black border border-zinc-300 shadow-sm transition-colors flex items-center gap-2"
                 >
                   <FacebookIcon className="w-3.5 h-3.5" />
                   <span>Facebook</span>

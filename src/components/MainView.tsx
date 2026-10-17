@@ -1,6 +1,5 @@
 import React from 'react';
 import { ArrowRight, MapPin, Phone } from 'lucide-react';
-import { FLAVOURS } from '../data/menuData';
 import { STORES } from '../data/stores';
 import { CategoryId, MenuItem, PageView } from '../types';
 
@@ -12,61 +11,33 @@ interface MainViewProps {
 export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
   const store = STORES[0];
 
-  const foodOptions = [
-    {
-      id: 'flamed' as CategoryId,
-      name: 'FLAMED',
-      image: '/assets/afros/pages/Main Page-3 -Image FLAMED afros-chicekn-and-chips.jpg',
-    },
-    {
-      id: 'quick_bites' as CategoryId,
-      name: 'QUICK BITES',
-      image: '/assets/afros/pages/Main Page 3 - Image Quick Bites afros-side-chicks-sarmie.png',
-    },
-    {
-      id: 'burgers' as CategoryId,
-      name: 'BURGERS',
-      image: '/assets/afros/pages/Main Page 3 Image Burgers afros-burger-and-chips.jpg',
-    },
-    {
-      id: 'breakfast' as CategoryId,
-      name: 'BREAKFAST',
-      image: '/assets/afros/pages/Main Page-3 - Image Breakfast afros-burger.jpg',
-    },
-    {
-      id: 'salads' as CategoryId,
-      name: 'SALADS',
-      image: '/assets/afros/pages/Main Page-3 - Image Salads afros-crispy-chicken-salad.jpg',
-    },
-    {
-      id: 'strips' as CategoryId,
-      name: 'STRIPS',
-      image: '/assets/afros/pages/Main Page-3 - Image Strips afros-crispy-strips-and-side.png',
-    },
-    {
-      id: 'wraps' as CategoryId,
-      name: 'WRAPS',
-      image: '/assets/afros/pages/Main Page-3 - Image Wraps afros-crispy-wrap-and-side.jpg',
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-[#FFD100] selection:text-black">
       {/* ── 1. HERO BANNER: THE REAL MAKOYA ─────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-[#F3CD17] min-h-[440px] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[640px] flex items-center border-b border-black/10">
-        {/* Full-width high-res background image on medium & larger screens */}
+      {/* Background positioned from center top so the burger is brought down, centered, and never clipped */}
+      <section className="relative overflow-hidden bg-[#F3CD17] min-h-[520px] sm:min-h-[580px] md:min-h-[640px] lg:min-h-[720px] flex items-center border-b border-black/10">
+        {/* Full-width authentic Afros hero image on md and larger screens */}
         <div
-          className="absolute inset-0 bg-cover bg-center hidden md:block"
+          className="absolute inset-0 bg-cover bg-[center_top] hidden md:block"
           style={{
-            backgroundImage: "url('/assets/afros/pages/Main Page-1-top-image.png')",
+            backgroundImage: "url('/assets/afros/pages/afros-home-page-banner.png')",
           }}
           aria-hidden="true"
         />
 
+        {/* Floating wave doodle at top-left of burger matching Afros screenshot */}
+        <div className="hidden md:block absolute top-10 lg:top-14 left-10 lg:left-24 z-20 pointer-events-none">
+          <img
+            src="/assets/afros/logos/afros-yellow-waves-align.png"
+            alt="Wave doodle"
+            className="h-8 lg:h-10 w-auto object-contain drop-shadow-sm"
+          />
+        </div>
+
         {/* Content Container */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full py-10 sm:py-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full py-12 sm:py-16">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center">
-            {/* Mobile Hero Visual */}
+            {/* Mobile Hero Visual: centered burger with wave doodle */}
             <div className="md:hidden flex flex-col items-center text-center">
               <div className="relative w-64 h-64 sm:w-80 sm:h-80 mx-auto mb-6">
                 <img
@@ -82,18 +53,10 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
               </div>
             </div>
 
-            {/* Empty Spacer on Desktop Left (Where burger on cutting board is in the background image) */}
-            <div className="hidden md:block md:col-span-6 lg:col-span-7 pointer-events-none">
-              <div className="relative pl-8 pt-4">
-                <img
-                  src="/assets/afros/logos/afros-yellow-waves-align.png"
-                  alt="Wave doodle"
-                  className="h-8 w-auto object-contain drop-shadow-sm"
-                />
-              </div>
-            </div>
+            {/* Empty Left Spacer on Desktop (Image contains burger on cutting board) */}
+            <div className="hidden md:block md:col-span-6 lg:col-span-7 pointer-events-none" />
 
-            {/* Right: Stacked Black Badges in Brandon Grotesque Black (Up to 100px size) */}
+            {/* Right: Stacked Black Badges in Brandon Grotesque Black + VIEW MENU CTA */}
             <div className="md:col-span-6 lg:col-span-5 flex flex-col items-center md:items-end text-center md:text-right">
               <div className="flex flex-col items-center md:items-end space-y-2 sm:space-y-3 mb-6 sm:mb-8 font-black-grotesque">
                 <div>
@@ -127,80 +90,69 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* ── 2. ORIGIN STORY & COLLAGE (MATCHING SCREENSHOT 1 & 2) ───────────── */}
+      {/* ── 2. ORIGIN STORY & 2-CARD COLLAGE (EXACT AFROS REPLICATION) ───────── */}
       <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
-            {/* Left Column: Chunky Brandon Grotesque Bold/Black Text */}
-            <div className="lg:col-span-6 space-y-4 sm:space-y-5">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black-grotesque text-black leading-[1.12] tracking-tight">
+            {/* Left Column: Authentic Clean Brandon Grotesque Story Narrative */}
+            <div className="lg:col-span-5 space-y-3 sm:space-y-4">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black-grotesque text-black leading-[1.14] tracking-tight">
                 Afro’s Chicken Shop was founded in 2012 as a food truck in Durban,
               </h2>
 
-              <p className="text-2xl sm:text-3xl lg:text-4xl font-bold-grotesque text-black leading-[1.15] tracking-tight">
+              <p className="text-2xl sm:text-3xl lg:text-4xl font-bold-grotesque text-black leading-[1.16] tracking-tight">
                 We’re a proudly local chicken shop that believes in serving fresh,
               </p>
 
-              <p className="text-2xl sm:text-3xl lg:text-4xl font-bold-grotesque text-black leading-[1.15] tracking-tight">
+              <p className="text-2xl sm:text-3xl lg:text-4xl font-bold-grotesque text-black leading-[1.16] tracking-tight">
                 uncomplicated food made well
               </p>
 
-              <p className="text-2xl sm:text-3xl lg:text-4xl font-bold-grotesque text-black leading-[1.15] tracking-tight">
+              <p className="text-2xl sm:text-3xl lg:text-4xl font-bold-grotesque text-black leading-[1.16] tracking-tight">
                 with the best ingredients.
               </p>
-
-              <div className="pt-6 flex flex-wrap gap-4">
-                <button
-                  type="button"
-                  onClick={() => onNavigate('menu')}
-                  className="px-8 py-3.5 bg-[#FFD100] hover:bg-[#ffe14d] text-black font-black-grotesque text-sm uppercase tracking-wider shadow-md hover:shadow-lg transition-all cursor-pointer"
-                >
-                  Order Online
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onNavigate('about')}
-                  className="px-7 py-3.5 bg-white hover:bg-zinc-100 text-black font-bold-grotesque text-sm uppercase tracking-wider border-2 border-black transition-all cursor-pointer"
-                >
-                  Read Our Story
-                </button>
-              </div>
             </div>
 
-            {/* Right Column: Visual Collage with Pops, Strips Plate, Yellow Circle & Black Dashes */}
-            <div className="lg:col-span-6 relative flex justify-center items-center py-6">
-              <div className="relative w-full max-w-lg aspect-[4/3] sm:aspect-[16/13]">
-                {/* 1. Top Right: Afro Pops in enamel bowl & takeaway box */}
-                <div className="absolute top-0 right-0 w-[68%] z-10 shadow-lg rounded-2xl overflow-hidden bg-[#F3CD17] border border-black/10 transform hover:scale-102 transition-transform">
+            {/* Right Column: Visual Collage with Two Separated Cards matching Afros */}
+            <div className="lg:col-span-7 relative flex justify-center items-center py-6">
+              <div className="relative w-full max-w-xl aspect-[16/12]">
+                {/* 1. Top-Right Card: Afro Pops & Box with Yellow Background (100% visible) */}
+                <div className="absolute top-0 right-0 w-[58%] z-10 shadow-xl rounded-2xl overflow-hidden bg-[#F3CD17] border border-black/10 transform hover:scale-102 transition-transform duration-300">
                   <img
                     src="/assets/afros/pages/Main Page-2 Image 2 afros-pops.png"
                     alt="Afro Pops & Box"
-                    className="w-full h-auto object-contain"
+                    className="w-full h-auto object-contain block"
                   />
                 </div>
 
-                {/* 2. Yellow Circle Accent peeking behind the chicken plate */}
-                <div className="absolute -bottom-4 left-4 w-40 h-40 sm:w-52 sm:h-52 rounded-full bg-[#FFD100] z-0 pointer-events-none" />
+                {/* 2. Yellow Circle Accent behind bottom-left of the chicken strips plate */}
+                <div className="absolute bottom-2 left-0 w-44 h-44 sm:w-56 sm:h-56 z-0 pointer-events-none">
+                  <img
+                    src="/assets/afros/logos/afros-yellow-circle.png"
+                    alt="Yellow circle accent"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
 
-                {/* 3. Center/Left: Overlapping Strips Plate with Chips & Slaw */}
-                <div className="absolute bottom-2 left-6 w-[72%] z-20 shadow-2xl rounded-2xl overflow-hidden border-2 border-white bg-white transform -rotate-1 hover:rotate-0 transition-transform duration-300">
+                {/* 3. Bottom-Left Card: Strips Plate overlapping only bottom-left tip of Pops card */}
+                <div className="absolute bottom-0 left-6 sm:left-10 w-[60%] z-20 shadow-2xl rounded-2xl overflow-hidden border-2 border-white bg-white transform -rotate-1 hover:rotate-0 transition-transform duration-300">
                   <img
                     src="/assets/afros/pages/Main Page-2 image 1 afros-chicken-strip.jpg"
                     alt="Chicken Strips and Hand-cut Tjips"
-                    className="w-full h-auto object-cover"
+                    className="w-full h-auto object-cover block"
                   />
                 </div>
 
-                {/* 4. Bottom Right: Scattered Black Dashes / Sprinkles Motif */}
-                <div className="absolute bottom-4 right-2 w-28 sm:w-36 h-28 sm:h-36 z-10 pointer-events-none opacity-90">
+                {/* 4. Bottom-Right: Black Seeds / Sprinkles Motif below Pops card */}
+                <div className="absolute bottom-2 right-4 sm:right-6 w-32 sm:w-40 h-32 sm:h-40 z-10 pointer-events-none opacity-90">
                   <svg viewBox="0 0 100 100" fill="black" className="w-full h-full">
                     <rect x="10" y="15" width="22" height="7" rx="3.5" transform="rotate(-15 10 15)" />
-                    <rect x="50" y="10" width="24" height="7" rx="3.5" transform="rotate(25 50 10)" />
+                    <rect x="52" y="10" width="24" height="7" rx="3.5" transform="rotate(25 52 10)" />
                     <rect x="25" y="45" width="22" height="7" rx="3.5" transform="rotate(40 25 45)" />
                     <rect x="75" y="35" width="20" height="7" rx="3.5" transform="rotate(-30 75 35)" />
                     <rect x="15" y="75" width="25" height="7" rx="3.5" transform="rotate(10 15 75)" />
-                    <rect x="60" y="65" width="22" height="7" rx="3.5" transform="rotate(-45 60 65)" />
+                    <rect x="62" y="65" width="22" height="7" rx="3.5" transform="rotate(-45 62 65)" />
                     <rect x="80" y="80" width="18" height="7" rx="3.5" transform="rotate(15 80 80)" />
                   </svg>
                 </div>
@@ -224,137 +176,181 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* ── 4. SEAMLESS FOOD OPTIONS MOSAIC GRID (MATCHING SCREENSHOT 3 & 4) ─── */}
+      {/* ── 4. SEAMLESS FOOD OPTIONS MOSAIC GRID (CENTERED QUICK BITES) ─────── */}
+      {/* Exactly replicating the authentic Afros 3-column top + 2-column bottom layout */}
       <section className="bg-white">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-          {foodOptions.map((item) => (
+        {/* Top 5 Categories: 3 Columns (Left 2, Center Tall Quick Bites, Right 2) */}
+        <div className="grid grid-cols-1 md:grid-cols-3">
+          {/* LEFT COLUMN: FLAMED (top) & BREAKFAST (bottom) */}
+          <div className="flex flex-col">
+            {/* FLAMED */}
             <div
-              key={item.id}
-              onClick={() => onNavigate('menu', item.id)}
+              onClick={() => onNavigate('menu', 'flamed')}
               className="relative aspect-[4/3] overflow-hidden group cursor-pointer bg-zinc-100"
             >
               <img
-                src={item.image}
-                alt={item.name}
+                src="/assets/afros/pages/Main Page-3 -Image FLAMED afros-chicekn-and-chips.jpg"
+                alt="FLAMED"
                 className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/assets/afros/images/afros-burger.jpg';
-                }}
               />
-              {/* Subtle dark gradient overlay so white text always pops */}
               <div className="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors duration-300" />
-
-              {/* Centered Large White Text in Brandon Grotesque Black */}
               <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
                 <span className="text-3xl sm:text-4xl lg:text-5xl font-black-grotesque text-white uppercase tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] transform group-hover:scale-105 transition-transform duration-300">
-                  {item.name}
+                  FLAMED
                 </span>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* ── 5. THE 5 SIGNATURE DURBAN BASTINGS STRIP ────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-[#FFFDF0] border-y border-zinc-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="inline-block bg-[#FFD100] text-black font-black-grotesque text-xs px-3 py-1 uppercase tracking-widest mb-2">
-              THE SECRET IN THE FLAVOUR
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black-grotesque text-black uppercase tracking-tight">
-              5 Signature Durban Bastings
-            </h2>
-            <p className="text-zinc-600 font-bold-grotesque text-sm sm:text-base mt-2">
-              Choose your basting sauce with every meal. Grilled hot over the coals.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6">
-            {FLAVOURS.map((f) => (
-              <div
-                key={f.id}
-                onClick={() => onNavigate('menu')}
-                className="p-5 rounded-2xl bg-white border border-zinc-200 hover:border-black shadow-xs hover:shadow-md transition-all cursor-pointer flex flex-col items-center text-center transform hover:-translate-y-1 group"
-              >
-                <div className="w-18 h-18 sm:w-22 sm:h-22 mb-3 relative flex items-center justify-center">
-                  {f.badgeUrl ? (
-                    <img
-                      src={f.badgeUrl}
-                      alt={f.name}
-                      className="w-full h-full object-contain filter drop-shadow-sm group-hover:scale-108 transition-transform"
-                    />
-                  ) : (
-                    <span className="text-3xl">{f.emoji}</span>
-                  )}
-                </div>
-                <h3 className="font-black-grotesque text-sm sm:text-base text-black uppercase group-hover:text-[#b89500] transition-colors">
-                  {f.name}
-                </h3>
-                <p className="font-medium-grotesque text-xs text-zinc-600 mt-1 line-clamp-2 leading-relaxed">
-                  {f.description}
-                </p>
+            {/* BREAKFAST */}
+            <div
+              onClick={() => onNavigate('menu', 'breakfast')}
+              className="relative aspect-[4/3] overflow-hidden group cursor-pointer bg-zinc-100"
+            >
+              <img
+                src="/assets/afros/pages/Main Page-3 - Image Breakfast afros-burger.jpg"
+                alt="BREAKFAST"
+                className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors duration-300" />
+              <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
+                <span className="text-3xl sm:text-4xl lg:text-5xl font-black-grotesque text-white uppercase tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] transform group-hover:scale-105 transition-transform duration-300">
+                  BREAKFAST
+                </span>
               </div>
-            ))}
+            </div>
+          </div>
+
+          {/* CENTER COLUMN: QUICK BITES (TALL PROMINENT CENTER CARD) */}
+          <div
+            onClick={() => onNavigate('menu', 'quick_bites')}
+            className="relative min-h-[340px] md:min-h-full aspect-[4/3] md:aspect-auto overflow-hidden group cursor-pointer bg-zinc-100"
+          >
+            <img
+              src="/assets/afros/pages/Main Page 3 - Image Quick Bites afros-side-chicks-sarmie.png"
+              alt="QUICK BITES"
+              className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+            />
+            <div className="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors duration-300" />
+            <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
+              <span className="text-3xl sm:text-4xl lg:text-5xl font-black-grotesque text-white uppercase tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] transform group-hover:scale-105 transition-transform duration-300">
+                QUICK BITES
+              </span>
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN: BURGERS (top) & SALADS (bottom) */}
+          <div className="flex flex-col">
+            {/* BURGERS */}
+            <div
+              onClick={() => onNavigate('menu', 'burgers')}
+              className="relative aspect-[4/3] overflow-hidden group cursor-pointer bg-zinc-100"
+            >
+              <img
+                src="/assets/afros/pages/Main Page 3 Image Burgers afros-burger-and-chips.jpg"
+                alt="BURGERS"
+                className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors duration-300" />
+              <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
+                <span className="text-3xl sm:text-4xl lg:text-5xl font-black-grotesque text-white uppercase tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] transform group-hover:scale-105 transition-transform duration-300">
+                  BURGERS
+                </span>
+              </div>
+            </div>
+
+            {/* SALADS */}
+            <div
+              onClick={() => onNavigate('menu', 'salads')}
+              className="relative aspect-[4/3] overflow-hidden group cursor-pointer bg-zinc-100"
+            >
+              <img
+                src="/assets/afros/pages/Main Page-3 - Image Salads afros-crispy-chicken-salad.jpg"
+                alt="SALADS"
+                className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors duration-300" />
+              <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
+                <span className="text-3xl sm:text-4xl lg:text-5xl font-black-grotesque text-white uppercase tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] transform group-hover:scale-105 transition-transform duration-300">
+                  SALADS
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom 2 Categories: 2 Balanced Columns for STRIPS & WRAPS matching Afros screenshot */}
+        <div className="grid grid-cols-1 sm:grid-cols-2">
+          {/* STRIPS */}
+          <div
+            onClick={() => onNavigate('menu', 'strips')}
+            className="relative aspect-[16/9] sm:aspect-[4/3] overflow-hidden group cursor-pointer bg-zinc-100"
+          >
+            <img
+              src="/assets/afros/pages/Main Page-3 - Image Strips afros-crispy-strips-and-side.png"
+              alt="STRIPS"
+              className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+            />
+            <div className="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors duration-300" />
+            <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
+              <span className="text-3xl sm:text-4xl lg:text-5xl font-black-grotesque text-white uppercase tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] transform group-hover:scale-105 transition-transform duration-300">
+                STRIPS
+              </span>
+            </div>
+          </div>
+
+          {/* WRAPS */}
+          <div
+            onClick={() => onNavigate('menu', 'wraps')}
+            className="relative aspect-[16/9] sm:aspect-[4/3] overflow-hidden group cursor-pointer bg-zinc-100"
+          >
+            <img
+              src="/assets/afros/pages/Main Page-3 - Image Wraps afros-crispy-wrap-and-side.jpg"
+              alt="WRAPS"
+              className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+            />
+            <div className="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors duration-300" />
+            <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
+              <span className="text-3xl sm:text-4xl lg:text-5xl font-black-grotesque text-white uppercase tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] transform group-hover:scale-105 transition-transform duration-300">
+                WRAPS
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── 6. HILLCREST SHOP LOCATION (ANCHOR: hillcrest-shop) ──────────────── */}
-      <section id="hillcrest-shop" className="py-16 sm:py-24 bg-white">
+      {/* ── 5. HILLCREST SHOP CARD & DETAILS ─────────────────────────────────── */}
+      <section id="hillcrest-shop" className="py-16 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="rounded-3xl bg-zinc-50 border-2 border-black p-8 sm:p-12 shadow-xl relative overflow-hidden">
+          <div className="bg-zinc-50 border border-zinc-200 rounded-3xl p-8 sm:p-12 shadow-sm">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-8 space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FFD100] text-black font-black-grotesque text-xs uppercase tracking-wider">
-                  <MapPin className="w-3.5 h-3.5" />
-                  <span>Hillcrest Flagship Store</span>
-                </div>
-                <h3 className="text-3xl sm:text-4xl font-black-grotesque uppercase text-black">
+              <div className="lg:col-span-7 space-y-4">
+                <span className="inline-block px-3.5 py-1 bg-[#FFD100] text-black font-black-grotesque text-xs uppercase tracking-wider rounded-full">
+                  Flagship Store
+                </span>
+                <h3 className="text-3xl sm:text-4xl font-black-grotesque text-black uppercase tracking-tight">
                   Afro’s Chicken Shop — Hillcrest
                 </h3>
-                <p className="text-zinc-700 font-medium-grotesque text-sm sm:text-base leading-relaxed">
-                  Shop 5, The Junction, 5 Inanda Road, Hillcrest 3650. Drop in for hot flame-grilled meals, order for collection, or enjoy prompt delivery across Hillcrest, Kloof, and Gillitts.
-                </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 text-sm font-bold-grotesque">
-                  <div className="p-4 rounded-xl bg-white border border-zinc-200">
-                    <span className="block text-xs text-zinc-500 uppercase font-black-grotesque">Trading Hours</span>
-                    <span className="font-bold text-black">Monday – Sunday: 10:00 – 20:00</span>
-                  </div>
-                  <div className="p-4 rounded-xl bg-white border border-zinc-200">
-                    <span className="block text-xs text-zinc-500 uppercase font-black-grotesque">Direct Contact</span>
-                    <a href="tel:0789057975" className="font-bold text-black hover:text-[#b89500]">
-                      078 905 7975
+                <div className="space-y-2 text-zinc-700 text-sm font-medium">
+                  <p className="flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-[#FFD100] shrink-0" />
+                    <span>{store.address}</span>
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <Phone className="w-4 h-4 text-[#FFD100] shrink-0" />
+                    <a href={`tel:${store.phone}`} className="hover:text-black font-bold">
+                      {store.phone}
                     </a>
-                  </div>
+                  </p>
                 </div>
               </div>
 
-              <div className="lg:col-span-4 flex flex-col gap-3.5">
+              <div className="lg:col-span-5 flex flex-col sm:flex-row gap-4 lg:justify-end">
                 <button
                   type="button"
                   onClick={() => onNavigate('menu')}
-                  className="w-full py-4 bg-[#FFD100] hover:bg-[#ffe14d] text-black font-black-grotesque text-base uppercase tracking-wider shadow-md hover:shadow-lg transition-all text-center cursor-pointer border border-black/10"
+                  className="px-8 py-4 bg-[#FFD100] hover:bg-[#ffe14d] text-black font-black-grotesque text-base uppercase tracking-wider shadow-lg transition-all text-center cursor-pointer"
                 >
                   Order Collection or Delivery
-                </button>
-
-                <a
-                  href="https://maps.google.com/?q=The+Junction+5+Inanda+Road+Hillcrest+3650"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-3.5 bg-black hover:bg-zinc-800 text-white font-black-grotesque text-sm uppercase tracking-wider text-center transition-all"
-                >
-                  Get Directions
-                </a>
-
-                <button
-                  type="button"
-                  onClick={() => onNavigate('functions')}
-                  className="w-full py-3 bg-white hover:bg-zinc-100 text-black font-bold-grotesque text-xs uppercase tracking-wider border border-zinc-300 text-center transition-all"
-                >
-                  Inquire About Catering &amp; Functions
                 </button>
               </div>
             </div>

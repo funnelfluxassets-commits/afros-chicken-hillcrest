@@ -23,7 +23,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
   };
 
   return (
-    <footer className="bg-black text-zinc-400 pt-14 pb-8 sm:pt-16 sm:pb-10 relative overflow-hidden border-t-4 border-[#FFD100]">
+    <footer className="bg-[#2D2D2D] text-zinc-300 pt-14 pb-8 sm:pt-16 sm:pb-10 relative overflow-hidden border-t-4 border-[#FFD100]">
       {/* Decorative Yellow Wave Pattern at Top */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8 flex justify-center">
         <img

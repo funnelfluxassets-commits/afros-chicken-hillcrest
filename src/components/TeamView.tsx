@@ -1,7 +1,6 @@
-import React from 'react';
-import { Users, ShieldCheck, Heart, Sparkles, ChefHat, Flame, Clock, MapPin, Phone } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { Users, Heart, Sparkles, MapPin, Phone, MessageSquare, Clock, ArrowRight, UtensilsCrossed, Flame, CheckCircle } from 'lucide-react';
 import { PageView } from '../types';
-import { SOCIAL_LINKS } from '../data/stores';
 
 interface TeamViewProps {
   onNavigate?: (view: PageView) => void;
@@ -9,359 +8,259 @@ interface TeamViewProps {
 }
 
 export const TeamView: React.FC<TeamViewProps> = ({ onNavigate, onOpenStoreModal }) => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  const teamHighlights = [
+    {
+      image: '/assets/afros/team/S1.webp',
+      tag: 'COUNTER & KITCHEN CREW',
+      title: 'The Front & Kitchen Family',
+      desc: 'Our frontline and kitchen team operate with high energy and deep pride. From taking your order with genuine smiles to hand-cutting real potato tjips and grilling over open flame, every shift is a shared effort.',
+      highlight: 'Warm Smiles & Fast Service',
+    },
+    {
+      image: '/assets/afros/team/S2.webp',
+      tag: 'THE REAL MAKOYA',
+      title: 'Proudly Local & Hillcrest Rooted',
+      desc: 'Standing tall with our signature Afro’s banner at The Junction, 5 Inanda Road. We are deeply committed to training, mentoring, and empowering local talent right here in the Upper Highway community.',
+      highlight: 'Locally Owned & Operated',
+    },
+    {
+      image: '/assets/afros/team/S3.webp',
+      tag: 'DURBAN HOSPITALITY',
+      title: 'Care in Every Single Meal',
+      desc: 'Led by Nonto, every order is checked, basted, and packed hot in our iconic Afro’s takeaway bags. We believe restaurant-quality food should come with personal warmth and zero compromise on taste.',
+      highlight: 'Packed Fresh With Love',
+    },
+    {
+      image: '/assets/afros/team/S4.webp',
+      tag: 'THE HILLCREST SPACE',
+      title: 'Pull In For A Chow',
+      desc: 'Our relaxed sit-down dining area with handcrafted woven pendant lights and solid wooden tables is designed for everyone — from quick business lunches to vibrant family dinners and weekend gatherings.',
+      highlight: 'Relaxed Community Hangout',
+    },
+  ];
+
+  const pillars = [
+    {
+      icon: '🥔',
+      title: 'Hand-Cut Real Tjips',
+      desc: 'Cut fresh every single day from real South African potatoes, skin on, and seasoned with pure sea salt.',
+    },
+    {
+      icon: '🍗',
+      title: 'Proper Flame-Grilled Chicken',
+      desc: 'Fresh, never-frozen chicken basted generously in our legendary Durban sauces over hot coals.',
+    },
+    {
+      icon: '⚡',
+      title: 'Fast Without Compromise',
+      desc: 'High-quality restaurant-standard food served without the long wait — simple, done right.',
+    },
+    {
+      icon: '💛',
+      title: 'Genuine Durban Gees',
+      desc: 'Welcoming every single customer like an old friend with authentic South African warmth and energy.',
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-[#0d0d11] text-zinc-100 flex flex-col selection:bg-[#FFD100] selection:text-black w-full max-w-full overflow-x-hidden">
+    <div className="min-h-screen bg-white text-zinc-900 selection:bg-[#FFD100] selection:text-black w-full max-w-full overflow-x-hidden pb-20">
       
-      {/* ── Header Design sitting directly underneath main navbar with African Art Design & Black Center Block ── */}
-      <section className="relative overflow-hidden border-b border-white/10 bg-black min-h-[250px] sm:min-h-[290px] md:min-h-[330px] flex items-center justify-center py-10 sm:py-14">
-        {/* Full-width single background image using African Art Design */}
+      {/* ── 1. HERO BANNER WITH "OUR TEAM" ── */}
+      <section className="relative w-full h-[260px] xs:h-[320px] sm:h-[400px] md:h-[460px] lg:h-[520px] overflow-hidden bg-black flex items-center justify-center">
+        {/* Authentic Team Member with Afro's Box Background */}
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('/images/brand/African-Art-Design.webp')",
+            backgroundImage: "url('/assets/afros/team/our-team-hero.webp')",
           }}
           aria-hidden="true"
         />
 
-        {/* 50% black overlay to reduce pattern intensity */}
-        <div className="absolute inset-0 bg-black/50 pointer-events-none" aria-hidden="true" />
+        {/* Subtle dark gradient overlay for text readability */}
+        <div className="absolute inset-0 bg-black/35 pointer-events-none" aria-hidden="true" />
 
-        {/* Black block behind text matching reference layout (85% opacity so banner is slightly visible) */}
-        <div className="relative z-10 max-w-xl md:max-w-2xl w-[92%] sm:w-auto mx-auto px-6 sm:px-12 py-7 sm:py-9 rounded-2xl bg-black/85 border border-white/10 shadow-2xl text-center space-y-2.5">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight uppercase leading-tight font-sans drop-shadow">
+        {/* Big Bold White Centered "OUR TEAM" Title */}
+        <div className="relative z-10 text-center px-4 select-none pointer-events-none">
+          <h1 className="text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[104px] font-black font-black-grotesque uppercase text-white tracking-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.5)] leading-none">
             OUR TEAM
           </h1>
-
-          <div className="text-xs sm:text-sm text-zinc-200 max-w-lg mx-auto font-medium space-y-1">
-            <p className="text-amber-400 font-bold">
-              The Family Behind The Grill
-            </p>
-            <p className="text-zinc-300">
-              From the fiery precision of our grill masters to the genuine smiles at the order counter — our team is the heartbeat of every bold meal we serve.
-            </p>
-          </div>
         </div>
       </section>
 
-      {/* ── Section 1: Front of House Hospitality ───────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          
-          {/* Image 1: Counter Hospitality */}
-          <div className="lg:col-span-6 relative pb-10 sm:pb-12 lg:pb-10">
-            <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-zinc-900 group">
-              <img
-                src="/images/team/front-of-house-family.webp"
-                alt="Wrap & Wings Co front of house staff welcoming customers"
-                className="w-full h-auto object-cover aspect-[4/3] sm:aspect-square md:aspect-[4/3] transition-transform duration-500 group-hover:scale-102"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-            </div>
-
-            {/* Floating Info Box (straddling bottom edge like Signature Special) */}
-            <div className="absolute bottom-10 sm:bottom-12 lg:bottom-10 translate-y-1/2 left-3 right-3 sm:left-6 sm:right-6 p-3.5 sm:p-4 rounded-2xl bg-zinc-900/95 border border-white/15 shadow-2xl backdrop-blur-md z-20">
-              <div className="text-xs font-black text-rose-400 uppercase tracking-wider">Front of House Family</div>
-              <div className="text-sm font-bold text-white mt-0.5">
-                Greeting every guest with genuine warmth, recommending flavours, and ensuring your meal is handed over piping hot.
-              </div>
-            </div>
-
-            <div className="hidden sm:flex absolute -top-4 -right-4 p-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-black text-xs shadow-xl items-center gap-1.5 border border-white/20 z-20">
-              <Sparkles className="w-4 h-4 fill-white" />
-              <span>Welcoming Every Guest Like Family</span>
-            </div>
-          </div>
-
-          {/* Text 1: The Front of House Spirit */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-bold uppercase tracking-wider">
-              <Heart className="w-3.5 h-3.5" />
-              <span>Glad & Sincere Hospitality</span>
-            </div>
-
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight uppercase leading-snug">
-              "We Don't Just Take Orders. We Build Relationships."
-            </h2>
-
-            <div className="space-y-4 text-sm sm:text-base text-zinc-300 leading-relaxed">
-              <p>
-                From the moment you walk through our doors at Uniland Centre, you are met with an uplifting atmosphere. Our front-of-house hospitality team takes pride in remembering our regulars' favorite sauces, guiding newcomers through our 5 signature bastings, and making every family feel right at home.
-              </p>
-              <p>
-                Whether you’re popping in for a quick weekday lunch wrap, collecting dinner for the whole family, or dining in our blue booths, our team ensures your experience is smooth, cheerful, and fast.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 pt-2">
-              <div className="p-4 rounded-2xl bg-zinc-900 border border-white/5 space-y-1">
-                <div className="text-rose-400 font-black text-base">Instant Smiles</div>
-                <div className="text-xs text-zinc-200">Trained to embody the warmth of South African hospitality.</div>
-              </div>
-              <div className="p-4 rounded-2xl bg-zinc-900 border border-white/5 space-y-1">
-                <div className="text-amber-400 font-black text-base">Speed & Care</div>
-                <div className="text-xs text-zinc-200">Streamlined order and collection stations to minimize waiting.</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── Section 2: Kitchen Artisans & Grill Masters ─────────────────────── */}
-      <section className="bg-[#121217] border-y border-white/10 py-14 sm:py-20 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            
-            {/* Text 2 */}
-            <div className="lg:col-span-6 space-y-6 order-2 lg:order-1">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold uppercase tracking-wider">
-                <Flame className="w-3.5 h-3.5" />
-                <span>The Culinary Engine</span>
-              </div>
-
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight uppercase leading-snug">
-                The Grill Masters Behind The Sizzle
-              </h2>
-
-              <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
-                Behind the pass, our kitchen crew operates like a synchronized orchestra. Every piece of chicken is watched with eagle-eyed focus over roaring flame grills, basted with generous layers of sauce, and cooked to juicy perfection.
-              </p>
-
-              <div className="space-y-3.5">
-                <div className="p-4 rounded-xl bg-zinc-900 border border-white/5 flex items-start gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-rose-500/15 border border-rose-500/30 text-rose-400 flex items-center justify-center shrink-0">
-                    <Flame className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-white">Flame Temperature Control</h4>
-                    <p className="text-xs text-zinc-200 mt-0.5">
-                      Understanding open fire zones to achieve that signature smoky char without drying out the tender meat inside.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-zinc-900 border border-white/5 flex items-start gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center shrink-0">
-                    <ChefHat className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-white">Strict Hygiene & Uniform Standards</h4>
-                    <p className="text-xs text-zinc-200 mt-0.5">
-                      Every team member wears clean chef uniforms and protective hairnets, following strict commercial food safety protocols.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-zinc-900 border border-white/5 flex items-start gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center shrink-0">
-                    <ShieldCheck className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-white">HACCP-Aligned Kitchen Workflow</h4>
-                    <p className="text-xs text-zinc-200 mt-0.5">
-                      Separated linear stations for fresh raw preparation, open-flame cooking, basting, and hot bagging ensure zero cross-contamination.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Image 2: Kitchen Crew in Uniform */}
-            <div className="lg:col-span-6 order-1 lg:order-2 relative pb-10 sm:pb-12 lg:pb-10">
-              <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-zinc-900 group">
-                <img
-                  src="/images/team/kitchen-professionalism.webp"
-                  alt="Wrap & Wings Co kitchen team member in professional chef attire"
-                  className="w-full h-auto object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-102"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-              </div>
-
-              {/* Floating Info Box (straddling bottom edge like Signature Special) */}
-              <div className="absolute bottom-10 sm:bottom-12 lg:bottom-10 translate-y-1/2 left-3 right-3 sm:left-6 sm:right-6 p-3.5 sm:p-4 rounded-2xl bg-zinc-900/95 border border-white/15 shadow-2xl backdrop-blur-md z-20">
-                <div className="text-xs font-black text-amber-400 uppercase tracking-wider">Kitchen Professionalism</div>
-                <div className="text-sm font-bold text-white mt-0.5">
-                  Our kitchen crew in clean chef attire and hairnets, ensuring peak hygiene and flame consistency on every dish.
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ── Section 3: Behind the Scenes Photo Gallery ──────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-bold uppercase tracking-wider">
-            <Users className="w-3.5 h-3.5" />
-            <span>Behind the Counter</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight uppercase">
-            Team In Action
+      {/* ── 2. INTRO STORY SECTION ── */}
+      <section className="bg-white py-14 sm:py-20 md:py-24 px-4 sm:px-6">
+        <div className="max-w-4xl lg:max-w-5xl mx-auto text-center space-y-8 sm:space-y-10 text-zinc-900 font-medium-grotesque">
+          {/* Main Headline */}
+          <h2 className="text-4xl sm:text-5xl md:text-[56px] lg:text-[62px] font-bold font-bold-grotesque tracking-tight text-black leading-tight">
+            The Family Behind <span className="text-[#00C4D6]">The Grill</span>
           </h2>
-          <p className="text-sm sm:text-base text-zinc-200">
-            A look into our daily rhythm at Shop 1 Uniland Centre, Pinetown.
+
+          {/* Paragraph 1 */}
+          <p className="text-lg sm:text-xl md:text-[22px] lg:text-[24px] leading-relaxed text-zinc-900">
+            At Afro’s Chicken Shop Hillcrest, our team is the heartbeat of every fresh meal we serve.
           </p>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          
-          {/* Card A: Service Point */}
-          <div className="rounded-3xl bg-zinc-900 border border-white/10 overflow-hidden shadow-xl flex flex-col group">
-            <div className="relative overflow-hidden aspect-[4/3] bg-zinc-950">
-              <img
-                src="/images/team/attention-to-detail.webp"
-                alt="Hospitality and cashier team member serving guests"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-              <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-rose-600/80 backdrop-blur-md border border-white/10 text-white text-[11px] font-black uppercase tracking-wider">
-                Order & Collect Point
-              </span>
-            </div>
-            <div className="p-6 space-y-2 flex-1 flex flex-col justify-between">
-              <div>
-                <h3 className="text-lg font-black text-white">Attention to Every Detail</h3>
-                <p className="text-xs sm:text-sm text-zinc-200 mt-1 leading-relaxed">
-                  Every order is checked twice: verifying your basting flavour selection, ensuring extra sauces and sides are packed securely, and greeting you with a smile.
-                </p>
-              </div>
-              <div className="pt-3 border-t border-white/5 text-[11px] font-bold text-zinc-300 flex items-center justify-between">
-                <span>Speedpoint & Cash Supported</span>
-                <span className="text-emerald-400">Collection Ready in Minutes</span>
-              </div>
-            </div>
+          {/* Paragraph 2 */}
+          <p className="text-lg sm:text-xl md:text-[22px] lg:text-[24px] leading-relaxed text-zinc-900">
+            From the fiery precision of our grill masters to the genuine smiles at the order counter — we’re all about great gees, simple fresh ingredients, and proper food made fast.
+          </p>
+
+          {/* Paragraph 3 */}
+          <div className="space-y-2 sm:space-y-2.5 text-lg sm:text-xl md:text-[22px] lg:text-[24px] leading-relaxed text-zinc-900">
+            <p>We use fresh, locally sourced ingredients to make sure every burger, wrap, and strip meal is full of flavour.</p>
+            <p>Our goal is simple: give you restaurant-quality food without the wait, served with real South African hospitality.</p>
           </div>
-
-          {/* Card B: Culture & Atmosphere */}
-          <div className="rounded-3xl bg-zinc-900 border border-white/10 overflow-hidden shadow-xl flex flex-col group">
-            <div className="relative overflow-hidden aspect-[4/3] bg-zinc-950">
-              <img
-                src="/images/team/local-pride-empowerment.webp"
-                alt="Wrap & Wings Co team atmosphere and service stations"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-              <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-amber-500/80 backdrop-blur-md border border-white/10 text-white text-[11px] font-black uppercase tracking-wider">
-                Service Flow
-              </span>
-            </div>
-            <div className="p-6 space-y-2 flex-1 flex flex-col justify-between">
-              <div>
-                <h3 className="text-lg font-black text-white">Local Pride & Empowerment</h3>
-                <p className="text-xs sm:text-sm text-zinc-200 mt-1 leading-relaxed">
-                  We are deeply proud to employ and train local talent from Pinetown and surrounding communities. We foster an environment of growth, mutual respect, and culinary excellence.
-                </p>
-              </div>
-              <div className="pt-3 border-t border-white/5 text-[11px] font-bold text-zinc-500 flex items-center justify-between">
-                <span>Proudly Local KZN Team</span>
-                <span className="text-amber-400">Crafted with Heart</span>
-              </div>
-            </div>
-          </div>
-
         </div>
       </section>
 
-      {/* ── Section 4: Operational Pillars ──────────────────────────────────── */}
-      <section className="bg-zinc-950/60 border-t border-white/10 py-14 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      {/* ── 3. 4 TEAM CONTENT CARDS (BLOCK OF 4: 2 PER LINE ON PC) ── */}
+      <section className="bg-zinc-50 py-16 sm:py-24 border-y border-zinc-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12 sm:mb-16">
+            <span className="text-xs sm:text-sm font-black uppercase tracking-widest text-[#b89500] block mb-2">
+              MEET THE AFRO'S HILLCREST FAMILY
+            </span>
+            <h3 className="text-3xl sm:text-4xl md:text-[46px] font-bold font-bold-grotesque tracking-tight text-black">
+              Passion In Every <span className="text-[#00C4D6]">Bite &amp; Smile</span>
+            </h3>
+            <p className="text-zinc-600 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mt-3 font-medium">
+              Get to know the faces behind the counter, on the grill, and welcoming you to The Junction.
+            </p>
+          </div>
+
+          {/* 2 per line on desktop / tablet, 1 per line on mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+            {teamHighlights.map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-white rounded-3xl overflow-hidden border border-zinc-200 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between"
+              >
+                <div>
+                  <div className="aspect-[16/10] overflow-hidden bg-zinc-100">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="p-6 sm:p-8">
+                    <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-[#b89500] block mb-2">
+                      {item.tag}
+                    </span>
+                    <h4 className="font-bold font-bold-grotesque text-2xl sm:text-3xl text-black uppercase leading-snug">
+                      {item.title}
+                    </h4>
+                    <p className="text-base sm:text-lg text-zinc-700 mt-3 leading-relaxed font-medium">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="px-6 pb-6 sm:px-8 sm:pb-8 pt-0">
+                  <div className="pt-4 border-t border-zinc-100 flex items-center justify-between">
+                    <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-black text-black">
+                      <Sparkles className="w-4 h-4 text-[#FFD100]" />
+                      <span>{item.highlight}</span>
+                    </span>
+                    <span className="text-[11px] sm:text-xs font-bold text-zinc-400 uppercase tracking-wider">
+                      Afro's Hillcrest
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 4. BRAND PILLARS STRIP ── */}
+      <section className="bg-white py-16 sm:py-20 border-b border-zinc-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <span className="text-xs sm:text-sm font-black uppercase tracking-widest text-[#b89500] block mb-2">
+              OUR STANDARDS
+            </span>
+            <h3 className="text-3xl sm:text-4xl font-bold font-bold-grotesque tracking-tight text-black">
+              What We Stand For Every Day
+            </h3>
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            <div className="p-6 rounded-3xl bg-zinc-900/80 border border-white/10 space-y-2">
-              <div className="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center font-black">
-                🤝
+            {pillars.map((pillar, idx) => (
+              <div
+                key={idx}
+                className="p-6 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-3 hover:border-black transition-colors"
+              >
+                <div className="text-3xl">{pillar.icon}</div>
+                <h4 className="text-lg font-bold font-bold-grotesque text-black uppercase">
+                  {pillar.title}
+                </h4>
+                <p className="text-sm text-zinc-600 leading-relaxed font-medium">
+                  {pillar.desc}
+                </p>
               </div>
-              <h3 className="text-base font-black text-white">Warm Hospitality</h3>
-              <p className="text-xs text-zinc-200 leading-relaxed">
-                Treating every visitor as family with attentive service, genuine smiles, and helpful suggestions.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-3xl bg-zinc-900/80 border border-white/10 space-y-2">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-black">
-                🔥
-              </div>
-              <h3 className="text-base font-black text-white">Grill Mastery</h3>
-              <p className="text-xs text-zinc-200 leading-relaxed">
-                Trained over real open fire to lock in juices and deliver consistent flavor across every single piece.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-3xl bg-zinc-900/80 border border-white/10 space-y-2">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-black">
-                🧼
-              </div>
-              <h3 className="text-base font-black text-white">Pristine Hygiene</h3>
-              <p className="text-xs text-zinc-200 leading-relaxed">
-                Clean chef attire, hairnets, and regular sanitization across all preparation and service counters.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-3xl bg-zinc-900/80 border border-white/10 space-y-2">
-              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center font-black">
-                🌱
-              </div>
-              <h3 className="text-base font-black text-white">Team Growth</h3>
-              <p className="text-xs text-zinc-200 leading-relaxed">
-                Continuous mentorship in kitchen management, customer service, and culinary craftsmanship.
-              </p>
-            </div>
-
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── Section 5: Flagship Kitchen Visit & Contact ─────────────────────── */}
-      <section className="py-16 sm:py-24 bg-gradient-to-t from-amber-950/30 via-[#0d0d11] to-[#0d0d11] border-t border-white/10">
+      {/* ── 5. VISIT US & CALL TO ACTION ── */}
+      <section className="py-16 sm:py-24 bg-[#FFFDF0]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-6">
-          <div className="w-16 h-16 rounded-3xl bg-amber-500/20 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto text-3xl">
+          <div className="w-16 h-16 rounded-3xl bg-[#FFD100] text-black flex items-center justify-center mx-auto text-3xl font-bold shadow-sm">
             👋
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight uppercase">
-            Come Say Hello At Our Pinetown Kitchen
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-black">
+            Pull In And Say Howzit!
           </h2>
 
-          <div className="p-6 rounded-3xl bg-zinc-900/90 border border-white/10 max-w-lg mx-auto text-center space-y-3 shadow-xl">
-            <div className="flex items-center justify-center gap-2 text-rose-400 font-extrabold text-sm uppercase">
-              <MapPin className="w-4 h-4" />
-              <span>Shop 1, Uniland Centre, Pinetown</span>
+          <div className="p-6 sm:p-8 rounded-3xl bg-white border-2 border-black max-w-lg mx-auto text-center space-y-3 shadow-xl">
+            <div className="flex items-center justify-center gap-2 text-black font-black text-sm uppercase">
+              <MapPin className="w-4 h-4 text-[#FFD100] fill-black" />
+              <span>The Junction, 5 Inanda Rd, Hillcrest</span>
             </div>
-            <p className="text-xs text-zinc-200">
-              Conveniently located behind Hollywoodbets with ample secure customer parking.
+            <p className="text-xs sm:text-sm text-zinc-600 font-medium">
+              Centrally located with convenient parking right outside the store.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-bold text-zinc-300 pt-2 border-t border-white/5">
+            <div className="flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm font-bold text-zinc-800 pt-3 border-t border-zinc-100">
               <div className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-amber-400" />
-                <span>Mon – Sun: 9:00 AM – 6:00 PM</span>
+                <Clock className="w-4 h-4 text-[#b89500]" />
+                <span>Mon – Sun: 9:00 AM – 8:00 PM</span>
               </div>
               <a
                 href="tel:0789057975"
-                className="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition-colors"
+                className="flex items-center gap-1.5 text-black hover:text-[#00C4D6] transition-colors"
               >
-                <Phone className="w-3.5 h-3.5" />
-                <span>068 886 3892</span>
+                <Phone className="w-4 h-4 text-[#00C4D6]" />
+                <span>078 905 7975</span>
               </a>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <button
               type="button"
               onClick={() => onNavigate?.('menu')}
-              className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-black text-sm tracking-wide shadow-xl shadow-rose-950/60 transition-all hover:scale-105 cursor-pointer"
+              className="w-full sm:w-auto px-8 py-3.5 bg-[#FFD100] hover:bg-[#ffe14d] text-black font-black text-sm uppercase tracking-wider rounded-xl shadow-md hover:shadow-lg transition-all cursor-pointer border border-black/10 flex items-center justify-center gap-2"
             >
-              Order from Our Menu
+              <UtensilsCrossed className="w-4 h-4" />
+              <span>Order From Our Menu</span>
             </button>
-            <button
-              type="button"
-              onClick={() => onNavigate?.('about')}
-              className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 border border-white/10 text-white font-bold text-sm transition-all cursor-pointer"
+            <a
+              href="https://wa.me/27789057975?text=Howzit%20Afro's%20Hillcrest!%20I'd%20like%20to%20place%20an%20order."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto px-7 py-3.5 bg-black hover:bg-zinc-800 text-white font-black text-sm uppercase tracking-wider rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2"
             >
-              Read Nonto's Founding Story
-            </button>
+              <MessageSquare className="w-4 h-4 text-[#FFD100]" />
+              <span>WhatsApp (078 905 7975)</span>
+            </a>
           </div>
         </div>
       </section>

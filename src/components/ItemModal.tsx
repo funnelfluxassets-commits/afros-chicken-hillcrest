@@ -10,8 +10,12 @@ interface ItemModalProps {
 }
 
 const BASE_EXTRAS_OPTIONS = [
+  { name: 'Extra Bacon', price: 18.0 },
+  { name: 'Extra Avo', price: 18.0 },
   { name: 'Extra Cheese', price: 10.0 },
-  { name: 'Add Extra Roll', price: 6.0 },
+  { name: 'Extra Egg', price: 5.0 },
+  { name: 'Extra Roll', price: 6.0 },
+  { name: 'Extra Chicken Fillet', price: 28.0 },
 ];
 
 const DRINK_GROUPS = [
@@ -249,10 +253,10 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                       key={side}
                       type="button"
                       onClick={() => setSelectedSide(side)}
-                      className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer font-bold text-xs ${
+                      className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer font-black text-xs ${
                         isSelected
-                          ? 'bg-[#FFD100]/30 border-2 border-black text-black font-black'
-                          : 'bg-zinc-900/80 hover:bg-zinc-800 border-white/10 text-zinc-800'
+                          ? 'bg-[#FFD100] border-2 border-black text-black shadow-xs'
+                          : 'bg-zinc-50 hover:bg-zinc-100 border-zinc-200 text-black'
                       }`}
                     >
                       <div>{side}</div>
@@ -266,35 +270,64 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
           {/* 3. Add-ons & Extras */}
           <div className="space-y-3 pt-2 border-t border-zinc-200">
             <div className="flex items-center justify-between">
-              <label className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-zinc-800 flex items-center gap-2">
-                <span className="w-4 h-4 sm:w-4.5 sm:h-4.5 rounded-md border border-amber-400 bg-amber-400/15 flex items-center justify-center shrink-0 shadow-[0_0_6px_rgba(251,191,36,0.25)]">
-                  <Plus className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#FFD100] stroke-[3]" />
+              <label className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-black flex items-center gap-2">
+                <span className="w-4 h-4 sm:w-4.5 sm:h-4.5 rounded-md border border-black bg-[#FFD100] flex items-center justify-center shrink-0">
+                  <Plus className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-black stroke-[3]" />
                 </span>
                 <span>Delicious Optional Extras (Optional)</span>
               </label>
             </div>
 
             <div className="space-y-2">
-              {/* Extra Sauce with Custom Sauce Flavour Dropdown */}
+              {/* First 5 Extras: Extra Bacon, Extra Avo, Extra Cheese, Extra Egg, Extra Roll */}
+              {BASE_EXTRAS_OPTIONS.slice(0, 5).map((extra) => {
+                const isSelected = selectedExtras.some((e) => e.name === extra.name);
+                return (
+                  <button
+                    key={extra.name}
+                    type="button"
+                    onClick={() => toggleExtra(extra)}
+                    className={`w-full p-2.5 sm:p-3 rounded-xl border text-left transition-all flex items-center justify-between cursor-pointer ${
+                      isSelected
+                        ? 'bg-[#FFD100]/20 border-2 border-black text-black font-black shadow-2xs'
+                        : 'bg-zinc-50 hover:bg-zinc-100 border-zinc-200 text-black font-bold'
+                    }`}
+                  >
+                    <span className="text-xs sm:text-sm font-bold text-black">{extra.name}</span>
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-xs sm:text-sm font-black text-black">+R{extra.price.toFixed(2)}</span>
+                      <div
+                        className={`w-4 h-4 rounded-md border flex items-center justify-center shrink-0 ${
+                          isSelected ? 'border-black bg-[#FFD100] text-black font-black' : 'border-zinc-300 bg-white'
+                        }`}
+                      >
+                        {isSelected && <Check className="w-2.5 h-2.5 stroke-[3]" />}
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+
+              {/* 6. Extra Sauce with Custom Sauce Flavour Dropdown */}
               <div
-                className={`p-2.5 rounded-xl border transition-all ${
+                className={`p-2.5 sm:p-3 rounded-xl border transition-all ${
                   isExtraSauceSelected
-                    ? 'bg-[#FFD100]/10 border-[#FFD100]/60 text-white'
-                    : 'bg-zinc-900/60 hover:bg-zinc-800/80 border-white/5 text-zinc-800'
+                    ? 'bg-[#FFD100]/20 border-2 border-black text-black font-black shadow-2xs'
+                    : 'bg-zinc-50 hover:bg-zinc-100 border-zinc-200 text-black font-bold'
                 }`}
               >
                 <div
                   onClick={handleToggleExtraSauce}
                   className="flex items-center justify-between cursor-pointer"
                 >
-                  <span className="text-xs font-semibold">
+                  <span className="text-xs sm:text-sm font-bold text-black">
                     Extra Sauce {isExtraSauceSelected ? `(${extraSauceFlavour})` : ''}
                   </span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-[#FFD100]">+R8.00</span>
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-xs sm:text-sm font-black text-black">+R8.00</span>
                     <div
-                      className={`w-4 h-4 rounded-md border flex items-center justify-center ${
-                        isExtraSauceSelected ? 'border-black bg-[#FFD100] text-black font-black' : 'border-zinc-600'
+                      className={`w-4 h-4 rounded-md border flex items-center justify-center shrink-0 ${
+                        isExtraSauceSelected ? 'border-black bg-[#FFD100] text-black font-black' : 'border-zinc-300 bg-white'
                       }`}
                     >
                       {isExtraSauceSelected && <Check className="w-2.5 h-2.5 stroke-[3]" />}
@@ -304,13 +337,13 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
 
                 {isExtraSauceSelected && (
                   <div className="mt-2.5 pt-2 border-t border-zinc-200 flex items-center justify-between gap-2">
-                    <label className="text-[11px] font-bold text-[#FFD100]">
+                    <label className="text-xs font-bold text-zinc-700">
                       Choose Extra Sauce:
                     </label>
                     <select
                       value={extraSauceFlavour}
                       onChange={(e) => handleExtraSauceChange(e.target.value)}
-                      className="px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-white/20 text-xs font-bold text-white focus:outline-none focus:border-amber-400 cursor-pointer"
+                      className="px-2.5 py-1.5 rounded-lg bg-white border border-zinc-300 text-xs font-bold text-black focus:outline-none focus:border-black cursor-pointer shadow-2xs"
                     >
                       {FLAVOURS.map((f) => (
                         <option key={f.id} value={f.name}>
@@ -322,26 +355,26 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                 )}
               </div>
 
-              {/* Other Extras (Extra Cheese R10, Add Extra Roll R6) */}
-              {BASE_EXTRAS_OPTIONS.map((extra) => {
+              {/* 7. Extra Chicken Fillet */}
+              {BASE_EXTRAS_OPTIONS.slice(5).map((extra) => {
                 const isSelected = selectedExtras.some((e) => e.name === extra.name);
                 return (
                   <button
                     key={extra.name}
                     type="button"
                     onClick={() => toggleExtra(extra)}
-                    className={`w-full p-2.5 rounded-xl border text-left transition-all flex items-center justify-between cursor-pointer ${
+                    className={`w-full p-2.5 sm:p-3 rounded-xl border text-left transition-all flex items-center justify-between cursor-pointer ${
                       isSelected
-                        ? 'bg-[#FFD100]/10 border-[#FFD100]/60 text-white'
-                        : 'bg-zinc-900/60 hover:bg-zinc-800/80 border-white/5 text-zinc-800'
+                        ? 'bg-[#FFD100]/20 border-2 border-black text-black font-black shadow-2xs'
+                        : 'bg-zinc-50 hover:bg-zinc-100 border-zinc-200 text-black font-bold'
                     }`}
                   >
-                    <span className="text-xs font-semibold">{extra.name}</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-[#FFD100]">+R{extra.price.toFixed(2)}</span>
+                    <span className="text-xs sm:text-sm font-bold text-black">{extra.name}</span>
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-xs sm:text-sm font-black text-black">+R{extra.price.toFixed(2)}</span>
                       <div
-                        className={`w-4 h-4 rounded-md border flex items-center justify-center ${
-                          isSelected ? 'border-black bg-[#FFD100] text-black font-black' : 'border-zinc-600'
+                        className={`w-4 h-4 rounded-md border flex items-center justify-center shrink-0 ${
+                          isSelected ? 'border-black bg-[#FFD100] text-black font-black' : 'border-zinc-300 bg-white'
                         }`}
                       >
                         {isSelected && <Check className="w-2.5 h-2.5 stroke-[3]" />}
@@ -367,27 +400,27 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                   <div
                     className={`rounded-2xl border transition-all overflow-hidden ${
                       hasSelectedDrinks
-                        ? 'border-amber-500/50 bg-amber-500/5'
-                        : 'border-white/10 bg-zinc-900/60'
+                        ? 'border-2 border-black bg-[#FFD100]/15'
+                        : 'border-zinc-200 bg-zinc-50 hover:bg-zinc-100/70'
                     }`}
                   >
                     <button
                       type="button"
                       onClick={() => setIsDrinksExpanded(!isDrinksExpanded)}
-                      className="w-full p-2.5 sm:p-3 flex items-center justify-between text-left hover:bg-zinc-800/80 transition-colors cursor-pointer"
+                      className="w-full p-2.5 sm:p-3 flex items-center justify-between text-left transition-colors cursor-pointer"
                     >
                       <div className="flex items-center gap-2.5 min-w-0 pr-2">
                         <span className="text-base shrink-0">🥤</span>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-white flex items-center gap-1.5 flex-wrap">
+                          <div className="text-xs font-black text-black flex items-center gap-1.5 flex-wrap">
                             <span>Add drink</span>
                             {hasSelectedDrinks && (
-                              <span className="px-1.5 py-0.2 rounded-full bg-amber-400 text-zinc-950 font-black text-[10px]">
+                              <span className="px-1.5 py-0.2 rounded-full bg-[#FFD100] text-black font-black text-[10px]">
                                 {selectedDrinkItems.length} selected
                               </span>
                             )}
                           </div>
-                          <div className="text-[11px] text-zinc-800 truncate">
+                          <div className="text-[11px] text-zinc-500 font-medium truncate">
                             {hasSelectedDrinks
                               ? selectedDrinkItems.map((d) => d.name).join(', ')
                               : '1.5L Coke, Waters, 3 Mocktails & 440ml Sodas'}
@@ -396,14 +429,14 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                       </div>
 
                       <div className="flex items-center gap-2 shrink-0">
-                        <span className="text-xs font-bold text-[#FFD100]">
+                        <span className="text-xs sm:text-sm font-black text-black">
                           {hasSelectedDrinks
                             ? `+R${selectedDrinkItems.reduce((sum, d) => sum + d.price, 0).toFixed(2)}`
                             : 'From +R15.00'}
                         </span>
                         <div
-                          className={`p-1 rounded-md bg-zinc-800 text-zinc-400 transition-transform ${
-                            isDrinksExpanded ? 'rotate-180 text-[#FFD100]' : ''
+                          className={`p-1 rounded-md bg-zinc-200 text-black transition-transform ${
+                            isDrinksExpanded ? 'rotate-180 bg-black text-[#FFD100]' : ''
                           }`}
                         >
                           <ChevronDown className="w-3.5 h-3.5" />
@@ -411,9 +444,9 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                       </div>
                     </button>
 
-                    {/* Expanded View of All Available Menu Drinks with Relative Pricing */}
+                    {/* Expanded View of All Available Menu Drinks */}
                     {isDrinksExpanded && (
-                      <div className="p-3 pt-2 border-t border-zinc-200 bg-black/50 space-y-3 max-h-80 sm:max-h-96 overflow-y-auto">
+                      <div className="p-3 pt-2 border-t border-zinc-200 bg-white space-y-3 max-h-80 sm:max-h-96 overflow-y-auto">
                         
                         {/* Quick Category Filter Pills */}
                         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none text-[11px] font-bold">
@@ -422,8 +455,8 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                             onClick={() => setDrinkCategoryFilter('all')}
                             className={`px-2.5 py-1 rounded-lg transition-colors shrink-0 cursor-pointer ${
                               drinkCategoryFilter === 'all'
-                                ? 'bg-amber-400 text-zinc-950 font-black'
-                                : 'bg-zinc-800 text-zinc-400 hover:text-white'
+                                ? 'bg-black text-[#FFD100] font-black'
+                                : 'bg-zinc-100 text-zinc-700 hover:text-black font-bold'
                             }`}
                           >
                             All ({availableDrinks.length})
@@ -433,8 +466,8 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                             onClick={() => setDrinkCategoryFilter('water')}
                             className={`px-2.5 py-1 rounded-lg transition-colors shrink-0 cursor-pointer ${
                               drinkCategoryFilter === 'water'
-                                ? 'bg-amber-400 text-zinc-950 font-black'
-                                : 'bg-zinc-800 text-zinc-400 hover:text-white'
+                                ? 'bg-black text-[#FFD100] font-black'
+                                : 'bg-zinc-100 text-zinc-700 hover:text-black font-bold'
                             }`}
                           >
                             💧 Water (2)
@@ -444,8 +477,8 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                             onClick={() => setDrinkCategoryFilter('sharing')}
                             className={`px-2.5 py-1 rounded-lg transition-colors shrink-0 cursor-pointer ${
                               drinkCategoryFilter === 'sharing'
-                                ? 'bg-amber-400 text-zinc-950 font-black'
-                                : 'bg-zinc-800 text-zinc-400 hover:text-white'
+                                ? 'bg-black text-[#FFD100] font-black'
+                                : 'bg-zinc-100 text-zinc-700 hover:text-black font-bold'
                             }`}
                           >
                             🍾 1.5L Coke (1)
@@ -455,8 +488,8 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                             onClick={() => setDrinkCategoryFilter('mocktails')}
                             className={`px-2.5 py-1 rounded-lg transition-colors shrink-0 cursor-pointer ${
                               drinkCategoryFilter === 'mocktails'
-                                ? 'bg-amber-400 text-zinc-950 font-black'
-                                : 'bg-zinc-800 text-zinc-400 hover:text-white'
+                                ? 'bg-black text-[#FFD100] font-black'
+                                : 'bg-zinc-100 text-zinc-700 hover:text-black font-bold'
                             }`}
                           >
                             🍹 Mocktails (3)
@@ -466,8 +499,8 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                             onClick={() => setDrinkCategoryFilter('coffee')}
                             className={`px-2.5 py-1 rounded-lg transition-colors shrink-0 cursor-pointer ${
                               drinkCategoryFilter === 'coffee'
-                                ? 'bg-amber-400 text-zinc-950 font-black'
-                                : 'bg-zinc-800 text-zinc-400 hover:text-white'
+                                ? 'bg-black text-[#FFD100] font-black'
+                                : 'bg-zinc-100 text-zinc-700 hover:text-black font-bold'
                             }`}
                           >
                             ☕ Coffee (1)
@@ -477,8 +510,8 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                             onClick={() => setDrinkCategoryFilter('buddies')}
                             className={`px-2.5 py-1 rounded-lg transition-colors shrink-0 cursor-pointer ${
                               drinkCategoryFilter === 'buddies'
-                                ? 'bg-amber-400 text-zinc-950 font-black'
-                                : 'bg-zinc-800 text-zinc-400 hover:text-white'
+                                ? 'bg-black text-[#FFD100] font-black'
+                                : 'bg-zinc-100 text-zinc-700 hover:text-black font-bold'
                             }`}
                           >
                             🥤 440ml Buddies (9)
@@ -488,7 +521,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                         {/* Grouped Drink Sections */}
                         {filteredGroups.map((group) => (
                           <div key={group.id} className="space-y-1.5">
-                            <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-wider text-[#FFD100]/90 pt-1.5 border-t border-white/5 first:border-0 first:pt-0">
+                            <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-wider text-black pt-2 border-t border-zinc-100 first:border-0 first:pt-0">
                               <span>{group.title}</span>
                               <span className="text-zinc-500 font-bold">{group.priceText}</span>
                             </div>
@@ -503,25 +536,25 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                                     onClick={() => toggleExtra({ name: drink.name, price: drink.price })}
                                     className={`w-full p-2.5 rounded-xl border text-left transition-all flex items-center justify-between cursor-pointer ${
                                       isSelected
-                                        ? 'bg-amber-500/15 border-amber-500/60 text-white shadow-sm ring-1 ring-amber-500/30'
-                                        : 'bg-zinc-900/70 hover:bg-zinc-800/80 border-white/5 text-zinc-800'
+                                        ? 'bg-[#FFD100]/25 border-2 border-black text-black font-black'
+                                        : 'bg-zinc-50 hover:bg-zinc-100 border-zinc-200 text-black'
                                     }`}
                                   >
                                     <div className="flex items-center gap-2 min-w-0 pr-2">
-                                      <span className="text-xs font-semibold truncate">{drink.name}</span>
+                                      <span className="text-xs font-bold text-black truncate">{drink.name}</span>
                                       {drink.badge && (
-                                        <span className="text-[9px] font-black px-1.5 py-0.2 rounded bg-zinc-800 text-[#FFD100] border border-white/10 shrink-0 hidden sm:inline">
+                                        <span className="text-[9px] font-black px-1.5 py-0.2 rounded bg-zinc-100 text-zinc-700 border border-zinc-200 shrink-0 hidden sm:inline">
                                           {drink.badge}
                                         </span>
                                       )}
                                     </div>
                                     <div className="flex items-center gap-2 shrink-0">
-                                      <span className="text-xs font-bold text-[#FFD100]">+R{drink.price.toFixed(2)}</span>
+                                      <span className="text-xs font-black text-black">+R{drink.price.toFixed(2)}</span>
                                       <div
                                         className={`w-4 h-4 rounded-md border flex items-center justify-center transition-colors ${
                                           isSelected
-                                            ? 'border-amber-400 bg-amber-400 text-zinc-950 font-black'
-                                            : 'border-zinc-600 bg-zinc-800/50'
+                                            ? 'border-black bg-[#FFD100] text-black font-black'
+                                            : 'border-zinc-300 bg-white'
                                         }`}
                                       >
                                         {isSelected && <Check className="w-2.5 h-2.5 stroke-[3]" />}

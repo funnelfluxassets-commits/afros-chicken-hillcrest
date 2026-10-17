@@ -99,19 +99,19 @@ export const StoreLocatorSection: React.FC = () => {
   const flagship = STORES[0];
 
   return (
-    <section id="store-locator" className="py-14 sm:py-20 bg-[#121217] border-t border-zinc-200">
+    <section id="store-locator" className="py-14 sm:py-20 bg-zinc-50 border-t border-zinc-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Section Heading */}
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-[#FFD100] text-xs font-bold uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-black text-[#FFD100] text-xs font-black uppercase tracking-wider mb-2">
             <MapPin className="w-3.5 h-3.5" />
             <span>Store Location & Directions</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-black tracking-tight uppercase">
             VISIT OUR HILLCREST SHOP
           </h2>
-          <p className="text-sm sm:text-base text-zinc-700 mt-2 font-medium">
+          <p className="text-sm sm:text-base text-zinc-600 mt-2 font-medium">
             Fresh flame-grilled food served daily. Drop in for collection or order straight to your doorstep.
           </p>
         </div>
@@ -120,45 +120,45 @@ export const StoreLocatorSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Left: Flagship Store Details Card */}
-          <div className="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 shadow-xl flex flex-col justify-between space-y-6">
+          <div className="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-white border border-zinc-200 shadow-md flex flex-col justify-between space-y-6">
             <div>
-              <div className="inline-block px-3 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-black uppercase mb-3">
+              <div className="inline-block px-3 py-1 bg-[#FFD100] text-black text-xs font-black uppercase mb-3">
                 HILLCREST STORE • NOW OPEN
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-black text-black">{flagship.name}</h3>
-              <p className="text-sm text-[#FFD100] font-bold mt-1">{flagship.landmark}</p>
+              <p className="text-sm text-zinc-500 font-bold mt-1">{flagship.landmark}</p>
 
               <div className="space-y-4 pt-6 text-sm text-zinc-700">
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-xl bg-zinc-800 text-[#FFD100] shrink-0">
-                    <MapPin className="w-5 h-5" />
+                  <div className="p-2.5 rounded-xl bg-zinc-100 text-black shrink-0">
+                    <MapPin className="w-5 h-5 text-black" />
                   </div>
                   <div>
                     <div className="font-extrabold text-black">Physical Address</div>
-                    <div className="text-xs text-zinc-700 mt-0.5">{flagship.address}</div>
-                    <div className="text-xs text-zinc-700">{flagship.city}</div>
+                    <div className="text-xs text-zinc-600 mt-0.5">{flagship.address}</div>
+                    <div className="text-xs text-zinc-600">{flagship.city}</div>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-xl bg-zinc-800 text-amber-400 shrink-0">
-                    <Clock className="w-5 h-5" />
+                  <div className="p-2.5 rounded-xl bg-zinc-100 text-black shrink-0">
+                    <Clock className="w-5 h-5 text-black" />
                   </div>
                   <div>
                     <div className="font-extrabold text-black">Opening Times</div>
-                    <div className="text-xs text-zinc-700 mt-0.5">{flagship.hours}</div>
-                    <div className="text-[11px] text-emerald-400 font-bold">Open Every Day of the Week</div>
+                    <div className="text-xs text-zinc-600 mt-0.5">{flagship.hours}</div>
+                    <div className="text-[11px] text-emerald-600 font-bold">Open Every Day of the Week</div>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-xl bg-zinc-800 text-emerald-400 shrink-0">
-                    <Phone className="w-5 h-5" />
+                  <div className="p-2.5 rounded-xl bg-zinc-100 text-black shrink-0">
+                    <Phone className="w-5 h-5 text-black" />
                   </div>
                   <div>
                     <div className="font-extrabold text-black">Hotline & WhatsApp</div>
-                    <div className="text-xs text-zinc-700 mt-0.5">{flagship.phone}</div>
+                    <div className="text-xs text-zinc-600 mt-0.5">{flagship.phone}</div>
                   </div>
                 </div>
               </div>
@@ -175,7 +175,7 @@ export const StoreLocatorSection: React.FC = () => {
                 }
                 target="_blank"
                 rel="noreferrer"
-                className="py-3 px-4 rounded-xl bg-[#FFD100] text-black font-black hover:bg-rose-500 text-black font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-rose-950/30 transition-transform hover:scale-105"
+                className="py-3 px-4 rounded-xl bg-[#FFD100] text-black font-black hover:bg-[#ffe14d] text-xs flex items-center justify-center gap-1.5 shadow-sm transition-transform hover:scale-105"
               >
                 <Navigation className="w-4 h-4" />
                 <span>Get Directions</span>
@@ -185,9 +185,9 @@ export const StoreLocatorSection: React.FC = () => {
                 href={SOCIAL_LINKS.whatsappDirect}
                 target="_blank"
                 rel="noreferrer"
-                className="py-3 px-4 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-black font-bold text-xs flex items-center justify-center gap-1.5 border border-zinc-200 transition-colors"
+                className="py-3 px-4 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-black font-bold text-xs flex items-center justify-center gap-1.5 border border-zinc-300 transition-colors"
               >
-                <Phone className="w-4 h-4 text-emerald-400" />
+                <Phone className="w-4 h-4 text-emerald-600" />
                 <span>WhatsApp Us</span>
               </a>
             </div>
@@ -197,7 +197,7 @@ export const StoreLocatorSection: React.FC = () => {
           <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
             
             {/* Interactive Map Visual */}
-            <div className="rounded-3xl overflow-hidden border border-zinc-200 bg-zinc-50 shadow-xl aspect-[16/9] relative">
+            <div className="rounded-3xl overflow-hidden border border-zinc-200 bg-white shadow-md aspect-[16/9] relative">
               <iframe
                 title="Afro’s Chicken Shop (Hillcrest) Location"
                 src={
@@ -214,43 +214,34 @@ export const StoreLocatorSection: React.FC = () => {
               />
               
               {/* Map Floating Card */}
-              <div className="absolute bottom-4 left-4 p-3 rounded-2xl bg-black/80 backdrop-blur-md border border-white/15 text-xs text-black flex items-center gap-3">
-                <span className="w-3 h-3 rounded-full bg-rose-500 animate-ping shrink-0" />
+              <div className="absolute bottom-4 left-4 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-zinc-200 text-xs text-black flex items-center gap-3 shadow-md">
+                <span className="w-3 h-3 rounded-full bg-[#FFD100] border border-black animate-ping shrink-0" />
                 <div>
-                  <div className="font-extrabold">Shop 1, Uniland Centre</div>
-                  <div className="text-[11px] text-zinc-500">Hillcrest Central</div>
+                  <div className="font-extrabold text-black">Shop 5, The Junction</div>
+                  <div className="text-[11px] text-zinc-500">5 Inanda Rd, Hillcrest</div>
                 </div>
               </div>
             </div>
 
             {/* Franchise Expansion Teaser */}
-            <div className="p-6 rounded-3xl bg-gradient-to-r from-zinc-900 to-[#191924] border border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="p-6 rounded-3xl bg-white border border-zinc-200 shadow-md flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="space-y-1 text-center sm:text-left">
-                <div className="inline-flex items-center gap-1 text-[11px] font-black uppercase tracking-wider text-amber-400">
+                <div className="inline-flex items-center gap-1 text-[11px] font-black uppercase tracking-wider text-black bg-[#FFD100] px-2 py-0.5">
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>Expansion In Motion</span>
                 </div>
                 <h4 className="text-lg font-black text-black">More Branches Opening Across KZN</h4>
-                <p className="text-xs text-zinc-700">
+                <p className="text-xs text-zinc-600">
                   Targeting Westville, Umhlanga & Durban North. Follow our socials for opening dates!
                 </p>
               </div>
 
               <div className="flex items-center gap-2 shrink-0">
                 <a
-                  href={SOCIAL_LINKS.tiktok}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-3.5 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-700 hover:text-black border border-zinc-200 transition-colors flex items-center gap-2"
-                >
-                  <TikTokIcon className="w-3.5 h-3.5" />
-                  <span>TikTok</span>
-                </a>
-                <a
                   href={SOCIAL_LINKS.facebook}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-3.5 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-700 hover:text-black border border-zinc-200 transition-colors flex items-center gap-2"
+                  className="px-3.5 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-xs font-bold text-black border border-zinc-300 transition-colors flex items-center gap-2"
                 >
                   <FacebookIcon className="w-3.5 h-3.5" />
                   <span>Facebook</span>

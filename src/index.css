@@ -92,3 +92,59 @@ body {
 .animate-marquee-left:hover {
   animation-play-state: paused;
 }
+
+/* Hero Animations matching Afros website */
+@keyframes slideInLeftShort {
+  0% {
+    opacity: 0;
+    transform: translateX(-55px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRightShort {
+  0% {
+    opacity: 0;
+    transform: translateX(55px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes dropDownBounce {
+  0% {
+    opacity: 0;
+    transform: translateY(-55px);
+  }
+  58% {
+    opacity: 1;
+    transform: translateY(9px);
+  }
+  78% {
+    transform: translateY(-4px);
+  }
+  90% {
+    transform: translateY(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-left {
+  animation: slideInLeftShort 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-slide-right {
+  animation: slideInRightShort 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-drop-bounce {
+  animation: dropDownBounce 1.05s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}

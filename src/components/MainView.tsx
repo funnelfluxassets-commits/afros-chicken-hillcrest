@@ -14,76 +14,126 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
   return (
     <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-[#FFD100] selection:text-black">
       {/* ── 1. HERO BANNER: THE REAL MAKOYA ─────────────────────────────────── */}
-      {/* Background positioned from center top so the burger is brought down, centered, and never clipped */}
-      <section className="relative overflow-hidden bg-[#F3CD17] min-h-[520px] sm:min-h-[580px] md:min-h-[640px] lg:min-h-[720px] flex items-center border-b border-black/10">
-        {/* Full-width authentic Afros hero image on md and larger screens */}
-        <div
-          className="absolute inset-0 bg-cover bg-[center_top] hidden md:block"
-          style={{
-            backgroundImage: "url('/assets/afros/pages/afros-home-page-banner.png')",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* Floating wave doodle at top-left of burger matching Afros screenshot */}
-        <div className="hidden md:block absolute top-10 lg:top-14 left-10 lg:left-24 z-20 pointer-events-none">
-          <img
-            src="/assets/afros/logos/afros-yellow-waves-align.png"
-            alt="Wave doodle"
-            className="h-8 lg:h-10 w-auto object-contain drop-shadow-sm"
+      <section className="relative overflow-hidden bg-[#F3CD17] border-b border-black/10">
+        {/* DESKTOP HERO VIEW (md and larger screens) */}
+        <div className="hidden md:block relative min-h-[580px] lg:min-h-[660px] xl:min-h-[720px] flex items-center">
+          {/* Full-width authentic Afros hero image */}
+          <div
+            className="absolute inset-0 bg-cover bg-[center_top]"
+            style={{
+              backgroundImage: "url('/assets/afros/pages/afros-home-page-banner.png')",
+            }}
+            aria-hidden="true"
           />
-        </div>
 
-        {/* Content Container */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full py-12 sm:py-16">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center">
-            {/* Mobile Hero Visual: centered burger with wave doodle */}
-            <div className="md:hidden flex flex-col items-center text-center">
-              <div className="relative w-64 h-64 sm:w-80 sm:h-80 mx-auto mb-6">
-                <img
-                  src="/assets/afros/images/afros-burger-and-chips.jpg"
-                  alt="The Real Makoya Burger"
-                  className="w-full h-full object-cover rounded-full shadow-2xl border-4 border-white"
-                />
-                <img
-                  src="/assets/afros/logos/afros-yellow-waves-align.png"
-                  alt="Wave motif"
-                  className="absolute -top-3 left-6 h-6 w-auto object-contain"
-                />
+          {/* 3 yellow wavy lines placed directly over the burger bun on desktop with drop-bounce animation */}
+          <div className="absolute top-[21%] lg:top-[23%] left-[17%] lg:left-[19%] z-20 pointer-events-none animate-drop-bounce">
+            <img
+              src="/assets/afros/logos/afros-yellow-waves-align.png"
+              alt="Yellow waves doodle"
+              className="h-8 lg:h-11 w-auto object-contain drop-shadow-sm"
+            />
+          </div>
+
+          {/* Desktop Content Container */}
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full py-16 lg:py-20">
+            <div className="grid grid-cols-12 gap-8 items-center">
+              {/* Empty Left Spacer (Image contains burger on cutting board) */}
+              <div className="col-span-6 lg:col-span-7 pointer-events-none" />
+
+              {/* Right: Stacked Badges with Afros Left/Right Slide-in Animations + VIEW MENU CTA */}
+              <div className="col-span-6 lg:col-span-5 flex flex-col items-end text-right">
+                <div className="flex flex-col items-end space-y-2 sm:space-y-3 mb-6 sm:mb-8 font-black-grotesque">
+                  {/* THE - Slides in from LEFT */}
+                  <div className="animate-slide-left">
+                    <span className="inline-block bg-black text-white px-5 sm:px-8 py-1 sm:py-2 text-5xl sm:text-7xl lg:text-[92px] font-black uppercase tracking-tight shadow-2xl leading-none">
+                      THE
+                    </span>
+                  </div>
+
+                  {/* REAL - Slides in from RIGHT */}
+                  <div className="animate-slide-right">
+                    <span className="inline-block bg-black text-white px-5 sm:px-8 py-1 sm:py-2 text-5xl sm:text-7xl lg:text-[92px] font-black uppercase tracking-tight shadow-2xl leading-none">
+                      REAL
+                    </span>
+                  </div>
+
+                  {/* MAKOYA - Slides in from LEFT */}
+                  <div className="animate-slide-left">
+                    <span className="inline-block bg-black text-white px-5 sm:px-8 py-1 sm:py-2 text-5xl sm:text-7xl lg:text-[92px] font-black uppercase tracking-tight shadow-2xl leading-none">
+                      MAKOYA
+                    </span>
+                  </div>
+                </div>
+
+                {/* VIEW MENU CTA BUTTON - Slides in from RIGHT */}
+                <div className="animate-slide-right">
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('menu')}
+                    className="inline-flex items-center gap-3 px-8 sm:px-10 py-3 sm:py-4 bg-[#FFD100] hover:bg-[#ffe14d] text-black font-black-grotesque text-xl sm:text-2xl uppercase tracking-wider shadow-2xl transition-all transform hover:scale-102 cursor-pointer border border-black/15"
+                  >
+                    <span>VIEW MENU</span>
+                    <ArrowRight className="w-6 h-6 stroke-[3]" />
+                  </button>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Empty Left Spacer on Desktop (Image contains burger on cutting board) */}
-            <div className="hidden md:block md:col-span-6 lg:col-span-7 pointer-events-none" />
+        {/* MOBILE HERO VIEW (Matches reference screenshot media_1792238897372.jpg) */}
+        <div className="md:hidden relative w-full bg-[#F3CD17] pb-10">
+          {/* Top: Burger visual on wooden board */}
+          <div className="relative w-full aspect-[4/3] max-h-[380px] overflow-hidden">
+            <img
+              src="/assets/afros/pages/afros-home-page-banner.png"
+              alt="The Real Makoya Burger"
+              className="w-full h-full object-cover object-[26%_center]"
+            />
 
-            {/* Right: Stacked Black Badges in Brandon Grotesque Black + VIEW MENU CTA */}
-            <div className="md:col-span-6 lg:col-span-5 flex flex-col items-center md:items-end text-center md:text-right">
-              <div className="flex flex-col items-center md:items-end space-y-2 sm:space-y-3 mb-6 sm:mb-8 font-black-grotesque">
-                <div>
-                  <span className="inline-block bg-black text-white px-5 sm:px-8 py-1 sm:py-2 text-5xl sm:text-7xl lg:text-[92px] font-black uppercase tracking-tight shadow-2xl leading-none">
-                    THE
-                  </span>
-                </div>
-                <div>
-                  <span className="inline-block bg-black text-white px-5 sm:px-8 py-1 sm:py-2 text-5xl sm:text-7xl lg:text-[92px] font-black uppercase tracking-tight shadow-2xl leading-none">
-                    REAL
-                  </span>
-                </div>
-                <div>
-                  <span className="inline-block bg-black text-white px-5 sm:px-8 py-1 sm:py-2 text-5xl sm:text-7xl lg:text-[92px] font-black uppercase tracking-tight shadow-2xl leading-none">
-                    MAKOYA
-                  </span>
-                </div>
-              </div>
+            {/* 3 yellow wavy lines placed directly over the burger bun with drop-down bounce */}
+            <div className="absolute top-[25%] left-[10%] w-[38%] max-w-[170px] pointer-events-none z-20 animate-drop-bounce">
+              <img
+                src="/assets/afros/logos/afros-yellow-waves-align.png"
+                alt="Yellow wave doodle"
+                className="w-full h-auto object-contain drop-shadow"
+              />
+            </div>
+          </div>
 
-              {/* VIEW MENU CTA BUTTON */}
+          {/* Bottom: Stacked Badges with the EXACT SAME ANIMATIONS as desktop */}
+          <div className="flex flex-col items-center text-center px-4 pt-3 space-y-2 font-black-grotesque">
+            {/* THE - Slides in from LEFT */}
+            <div className="animate-slide-left">
+              <span className="inline-block bg-black text-white px-7 py-1.5 text-4xl sm:text-5xl font-black uppercase tracking-tight shadow-2xl leading-none">
+                THE
+              </span>
+            </div>
+
+            {/* REAL - Slides in from RIGHT */}
+            <div className="animate-slide-right">
+              <span className="inline-block bg-black text-white px-7 py-1.5 text-4xl sm:text-5xl font-black uppercase tracking-tight shadow-2xl leading-none">
+                REAL
+              </span>
+            </div>
+
+            {/* MAKOYA - Slides in from LEFT */}
+            <div className="animate-slide-left">
+              <span className="inline-block bg-black text-white px-7 py-1.5 text-4xl sm:text-5xl font-black uppercase tracking-tight shadow-2xl leading-none">
+                MAKOYA
+              </span>
+            </div>
+
+            {/* VIEW MENU CTA BUTTON - Slides in from RIGHT */}
+            <div className="pt-2 animate-slide-right w-full max-w-[280px]">
               <button
                 type="button"
                 onClick={() => onNavigate('menu')}
-                className="inline-flex items-center gap-3 px-8 sm:px-10 py-3 sm:py-4 bg-[#FFD100] hover:bg-[#ffe14d] text-black font-black-grotesque text-xl sm:text-2xl uppercase tracking-wider shadow-2xl transition-all transform hover:scale-102 cursor-pointer border border-black/15"
+                className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-[#FFD100] hover:bg-[#ffe14d] active:bg-amber-400 text-black font-black-grotesque text-xl uppercase tracking-wider shadow-xl transition-all cursor-pointer border border-black/15"
               >
                 <span>VIEW MENU</span>
-                <ArrowRight className="w-6 h-6 stroke-[3]" />
+                <ArrowRight className="w-5 h-5 stroke-[3]" />
               </button>
             </div>
           </div>

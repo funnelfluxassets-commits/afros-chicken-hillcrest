@@ -456,6 +456,13 @@ const MainContent: React.FC = () => {
             <AboutView onNavigate={handleNavigate} />
           )}
 
+          {currentView === 'team' && (
+            <TeamView
+              onNavigate={handleNavigate}
+              onOpenStoreModal={() => setIsStoreModalOpen(true)}
+            />
+          )}
+
           {currentView === 'functions' && (
             <FunctionsView onNavigate={handleNavigate} />
           )}

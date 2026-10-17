@@ -128,6 +128,7 @@ export type PageView =
   | 'main'
   | 'menu'
   | 'about'
+  | 'team'
   | 'functions'
   | 'kitchen'
   | 'delivery'

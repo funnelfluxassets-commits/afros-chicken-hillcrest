@@ -28,7 +28,7 @@ export const GOOGLE_REVIEW_URL = GOOGLE_BUSINESS_URL;
 
 export const SOCIAL_LINKS = {
   tiktok: 'https://www.tiktok.com/@afroschicken',
-  facebook: 'https://www.facebook.com/afroschicken',
+  facebook: 'https://www.facebook.com/AfrosChickenHillcrest',
   instagram: 'https://www.instagram.com/afroschicken',
   whatsappDirect: 'https://wa.me/27789057975',
   phoneDirect: 'tel:0789057975',

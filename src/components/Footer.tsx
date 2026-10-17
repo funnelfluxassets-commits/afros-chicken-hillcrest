@@ -1,6 +1,5 @@
 import React from 'react';
 import { SOCIAL_LINKS, STORES } from '../data/stores';
-import { TikTokIcon } from './icons/TikTokIcon';
 import { FacebookIcon } from './icons/FacebookIcon';
 import { MapPin, Phone, Mail, Clock, Heart, ShieldCheck, Flame, Utensils, Info, Calendar } from 'lucide-react';
 import { LegalTab } from './LegalModal';
@@ -65,22 +64,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
                 <span>WhatsApp: 078 905 7975</span>
               </a>
               <a
-                href="https://www.facebook.com/afroschicken"
+                href="https://www.facebook.com/AfrosChickenHillcrest"
                 target="_blank"
                 rel="noreferrer"
-                className="px-3.5 py-2 rounded-xl bg-[#2D2D2D] hover:bg-[#383838] border border-white/20 text-xs font-bold text-zinc-300 hover:text-white transition-colors flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-xl bg-[#2D2D2D] hover:bg-[#383838] border border-white/20 text-xs font-black text-[#FFD100] hover:text-[#ffe14d] transition-colors flex items-center gap-1.5"
               >
-                <FacebookIcon className="w-3.5 h-3.5" />
+                <FacebookIcon className="w-3.5 h-3.5 text-[#FFD100]" />
                 <span>Facebook</span>
-              </a>
-              <a
-                href="https://www.tiktok.com/@afroschicken"
-                target="_blank"
-                rel="noreferrer"
-                className="px-3.5 py-2 rounded-xl bg-[#2D2D2D] hover:bg-[#383838] border border-white/20 text-xs font-bold text-zinc-300 hover:text-white transition-colors flex items-center gap-1.5"
-              >
-                <TikTokIcon className="w-3.5 h-3.5" />
-                <span>TikTok</span>
               </a>
             </div>
           </div>

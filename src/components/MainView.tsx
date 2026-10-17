@@ -429,7 +429,7 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
                 <button
                   type="button"
                   onClick={() => onNavigate('menu')}
-                  className="px-8 py-4 bg-[#FFD100] hover:bg-[#ffe14d] text-black font-black-grotesque text-base uppercase tracking-wider shadow-lg transition-all text-center cursor-pointer"
+                  className="px-8 py-4 bg-[#FFD100] hover:bg-[#ffe14d] text-black font-black font-black-grotesque text-base uppercase tracking-wider shadow-lg transition-all text-center cursor-pointer rounded-md border border-black/20 hover:scale-[1.02] active:scale-[0.99]"
                 >
                   Order Collection or Delivery
                 </button>

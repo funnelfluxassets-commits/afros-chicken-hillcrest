@@ -33,40 +33,40 @@ import { logPageView, logItemView, fetchAndSyncClientIp, isAnalyticsExcluded, se
 import { Search, ShoppingBag, ArrowRight, Flame, ShieldAlert, CheckCircle2, X } from 'lucide-react';
 
 const getInitialView = (): PageView => {
-  if (typeof window === 'undefined') return 'menu';
+  if (typeof window === 'undefined') return 'main';
   
-  // 1. Hash check (e.g. /#review, /#admin, /#kitchen)
+  // 1. Hash check (e.g. /#menu, /#about, /#review, /#admin, /#kitchen)
   const hash = window.location.hash.toLowerCase().replace('#', '');
   if (
-    ['menu', 'story', 'team', 'kitchen', 'delivery', 'track', 'contact', 'review', 'admin'].includes(
+    ['main', 'menu', 'about', 'team', 'functions', 'kitchen', 'delivery', 'track', 'contact', 'review', 'admin'].includes(
       hash
     )
   ) {
     return hash as PageView;
   }
 
-  // 2. Pathname check (e.g. /review, /admin, /kitchen)
+  // 2. Pathname check (e.g. /menu, /about, /review, /admin, /kitchen)
   const path = window.location.pathname.toLowerCase().replace(/^\//, '').replace(/\/$/, '');
   if (
-    ['menu', 'story', 'team', 'kitchen', 'delivery', 'track', 'contact', 'review', 'admin'].includes(
+    ['main', 'menu', 'about', 'team', 'functions', 'kitchen', 'delivery', 'track', 'contact', 'review', 'admin'].includes(
       path
     )
   ) {
     return path as PageView;
   }
 
-  // 3. Query parameter check (e.g. ?view=review)
+  // 3. Query parameter check (e.g. ?view=menu)
   const searchParams = new URLSearchParams(window.location.search);
   const queryView = searchParams.get('view')?.toLowerCase();
   if (
     queryView &&
-    ['menu', 'story', 'team', 'kitchen', 'delivery', 'track', 'contact', 'review', 'admin'].includes(
+    ['main', 'menu', 'about', 'team', 'functions', 'kitchen', 'delivery', 'track', 'contact', 'review', 'admin'].includes(
       queryView
     )
   ) {
     return queryView as PageView;
   }
-  return 'menu';
+  return 'main';
 };
 
 const MainContent: React.FC = () => {
@@ -214,11 +214,13 @@ const MainContent: React.FC = () => {
       const path = window.location.pathname.toLowerCase().replace(/^\//, '').replace(/\/$/, '');
       const target = hash || path;
       if (
-        ['menu', 'story', 'team', 'kitchen', 'delivery', 'track', 'contact', 'review', 'admin'].includes(
+        ['main', 'menu', 'about', 'team', 'functions', 'kitchen', 'delivery', 'track', 'contact', 'review', 'admin'].includes(
           target
         )
       ) {
         setCurrentView(target as PageView);
+      } else if (!target) {
+        setCurrentView('main');
       }
     };
     window.addEventListener('hashchange', handleHash);
@@ -252,6 +254,7 @@ const MainContent: React.FC = () => {
 
     return () => {
       window.removeEventListener('hashchange', handleHash);
+      window.removeEventListener('popstate', handleHash);
       unsub();
     };
   }, [trackedOrderId]);

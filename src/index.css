@@ -1,5 +1,29 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Brandon Grotesque-Black';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('/fonts/BrandonGrotesque-Black.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'BrandonGrotesque-Bold';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/BrandonGrotesque-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'BrandonGrotesque-Medium';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/BrandonGrotesque-Medium.woff2') format('woff2');
+}
+
 :root {
   color-scheme: light;
   --brand-yellow: #FFD100;
@@ -11,9 +35,24 @@ body {
   padding: 0;
   background-color: #FFFFFF;
   color: #18181B;
-  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+  font-family: 'BrandonGrotesque-Bold', 'Brandon Grotesque-Black', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+}
+
+.font-black-grotesque {
+  font-family: 'Brandon Grotesque-Black', 'BrandonGrotesque-Bold', sans-serif;
+  font-weight: 900;
+}
+
+.font-bold-grotesque {
+  font-family: 'BrandonGrotesque-Bold', sans-serif;
+  font-weight: 700;
+}
+
+.font-medium-grotesque {
+  font-family: 'BrandonGrotesque-Medium', sans-serif;
+  font-weight: 500;
 }
 
 /* Custom scrollbar for horizontal category pills */
@@ -25,14 +64,22 @@ body {
   scrollbar-width: none;
 }
 
-.afros-badge-yellow {
-  background-color: #FFD100;
-  color: #000000;
-  font-weight: 900;
+/* Continuous Sliding Marquee from Right to Left */
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
-.afros-black-block {
-  background-color: #000000;
-  color: #FFFFFF;
-  font-weight: 900;
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 22s linear infinite;
+}
+
+.animate-marquee-left:hover {
+  animation-play-state: paused;
 }

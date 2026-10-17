@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingBag, Phone, ChevronDown, Check, Menu, X, Package, Info, Calendar } from 'lucide-react';
+import { ShoppingBag, Phone, Check, Menu, X, Package } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { DeliveryMotorbikeIcon } from './icons/DeliveryMotorbikeIcon';
 import { PageView } from '../types';
@@ -14,7 +14,6 @@ export interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
   const { totalItemCount, grandTotal, setIsCartOpen, orderMode, setOrderMode } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [howzitDropdownOpen, setHowzitDropdownOpen] = useState(false);
   const [activeOrderId, setActiveOrderId] = useState<string | null>(getCurrentOrderId());
 
   useEffect(() => {
@@ -57,7 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}
               />
-              <span className="hidden sm:inline-block text-[11px] font-extrabold text-zinc-500 uppercase tracking-widest pl-2 border-l border-zinc-200">
+              <span className="hidden sm:inline-block text-[11px] font-black text-zinc-400 uppercase tracking-widest pl-2 border-l border-zinc-200">
                 Hillcrest
               </span>
             </button>
@@ -65,55 +64,22 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
 
           {/* CENTER / RIGHT: FRANCHISE NAVIGATION LINKS */}
           <nav className="hidden md:flex items-center gap-6 lg:gap-8 font-black uppercase text-sm tracking-wider text-black">
-            {/* HOWZIT DROPDOWN */}
-            <div className="relative">
-              <button
-                type="button"
-                onClick={() => setHowzitDropdownOpen(!howzitDropdownOpen)}
-                className={`flex items-center gap-1.5 py-2 hover:text-[#e5bc00] transition-colors cursor-pointer ${
-                  currentView === 'about' || currentView === 'functions' ? 'text-black border-b-2 border-[#FFD100]' : ''
-                }`}
-              >
-                <span>HOWZIT</span>
-                <ChevronDown className="w-4 h-4" />
-              </button>
-
-              {howzitDropdownOpen && (
-                <div
-                  onMouseLeave={() => setHowzitDropdownOpen(false)}
-                  className="absolute left-0 top-full mt-1 w-52 bg-white rounded-2xl shadow-xl border border-zinc-200 py-2 z-50 animate-fadeIn text-xs font-bold text-zinc-800"
-                >
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onNavigate('about');
-                      setHowzitDropdownOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2.5 hover:bg-[#FFD100]/15 hover:text-black transition-colors flex items-center gap-2.5 cursor-pointer"
-                  >
-                    <Info className="w-4 h-4 text-[#FFD100]" />
-                    <span>ABOUT US</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onNavigate('functions');
-                      setHowzitDropdownOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2.5 hover:bg-[#FFD100]/15 hover:text-black transition-colors flex items-center gap-2.5 cursor-pointer"
-                  >
-                    <Calendar className="w-4 h-4 text-[#FFD100]" />
-                    <span>FUNCTIONS & JOLS</span>
-                  </button>
-                </div>
-              )}
-            </div>
+            {/* HOWZIT - Direct link to Main Landing Page as instructed */}
+            <button
+              type="button"
+              onClick={() => onNavigate('main')}
+              className={`py-2 hover:text-[#b89500] transition-colors cursor-pointer ${
+                currentView === 'main' ? 'border-b-2 border-[#FFD100]' : ''
+              }`}
+            >
+              HOWZIT
+            </button>
 
             {/* MENU LINK */}
             <button
               type="button"
               onClick={() => onNavigate('menu')}
-              className={`py-2 hover:text-[#e5bc00] transition-colors cursor-pointer ${
+              className={`py-2 hover:text-[#b89500] transition-colors cursor-pointer ${
                 currentView === 'menu' ? 'border-b-2 border-[#FFD100]' : ''
               }`}
             >
@@ -133,7 +99,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
                   document.getElementById('hillcrest-shop')?.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="py-2 hover:text-[#e5bc00] transition-colors cursor-pointer"
+              className="py-2 hover:text-[#b89500] transition-colors cursor-pointer"
             >
               SHOPS
             </button>
@@ -210,7 +176,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
                     : 'bg-zinc-50 border-zinc-200 text-zinc-800'
                 }`}
               >
-                HOME
+                HOWZIT
               </button>
 
               <button

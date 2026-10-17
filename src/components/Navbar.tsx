@@ -58,7 +58,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
             <button
               type="button"
               onClick={() => onNavigate('main')}
-              className="flex items-center gap-2 group text-left cursor-pointer"
+              className="flex items-center gap-2 sm:gap-2.5 group text-left cursor-pointer"
               title="Afro's Chicken Shop (Hillcrest)"
             >
               <img
@@ -69,8 +69,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}
               />
-              <span className="hidden sm:inline-block text-[12px] font-black text-zinc-400 uppercase tracking-widest pl-2 border-l border-zinc-200">
-                Hillcrest
+              <span className="inline-block text-sm sm:text-base md:text-[17px] font-black font-black-grotesque text-black uppercase tracking-wider pl-2.5 sm:pl-3 border-l-2 border-zinc-300">
+                HILLCREST
               </span>
             </button>
           </div>
@@ -181,24 +181,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
               }`}
             >
               MENU
-            </button>
-
-            {/* SHOPS / HILLCREST STORE */}
-            <button
-              type="button"
-              onClick={() => {
-                if (currentView !== 'main') {
-                  onNavigate('main');
-                  setTimeout(() => {
-                    document.getElementById('hillcrest-shop')?.scrollIntoView({ behavior: 'smooth' });
-                  }, 150);
-                } else {
-                  document.getElementById('hillcrest-shop')?.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              className="py-1 hover:text-[#b89500] transition-colors cursor-pointer font-black font-black-grotesque uppercase text-[17px] sm:text-[18px] tracking-wide"
-            >
-              SHOPS
             </button>
 
             {/* TRACK ORDER */}
@@ -370,25 +352,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
               >
                 <span>MENU</span>
                 <span>→</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  if (currentView !== 'main') {
-                    onNavigate('main');
-                    setTimeout(() => {
-                      document.getElementById('hillcrest-shop')?.scrollIntoView({ behavior: 'smooth' });
-                    }, 150);
-                  } else {
-                    document.getElementById('hillcrest-shop')?.scrollIntoView({ behavior: 'smooth' });
-                  }
-                  setMobileMenuOpen(false);
-                }}
-                className="py-3 px-4 rounded-xl border border-zinc-200 bg-zinc-50 text-zinc-900 text-left font-black tracking-wider flex items-center justify-between"
-              >
-                <span>SHOPS (HILLCREST)</span>
-                <span>📍</span>
               </button>
             </div>
 

@@ -66,14 +66,14 @@ export const CATEGORIES: MenuCategory[] = [
     name: 'STRIPS',
     icon: '🍗',
     description: 'Tender chicken breast strips basted and grilled or fried crispy, served with legendary hand-cut tjips.',
-    tagBox: "ADD YOUR FAVOURITE AFRO'S SAUCE",
+    tagBox: 'CHOOSE GRILLED OR CRISPY PANKO',
   },
   {
     id: 'burgers',
     name: 'BURGERS & SARMIES',
     icon: '🍔',
     description: 'Juicy chicken breast burgers and pulled chicken sarmies on fresh artisanal bread.',
-    tagBox: "CHOOSE YOUR FAVOURITE AFRO'S SAUCE",
+    tagBox: 'CHOOSE GRILLED OR CRISPY PANKO',
   },
   {
     id: 'wraps',
@@ -133,10 +133,10 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: 'afros-strips-tjips-reg',
     categoryId: 'strips',
-    name: "STRIPS & SIDE",
+    name: "STRIPS & SIDE – SMALLER PORTION",
     subtitle: "+ Hand-Cut Tjips or Coleslaw",
-    description: 'Generous portion of tender chicken breast strips grilled or crispy, basted in your favourite sauce with fresh hand-cut tjips.',
-    price: 62.00,
+    description: 'Generous portion of tender chicken breast strips grilled or crispy panko, basted in your favourite sauce with fresh hand-cut tjips.',
+    price: 59.00,
     image: '/assets/afros/images/afros-crispy-strips-and-side.png',
     popular: true,
     hasFlavourChoice: true,
@@ -147,7 +147,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: 'afros-strips-tjips-large',
     categoryId: 'strips',
-    name: "LARGE STRIPS & SIDE",
+    name: "STRIPS & SIDE – LARGE PORTION",
     subtitle: "+ Extra Chips or Coleslaw",
     description: 'Extra portion of succulent chicken breast strips basted to perfection, served with a big helping of authentic hand-cut potato tjips.',
     price: 88.00,
@@ -260,6 +260,17 @@ export const MENU_ITEMS: MenuItem[] = [
     image: '/assets/afros/images/afros-crispy-wrap-and-side.jpg',
     hasFlavourChoice: true,
     includesSide: false,
+  },
+  {
+    id: 'afros-paella',
+    categoryId: 'wraps',
+    name: "AFRO'S PAELLA",
+    subtitle: 'Juicy Strips with Savoury Rice & Dressing (Grilled or Crispy)',
+    description: 'Juicy chicken breast strips with savoury yellow rice and signature Afro’s dressing. Grilled or crispy panko.',
+    price: 79.00,
+    image: '/assets/afros/images/afros-crispy-strips-and-side.png',
+    hasFlavourChoice: true,
+    badge: 'NEW',
   },
 
   // ── 4. FLAMED (Reference media_1792250052063.png) ──

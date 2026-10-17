@@ -511,255 +511,260 @@ const MainContent: React.FC = () => {
           />
 
           {/* ── Main Menu Section ──────────────────────────────────────────────── */}
-          <main id="menu-section" className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-10">
-            {/* Search Bar Header */}
-            <div className="max-w-5xl mx-auto mb-8 sm:mb-12">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-zinc-200">
-                <div className="text-left w-full sm:w-auto">
-                  <div className="flex items-center gap-2">
-                    <Flame className="w-5 h-5 text-[#b89500] fill-[#FFD100]" />
-                    <h2 className="text-lg sm:text-xl font-black text-black uppercase tracking-wider font-black-grotesque">
-                      Fresh Flame-Grilled Durban Menu
-                    </h2>
-                  </div>
-                  <p className="text-xs text-zinc-500 font-medium mt-0.5">
-                    Click any item to choose basting flavour, sides, and extras
-                  </p>
-                </div>
+          <main id="menu-section" className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 pt-4 sm:pt-6 pb-12 sm:pb-16">
+            {/* Continuous Separated Category Sections matching reference screenshots */}
+            <div className="space-y-12 sm:space-y-16">
+              {CATEGORIES.map((category) => {
+                const catItems = MENU_ITEMS.filter((i) => i.categoryId === category.id);
+                if (catItems.length === 0) return null;
 
-                {/* Search Input */}
-                <div className="relative w-full sm:w-72">
-                  <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search chicken, wrap, wings, drinks..."
-                    className="w-full pl-9 pr-8 py-2 rounded-lg bg-zinc-50 border border-zinc-300 text-xs text-black placeholder-zinc-400 focus:outline-none focus:border-black transition-colors font-medium"
-                  />
-                  {searchQuery && (
-                    <button
-                      type="button"
-                      onClick={() => setSearchQuery('')}
-                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-black text-xs font-bold p-1 cursor-pointer"
+                return (
+                  <React.Fragment key={category.id}>
+                    {/* Category Section */}
+                    <section
+                      id={`cat-${category.id}`}
+                      className="scroll-mt-32 sm:scroll-mt-36"
                     >
-                      ✕
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
+                      {/* Centered Category Title */}
+                      <div className="text-center mb-5 sm:mb-7">
+                        <h2 className="text-3xl sm:text-4xl font-black font-black-grotesque text-black tracking-tight uppercase">
+                          {category.name}
+                        </h2>
 
-            {/* If searching, display search results */}
-            {searchQuery.trim() ? (
-              <div className="max-w-5xl mx-auto">
-                <div className="mb-6 flex items-center justify-between">
-                  <h3 className="text-xl font-black text-black uppercase tracking-tight">
-                    Search Results for "{searchQuery}"
-                  </h3>
-                  <span className="text-xs font-bold text-zinc-500">
-                    {filteredItems.length} {filteredItems.length === 1 ? 'item' : 'items'} found
-                  </span>
-                </div>
+                        {/* Signature Brand Yellow Underline */}
+                        <div className="w-12 sm:w-14 h-[3px] bg-[#FFD100] mx-auto mt-2.5 mb-5" />
 
-                {filteredItems.length === 0 ? (
-                  <div className="p-12 text-center rounded-2xl bg-zinc-50 border border-zinc-200 space-y-2">
-                    <span className="text-3xl">🔍</span>
-                    <h3 className="text-base font-black text-black uppercase">No items found</h3>
-                    <p className="text-xs text-zinc-500">
-                      Try searching with different keywords or view all categories below.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => setSearchQuery('')}
-                      className="px-4 py-2 rounded-xl bg-[#FFD100] hover:bg-[#ffe14d] text-black text-xs font-black uppercase tracking-wider mt-2 cursor-pointer border border-black/10"
-                    >
-                      Clear Search
-                    </button>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {filteredItems.map((item) => (
-                      <div
-                        key={item.id}
-                        onClick={() => setSelectedItem(item)}
-                        className="bg-white border border-zinc-200 border-b-[3px] border-b-black rounded-none p-4 sm:p-5 flex items-center justify-between hover:border-black hover:shadow-md transition-all cursor-pointer group select-none"
-                      >
-                        <div className="pr-3 flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            <h3 className="text-xs sm:text-sm font-black text-black uppercase tracking-wider group-hover:text-black">
-                              {item.name}
-                            </h3>
-                            {item.badge && (
-                              <span className="hidden sm:inline-block px-1.5 py-0.5 bg-[#FFD100] text-black text-[9px] font-black uppercase tracking-wider">
-                                {item.badge}
-                              </span>
-                            )}
+                        {/* Subtitle if present (e.g. Wraps, Salads) */}
+                        {category.subtitle && (
+                          <p className="text-zinc-800 text-xs sm:text-sm font-medium italic text-center max-w-2xl mx-auto mb-3.5 px-4">
+                            {category.subtitle}
+                          </p>
+                        )}
+
+                        {/* Rectangular Tag Box */}
+                        {category.tagBox && (
+                          <div className="flex justify-center mb-6 sm:mb-8">
+                            <span className="inline-block border-[1.5px] border-black bg-white px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-[13px] font-bold uppercase tracking-wider text-black">
+                              {category.tagBox}
+                            </span>
                           </div>
-                          {item.subtitle && (
-                            <p className="text-[11px] sm:text-xs text-zinc-500 font-medium mt-1">
-                              {item.subtitle}
-                            </p>
-                          )}
-                        </div>
-                        <div className="flex items-center gap-2.5 shrink-0 ml-3">
-                          <span className="text-xs sm:text-sm font-black text-black tracking-tight whitespace-nowrap">
-                            R{item.price.toFixed(0)}
-                          </span>
-                          <span
-                            className="w-7 h-7 rounded-full bg-[#FFD100] group-hover:bg-black group-hover:text-[#FFD100] text-black flex items-center justify-center font-black text-xs transition-colors shadow-2xs shrink-0"
-                            title="Customize & Add"
-                          >
-                            +
-                          </span>
-                        </div>
+                        )}
                       </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : (
-              /* Continuous Separated Category Sections matching reference screenshots */
-              <div className="space-y-12 sm:space-y-16">
-                {CATEGORIES.map((category) => {
-                  const catItems = MENU_ITEMS.filter((i) => i.categoryId === category.id);
-                  if (catItems.length === 0) return null;
 
-                  return (
-                    <React.Fragment key={category.id}>
-                      {/* Authentic Black Banner before Schnitzel (media_1792250052064.png) */}
-                      {category.id === 'schnitzel' && (
-                        <div className="bg-black text-white max-w-5xl mx-auto my-8 sm:my-14 px-6 sm:px-12 py-7 sm:py-8 border-b-4 border-b-[#FFD100] shadow-md">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                            {/* Left Column: ADD SOME MORE */}
-                            <div className="flex flex-col justify-center md:border-r md:border-zinc-800 md:pr-10">
-                              <h4 className="text-[#FFD100] font-black text-xs sm:text-sm uppercase tracking-wider mb-3">
-                                ADD SOME MORE
-                              </h4>
-                              <div className="space-y-2 text-xs sm:text-sm font-bold text-white tracking-widest max-w-xs">
-                                <div className="flex justify-between items-center border-b border-zinc-800/80 pb-1.5">
-                                  <span>AVO</span>
-                                  <span>18</span>
+                      {/* 2-Column Cards Grid with food images visible */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4 max-w-5xl mx-auto">
+                        {catItems.map((item) => (
+                          <div
+                            key={item.id}
+                            onClick={() => setSelectedItem(item)}
+                            className="bg-white border border-zinc-200 border-b-[3px] border-b-black rounded-none p-3.5 sm:p-4.5 flex items-center justify-between hover:border-black hover:shadow-md transition-all cursor-pointer group select-none gap-3 sm:gap-4"
+                          >
+                            <div className="flex items-center gap-3 sm:gap-3.5 flex-1 min-w-0">
+                              {item.image && (
+                                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden bg-zinc-100 shrink-0 border border-zinc-200/80">
+                                  <img
+                                    src={item.image}
+                                    alt={item.name}
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                    loading="lazy"
+                                    onError={(e) => {
+                                      (e.target as HTMLImageElement).src = '/assets/afros/images/afros-burger.jpg';
+                                    }}
+                                  />
                                 </div>
-                                <div className="flex justify-between items-center border-b border-zinc-800/80 pb-1.5">
-                                  <span>CHEESE</span>
-                                  <span>10</span>
-                                </div>
-                                <div className="flex justify-between items-center pb-0.5">
-                                  <span>BACON</span>
-                                  <span>18</span>
-                                </div>
-                              </div>
-                            </div>
-
-                            {/* Right Column: CHOOSE YOUR AFRO'S FLAVOUR */}
-                            <div className="flex flex-col items-center justify-center">
-                              <div className="flex items-center justify-center gap-2.5 sm:gap-4 mb-3">
-                                {FLAVOURS.map((f) => (
-                                  <div
-                                    key={f.id}
-                                    className="flex flex-col items-center group cursor-pointer"
-                                    title={`${f.name} — ${f.description}`}
-                                  >
-                                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex items-center justify-center bg-white shadow-md border border-zinc-200 hover:scale-110 transition-transform">
-                                      {f.badgeUrl ? (
-                                        <img
-                                          src={f.badgeUrl}
-                                          alt={f.name}
-                                          className="w-full h-full object-contain p-0.5"
-                                        />
-                                      ) : (
-                                        <span className="text-sm">{f.emoji}</span>
-                                      )}
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                              <div className="w-full max-w-xs h-[1px] bg-[#FFD100]/60 my-2" />
-                              <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-white text-center">
-                                CHOOSE YOUR AFRO'S FLAVOUR
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Category Section */}
-                      <section
-                        id={`cat-${category.id}`}
-                        className="scroll-mt-32 sm:scroll-mt-36"
-                      >
-                        {/* Centered Category Title */}
-                        <div className="text-center mb-6 sm:mb-8">
-                          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black font-black-grotesque text-black tracking-wide uppercase">
-                            {category.name}
-                          </h2>
-
-                          {/* Signature Brand Yellow Underline */}
-                          <div className="w-14 sm:w-16 h-1 bg-[#FFD100] mx-auto mt-2 mb-3.5" />
-
-                          {/* Subtitle if present (e.g. Wraps, Salads) */}
-                          {category.subtitle && (
-                            <p className="text-zinc-800 text-xs sm:text-sm font-medium italic text-center max-w-2xl mx-auto mb-3 px-4">
-                              {category.subtitle}
-                            </p>
-                          )}
-
-                          {/* Rectangular Tag Box if present */}
-                          {category.tagBox && (
-                            <div className="flex justify-center mt-3">
-                              <span className="inline-block border border-black bg-white px-5 sm:px-7 py-1.5 sm:py-2 text-[10px] sm:text-xs font-black uppercase tracking-widest text-black shadow-2xs">
-                                {category.tagBox}
-                              </span>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* 2-Column Cards Grid matching media_1792250052062.png, 063.png, 064.png */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
-                          {catItems.map((item) => (
-                            <div
-                              key={item.id}
-                              onClick={() => setSelectedItem(item)}
-                              className="bg-white border border-zinc-200 border-b-[3px] border-b-black rounded-none p-4 sm:p-5 flex items-center justify-between hover:border-black hover:shadow-md transition-all cursor-pointer group select-none"
-                            >
-                              <div className="pr-3 flex-1 min-w-0">
+                              )}
+                              <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2">
-                                  <h3 className="text-xs sm:text-sm font-black text-black uppercase tracking-wider group-hover:text-black">
+                                  <h3 className="text-xs sm:text-[13px] font-black text-black uppercase tracking-wider group-hover:text-black leading-tight">
                                     {item.name}
                                   </h3>
                                   {item.badge && (
-                                    <span className="hidden sm:inline-block px-1.5 py-0.5 bg-[#FFD100] text-black text-[9px] font-black uppercase tracking-wider">
+                                    <span className="hidden sm:inline-block px-1.5 py-0.5 bg-[#FFD100] text-black text-[9px] font-black uppercase tracking-wider shrink-0">
                                       {item.badge}
                                     </span>
                                   )}
                                 </div>
                                 {item.subtitle && (
-                                  <p className="text-[11px] sm:text-xs text-zinc-500 font-medium mt-1">
+                                  <p className="text-[11px] sm:text-xs text-zinc-500 font-medium mt-1 leading-snug">
                                     {item.subtitle}
                                   </p>
                                 )}
                               </div>
-                              <div className="flex items-center gap-2.5 shrink-0 ml-3">
-                                <span className="text-xs sm:text-sm font-black text-black tracking-tight whitespace-nowrap">
-                                  R{item.price.toFixed(0)}
-                                </span>
-                                <span
-                                  className="w-7 h-7 rounded-full bg-[#FFD100] group-hover:bg-black group-hover:text-[#FFD100] text-black flex items-center justify-center font-black text-xs transition-colors shadow-2xs shrink-0"
-                                  title="Customize & Add"
-                                >
-                                  +
-                                </span>
+                            </div>
+                            <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 ml-1">
+                              <span className="text-xs sm:text-sm font-black text-black tracking-tight whitespace-nowrap">
+                                R{item.price.toFixed(0)}
+                              </span>
+                              <span
+                                className="w-7 h-7 rounded-full bg-[#FFD100] group-hover:bg-black group-hover:text-[#FFD100] text-black flex items-center justify-center font-black text-xs transition-colors shadow-2xs shrink-0"
+                                title="Customize & Add"
+                              >
+                                +
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+
+                    {/* ── AFRO'S PAELLA BANNER (Under WRAPS) matching media_1792252750055.jpg & media_1792253354349.png ── */}
+                    {category.id === 'wraps' && (
+                      <div
+                        onClick={() => {
+                          const paella = MENU_ITEMS.find((i) => i.id === 'afros-paella');
+                          if (paella) setSelectedItem(paella);
+                        }}
+                        className="bg-black text-white max-w-5xl mx-auto my-8 sm:my-14 px-6 sm:px-10 py-7 sm:py-8 cursor-pointer group hover:ring-2 hover:ring-[#FFD100] transition-all select-none shadow-md"
+                      >
+                        {/* Mobile Layout (< md) matching media_1792252750055.jpg */}
+                        <div className="flex md:hidden flex-col items-center text-center">
+                          <div className="mb-1">
+                            <span className="font-black font-black-grotesque text-[#FFD100] text-3xl transform -rotate-12 inline-block tracking-wider">
+                              NEW
+                            </span>
+                          </div>
+                          <h3 className="font-black font-black-grotesque text-2xl sm:text-3xl text-white tracking-wide uppercase mb-3">
+                            AFRO’S PAELLA
+                          </h3>
+                          <p className="font-bold text-xs sm:text-sm text-white tracking-wider uppercase max-w-xs mx-auto mb-4 leading-relaxed">
+                            JUICY STRIPS WITH SAVOURY RICE & DRESSING (GRILLED OR CRISPY)
+                          </p>
+                          <div className="font-black font-black-grotesque text-2xl sm:text-3xl text-white">
+                            R79
+                          </div>
+                        </div>
+
+                        {/* Desktop Layout (>= md) matching media_1792253354349.png */}
+                        <div className="hidden md:flex items-center justify-between gap-6">
+                          <div className="flex items-center gap-6">
+                            <span className="font-black font-black-grotesque text-[#FFD100] text-3xl transform -rotate-12 inline-block tracking-wider shrink-0">
+                              NEW
+                            </span>
+                            <h3 className="font-black font-black-grotesque text-2xl lg:text-3xl text-white tracking-wide uppercase whitespace-nowrap">
+                              AFRO’S PAELLA
+                            </h3>
+                          </div>
+                          <p className="font-bold text-xs lg:text-sm text-white tracking-wider uppercase text-center max-w-md leading-relaxed px-4">
+                            JUICY STRIPS WITH SAVOURY RICE & DRESSING (GRILLED OR CRISPY)
+                          </p>
+                          <div className="font-black font-black-grotesque text-2xl lg:text-3xl text-white shrink-0 whitespace-nowrap">
+                            R79
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* ── Authentic Black Banner: ADD SOME MORE & CHOOSE YOUR AFRO'S FLAVOUR (Before Schnitzel) ── */}
+                    {category.id === 'flamed' && (
+                      <div className="bg-black text-white max-w-5xl mx-auto my-8 sm:my-14 px-6 sm:px-12 py-7 sm:py-9 shadow-md">
+                        {/* Mobile View (< md) matching media_1792252750058.jpg */}
+                        <div className="md:hidden flex flex-col items-center text-center">
+                          <h4 className="text-[#FFD100] font-black font-black-grotesque text-xl uppercase tracking-wider mb-4">
+                            ADD SOME MORE
+                          </h4>
+                          <div className="w-full max-w-[200px] space-y-2 mb-6 text-base font-bold text-white tracking-widest">
+                            <div className="flex justify-between items-center">
+                              <span>AVO</span>
+                              <span>18</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <span>CHEESE</span>
+                              <span>10</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <span>BACON</span>
+                              <span>18</span>
+                            </div>
+                          </div>
+
+                          {/* 5 Flavour Icons */}
+                          <div className="flex items-center justify-center gap-2.5 sm:gap-3.5 mb-4">
+                            {FLAVOURS.map((f) => (
+                              <div
+                                key={f.id}
+                                className="flex flex-col items-center group cursor-pointer"
+                                title={`${f.name} — ${f.description}`}
+                              >
+                                <div className="w-11 h-11 rounded-full overflow-hidden flex items-center justify-center bg-white shadow-md border border-zinc-200">
+                                  {f.badgeUrl ? (
+                                    <img
+                                      src={f.badgeUrl}
+                                      alt={f.name}
+                                      className="w-full h-full object-contain p-0.5"
+                                    />
+                                  ) : (
+                                    <span className="text-sm">{f.emoji}</span>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Yellow Line & Label */}
+                          <div className="w-full max-w-[280px] h-[1.5px] bg-[#FFD100] my-2" />
+                          <span className="text-xs font-black font-black-grotesque uppercase tracking-wider text-white text-center mt-1">
+                            CHOOSE YOUR AFRO'S FLAVOUR
+                          </span>
+                        </div>
+
+                        {/* Desktop View (>= md) matching media_1792250052064.png */}
+                        <div className="hidden md:grid md:grid-cols-2 gap-8 items-center">
+                          {/* Left Column: ADD SOME MORE */}
+                          <div className="flex flex-col justify-center border-r border-zinc-800 pr-10">
+                            <h4 className="text-[#FFD100] font-black font-black-grotesque text-sm uppercase tracking-wider mb-3">
+                              ADD SOME MORE
+                            </h4>
+                            <div className="space-y-2 text-sm font-bold text-white tracking-widest max-w-xs">
+                              <div className="flex justify-between items-center border-b border-zinc-800/80 pb-1.5">
+                                <span>AVO</span>
+                                <span>18</span>
+                              </div>
+                              <div className="flex justify-between items-center border-b border-zinc-800/80 pb-1.5">
+                                <span>CHEESE</span>
+                                <span>10</span>
+                              </div>
+                              <div className="flex justify-between items-center pb-0.5">
+                                <span>BACON</span>
+                                <span>18</span>
                               </div>
                             </div>
-                          ))}
+                          </div>
+
+                          {/* Right Column: CHOOSE YOUR AFRO'S FLAVOUR */}
+                          <div className="flex flex-col items-center justify-center">
+                            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3">
+                              {FLAVOURS.map((f) => (
+                                <div
+                                  key={f.id}
+                                  className="flex flex-col items-center group cursor-pointer"
+                                  title={`${f.name} — ${f.description}`}
+                                >
+                                  <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center bg-white shadow-md border border-zinc-200 hover:scale-110 transition-transform">
+                                    {f.badgeUrl ? (
+                                      <img
+                                        src={f.badgeUrl}
+                                        alt={f.name}
+                                        className="w-full h-full object-contain p-0.5"
+                                      />
+                                    ) : (
+                                      <span className="text-sm">{f.emoji}</span>
+                                    )}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                            <div className="w-full max-w-xs h-[1px] bg-[#FFD100]/60 my-2" />
+                            <span className="text-xs font-black font-black-grotesque uppercase tracking-wider text-white text-center">
+                              CHOOSE YOUR AFRO'S FLAVOUR
+                            </span>
+                          </div>
                         </div>
-                      </section>
-                    </React.Fragment>
-                  );
-                })}
-              </div>
-            )}
+                      </div>
+                    )}
+                  </React.Fragment>
+                );
+              })}
+            </div>
           </main>
 
           {/* Brand Highlights & Flavour Meter */}

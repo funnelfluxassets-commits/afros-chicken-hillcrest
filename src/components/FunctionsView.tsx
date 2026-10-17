@@ -278,9 +278,10 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
                 <button
                   type="button"
                   onClick={handleWhatsAppChat}
-                  className="px-6 py-3 bg-[#FFD100] hover:bg-[#ffe14d] text-black font-black text-sm uppercase rounded-xl transition-all cursor-pointer"
+                  className="px-6 py-2.5 bg-[#FFD100] hover:bg-[#ffe14d] text-black font-black uppercase rounded-xl transition-all cursor-pointer flex flex-col items-center justify-center leading-tight shadow-xs"
                 >
-                  Send Details Via WhatsApp Too (062 623 8449)
+                  <span className="text-xs sm:text-sm">Send Details Via WhatsApp</span>
+                  <span className="text-[11px] sm:text-xs font-bold whitespace-nowrap">(062 623 8449)</span>
                 </button>
                 <button
                   type="button"
@@ -420,10 +421,15 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
                 <button
                   type="button"
                   onClick={handleWhatsAppChat}
-                  className="w-full sm:w-auto px-6 py-3.5 bg-black hover:bg-zinc-800 text-white font-black text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full sm:w-auto px-6 py-3 bg-black hover:bg-zinc-800 text-white font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 cursor-pointer rounded-xl shadow-xs"
                 >
-                  <MessageSquare className="w-4 h-4 text-[#FFD100]" />
-                  <span>Chat on WhatsApp (062 623 8449)</span>
+                  <MessageSquare className="w-5 h-5 text-[#FFD100] shrink-0" />
+                  <div className="flex flex-col items-center sm:items-start text-center sm:text-left leading-tight">
+                    <span className="text-xs sm:text-sm font-black">Chat on WhatsApp</span>
+                    <span className="text-[11px] sm:text-xs text-[#FFD100] font-bold tracking-normal whitespace-nowrap">
+                      (062 623 8449)
+                    </span>
+                  </div>
                 </button>
               </div>
             </form>

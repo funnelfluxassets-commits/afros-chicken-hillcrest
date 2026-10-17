@@ -23,16 +23,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
   };
 
   return (
-    <footer className="bg-[#2D2D2D] text-zinc-300 pt-14 pb-8 sm:pt-16 sm:pb-10 relative overflow-hidden border-t-4 border-[#FFD100]">
-      {/* Decorative Yellow Wave Pattern at Top */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8 flex justify-center">
-        <img
-          src="/assets/afros/logos/afros-yellow-waves-align.png"
-          alt="Afro's Yellow Waves"
-          className="h-6 sm:h-8 object-contain"
-        />
-      </div>
-
+    <footer className="bg-[#2D2D2D] text-zinc-300 pt-7 pb-8 sm:pt-9 sm:pb-10 relative overflow-hidden border-t-4 border-[#FFD100]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Top Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 pb-12 border-b border-white/10">
@@ -148,7 +139,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
 
           {/* Col 3: Hillcrest Shop Details */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-xs font-black text-white uppercase tracking-wider">Hillcrest Flagship</h4>
+            <h4 className="text-xs font-black text-white uppercase tracking-wider">Hillcrest Store</h4>
             <div className="space-y-2 text-xs">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#FFD100] shrink-0 mt-0.5" />

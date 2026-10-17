@@ -123,7 +123,7 @@ export const StoreLocatorSection: React.FC = () => {
           <div className="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 shadow-xl flex flex-col justify-between space-y-6">
             <div>
               <div className="inline-block px-3 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-black uppercase mb-3">
-                FLAGSHIP STORE • NOW OPEN
+                HILLCREST STORE • NOW OPEN
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-black text-black">{flagship.name}</h3>

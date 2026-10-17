@@ -405,8 +405,8 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
           <div className="bg-zinc-50 border border-zinc-200 rounded-3xl p-8 sm:p-12 shadow-sm">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-7 space-y-4">
-                <span className="inline-block px-3.5 py-1 bg-[#FFD100] text-black font-black-grotesque text-xs uppercase tracking-wider rounded-full">
-                  Flagship Store
+                <span className="inline-block px-3.5 py-1 bg-[#FFD100] text-black font-black font-black-grotesque text-xs uppercase tracking-wider rounded-full">
+                  HILLCREST STORE
                 </span>
                 <h3 className="text-3xl sm:text-4xl font-black-grotesque text-black uppercase tracking-tight">
                   Afro’s Chicken Shop — Hillcrest

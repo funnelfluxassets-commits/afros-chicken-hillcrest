@@ -1,9 +1,7 @@
 import React from 'react';
 import { STORES, SOCIAL_LINKS } from '../data/stores';
-import { TikTokIcon } from './icons/TikTokIcon';
-import { FacebookIcon } from './icons/FacebookIcon';
 import { useCart } from '../context/CartContext';
-import { MapPin, Clock, Phone, Navigation, Check, Sparkles, X } from 'lucide-react';
+import { MapPin, Clock, Phone, Navigation, Check, X } from 'lucide-react';
 import { StoreLocation } from '../types';
 
 interface StoreModalProps {
@@ -193,16 +191,14 @@ export const StoreLocatorSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right: Map Embed & Expansion Roadmap */}
-          <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
-            
-            {/* Interactive Map Visual */}
-            <div className="rounded-3xl overflow-hidden border border-zinc-200 bg-zinc-100 shadow-sm aspect-[16/9] relative">
+          {/* Right: Map Embed (fills full height to match left card) */}
+          <div className="lg:col-span-7 h-full flex flex-col min-h-[380px] sm:min-h-[460px] lg:min-h-0">
+            <div className="rounded-3xl overflow-hidden border border-zinc-200 bg-zinc-100 shadow-sm relative w-full h-full flex-1">
               <iframe
                 title="Afro’s Chicken Shop (Hillcrest) Location"
                 src={
                   flagship.mapEmbedUrl ||
-                  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d600!2d30.7665!3d-29.7766!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef6e382d56cbb3b%3A0x7d6f5f3e9c5c9e2!2sAfro%27s%20Chicken%20Shop%20Hillcrest!5e0!3m2!1sen!2sza!4v1792178000000!5m2!1sen!2sza'
+                  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d350!2d30.7649!3d-29.7785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef6e382d56cbb3b%3A0x7d6f5f3e9c5c9e2!2sAfro%27s%20Chicken%20Shop%20Hillcrest!5e0!3m2!1sen!2sza!4v1792178000000!5m2!1sen!2sza'
                 }
                 width="100%"
                 height="100%"
@@ -210,11 +206,11 @@ export const StoreLocatorSection: React.FC = () => {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="strict-origin-when-cross-origin"
-                className="w-full h-full"
+                className="w-full h-full absolute inset-0"
               />
               
               {/* Map Floating Card */}
-              <div className="absolute bottom-4 left-4 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-zinc-200 text-xs text-black flex items-center gap-3 shadow-md">
+              <div className="absolute bottom-4 left-4 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-zinc-200 text-xs text-black flex items-center gap-3 shadow-md z-10">
                 <span className="w-3 h-3 rounded-full bg-[#FFD100] border border-black animate-ping shrink-0" />
                 <div>
                   <div className="font-extrabold text-black">Shop 5, The Junction</div>
@@ -222,33 +218,6 @@ export const StoreLocatorSection: React.FC = () => {
                 </div>
               </div>
             </div>
-
-            {/* Franchise Expansion Teaser */}
-            <div className="p-6 rounded-3xl bg-zinc-100 border border-zinc-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="space-y-1 text-center sm:text-left">
-                <div className="inline-flex items-center gap-1 text-[11px] font-black uppercase tracking-wider text-black bg-[#FFD100] px-2 py-0.5">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Expansion In Motion</span>
-                </div>
-                <h4 className="text-lg font-black text-black">More Branches Opening Across KZN</h4>
-                <p className="text-xs text-zinc-600">
-                  Targeting Westville, Umhlanga & Durban North. Follow our socials for opening dates!
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2 shrink-0">
-                <a
-                  href={SOCIAL_LINKS.facebook}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-3.5 py-2.5 rounded-xl bg-white hover:bg-zinc-50 text-xs font-bold text-black border border-zinc-300 shadow-sm transition-colors flex items-center gap-2"
-                >
-                  <FacebookIcon className="w-3.5 h-3.5" />
-                  <span>Facebook</span>
-                </a>
-              </div>
-            </div>
-
           </div>
 
         </div>

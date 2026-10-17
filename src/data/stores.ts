@@ -17,7 +17,7 @@ export const STORES: StoreLocation[] = [
     isOpen: true,
     mapQuery: 'Afros+Chicken+Shop+Hillcrest',
     mapEmbedUrl:
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d600!2d30.7665!3d-29.7766!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef6e382d56cbb3b%3A0x7d6f5f3e9c5c9e2!2sAfro%27s%20Chicken%20Shop%20Hillcrest!5e0!3m2!1sen!2sza!4v1792178000000!5m2!1sen!2sza',
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d350!2d30.7649!3d-29.7785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef6e382d56cbb3b%3A0x7d6f5f3e9c5c9e2!2sAfro%27s%20Chicken%20Shop%20Hillcrest!5e0!3m2!1sen!2sza!4v1792178000000!5m2!1sen!2sza',
     googleMapsUrl: 'https://maps.google.com/?q=Afros+Chicken+Shop+Hillcrest',
     status: 'active',
   },

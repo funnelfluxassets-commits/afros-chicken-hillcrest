@@ -49,7 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
               title="Afro's Chicken Shop (Hillcrest)"
             >
               <img
-                src="/assets/afros/logos/afros-header-logo-wordmark.png"
+                src="/assets/afros/logos/afros-logo.png"
                 alt="Afro's Chicken"
                 className="h-9 sm:h-11 w-auto object-contain transform group-hover:scale-102 transition-transform"
                 onError={(e) => {
@@ -63,7 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
           </div>
 
           {/* CENTER / RIGHT: FRANCHISE NAVIGATION LINKS */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8 font-black uppercase text-sm tracking-wider text-black">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8 font-black-grotesque uppercase text-sm tracking-wider text-black">
             {/* HOWZIT - Direct link to Main Landing Page as instructed */}
             <button
               type="button"

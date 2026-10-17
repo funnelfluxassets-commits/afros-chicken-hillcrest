@@ -44,7 +44,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
               className="flex items-center gap-3 text-left cursor-pointer group"
             >
               <img
-                src="/assets/afros/logos/afros-header-logo-wordmark.png"
+                src="/assets/afros/logos/afros-logo.png"
                 alt="Afro's Chicken Shop"
                 className="h-9 w-auto object-contain"
               />
@@ -64,7 +64,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
                 href={SOCIAL_LINKS.whatsappDirect}
                 target="_blank"
                 rel="noreferrer"
-                className="px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-xs font-black text-[#FFD100] hover:text-[#ffe14d] transition-colors flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-xl bg-[#2D2D2D] hover:bg-[#383838] border border-white/20 text-xs font-black text-[#FFD100] hover:text-[#ffe14d] transition-colors flex items-center gap-1.5"
               >
                 <span>WhatsApp: 078 905 7975</span>
               </a>
@@ -72,7 +72,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
                 href="https://www.facebook.com/afroschicken"
                 target="_blank"
                 rel="noreferrer"
-                className="px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-zinc-300 hover:text-white transition-colors flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-xl bg-[#2D2D2D] hover:bg-[#383838] border border-white/20 text-xs font-bold text-zinc-300 hover:text-white transition-colors flex items-center gap-1.5"
               >
                 <FacebookIcon className="w-3.5 h-3.5" />
                 <span>Facebook</span>
@@ -81,7 +81,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
                 href="https://www.tiktok.com/@afroschicken"
                 target="_blank"
                 rel="noreferrer"
-                className="px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-zinc-300 hover:text-white transition-colors flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-xl bg-[#2D2D2D] hover:bg-[#383838] border border-white/20 text-xs font-bold text-zinc-300 hover:text-white transition-colors flex items-center gap-1.5"
               >
                 <TikTokIcon className="w-3.5 h-3.5" />
                 <span>TikTok</span>
@@ -182,7 +182,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
               <p>
                 We accept PayFast Instant EFT, Debit/Credit Card, Cash on delivery/collection, and speedpoint on handover.
               </p>
-              <div className="p-3 rounded-xl bg-zinc-900 border border-white/5 space-y-1">
+              <div className="p-3 rounded-xl bg-[#2D2D2D] border border-white/20 space-y-1">
                 <div className="text-[11px] font-bold text-white flex items-center gap-1.5">
                   <ShieldCheck className="w-3.5 h-3.5 text-[#FFD100]" />
                   <span>Hillcrest Doorstep Delivery</span>

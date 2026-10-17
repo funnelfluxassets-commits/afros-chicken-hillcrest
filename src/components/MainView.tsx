@@ -95,22 +95,10 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
-            {/* Left Column: Authentic Clean Brandon Grotesque Story Narrative */}
-            <div className="lg:col-span-5 space-y-3 sm:space-y-4">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black-grotesque text-black leading-[1.14] tracking-tight">
-                Afro’s Chicken Shop was founded in 2012 as a food truck in Durban,
-              </h2>
-
-              <p className="text-2xl sm:text-3xl lg:text-4xl font-bold-grotesque text-black leading-[1.16] tracking-tight">
-                We’re a proudly local chicken shop that believes in serving fresh,
-              </p>
-
-              <p className="text-2xl sm:text-3xl lg:text-4xl font-bold-grotesque text-black leading-[1.16] tracking-tight">
-                uncomplicated food made well
-              </p>
-
-              <p className="text-2xl sm:text-3xl lg:text-4xl font-bold-grotesque text-black leading-[1.16] tracking-tight">
-                with the best ingredients.
+            {/* Left Column: Authentic Clean Brandon Grotesque Story Narrative with completely uniform line-height & font-size */}
+            <div className="lg:col-span-5">
+              <p className="text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-black-grotesque text-black leading-[1.18] tracking-tight">
+                Afro’s Chicken Shop was founded in 2012 as a food truck in Durban, We’re a proudly local chicken shop that believes in serving fresh, uncomplicated food made well with the best ingredients.
               </p>
             </div>
 

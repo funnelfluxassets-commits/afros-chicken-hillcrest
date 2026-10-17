@@ -220,7 +220,7 @@ export function exportOrdersToPdf(
       const phone = o.customer?.phone || '-';
       doc.text(phone.slice(0, 14), colX[2], y + 4);
 
-      const modeStr = `${o.orderMode === 'delivery' ? 'Del' : 'Pick'} • ${(o.customer?.suburb || 'Pinetown').slice(0, 14)}`;
+      const modeStr = `${o.orderMode === 'delivery' ? 'Del' : 'Pick'} • ${(o.customer?.suburb || 'Hillcrest').slice(0, 14)}`;
       doc.text(modeStr, colX[3], y + 4);
 
       // Meal Items summary
@@ -249,7 +249,7 @@ export function exportOrdersToPdf(
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7);
     doc.setTextColor(113, 113, 122);
-    doc.text('Wrap & Wings Co. • Shop 1, 15 Kings Road, Pinetown • Official Audit Report', margin, pageHeight - 6);
+    doc.text('Afro’s Chicken Shop • Shop 5, The Junction, Hillcrest • Official Audit Report', margin, pageHeight - 6);
     doc.text(`Page ${i} of ${totalPages}`, pageWidth - margin, pageHeight - 6, { align: 'right' });
   }
 

@@ -282,7 +282,7 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
         </head>
         <body>
           <div class="center bold" style="font-size: 16px;">WRAP & WINGS CO.</div>
-          <div class="center">Shop 1, Uniland Centre, Pinetown</div>
+          <div class="center">Shop 5, The Junction, Hillcrest</div>
           <div class="line"></div>
           <div class="bold" style="font-size: 18px;">ORDER #${order.orderId}</div>
           <div class="badge">${isDelivery ? '🏍️ HOME DELIVERY' : '🛍️ STORE COLLECTION'}</div>
@@ -292,7 +292,7 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
           <div><span class="bold">Phone:</span> ${order.customer?.phone || 'N/A'}</div>
           ${
             isDelivery
-              ? `<div><span class="bold">Address:</span> ${order.customer?.address || ''}, ${order.customer?.suburb || 'Pinetown'}</div>
+              ? `<div><span class="bold">Address:</span> ${order.customer?.address || ''}, ${order.customer?.suburb || 'Hillcrest'}</div>
                  ${order.customer?.complexOrUnit ? `<div>Unit: ${order.customer.complexOrUnit}</div>` : ''}
                  ${order.customer?.gateCode ? `<div>Gate Code: ${order.customer.gateCode}</div>` : ''}
                  ${order.customer?.notes ? `<div>Notes: ${order.customer.notes}</div>` : ''}`
@@ -703,7 +703,7 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
                 customerName: 'Customer',
                 phone: '',
                 address: '',
-                suburb: 'Pinetown',
+                suburb: 'Hillcrest',
                 complexOrUnit: '',
                 gateCode: '',
                 notes: '',

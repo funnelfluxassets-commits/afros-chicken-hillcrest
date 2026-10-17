@@ -425,7 +425,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
       if (ord.orderMode === 'delivery') {
         deliveriesCount++;
         deliveryRevenue += grand;
-        const subName = (ord.customer?.suburb || 'Pinetown').trim();
+        const subName = (ord.customer?.suburb || 'Hillcrest').trim();
         suburbsMap[subName] = (suburbsMap[subName] || 0) + 1;
       } else {
         collectionsCount++;
@@ -1240,7 +1240,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                               </div>
                               <div className="text-[11px] text-zinc-400 truncate">
                                 {isDelivery
-                                  ? `${o.customer?.address || ''}, ${o.customer?.suburb || 'Pinetown'}`
+                                  ? `${o.customer?.address || ''}, ${o.customer?.suburb || 'Hillcrest'}`
                                   : 'Store Pickup at Shop 1'}
                               </div>
                             </div>
@@ -1389,7 +1389,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                               </span>
                               {isDelivery ? (
                                 <div className="text-[11px] text-zinc-300 line-clamp-2">
-                                  {o.customer?.address}, {o.customer?.suburb || 'Pinetown'}
+                                  {o.customer?.address}, {o.customer?.suburb || 'Hillcrest'}
                                   {o.customer?.complexOrUnit ? ` (Unit ${o.customer.complexOrUnit})` : ''}
                                 </div>
                               ) : (
@@ -1823,7 +1823,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     <span>Customer Traffic &amp; Website Intelligence</span>
                   </h2>
                   <p className="text-xs text-zinc-400">
-                    Real-time digital dining room activity across Pinetown &amp; surrounds
+                    Real-time digital dining room activity across Hillcrest, Kloof &amp; surrounds
                   </p>
                 </div>
               </div>
@@ -2058,7 +2058,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     const sourcesList = [
                       {
                         name: 'Google Business Profile & Maps',
-                        desc: 'Found via Google Search & Google Maps in Pinetown',
+                        desc: 'Found via Google Search & Google Maps in Hillcrest',
                         count: trafficSummary.sources.google_gmb || 0,
                         color: 'from-blue-500 to-indigo-600',
                         textColor: 'text-blue-400',
@@ -2763,7 +2763,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     <span>Daily Shift Performance Report</span>
                   </h3>
                   <p className="text-xs text-zinc-400">
-                    Wrap &amp; Wings Co. • Shop 1, Uniland Centre, Pinetown
+                    Afro’s Chicken Shop • Shop 5, The Junction, Hillcrest
                   </p>
                 </div>
               </div>

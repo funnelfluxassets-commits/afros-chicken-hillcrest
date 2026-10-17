@@ -45,16 +45,16 @@ export const LiveDriverMap: React.FC<LiveDriverMapProps> = ({ order }) => {
   const [driverProgress, setDriverProgress] = useState(0.35); // 0.0 to 1.0 along the route
   const [distanceKm, setDistanceKm] = useState('2.4 km');
   const [etaMins, setEtaMins] = useState(12);
-  const [driverCurrentRoad, setDriverCurrentRoad] = useState('Josiah Gumede Road, Pinetown');
+  const [driverCurrentRoad, setDriverCurrentRoad] = useState('Inanda Road, Hillcrest');
   const [isMapLoaded, setIsMapLoaded] = useState(false);
 
   const customer = order.customer || {
     customerName: 'Customer',
     phone: '',
     address: 'Pinetown',
-    suburb: 'Pinetown',
+    suburb: 'Hillcrest',
   };
-  const suburbName = customer.suburb || 'Pinetown';
+  const suburbName = customer.suburb || 'Hillcrest';
   const destCoords: [number, number] =
     SUBURB_COORDINATES[suburbName] || SUBURB_COORDINATES['Pinetown'];
 
@@ -270,7 +270,7 @@ export const LiveDriverMap: React.FC<LiveDriverMapProps> = ({ order }) => {
         } else if (next > 0.5) {
           setDriverCurrentRoad(`Entering ${suburbName} • Moving at 42 km/h`);
         } else {
-          setDriverCurrentRoad('Josiah Gumede Road, Pinetown');
+          setDriverCurrentRoad('Inanda Road, Hillcrest');
         }
 
         return next;

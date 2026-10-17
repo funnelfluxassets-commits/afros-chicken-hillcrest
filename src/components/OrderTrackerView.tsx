@@ -176,14 +176,14 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
 
   if (!order) {
     return (
-      <div className="min-h-screen bg-[#0d0d12] text-white flex flex-col items-center justify-center p-6 text-center">
-        <div className="w-16 h-16 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center text-3xl mb-4">
+      <div className="min-h-screen bg-[#0d0d12] text-black flex flex-col items-center justify-center p-6 text-center">
+        <div className="w-16 h-16 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-3xl mb-4">
           <span className="text-2xl animate-spin inline-block">🍳</span>
         </div>
         <h2 className="text-xl font-black">
           {effectiveOrderId ? `Connecting to Kitchen Feed (#${effectiveOrderId})...` : 'Looking for Active Order...'}
         </h2>
-        <p className="text-xs text-zinc-400 mt-1 max-w-sm">
+        <p className="text-xs text-zinc-500 mt-1 max-w-sm">
           {effectiveOrderId
             ? 'Fetching live status from the restaurant grill system. Please hold on a moment...'
             : 'Connecting to live restaurant kitchen feed to check your order status.'}
@@ -207,7 +207,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
           <button
             type="button"
             onClick={onBackToMenu}
-            className="px-5 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs cursor-pointer"
+            className="px-5 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 border border-zinc-300 text-black font-bold text-xs cursor-pointer"
           >
             Return to Menu
           </button>
@@ -386,10 +386,10 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#0d0d12] text-zinc-100 flex flex-col font-sans pb-16">
+    <div className="min-h-screen bg-zinc-50 text-zinc-900 flex flex-col font-sans pb-16">
       
       {/* Top Header */}
-      <header className="sticky top-0 z-40 bg-[#14141a]/95 backdrop-blur-md border-b border-white/10 px-4 sm:px-6 py-3.5 flex items-center justify-between">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-4 sm:px-6 py-3.5 flex items-center justify-between">
         <button
           type="button"
           onClick={() => {
@@ -398,7 +398,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
             }
             onBackToMenu();
           }}
-          className="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white transition-colors flex items-center gap-1.5 text-xs font-bold cursor-pointer"
+          className="p-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 border border-zinc-300 text-zinc-700 hover:text-black transition-colors flex items-center gap-1.5 text-xs font-bold cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Menu</span>
@@ -408,7 +408,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
           <div className="text-[10px] font-black uppercase tracking-wider text-[#FFD100]">
             LIVE ORDER TRACKER
           </div>
-          <h1 className="text-sm sm:text-base font-black text-white">
+          <h1 className="text-sm sm:text-base font-black text-black">
             Order #{order.orderId}
           </h1>
         </div>
@@ -421,7 +421,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
         
         {/* Real-Time Kitchen Update Toast Alert */}
         {toastMessage && (
-          <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-600 to-red-600 text-white font-extrabold text-xs sm:text-sm shadow-2xl flex items-center justify-between gap-3 animate-slideDown border border-amber-300/40">
+          <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-600 to-red-600 text-black font-extrabold text-xs sm:text-sm shadow-2xl flex items-center justify-between gap-3 animate-slideDown border border-amber-300/40">
             <div className="flex items-center gap-2.5">
               <span className="text-xl animate-bounce">🔔</span>
               <span>{toastMessage}</span>
@@ -429,7 +429,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
             <button
               type="button"
               onClick={() => setToastMessage(null)}
-              className="px-2 py-1 rounded-lg bg-black/40 hover:bg-black/60 text-white text-xs cursor-pointer font-bold"
+              className="px-2 py-1 rounded-lg bg-black/40 hover:bg-black/60 text-black text-xs cursor-pointer font-bold"
             >
               Dismiss
             </button>
@@ -438,7 +438,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
 
         {/* Order Completed Celebratory Banner */}
         {order.status === 'completed' && (
-          <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-emerald-600 via-teal-600 to-green-600 text-white shadow-2xl border border-emerald-300/40 text-center space-y-2.5 animate-slideDown">
+          <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-emerald-600 via-teal-600 to-green-600 text-black shadow-2xl border border-emerald-300/40 text-center space-y-2.5 animate-slideDown">
             <div className="text-3xl sm:text-4xl">🎉 🛍️ 😋</div>
             <h3 className="text-lg sm:text-2xl font-black">
               {isDelivery ? 'Order Delivered & Completed!' : 'Order Collected & Handed Over!'}
@@ -476,12 +476,12 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
               ? 'bg-gradient-to-br from-emerald-950/70 via-zinc-900 to-zinc-950 border-emerald-500/50'
               : order.status === 'completed'
               ? 'bg-gradient-to-br from-emerald-950/80 via-zinc-900 to-zinc-950 border-emerald-500/50'
-              : 'bg-zinc-900 border-white/10'
+              : 'bg-white border-zinc-200'
           }`}
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-black uppercase tracking-wider bg-black/40 border border-white/10 text-white mb-2 whitespace-nowrap overflow-hidden">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-black uppercase tracking-wider bg-black/40 border border-zinc-200 text-black mb-2 whitespace-nowrap overflow-hidden">
                 <span className="flex items-center gap-1 shrink-0">
                   {isDelivery ? (
                     <>
@@ -518,7 +518,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
                   </span>
                 )}
               </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-black text-black tracking-tight">
                 {order.status === 'received' && 'Order Received by Kitchen ⏳'}
                 {order.status === 'cooking' && 'Order Accepted & On Grill! 🔥'}
                 {order.status === 'ready' &&
@@ -536,7 +536,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
                   </span>
                 )}
               </h2>
-              <p className="text-xs sm:text-sm text-zinc-300 mt-1 max-w-md leading-relaxed">
+              <p className="text-xs sm:text-sm text-zinc-700 mt-1 max-w-md leading-relaxed">
                 {order.status === 'received' &&
                   'Your order has been transmitted to the Pinetown kitchen. Standing by for staff to accept your ticket and begin grilling.'}
                 {order.status === 'cooking' &&
@@ -554,12 +554,12 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-black/50 border border-white/10 text-center shrink-0">
-              <div className="text-[11px] font-black uppercase text-zinc-200">Target Time</div>
+            <div className="p-4 rounded-2xl bg-black/50 border border-zinc-200 text-center shrink-0">
+              <div className="text-[11px] font-black uppercase text-zinc-700">Target Time</div>
               <div className="text-lg sm:text-xl font-black text-amber-400 mt-0.5">
                 {preferredTime}
               </div>
-              <div className="text-[11px] text-zinc-300 mt-0.5">Placed: {createdAt}</div>
+              <div className="text-[11px] text-zinc-700 mt-0.5">Placed: {createdAt}</div>
             </div>
           </div>
 
@@ -586,14 +586,14 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
                         className={`w-9 h-9 sm:w-11 sm:h-11 rounded-2xl flex items-center justify-center transition-all shadow-lg ${
                           isDone
                             ? `${item.activeColor} scale-105`
-                            : 'bg-zinc-850 text-zinc-500 border border-white/10'
+                            : 'bg-zinc-850 text-zinc-500 border border-zinc-200'
                         } ${isCurrent ? 'ring-4 ring-yellow-400/50 animate-pulse' : ''}`}
                       >
                         {item.icon}
                       </div>
                       <span
                         className={`text-[9px] sm:text-xs font-bold mt-2 text-center max-w-[70px] ${
-                          isDone ? 'text-white font-extrabold' : 'text-zinc-500'
+                          isDone ? 'text-black font-extrabold' : 'text-zinc-500'
                         }`}
                       >
                         {item.label}
@@ -613,7 +613,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
               <Smile className="w-9 h-9 text-emerald-300" />
             </div>
             <div>
-              <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+              <h3 className="text-xl sm:text-2xl font-black text-black tracking-tight">
                 Order Completed &amp; Delivered!
               </h3>
               <p className="text-xs sm:text-sm text-emerald-200/90 mt-1.5 max-w-md mx-auto">
@@ -642,7 +642,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
 
         {/* Kitchen Preparation Progress Stage Card (Shown while order is being prepped, grilled, or packed before dispatch) */}
         {isDelivery && (order.status === 'received' || order.status === 'cooking' || order.status === 'ready') && (
-          <div className="p-4 sm:p-6 rounded-3xl bg-zinc-900/90 border border-white/10 shadow-2xl space-y-3.5">
+          <div className="p-4 sm:p-6 rounded-3xl bg-white border border-zinc-200 shadow-2xl space-y-3.5">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2.5 min-w-0">
                 <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-br from-amber-500/20 to-rose-500/20 border border-amber-500/30 flex items-center justify-center text-lg sm:text-xl shrink-0">
@@ -654,21 +654,21 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
                   <div className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-amber-400 whitespace-nowrap truncate">
                     Kitchen Preparation in Progress
                   </div>
-                  <h3 className="text-xs sm:text-base font-black text-white whitespace-nowrap truncate">
+                  <h3 className="text-xs sm:text-base font-black text-black whitespace-nowrap truncate">
                     {order.status === 'received' && 'Step 1 of 4: Ticket Sent — Awaiting Kitchen Acceptance'}
                     {order.status === 'cooking' && 'Step 2 of 4: Order Accepted — Sizzling on Flame Grill'}
                     {order.status === 'ready' && 'Step 3 of 4: Food Ready & Thermal Packed'}
                   </h3>
                 </div>
               </div>
-              <span className="text-[9px] sm:text-[10px] font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-zinc-800 text-zinc-300 border border-white/5 shrink-0 whitespace-nowrap">
+              <span className="text-[9px] sm:text-[10px] font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-zinc-800 text-zinc-700 border border-zinc-200 shrink-0 whitespace-nowrap">
                 Afro’s Chicken (Hillcrest)
               </span>
             </div>
 
             {/* Preparation Details */}
-            <div className="p-4 rounded-2xl bg-black/40 border border-white/5 space-y-2 text-xs">
-              <div className="flex items-center gap-2 text-white font-bold">
+            <div className="p-4 rounded-2xl bg-black/40 border border-zinc-200 space-y-2 text-xs">
+              <div className="flex items-center gap-2 text-black font-bold">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping shrink-0" />
                 <span>
                   {order.status === 'received' && 'Ticket received at kitchen. Standing by for staff to accept ticket.'}
@@ -676,7 +676,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
                   {order.status === 'ready' && 'Order packed in thermal insulation, assigned to delivery driver.'}
                 </span>
               </div>
-              <p className="text-zinc-200 text-[12px] leading-relaxed">
+              <p className="text-zinc-700 text-[12px] leading-relaxed">
                 {order.status === 'ready'
                   ? 'Your driver is collecting the sealed hot bag right now. As soon as the driver departs from the kitchen, the Live Driver GPS Tracker map will automatically activate on this screen!'
                   : 'Live Driver GPS Tracking will unlock automatically as soon as your meal finishes cooking, is packed, and our driver departs for your address.'}
@@ -684,10 +684,10 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
             </div>
 
             {/* Delivery Destination */}
-            <div className="p-3.5 rounded-2xl bg-zinc-950 border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-              <div className="flex items-center gap-2 text-zinc-300">
+            <div className="p-3.5 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+              <div className="flex items-center gap-2 text-zinc-700">
                 <MapPin className="w-4 h-4 text-[#FFD100] shrink-0" />
-                <span className="font-semibold text-white">
+                <span className="font-semibold text-black">
                   Delivery to: {customer.address ? `${customer.address}, ${customer.suburb || 'Pinetown'}` : (customer.suburb || 'Pinetown')}
                 </span>
               </div>
@@ -699,20 +699,20 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
         )}
 
         {/* Pickup Location or Delivery Details Card */}
-        <div className="p-5 sm:p-6 rounded-3xl bg-zinc-900/90 border border-white/10 space-y-3">
+        <div className="p-5 sm:p-6 rounded-3xl bg-white border border-zinc-200 space-y-3">
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-black uppercase tracking-wider text-[#FFD100] flex items-center gap-1.5">
               <MapPin className="w-4 h-4 text-[#FFD100]" />
               <span>{isDelivery ? 'Delivery Destination' : 'Collection Counter Details'}</span>
             </h3>
-            <span className="text-[11px] font-bold text-zinc-200">Afro’s Chicken (Hillcrest)</span>
+            <span className="text-[11px] font-bold text-zinc-700">Afro’s Chicken (Hillcrest)</span>
           </div>
 
           {!isDelivery ? (
-            <div className="text-xs text-zinc-200 space-y-2">
+            <div className="text-xs text-zinc-700 space-y-2">
               <div>
-                <div className="font-extrabold text-white text-base">Shop 5, The Junction, Hillcrest, Pinetown</div>
-                <div className="text-zinc-200 mt-0.5">Behind Hollywoodbets • Durban, KZN</div>
+                <div className="font-extrabold text-black text-base">Shop 5, The Junction, Hillcrest, Pinetown</div>
+                <div className="text-zinc-700 mt-0.5">Behind Hollywoodbets • Durban, KZN</div>
               </div>
               <div className="text-[11px] text-emerald-400 font-bold">
                 ⏰ Open Monday – Sunday: 9:00 AM – 6:00 PM
@@ -727,7 +727,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
                   }
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-xs flex items-center justify-center gap-1.5 shadow-md shadow-blue-950/40 cursor-pointer"
+                  className="py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-black font-black text-xs flex items-center justify-center gap-1.5 shadow-md shadow-blue-950/40 cursor-pointer"
                 >
                   <MapPin className="w-3.5 h-3.5" />
                   <span>Get Directions on Google Maps</span>
@@ -735,7 +735,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
                 </a>
                 <a
                   href={`tel:${store.phone}`}
-                  className="py-2.5 px-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 border border-white/10"
+                  className="py-2.5 px-3 rounded-xl bg-zinc-100 hover:bg-zinc-200 border border-zinc-300 text-black font-bold text-xs flex items-center justify-center gap-1.5 border border-zinc-200"
                 >
                   <Phone className="w-3.5 h-3.5 text-emerald-400" />
                   <span>Call Store ({store.phone})</span>
@@ -743,10 +743,10 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
               </div>
             </div>
           ) : (
-            <div className="text-xs text-zinc-200 space-y-1.5">
+            <div className="text-xs text-zinc-700 space-y-1.5">
               <div>
-                <div className="font-extrabold text-white text-base">{customer.address || 'Address on file'}</div>
-                <div className="text-zinc-200">{customer.suburb || 'Pinetown'}, Durban</div>
+                <div className="font-extrabold text-black text-base">{customer.address || 'Address on file'}</div>
+                <div className="text-zinc-700">{customer.suburb || 'Pinetown'}, Durban</div>
               </div>
               {customer.complexOrUnit && (
                 <div className="text-amber-300 font-semibold">Unit: {customer.complexOrUnit}</div>
@@ -755,15 +755,15 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
                 <div className="text-amber-300 font-semibold">🔑 Gate Code: {customer.gateCode}</div>
               )}
               {customer.notes && (
-                <div className="italic text-zinc-200 pt-0.5">"{customer.notes}"</div>
+                <div className="italic text-zinc-700 pt-0.5">"{customer.notes}"</div>
               )}
             </div>
           )}
         </div>
 
         {/* Items Ordered Card */}
-        <div className="p-5 sm:p-6 rounded-3xl bg-zinc-900/90 border border-white/10 space-y-3">
-          <h3 className="text-xs font-black uppercase tracking-wider text-zinc-200">
+        <div className="p-5 sm:p-6 rounded-3xl bg-white border border-zinc-200 space-y-3">
+          <h3 className="text-xs font-black uppercase tracking-wider text-zinc-700">
             Your Meal ({items.length} items)
           </h3>
 
@@ -771,13 +771,13 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
             {items.map((item, idx) => (
               <div
                 key={idx}
-                className="p-3.5 rounded-2xl bg-zinc-950/80 border border-white/5 flex items-start justify-between text-xs"
+                className="p-3.5 rounded-2xl bg-zinc-50/80 border border-zinc-200 flex items-start justify-between text-xs"
               >
                 <div>
-                  <span className="font-extrabold text-white text-sm">
+                  <span className="font-extrabold text-black text-sm">
                     {item.quantity || 1}x {item.menuItem?.name || 'Meal'}
                   </span>
-                  <div className="text-[11px] text-zinc-200 mt-1 space-y-0.5">
+                  <div className="text-[11px] text-zinc-700 mt-1 space-y-0.5">
                     {item.customization?.flavour && (
                       <div className="text-[#FFD100] font-bold capitalize">
                         Baste: {item.customization.flavour}
@@ -789,7 +789,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
                         <div key={e.name} className="text-amber-300">+ {e.name}</div>
                       ))}
                     {item.customization?.notes && (
-                      <div className="italic text-zinc-300">"{item.customization.notes}"</div>
+                      <div className="italic text-zinc-700">"{item.customization.notes}"</div>
                     )}
                   </div>
                 </div>
@@ -801,15 +801,15 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
           </div>
 
           {/* Pricing Totals */}
-          <div className="pt-3 border-t border-white/10 space-y-1.5 text-xs text-zinc-200">
+          <div className="pt-3 border-t border-zinc-200 space-y-1.5 text-xs text-zinc-700">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span className="text-white font-bold">R{subtotal.toFixed(2)}</span>
+              <span className="text-black font-bold">R{subtotal.toFixed(2)}</span>
             </div>
             {isDelivery && (
               <div className="flex justify-between">
                 <span>Delivery Fee</span>
-                <span className="text-white font-bold">R{deliveryFee.toFixed(2)}</span>
+                <span className="text-black font-bold">R{deliveryFee.toFixed(2)}</span>
               </div>
             )}
             {isDelivery && typeof order.tip === 'number' && order.tip > 0 && (
@@ -818,7 +818,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
                 <span>+R{order.tip.toFixed(2)}</span>
               </div>
             )}
-            <div className="flex justify-between text-base font-black text-white pt-2 border-t border-white/10">
+            <div className="flex justify-between text-base font-black text-black pt-2 border-t border-zinc-200">
               <span>Total Amount</span>
               <span className="text-amber-400 text-lg">R{grandTotal.toFixed(2)}</span>
             </div>
@@ -827,7 +827,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
 
         {/* WhatsApp Help Button */}
         <div className="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2 text-zinc-300">
+          <div className="flex items-center gap-2 text-zinc-700">
             <MessageSquare className="w-4 h-4 text-emerald-400 shrink-0" />
             <span>Need to add something or check with the kitchen?</span>
           </div>
@@ -854,8 +854,8 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
             }}
             className={`w-full py-3.5 rounded-2xl font-bold text-xs tracking-wide transition-colors cursor-pointer ${
               order.status === 'completed'
-                ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-xl shadow-emerald-950/50 font-black'
-                : 'bg-zinc-800 hover:bg-zinc-700 text-white'
+                ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-black shadow-xl shadow-emerald-950/50 font-black'
+                : 'bg-zinc-100 hover:bg-zinc-200 border border-zinc-300 text-black'
             }`}
           >
             {order.status === 'completed' ? 'Order Finished — Back to Menu' : 'Order More / Return to Menu'}

@@ -39,7 +39,7 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({ 
   const customerPhoneInternational = cleanPhone.startsWith('0') ? `27${cleanPhone.slice(1)}` : cleanPhone;
 
   const handleCopyOrder = () => {
-    const summary = `Wrap & Wings Co. Order #${order.orderId}\nType: ${
+    const summary = `Afro’s Chicken Shop (Hillcrest). Order #${order.orderId}\nType: ${
       isDelivery ? 'Delivery' : 'Store Collection'
     }\nTotal: R${order.grandTotal.toFixed(2)}`;
     navigator.clipboard?.writeText(summary);
@@ -92,7 +92,7 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({ 
             onClick={() => setActiveTab('customer')}
             className={`flex-1 py-2 px-3 rounded-xl text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
               activeTab === 'customer'
-                ? 'bg-rose-600 text-white shadow-md'
+                ? 'bg-[#FFD100] text-black font-black text-white shadow-md'
                 : 'text-zinc-400 hover:text-white hover:bg-zinc-900'
             }`}
           >
@@ -147,7 +147,7 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({ 
               {/* Live Order Timeline Tracker */}
               <div className="p-4 rounded-2xl bg-zinc-900/90 border border-white/10 space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xs font-black uppercase tracking-wider text-rose-400 flex items-center gap-1.5">
+                  <h3 className="text-xs font-black uppercase tracking-wider text-[#FFD100] flex items-center gap-1.5">
                     <Clock className="w-3.5 h-3.5" />
                     <span>Live Order Tracker</span>
                   </h3>
@@ -185,7 +185,7 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({ 
                       {isDelivery ? 'Driver En Route' : 'Ready for Pickup'}
                     </div>
                     <div className="text-[9px] text-zinc-500">
-                      {isDelivery ? 'To your door' : 'At Pinetown counter'}
+                      {isDelivery ? 'To your door' : 'At Hillcrest counter'}
                     </div>
                   </div>
                 </div>
@@ -194,7 +194,7 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({ 
               {/* Pickup / Delivery Information */}
               <div className="p-4 rounded-2xl bg-zinc-900/90 border border-white/10 space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-black uppercase tracking-wider text-rose-400 flex items-center gap-1.5">
+                  <span className="text-xs font-black uppercase tracking-wider text-[#FFD100] flex items-center gap-1.5">
                     <MapPin className="w-3.5 h-3.5" />
                     <span>{isDelivery ? 'Delivery Destination' : 'Store Collection Point'}</span>
                   </span>
@@ -272,7 +272,7 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({ 
                         </span>
                         <div className="text-[11px] text-zinc-400 mt-0.5 space-y-0.5">
                           {item.customization?.flavour && (
-                            <div className="text-rose-400 font-semibold capitalize">
+                            <div className="text-[#FFD100] font-semibold capitalize">
                               Baste: {item.customization.flavour}
                             </div>
                           )}
@@ -404,7 +404,7 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({ 
                 </div>
               ) : (
                 <div className="p-4 rounded-2xl bg-zinc-900 border border-white/10 space-y-2">
-                  <span className="text-xs font-black uppercase tracking-wider text-rose-400 flex items-center gap-1.5">
+                  <span className="text-xs font-black uppercase tracking-wider text-[#FFD100] flex items-center gap-1.5">
                     <ShoppingBag className="w-4 h-4" />
                     <span>Store Pickup Counter Ticket</span>
                   </span>
@@ -433,7 +433,7 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({ 
                         </span>
                         <div className="text-[11px] text-zinc-200 mt-0.5">
                           {item.customization?.flavour && (
-                            <span className="text-rose-400 font-semibold mr-2 capitalize">
+                            <span className="text-[#FFD100] font-semibold mr-2 capitalize">
                               Baste: {item.customization.flavour}
                             </span>
                           )}
@@ -454,7 +454,7 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({ 
           <button
             type="button"
             onClick={onClose}
-            className="w-full py-3.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-black text-xs tracking-wide shadow-md transition-colors cursor-pointer"
+            className="w-full py-3.5 rounded-xl bg-[#FFD100] text-black font-black hover:bg-rose-500 text-white font-black text-xs tracking-wide shadow-md transition-colors cursor-pointer"
           >
             Done & Return to Menu
           </button>

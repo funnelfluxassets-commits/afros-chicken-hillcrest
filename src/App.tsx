@@ -286,7 +286,7 @@ const MainContent: React.FC = () => {
   }, [activeCategory, searchQuery]);
 
   return (
-    <div className="min-h-screen bg-[#0d0d11] text-zinc-100 flex flex-col font-sans selection:bg-rose-500 selection:text-white pb-16 lg:pb-0">
+    <div className="min-h-screen bg-white text-zinc-900 flex flex-col font-sans selection:bg-[#FFD100] selection:text-black pb-16 lg:pb-0">
       
       {/* PayFast Sandbox Notice Banner (After Return from Gateway) */}
       {payfastNotice && (
@@ -500,14 +500,14 @@ const MainContent: React.FC = () => {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
           <div>
             <div className="flex items-center gap-2">
-              <Flame className="w-5 h-5 text-rose-500" />
-              <h2 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
+              <Flame className="w-5 h-5 text-[#b89500] fill-[#FFD100]" />
+              <h2 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tight">
                 {activeCategory === 'all'
                   ? 'Our Complete Menu'
                   : CATEGORIES.find((c) => c.id === activeCategory)?.name || 'Menu'}
               </h2>
             </div>
-            <p className="text-xs sm:text-sm text-zinc-200 mt-0.5">
+            <p className="text-xs sm:text-sm text-zinc-600 mt-0.5 font-medium">
               {activeCategory === 'all'
                 ? 'All flame-grilled chicken, wraps, wings, burgers, sides, and ice-cold drinks.'
                 : CATEGORIES.find((c) => c.id === activeCategory)?.description}
@@ -522,16 +522,16 @@ const MainContent: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search chicken, wrap, wings, drinks..."
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-rose-500 transition-colors"
+              className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-zinc-50 border border-zinc-300 text-xs text-black placeholder-zinc-400 focus:outline-none focus:border-black transition-colors font-medium"
             />
           </div>
         </div>
 
         {/* Menu Grid */}
         {filteredItems.length === 0 ? (
-          <div className="p-12 text-center rounded-3xl bg-zinc-900/60 border border-white/5 space-y-2">
+          <div className="p-12 text-center rounded-3xl bg-zinc-50 border border-zinc-200 space-y-2">
             <span className="text-3xl">🔍</span>
-            <h3 className="text-base font-bold text-white">No items found</h3>
+            <h3 className="text-base font-black text-black uppercase">No items found</h3>
             <p className="text-xs text-zinc-200">
               Try searching for something else or reset your category filter.
             </p>
@@ -541,7 +541,7 @@ const MainContent: React.FC = () => {
                 setSearchQuery('');
                 setActiveCategory('all');
               }}
-              className="px-4 py-2 rounded-xl bg-rose-600 text-white text-xs font-bold mt-2 cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-[#FFD100] hover:bg-[#ffe14d] text-black text-xs font-black uppercase tracking-wider mt-2 cursor-pointer border border-black/10"
             >
               Show All Items
             </button>

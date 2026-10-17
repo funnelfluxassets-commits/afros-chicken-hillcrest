@@ -26,21 +26,20 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({ activeCategory, onSele
   };
 
   return (
-    <div className="sticky top-[104px] sm:top-[108px] z-30 bg-[#121217]/95 backdrop-blur-md border-y border-white/10 py-2 sm:py-2.5 shadow-md">
+    <div className="sticky top-[72px] sm:top-[80px] z-30 bg-white/95 backdrop-blur-md border-y border-zinc-200 py-2 sm:py-2.5 shadow-2xs">
       <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 flex items-center gap-1.5 sm:gap-2">
-        
-        {/* Left Scroll Button (clearly visible on both mobile and desktop, never overlaps tabs) */}
+        {/* Left Scroll Button */}
         <button
           type="button"
           onClick={() => scroll('left')}
-          className="flex shrink-0 w-8 h-8 rounded-full bg-zinc-900 border border-white/20 hover:border-[#FFD100] text-zinc-200 hover:text-[#FFD100] hover:bg-zinc-800 items-center justify-center shadow-md active:scale-90 transition-all cursor-pointer"
+          className="flex shrink-0 w-8 h-8 rounded-full bg-zinc-100 border border-zinc-300 hover:border-black text-black hover:bg-zinc-200 items-center justify-center shadow-xs active:scale-90 transition-all cursor-pointer"
           aria-label="Scroll left"
           title="Scroll left"
         >
-          <ChevronLeft className="w-4 h-4" />
+          <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
         </button>
 
-        {/* Scrollable Container (sits safely between left & right buttons with zero overlap) */}
+        {/* Scrollable Container */}
         <div
           ref={scrollRef}
           className="flex-1 min-w-0 flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar scroll-smooth py-0.5"
@@ -49,10 +48,10 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({ activeCategory, onSele
           <button
             type="button"
             onClick={(e) => handleSelect('all', e.currentTarget)}
-            className={`px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm whitespace-nowrap transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer shrink-0 border ${
+            className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer shrink-0 border ${
               activeCategory === 'all'
-                ? 'bg-[#FFD100] border-[#FFD100] text-black font-black shadow-lg shadow-[#FFD100]/25 ring-1 ring-[#FFD100]'
-                : 'bg-zinc-900/90 border-white/10 hover:border-[#FFD100] hover:bg-zinc-800 text-zinc-300 font-bold'
+                ? 'bg-[#FFD100] border-black text-black font-black shadow-xs ring-1 ring-black'
+                : 'bg-white border-zinc-300 hover:border-black hover:bg-zinc-50 text-zinc-800 font-bold'
             }`}
           >
             <span>✨</span>
@@ -67,10 +66,10 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({ activeCategory, onSele
                 key={cat.id}
                 type="button"
                 onClick={(e) => handleSelect(cat.id, e.currentTarget)}
-                className={`px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm whitespace-nowrap transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer shrink-0 border ${
+                className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer shrink-0 border ${
                   isSelected
-                    ? 'bg-[#FFD100] border-[#FFD100] text-black font-black shadow-lg shadow-[#FFD100]/25 ring-1 ring-[#FFD100]'
-                    : 'bg-zinc-900/90 border-white/10 hover:border-[#FFD100] hover:bg-zinc-800 text-zinc-300 font-bold'
+                    ? 'bg-[#FFD100] border-black text-black font-black shadow-xs ring-1 ring-black'
+                    : 'bg-white border-zinc-300 hover:border-black hover:bg-zinc-50 text-zinc-800 font-bold'
                 }`}
               >
                 <span>{cat.icon}</span>
@@ -80,17 +79,16 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({ activeCategory, onSele
           })}
         </div>
 
-        {/* Right Scroll Button (clearly visible on both mobile and desktop, never overlaps tabs) */}
+        {/* Right Scroll Button */}
         <button
           type="button"
           onClick={() => scroll('right')}
-          className="flex shrink-0 w-8 h-8 rounded-full bg-zinc-900 border border-white/20 hover:border-[#FFD100] text-zinc-200 hover:text-[#FFD100] hover:bg-zinc-800 items-center justify-center shadow-md active:scale-90 transition-all cursor-pointer"
+          className="flex shrink-0 w-8 h-8 rounded-full bg-zinc-100 border border-zinc-300 hover:border-black text-black hover:bg-zinc-200 items-center justify-center shadow-xs active:scale-90 transition-all cursor-pointer"
           aria-label="Scroll right"
           title="Scroll right"
         >
-          <ChevronRight className="w-4 h-4" />
+          <ChevronRight className="w-4 h-4 stroke-[2.5]" />
         </button>
-
       </div>
     </div>
   );

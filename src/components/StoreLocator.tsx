@@ -19,18 +19,18 @@ export const StoreModal: React.FC<StoreModalProps> = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
       <div
-        className="relative w-full max-w-lg rounded-3xl bg-[#141419] border border-white/10 shadow-2xl flex flex-col overflow-hidden text-white"
+        className="relative w-full max-w-lg rounded-3xl bg-white border border-zinc-200 shadow-2xl flex flex-col overflow-hidden text-zinc-900"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-zinc-950">
+        <div className="p-4 sm:p-5 border-b border-zinc-200 flex items-center justify-between bg-zinc-50">
           <div>
-            <h2 className="text-base sm:text-lg font-black text-white">Select Your Store</h2>
-            <p className="text-xs text-zinc-400">Order from our flagship kitchen or preview expansion sites</p>
+            <h2 className="text-base sm:text-lg font-black text-black">Select Your Store</h2>
+            <p className="text-xs text-zinc-500">Order from our flagship kitchen or preview expansion sites</p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white cursor-pointer"
+            className="p-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-500 hover:text-black cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -54,13 +54,13 @@ export const StoreModal: React.FC<StoreModalProps> = ({ isOpen, onClose }) => {
                   isSelected
                     ? 'bg-rose-500/15 border-rose-500 ring-1 ring-rose-500'
                     : isActive
-                    ? 'bg-zinc-900/80 hover:bg-zinc-800/80 border-white/10 cursor-pointer'
-                    : 'bg-zinc-950/50 border-white/5 opacity-60'
+                    ? 'bg-zinc-50/80 hover:bg-zinc-800/80 border-zinc-200 cursor-pointer'
+                    : 'bg-zinc-50/50 border-zinc-200 opacity-60'
                 }`}
               >
                 <div className="space-y-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-black text-white">{store.name}</span>
+                    <span className="text-sm font-black text-black">{store.name}</span>
                     {isActive ? (
                       <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full">
                         OPEN NOW
@@ -71,8 +71,8 @@ export const StoreModal: React.FC<StoreModalProps> = ({ isOpen, onClose }) => {
                       </span>
                     )}
                   </div>
-                  <div className="text-xs text-zinc-300">{store.address}</div>
-                  <div className="text-[11px] text-zinc-400 flex items-center gap-3 pt-1">
+                  <div className="text-xs text-zinc-700">{store.address}</div>
+                  <div className="text-[11px] text-zinc-500 flex items-center gap-3 pt-1">
                     <span className="flex items-center gap-1">
                       <Clock className="w-3 h-3 text-amber-400" />
                       {store.hours}
@@ -82,7 +82,7 @@ export const StoreModal: React.FC<StoreModalProps> = ({ isOpen, onClose }) => {
                 </div>
 
                 {isSelected && (
-                  <div className="w-6 h-6 rounded-full bg-rose-500 text-white flex items-center justify-center shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-rose-500 text-black flex items-center justify-center shrink-0">
                     <Check className="w-3.5 h-3.5 stroke-[3]" />
                   </div>
                 )}
@@ -99,7 +99,7 @@ export const StoreLocatorSection: React.FC = () => {
   const flagship = STORES[0];
 
   return (
-    <section id="store-locator" className="py-14 sm:py-20 bg-[#121217] border-t border-white/10">
+    <section id="store-locator" className="py-14 sm:py-20 bg-[#121217] border-t border-zinc-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Section Heading */}
@@ -108,10 +108,10 @@ export const StoreLocatorSection: React.FC = () => {
             <MapPin className="w-3.5 h-3.5" />
             <span>Store Location & Directions</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight uppercase">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-black tracking-tight uppercase">
             VISIT OUR PINETOWN SHOP
           </h2>
-          <p className="text-sm sm:text-base text-zinc-200 mt-2 font-medium">
+          <p className="text-sm sm:text-base text-zinc-700 mt-2 font-medium">
             Fresh flame-grilled food served daily. Drop in for collection or order straight to your doorstep.
           </p>
         </div>
@@ -120,24 +120,24 @@ export const StoreLocatorSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Left: Flagship Store Details Card */}
-          <div className="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-zinc-900 border border-white/10 shadow-xl flex flex-col justify-between space-y-6">
+          <div className="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 shadow-xl flex flex-col justify-between space-y-6">
             <div>
               <div className="inline-block px-3 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-black uppercase mb-3">
                 FLAGSHIP STORE • NOW OPEN
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-black text-white">{flagship.name}</h3>
+              <h3 className="text-2xl sm:text-3xl font-black text-black">{flagship.name}</h3>
               <p className="text-sm text-[#FFD100] font-bold mt-1">{flagship.landmark}</p>
 
-              <div className="space-y-4 pt-6 text-sm text-zinc-300">
+              <div className="space-y-4 pt-6 text-sm text-zinc-700">
                 <div className="flex items-start gap-3">
                   <div className="p-2 rounded-xl bg-zinc-800 text-[#FFD100] shrink-0">
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="font-extrabold text-white">Physical Address</div>
-                    <div className="text-xs text-zinc-200 mt-0.5">{flagship.address}</div>
-                    <div className="text-xs text-zinc-200">{flagship.city}</div>
+                    <div className="font-extrabold text-black">Physical Address</div>
+                    <div className="text-xs text-zinc-700 mt-0.5">{flagship.address}</div>
+                    <div className="text-xs text-zinc-700">{flagship.city}</div>
                   </div>
                 </div>
 
@@ -146,8 +146,8 @@ export const StoreLocatorSection: React.FC = () => {
                     <Clock className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="font-extrabold text-white">Opening Times</div>
-                    <div className="text-xs text-zinc-200 mt-0.5">{flagship.hours}</div>
+                    <div className="font-extrabold text-black">Opening Times</div>
+                    <div className="text-xs text-zinc-700 mt-0.5">{flagship.hours}</div>
                     <div className="text-[11px] text-emerald-400 font-bold">Open Every Day of the Week</div>
                   </div>
                 </div>
@@ -157,25 +157,25 @@ export const StoreLocatorSection: React.FC = () => {
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="font-extrabold text-white">Hotline & WhatsApp</div>
-                    <div className="text-xs text-zinc-200 mt-0.5">{flagship.phone}</div>
+                    <div className="font-extrabold text-black">Hotline & WhatsApp</div>
+                    <div className="text-xs text-zinc-700 mt-0.5">{flagship.phone}</div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Quick Direction Actions */}
-            <div className="grid grid-cols-2 gap-3 pt-4 border-t border-white/10">
+            <div className="grid grid-cols-2 gap-3 pt-4 border-t border-zinc-200">
               <a
                 href={
                   flagship.googleMapsUrl ||
                   `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-                    'Afro’s Chicken Shop (Hillcrest), Shop 1, Uniland Centre, Pinetown'
+                    'Afro’s Chicken Shop, Shop 5, The Junction, 5 Inanda Rd, Hillcrest'
                   )}`
                 }
                 target="_blank"
                 rel="noreferrer"
-                className="py-3 px-4 rounded-xl bg-[#FFD100] text-black font-black hover:bg-rose-500 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-rose-950/30 transition-transform hover:scale-105"
+                className="py-3 px-4 rounded-xl bg-[#FFD100] text-black font-black hover:bg-rose-500 text-black font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-rose-950/30 transition-transform hover:scale-105"
               >
                 <Navigation className="w-4 h-4" />
                 <span>Get Directions</span>
@@ -185,7 +185,7 @@ export const StoreLocatorSection: React.FC = () => {
                 href={SOCIAL_LINKS.whatsappDirect}
                 target="_blank"
                 rel="noreferrer"
-                className="py-3 px-4 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 border border-white/10 transition-colors"
+                className="py-3 px-4 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-black font-bold text-xs flex items-center justify-center gap-1.5 border border-zinc-200 transition-colors"
               >
                 <Phone className="w-4 h-4 text-emerald-400" />
                 <span>WhatsApp Us</span>
@@ -197,7 +197,7 @@ export const StoreLocatorSection: React.FC = () => {
           <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
             
             {/* Interactive Map Visual */}
-            <div className="rounded-3xl overflow-hidden border border-white/10 bg-zinc-900 shadow-xl aspect-[16/9] relative">
+            <div className="rounded-3xl overflow-hidden border border-zinc-200 bg-zinc-50 shadow-xl aspect-[16/9] relative">
               <iframe
                 title="Afro’s Chicken Shop (Hillcrest) Location"
                 src={
@@ -214,24 +214,24 @@ export const StoreLocatorSection: React.FC = () => {
               />
               
               {/* Map Floating Card */}
-              <div className="absolute bottom-4 left-4 p-3 rounded-2xl bg-black/80 backdrop-blur-md border border-white/15 text-xs text-white flex items-center gap-3">
+              <div className="absolute bottom-4 left-4 p-3 rounded-2xl bg-black/80 backdrop-blur-md border border-white/15 text-xs text-black flex items-center gap-3">
                 <span className="w-3 h-3 rounded-full bg-rose-500 animate-ping shrink-0" />
                 <div>
                   <div className="font-extrabold">Shop 1, Uniland Centre</div>
-                  <div className="text-[11px] text-zinc-400">Pinetown Central</div>
+                  <div className="text-[11px] text-zinc-500">Hillcrest Central</div>
                 </div>
               </div>
             </div>
 
             {/* Franchise Expansion Teaser */}
-            <div className="p-6 rounded-3xl bg-gradient-to-r from-zinc-900 to-[#191924] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="p-6 rounded-3xl bg-gradient-to-r from-zinc-900 to-[#191924] border border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="space-y-1 text-center sm:text-left">
                 <div className="inline-flex items-center gap-1 text-[11px] font-black uppercase tracking-wider text-amber-400">
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>Expansion In Motion</span>
                 </div>
-                <h4 className="text-lg font-black text-white">More Branches Opening Across KZN</h4>
-                <p className="text-xs text-zinc-200">
+                <h4 className="text-lg font-black text-black">More Branches Opening Across KZN</h4>
+                <p className="text-xs text-zinc-700">
                   Targeting Westville, Umhlanga & Durban North. Follow our socials for opening dates!
                 </p>
               </div>
@@ -241,7 +241,7 @@ export const StoreLocatorSection: React.FC = () => {
                   href={SOCIAL_LINKS.tiktok}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-3.5 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-300 hover:text-white border border-white/10 transition-colors flex items-center gap-2"
+                  className="px-3.5 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-700 hover:text-black border border-zinc-200 transition-colors flex items-center gap-2"
                 >
                   <TikTokIcon className="w-3.5 h-3.5" />
                   <span>TikTok</span>
@@ -250,7 +250,7 @@ export const StoreLocatorSection: React.FC = () => {
                   href={SOCIAL_LINKS.facebook}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-3.5 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-300 hover:text-white border border-white/10 transition-colors flex items-center gap-2"
+                  className="px-3.5 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-700 hover:text-black border border-zinc-200 transition-colors flex items-center gap-2"
                 >
                   <FacebookIcon className="w-3.5 h-3.5" />
                   <span>Facebook</span>

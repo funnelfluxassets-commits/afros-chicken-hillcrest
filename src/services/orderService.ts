@@ -350,7 +350,7 @@ export function getAllOrders(): LiveOrder[] {
           customerName: 'Customer',
           phone: '',
           address: '',
-          suburb: 'Pinetown',
+          suburb: 'Hillcrest',
         },
         items: Array.isArray(o.items) ? o.items : [],
         grandTotal: typeof o.grandTotal === 'number' ? o.grandTotal : 0,
@@ -791,7 +791,7 @@ export async function syncOrdersFromCloud(): Promise<LiveOrder[]> {
               customerName: 'Customer',
               phone: '',
               address: '',
-              suburb: 'Pinetown',
+              suburb: 'Hillcrest',
             },
             items: Array.isArray(raw.items) ? raw.items : [],
             grandTotal: typeof raw.grandTotal === 'number' ? raw.grandTotal : 0,
@@ -1400,7 +1400,7 @@ export async function sendOrderToGoogleSheets(order: LiveOrder): Promise<boolean
         rawPhone: order.customer?.phone || '',
         orderMode: order.orderMode === 'delivery' ? 'Home Delivery' : 'Store Collection',
         address: order.customer?.address || '',
-        suburb: order.customer?.suburb || 'Pinetown',
+        suburb: order.customer?.suburb || 'Hillcrest',
         complexOrUnit: order.customer?.complexOrUnit || '',
         gateCode: order.customer?.gateCode || '',
         notes: order.customer?.notes || '',
@@ -1484,10 +1484,10 @@ export async function sendOrderEmailNotification(order: LiveOrder): Promise<bool
 
     const address =
       order.orderMode === 'delivery'
-        ? `${order.customer?.address || ''}, ${order.customer?.suburb || 'Pinetown'}${
+        ? `${order.customer?.address || ''}, ${order.customer?.suburb || 'Hillcrest'}${
             order.customer?.complexOrUnit ? ` (${order.customer.complexOrUnit})` : ''
           }${order.customer?.gateCode ? ` [Gate: ${order.customer.gateCode}]` : ''}`
-        : 'Store Collection (Pine Crest Centre, Pinetown)';
+        : 'Store Collection (Shop 5, The Junction, Hillcrest)';
 
     const response = await fetch('https://formsubmit.co/ajax/orders@wrapandwings.co.za', {
       method: 'POST',
@@ -1501,7 +1501,7 @@ export async function sendOrderEmailNotification(order: LiveOrder): Promise<bool
         'Order Type': modeLabel,
         'Customer Name': order.customer?.customerName || 'Customer',
         'Customer Phone': cleanPhone,
-        'Store Location': order.store?.name || 'Pine Crest Centre, Pinetown',
+        'Store Location': order.store?.name || 'Shop 5, The Junction, Hillcrest',
         'Pickup / Delivery Time': order.preferredTime || 'ASAP',
         'Payment Method': paymentLabel,
         'Payment Status': 'PAID (Payment Received)',
@@ -1585,7 +1585,7 @@ export function exportOrdersToCsv(orders: LiveOrder[], filenamePrefix = 'wrap-an
       escapeCsv(smsPhone || o.customer?.phone || ''),
       escapeCsv(o.orderMode === 'delivery' ? 'Home Delivery' : 'Store Collection'),
       escapeCsv(o.customer?.address || ''),
-      escapeCsv(o.customer?.suburb || 'Pinetown'),
+      escapeCsv(o.customer?.suburb || 'Hillcrest'),
       escapeCsv(o.customer?.complexOrUnit || ''),
       escapeCsv(o.customer?.gateCode || ''),
       escapeCsv(o.customer?.notes || ''),
@@ -1641,7 +1641,7 @@ export function generateWhatsAppDailyOrdersReportText(
 
   return `🍗 *WRAP & WINGS CO. — DAILY ORDERS & SALES REPORT*
 📅 *Shift Date:* ${dateLabel}
-📍 *Store:* Shop 1, Uniland Centre, Pinetown
+📍 *Store:* Shop 5, The Junction, Hillcrest
 ───────────────────────
 💰 *FINANCIAL & SALES TOTALS:*
 • *Gross Revenue:* R${totals.totalRevenue.toFixed(2)}

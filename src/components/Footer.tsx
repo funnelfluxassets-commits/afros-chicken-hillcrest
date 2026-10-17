@@ -23,16 +23,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
   };
 
   return (
-    <footer className="bg-zinc-950 border-t border-white/10 text-zinc-400 pt-14 pb-8 sm:pt-16 sm:pb-10 relative overflow-hidden">
+    <footer className="bg-black text-zinc-400 pt-14 pb-8 sm:pt-16 sm:pb-10 relative overflow-hidden border-t-4 border-[#FFD100]">
       {/* Decorative Yellow Wave Pattern at Top */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8 flex justify-center opacity-70">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8 flex justify-center">
         <img
           src="/assets/afros/logos/afros-yellow-waves-align.png"
           alt="Afro's Yellow Waves"
-          className="h-6 sm:h-8 object-contain filter invert-0"
-          onError={(e) => {
-            (e.target as HTMLImageElement).style.display = 'none';
-          }}
+          className="h-6 sm:h-8 object-contain"
         />
       </div>
 
@@ -46,24 +43,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
               onClick={() => handleNav('main')}
               className="flex items-center gap-3 text-left cursor-pointer group"
             >
-              <div className="w-12 h-12 rounded-full bg-[#FFD100] p-1 flex items-center justify-center shadow-lg shadow-[#FFD100]/20 group-hover:scale-105 transition-transform">
-                <img
-                  src="/assets/afros/logos/afros-logo-round-yellow-bg-300x300.png"
-                  alt="Afro's Chicken Shop"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <div>
-                <span className="font-black text-xl text-white uppercase tracking-tight block">
-                  Afro’s Chicken
-                </span>
-                <span className="text-xs font-bold text-[#FFD100] uppercase tracking-wider block">
-                  Shop 5, The Junction • Hillcrest
-                </span>
-              </div>
+              <img
+                src="/assets/afros/logos/afros-header-logo-wordmark.png"
+                alt="Afro's Chicken Shop"
+                className="h-9 w-auto object-contain"
+              />
+              <span className="text-[11px] font-black text-[#FFD100] uppercase tracking-wider pl-2 border-l border-white/20">
+                Hillcrest
+              </span>
             </button>
 
-            <p className="text-xs text-zinc-400 leading-relaxed max-w-sm">
+            <p className="text-xs text-zinc-400 leading-relaxed max-w-sm font-medium">
               Founded in 2012 as a food truck on the Durban beachfront. We believe in fresh, uncomplicated food made well
               with the best ingredients: fresh never-frozen chicken and real hand-cut potato tjips.
             </p>
@@ -74,7 +64,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
                 href={SOCIAL_LINKS.whatsappDirect}
                 target="_blank"
                 rel="noreferrer"
-                className="px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-[#FFD100] hover:text-[#ffe14d] transition-colors flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-xs font-black text-[#FFD100] hover:text-[#ffe14d] transition-colors flex items-center gap-1.5"
               >
                 <span>WhatsApp: 078 905 7975</span>
               </a>
@@ -82,7 +72,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
                 href="https://www.facebook.com/afroschicken"
                 target="_blank"
                 rel="noreferrer"
-                className="px-3 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-zinc-300 hover:text-white transition-colors flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-zinc-300 hover:text-white transition-colors flex items-center gap-1.5"
               >
                 <FacebookIcon className="w-3.5 h-3.5" />
                 <span>Facebook</span>
@@ -91,7 +81,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
                 href="https://www.tiktok.com/@afroschicken"
                 target="_blank"
                 rel="noreferrer"
-                className="px-3 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-zinc-300 hover:text-white transition-colors flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-zinc-300 hover:text-white transition-colors flex items-center gap-1.5"
               >
                 <TikTokIcon className="w-3.5 h-3.5" />
                 <span>TikTok</span>
@@ -100,23 +90,23 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
           </div>
 
           {/* Col 2: Navigation Links */}
-          <div className="lg:col-span-2 space-y-3">
+          <div className="lg:col-span-2 space-y-3 font-bold">
             <h4 className="text-xs font-black text-white uppercase tracking-wider">Explore</h4>
             <ul className="space-y-2 text-xs">
               <li>
                 <button
                   type="button"
                   onClick={() => handleNav('main')}
-                  className="text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-medium"
+                  className="text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-bold"
                 >
-                  🏠 Main Page
+                  🏠 Home Page
                 </button>
               </li>
               <li>
                 <button
                   type="button"
                   onClick={() => handleNav('menu')}
-                  className="text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-medium"
+                  className="text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-bold"
                 >
                   🍗 Online Food Menu
                 </button>
@@ -125,7 +115,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
                 <button
                   type="button"
                   onClick={() => handleNav('about')}
-                  className="text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-medium"
+                  className="text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-bold"
                 >
                   📖 About Us (Keep Things Simple)
                 </button>
@@ -134,16 +124,16 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
                 <button
                   type="button"
                   onClick={() => handleNav('functions')}
-                  className="text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-medium"
+                  className="text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-bold"
                 >
-                  🎉 Functions & Catering
+                  🎉 Functions &amp; Catering
                 </button>
               </li>
               <li>
                 <button
                   type="button"
                   onClick={() => handleNav('track')}
-                  className="text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-medium"
+                  className="text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-bold"
                 >
                   📦 Track Live Order
                 </button>
@@ -153,7 +143,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
 
           {/* Col 3: Hillcrest Shop Details */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-xs font-black text-white uppercase tracking-wider">Hillcrest Shop</h4>
+            <h4 className="text-xs font-black text-white uppercase tracking-wider">Hillcrest Flagship</h4>
             <div className="space-y-2 text-xs">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#FFD100] shrink-0 mt-0.5" />
@@ -171,7 +161,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
 
               <div className="flex items-center gap-2.5 pt-1">
                 <Phone className="w-4 h-4 text-[#FFD100] shrink-0" />
-                <a href="tel:0789057975" className="text-white font-extrabold hover:text-[#FFD100]">
+                <a href="tel:0789057975" className="text-white font-black hover:text-[#FFD100]">
                   078 905 7975
                 </a>
               </div>
@@ -187,8 +177,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
 
           {/* Col 4: Safe Payments & Local Delivery */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-xs font-black text-white uppercase tracking-wider">Payment & Delivery</h4>
-            <div className="space-y-2 text-xs text-zinc-400">
+            <h4 className="text-xs font-black text-white uppercase tracking-wider">Payment &amp; Delivery</h4>
+            <div className="space-y-2 text-xs text-zinc-400 font-medium">
               <p>
                 We accept PayFast Instant EFT, Debit/Credit Card, Cash on delivery/collection, and speedpoint on handover.
               </p>
@@ -198,7 +188,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
                   <span>Hillcrest Doorstep Delivery</span>
                 </div>
                 <div className="text-[10px] text-zinc-400">
-                  Prompt delivery across Hillcrest, Kloof, Waterfall, Gillitts & surrounding areas.
+                  Prompt delivery across Hillcrest, Kloof, Waterfall, Gillitts &amp; surrounding areas.
                 </div>
               </div>
             </div>
@@ -232,7 +222,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
                     type="button"
                     onClick={onOpenStaffLogin}
                     className="text-zinc-500 hover:text-[#FFD100] transition-colors cursor-pointer flex items-center gap-1 font-semibold"
-                    title="Staff Portal (Kitchen, Driver & Admin Access)"
+                    title="Staff Portal (Kitchen, Driver &amp; Admin Access)"
                   >
                     <span>🔒 Staff Portal</span>
                   </button>
@@ -241,7 +231,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
             </div>
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 font-bold">
             <span>Proudly Local</span>
             <Heart className="w-3.5 h-3.5 text-[#FFD100] fill-[#FFD100]" />
             <span>Durban Beachfront Heritage</span>

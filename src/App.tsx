@@ -710,7 +710,7 @@ const MainContent: React.FC = () => {
 
 export const App: React.FC = () => {
   return (
-    <ErrorBoundary fallbackTitle="Wrap & Wings Co. App Recovery">
+    <ErrorBoundary fallbackTitle="Afro's Chicken Shop (Hillcrest) App Recovery">
       <CartProvider>
         <MainContent />
       </CartProvider>

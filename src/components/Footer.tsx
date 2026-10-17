@@ -1,7 +1,7 @@
 import React from 'react';
 import { SOCIAL_LINKS, STORES } from '../data/stores';
 import { FacebookIcon } from './icons/FacebookIcon';
-import { MapPin, Phone, Mail, Clock, Heart, ShieldCheck, Flame, Utensils, Info, Calendar } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Heart, ShieldCheck, Home, Utensils, BookOpen, PartyPopper, Package } from 'lucide-react';
 import { LegalTab } from './LegalModal';
 import { PageView } from '../types';
 
@@ -78,50 +78,55 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
           {/* Col 2: Navigation Links */}
           <div className="lg:col-span-2 space-y-3 font-bold">
             <h4 className="text-xs font-black text-white uppercase tracking-wider">Explore</h4>
-            <ul className="space-y-2 text-xs">
+            <ul className="space-y-2.5 text-xs">
               <li>
                 <button
                   type="button"
                   onClick={() => handleNav('main')}
-                  className="text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-bold"
+                  className="flex items-center gap-2.5 text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-bold group"
                 >
-                  🏠 Home Page
+                  <Home className="w-4 h-4 text-[#FFD100] shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>Home Page</span>
                 </button>
               </li>
               <li>
                 <button
                   type="button"
                   onClick={() => handleNav('menu')}
-                  className="text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-bold"
+                  className="flex items-center gap-2.5 text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-bold group"
                 >
-                  🍗 Online Food Menu
+                  <Utensils className="w-4 h-4 text-[#FFD100] shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>Online Food Menu</span>
                 </button>
               </li>
               <li>
                 <button
                   type="button"
                   onClick={() => handleNav('about')}
-                  className="text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-bold"
+                  className="flex items-center gap-2.5 text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-bold group"
                 >
-                  📖 About Us (Keep Things Simple)
+                  <BookOpen className="w-4 h-4 text-[#FFD100] shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>About Us (Keep Things Simple)</span>
                 </button>
               </li>
               <li>
                 <button
                   type="button"
                   onClick={() => handleNav('functions')}
-                  className="text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-bold"
+                  className="flex items-center gap-2.5 text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-bold group"
                 >
-                  🎉 Functions &amp; Catering
+                  <PartyPopper className="w-4 h-4 text-[#FFD100] shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>Functions &amp; Catering</span>
                 </button>
               </li>
               <li>
                 <button
                   type="button"
                   onClick={() => handleNav('track')}
-                  className="text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-bold"
+                  className="flex items-center gap-2.5 text-zinc-400 hover:text-[#FFD100] transition-colors cursor-pointer text-left font-bold group"
                 >
-                  📦 Track Live Order
+                  <Package className="w-4 h-4 text-[#FFD100] shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>Track Live Order</span>
                 </button>
               </li>
             </ul>

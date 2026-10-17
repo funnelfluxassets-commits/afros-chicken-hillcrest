@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ShieldCheck, FileText, Lock, Scale, Building2, Phone, Mail, MapPin } from 'lucide-react';
+import { X, ShieldCheck, FileText, Lock, Scale, Phone, Mail, MapPin, CheckCircle2 } from 'lucide-react';
 import { STORES } from '../data/stores';
 
 export type LegalTab = 'privacy' | 'terms';
@@ -17,29 +17,34 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, initialTab = 'pr
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-fadeIn">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/85 backdrop-blur-md animate-fadeIn"
+      onClick={onClose}
+    >
       <div
-        className="relative w-full max-w-3xl max-h-[90vh] rounded-3xl bg-[#141419] border border-white/10 shadow-2xl flex flex-col overflow-hidden text-zinc-300"
+        className="relative w-full max-w-3xl max-h-[92vh] sm:max-h-[88vh] rounded-2xl sm:rounded-3xl bg-[#141419] border border-white/10 shadow-2xl flex flex-col overflow-hidden text-zinc-300"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="p-4 sm:p-5 bg-zinc-950 border-b border-white/10 flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-rose-500/10 text-rose-500">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="p-2 sm:p-2.5 rounded-xl bg-[#FFD100]/10 text-[#FFD100] border border-[#FFD100]/20 shrink-0">
               {activeTab === 'privacy' ? <ShieldCheck className="w-5 h-5" /> : <Scale className="w-5 h-5" />}
             </div>
-            <div>
-              <h2 className="text-base sm:text-lg font-black text-white">
+            <div className="min-w-0">
+              <h2 className="text-base sm:text-lg font-black text-white font-black-grotesque uppercase tracking-wide truncate">
                 {activeTab === 'privacy' ? 'Privacy Policy (POPIA)' : 'Terms of Service'}
               </h2>
-              <p className="text-xs text-zinc-400">Wrap & Wings Co • South Africa</p>
+              <p className="text-xs text-zinc-400 font-semibold truncate">
+                Afro's Chicken Shop (Hillcrest) • South Africa
+              </p>
             </div>
           </div>
 
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+            className="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors cursor-pointer shrink-0 ml-2"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -47,26 +52,26 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, initialTab = 'pr
         </div>
 
         {/* Tab Switcher */}
-        <div className="px-5 pt-3 bg-zinc-950/50 border-b border-white/5 flex gap-2 shrink-0">
+        <div className="px-4 sm:px-6 pt-3 bg-zinc-950/70 border-b border-white/5 flex gap-2 shrink-0 overflow-x-auto no-scrollbar">
           <button
             type="button"
             onClick={() => setActiveTab('privacy')}
-            className={`pb-3 px-3 text-xs sm:text-sm font-bold border-b-2 transition-all cursor-pointer flex items-center gap-2 ${
+            className={`pb-3 px-3 text-xs sm:text-sm font-bold border-b-2 transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap ${
               activeTab === 'privacy'
-                ? 'border-rose-500 text-white'
+                ? 'border-[#FFD100] text-[#FFD100]'
                 : 'border-transparent text-zinc-400 hover:text-zinc-200'
             }`}
           >
             <Lock className="w-3.5 h-3.5" />
-            <span>Privacy Policy</span>
+            <span>Privacy Policy (POPIA)</span>
           </button>
 
           <button
             type="button"
             onClick={() => setActiveTab('terms')}
-            className={`pb-3 px-3 text-xs sm:text-sm font-bold border-b-2 transition-all cursor-pointer flex items-center gap-2 ${
+            className={`pb-3 px-3 text-xs sm:text-sm font-bold border-b-2 transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap ${
               activeTab === 'terms'
-                ? 'border-rose-500 text-white'
+                ? 'border-[#FFD100] text-[#FFD100]'
                 : 'border-transparent text-zinc-400 hover:text-zinc-200'
             }`}
           >
@@ -76,126 +81,137 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, initialTab = 'pr
         </div>
 
         {/* Scrollable Content Body */}
-        <div className="p-5 sm:p-7 overflow-y-auto space-y-6 text-xs sm:text-sm leading-relaxed text-zinc-300">
+        <div className="p-4 sm:p-7 overflow-y-auto space-y-5 sm:space-y-6 text-xs sm:text-sm leading-relaxed text-zinc-300">
           
           {/* ─────────────────────────────────────────────────────────────────── */}
           {/* TAB 1: PRIVACY POLICY                                              */}
           {/* ─────────────────────────────────────────────────────────────────── */}
           {activeTab === 'privacy' && (
-            <div className="space-y-6">
-              <div className="p-4 rounded-2xl bg-zinc-900 border border-white/5 space-y-1">
-                <div className="text-xs font-black text-white uppercase tracking-wider">
-                  POPIA Compliance Statement
+            <div className="space-y-5 sm:space-y-6">
+              <div className="p-4 rounded-2xl bg-zinc-900 border border-[#FFD100]/20 space-y-1.5">
+                <div className="text-xs font-black text-[#FFD100] uppercase tracking-wider flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>POPIA Compliance Statement</span>
                 </div>
-                <p className="text-xs text-zinc-400">
-                  Wrap & Wings Co is fully committed to protecting your personal information in compliance with the
+                <p className="text-xs text-zinc-300">
+                  Afro's Chicken Shop (Hillcrest) is fully committed to protecting your personal information in compliance with the
                   Protection of Personal Information Act No. 4 of 2013 (POPIA) of the Republic of South Africa.
                 </p>
-                <div className="text-[11px] text-zinc-500 pt-1">
+                <div className="text-[11px] text-zinc-500 pt-0.5">
                   Last Updated: October 2026 • Effective Date: Immediately
                 </div>
               </div>
 
               <section className="space-y-2">
-                <h3 className="text-sm font-black text-white uppercase tracking-wide">1. Responsible Party</h3>
+                <h3 className="text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">1.</span> Responsible Party
+                </h3>
                 <p>
-                  This Privacy Policy applies to personal information collected and processed by{' '}
-                  <strong className="text-white">Wrap & Wings Co</strong> ("we", "us", or "our"), operating at Shop 1,
-                  Uniland Centre, Pinetown, KwaZulu-Natal, South Africa.
+                  This Privacy Policy applies to all personal information collected and processed by{' '}
+                  <strong className="text-white">Afro's Chicken Shop (Hillcrest)</strong> ("we", "us", or "our"),
+                  operating at Shop 5, The Junction, 5 Inanda Road, Hillcrest, 3650, KwaZulu-Natal, South Africa.
                 </p>
               </section>
 
               <section className="space-y-2">
-                <h3 className="text-sm font-black text-white uppercase tracking-wide">2. Information We Collect</h3>
-                <p>When you browse our website or place an order for collection or delivery, we may collect:</p>
-                <ul className="list-disc pl-5 space-y-1 text-zinc-400">
+                <h3 className="text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">2.</span> Information We Collect
+                </h3>
+                <p>When you browse our website or place an order for takeaway collection or direct delivery, we may collect:</p>
+                <ul className="list-disc pl-5 space-y-1.5 text-zinc-400">
                   <li>
-                    <strong className="text-zinc-200">Customer Identification:</strong> Full name, telephone/mobile
-                    number, and email address.
+                    <strong className="text-zinc-200">Customer Identification:</strong> Full name, mobile telephone number, and email address.
                   </li>
                   <li>
-                    <strong className="text-zinc-200">Delivery Information:</strong> Physical delivery address, suburb,
-                    complex/unit name, gate access codes, and driver delivery instructions.
+                    <strong className="text-zinc-200">Delivery Information:</strong> Physical delivery address, suburb (Hillcrest, Kloof, Waterfall, Gillitts, Assagay, Winston Park, etc.), complex or unit details, access gate instructions, and driver notes.
                   </li>
                   <li>
-                    <strong className="text-zinc-200">Order Information:</strong> Items selected, flavour bastings, sides,
-                    special instructions, and order history.
+                    <strong className="text-zinc-200">Order Information:</strong> Items selected (steam-grilled burgers, strips, wings, hand-cut tjips, basting selections), dietary requirements, and order history.
                   </li>
                   <li>
-                    <strong className="text-zinc-200">Payment Information:</strong> Transaction status and reference
-                    numbers. All payments are securely processed via certified third-party payment gateways (PayFast and
-                    Yoco). <em className="text-amber-300">We do not store your credit card numbers or banking passwords.</em>
+                    <strong className="text-zinc-200">Payment Information:</strong> Transaction status and reference numbers. Payments are securely processed via certified South African payment providers (PayFast, Yoco, Ozow / Instant EFT, and card speedpoints). <em className="text-[#FFD100]">We never store your credit card numbers, CVVs, or banking credentials.</em>
                   </li>
                 </ul>
               </section>
 
               <section className="space-y-2">
-                <h3 className="text-sm font-black text-white uppercase tracking-wide">3. Purpose of Processing</h3>
-                <p>We process your personal information strictly for the following legitimate business purposes:</p>
-                <ul className="list-disc pl-5 space-y-1 text-zinc-400">
-                  <li>To prepare, package, and fulfill your takeaway or delivery food orders.</li>
-                  <li>
-                    To provide our delivery drivers with accurate turn-by-turn navigation (via Google Maps / Waze) to reach
-                    your doorstep promptly.
-                  </li>
-                  <li>To communicate order confirmation and preparation updates via phone or WhatsApp.</li>
-                  <li>To process refunds, resolve customer inquiries, and comply with statutory legal requirements.</li>
+                <h3 className="text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">3.</span> Purpose of Processing
+                </h3>
+                <p>We process your personal information strictly for legitimate business and hospitality purposes:</p>
+                <ul className="list-disc pl-5 space-y-1.5 text-zinc-400">
+                  <li>To prepare, package, and fulfill your takeaway or delivery food orders accurately.</li>
+                  <li>To enable our delivery drivers to navigate directly to your address and deliver hot food on time.</li>
+                  <li>To provide real-time WhatsApp or SMS notifications regarding your order readiness or delivery status.</li>
+                  <li>To respond to customer enquiries, process refunds where applicable, and maintain statutory tax records.</li>
                 </ul>
               </section>
 
               <section className="space-y-2">
-                <h3 className="text-sm font-black text-white uppercase tracking-wide">4. Sharing of Information</h3>
+                <h3 className="text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">4.</span> Sharing of Information
+                </h3>
                 <p>
-                  We treat your information with the strictest confidentiality. We do{' '}
-                  <strong className="text-rose-400">never sell, rent, or trade</strong> your personal information to third
-                  parties. We only disclose information to:
+                  We treat your personal data with absolute confidentiality. We{' '}
+                  <strong className="text-[#FFD100]">never sell, rent, or trade</strong> your personal information to third parties. Information is only shared with:
                 </p>
-                <ul className="list-disc pl-5 space-y-1 text-zinc-400">
+                <ul className="list-disc pl-5 space-y-1.5 text-zinc-400">
                   <li>
-                    <strong className="text-zinc-200">Our In-House Delivery Personnel:</strong> Solely to locate and contact
-                    you to complete your food handover.
+                    <strong className="text-zinc-200">Dedicated Delivery Personnel:</strong> Exclusively to locate and contact you for meal handover.
                   </li>
                   <li>
-                    <strong className="text-zinc-200">Payment Gateways:</strong> PayFast and Yoco for encrypted payment
-                    authorization.
+                    <strong className="text-zinc-200">Certified Payment Processors:</strong> For secure, tokenized transaction authorization.
                   </li>
                   <li>
-                    <strong className="text-zinc-200">Regulatory Authorities:</strong> Only when legally required by the laws
-                    of the Republic of South Africa.
+                    <strong className="text-zinc-200">Regulatory Authorities:</strong> Only when strictly mandated by South African law.
                   </li>
                 </ul>
               </section>
 
               <section className="space-y-2">
-                <h3 className="text-sm font-black text-white uppercase tracking-wide">5. Data Security</h3>
+                <h3 className="text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">5.</span> Data Security
+                </h3>
                 <p>
-                  We implement robust technical and organizational security measures to protect your personal information
-                  against loss, unauthorized access, destruction, or disclosure. All web traffic is encrypted using Secure
-                  Sockets Layer (SSL/HTTPS).
+                  We implement industry-standard technical and operational safeguards to protect your data against loss, unauthorized access, or misuse. All website transmissions are encrypted end-to-end via Secure Sockets Layer (SSL/HTTPS).
                 </p>
               </section>
 
               <section className="space-y-2">
-                <h3 className="text-sm font-black text-white uppercase tracking-wide">6. Your Rights Under POPIA</h3>
-                <p>As a data subject, you have the right to:</p>
-                <ul className="list-disc pl-5 space-y-1 text-zinc-400">
-                  <li>Request confirmation of whether we hold personal information about you.</li>
-                  <li>Request the correction, updating, or deletion of your personal records.</li>
-                  <li>Object to the processing of your personal information on reasonable grounds.</li>
-                  <li>Lodge a complaint with the South African Information Regulator (inforeg.org.za).</li>
+                <h3 className="text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">6.</span> Your Rights Under POPIA
+                </h3>
+                <p>As a data subject in South Africa, you have the right to:</p>
+                <ul className="list-disc pl-5 space-y-1.5 text-zinc-400">
+                  <li>Request confirmation and access to personal records we hold regarding you.</li>
+                  <li>Request the correction, updating, or deletion of inaccurate or outdated data.</li>
+                  <li>Object to processing on reasonable grounds, subject to legal retention obligations.</li>
+                  <li>Lodge a complaint with the Information Regulator of South Africa (inforeg.org.za).</li>
                 </ul>
               </section>
 
-              <section className="space-y-2 p-4 rounded-2xl bg-zinc-900 border border-white/5">
-                <h3 className="text-sm font-black text-white uppercase tracking-wide">7. Contact Our Information Officer</h3>
+              <section className="space-y-2.5 p-4 rounded-2xl bg-zinc-900 border border-white/5">
+                <h3 className="text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-[#FFD100]" />
+                  <span>7. Contact Our Information Officer</span>
+                </h3>
                 <p className="text-xs text-zinc-400">
-                  If you have questions regarding this Privacy Policy or wish to exercise your POPIA rights, contact us at:
+                  If you have questions regarding this Privacy Policy or wish to exercise your POPIA rights, contact us directly:
                 </p>
-                <div className="space-y-1 text-xs text-zinc-300 pt-1">
-                  <div><strong>Wrap & Wings Co</strong> (Information Officer)</div>
-                  <div>📍 Shop 1, Uniland Centre, Pinetown, Durban, KZN</div>
-                  <div>📞 Telephone / WhatsApp: 068 886 3892</div>
-                  <div>✉️ Email: info@wrapandwings.co.za</div>
+                <div className="space-y-1.5 text-xs text-zinc-300 pt-1 font-medium">
+                  <div><strong className="text-white">Afro's Chicken Shop (Hillcrest)</strong> — Information Officer</div>
+                  <div className="flex items-center gap-2">
+                    <MapPin className="w-3.5 h-3.5 text-[#FFD100] shrink-0" />
+                    <span>Shop 5, The Junction, 5 Inanda Road, Hillcrest, 3650, KZN</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Phone className="w-3.5 h-3.5 text-[#FFD100] shrink-0" />
+                    <span>WhatsApp / Tel: 078 905 7975</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-3.5 h-3.5 text-[#FFD100] shrink-0" />
+                    <span>Email: info@afroschicken.co.za</span>
+                  </div>
                 </div>
               </section>
             </div>
@@ -205,103 +221,105 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, initialTab = 'pr
           {/* TAB 2: TERMS OF SERVICE                                            */}
           {/* ─────────────────────────────────────────────────────────────────── */}
           {activeTab === 'terms' && (
-            <div className="space-y-6">
-              <div className="p-4 rounded-2xl bg-zinc-900 border border-white/5 space-y-1">
-                <div className="text-xs font-black text-white uppercase tracking-wider">
-                  Consumer Terms & Conditions
+            <div className="space-y-5 sm:space-y-6">
+              <div className="p-4 rounded-2xl bg-zinc-900 border border-[#FFD100]/20 space-y-1.5">
+                <div className="text-xs font-black text-[#FFD100] uppercase tracking-wider flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>Consumer Terms &amp; Conditions</span>
                 </div>
-                <p className="text-xs text-zinc-400">
-                  These Terms govern your use of the Wrap & Wings Co website and ordering platform in accordance with the
+                <p className="text-xs text-zinc-300">
+                  These Terms govern your use of the Afro's Chicken Shop (Hillcrest) ordering platform in accordance with the
                   Consumer Protection Act No. 68 of 2008 (CPA) and Electronic Communications and Transactions Act No. 25 of 2002.
                 </p>
-                <div className="text-[11px] text-zinc-500 pt-1">
-                  Last Updated: October 2026 • Applicable to all Orders & Deliveries
+                <div className="text-[11px] text-zinc-500 pt-0.5">
+                  Last Updated: October 2026 • Applicable to all Orders &amp; Deliveries
                 </div>
               </div>
 
               <section className="space-y-2">
-                <h3 className="text-sm font-black text-white uppercase tracking-wide">1. Agreement to Terms</h3>
+                <h3 className="text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">1.</span> Agreement to Terms
+                </h3>
                 <p>
-                  By accessing our website (wrapandwings.co.za) or placing an order with{' '}
-                  <strong className="text-white">Wrap & Wings Co</strong>, you agree to be bound by these Terms of Service.
-                  If you do not agree, please do not use our services.
+                  By accessing our website or placing an order with{' '}
+                  <strong className="text-white">Afro's Chicken Shop (Hillcrest)</strong>, you agree to be bound by these Terms of Service.
+                  If you do not agree with any part of these terms, please refrain from using our online ordering services.
                 </p>
               </section>
 
               <section className="space-y-2">
-                <h3 className="text-sm font-black text-white uppercase tracking-wide">2. Order Placement & Acceptance</h3>
-                <ul className="list-disc pl-5 space-y-1 text-zinc-400">
+                <h3 className="text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">2.</span> Order Placement &amp; Preparation
+                </h3>
+                <ul className="list-disc pl-5 space-y-1.5 text-zinc-400">
                   <li>
-                    When you place an order, it constitutes an offer to purchase our food products. All orders are subject to
-                    kitchen confirmation, stock availability, and delivery radius constraints.
+                    Placing an order constitutes an offer to purchase food. All orders are subject to kitchen confirmation, ingredient availability, and delivery area feasibility.
                   </li>
                   <li>
-                    Because our food is freshly flame-grilled to order, cancellations cannot be accepted once the kitchen has
-                    commenced preparing your food.
-                  </li>
-                </ul>
-              </section>
-
-              <section className="space-y-2">
-                <h3 className="text-sm font-black text-white uppercase tracking-wide">3. Pricing & Currency</h3>
-                <ul className="list-disc pl-5 space-y-1 text-zinc-400">
-                  <li>All prices displayed on this website are in South African Rands (ZAR).</li>
-                  <li>Prices are inclusive of applicable Value Added Tax (VAT) unless otherwise indicated.</li>
-                  <li>
-                    We reserve the right to correct pricing typographical errors and update menu prices at any time prior to
-                    order acceptance.
+                    Because our chicken is freshly steam-grilled and basted to order, and our potato tjips are hand-cut and prepared hot, cancellations cannot be accepted once the kitchen has commenced cooking.
                   </li>
                 </ul>
               </section>
 
               <section className="space-y-2">
-                <h3 className="text-sm font-black text-white uppercase tracking-wide">4. Collection & Delivery Terms</h3>
-                <ul className="list-disc pl-5 space-y-1 text-zinc-400">
+                <h3 className="text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">3.</span> Pricing &amp; Currency
+                </h3>
+                <ul className="list-disc pl-5 space-y-1.5 text-zinc-400">
+                  <li>All prices displayed are in South African Rands (ZAR) and inclusive of Value Added Tax (VAT).</li>
                   <li>
-                    <strong className="text-zinc-200">Store Collection:</strong> Orders must be collected from Shop 1, Uniland
-                    Centre, Pinetown within reasonable time of your scheduled readiness notification.
-                  </li>
-                  <li>
-                    <strong className="text-zinc-200">Delivery:</strong> We deliver to designated areas in Pinetown and
-                    surrounds. Estimated delivery windows (e.g., 30–45 mins) are estimates and may vary based on peak kitchen
-                    demand, severe weather, or road traffic.
-                  </li>
-                  <li>
-                    <strong className="text-zinc-200">Customer Availability:</strong> Customers must ensure an authorized
-                    person is available at the address, provide functioning gate access codes, and answer phone calls from the
-                    driver to complete handover.
+                    We reserve the right to correct any inadvertent typographical pricing errors prior to order confirmation.
                   </li>
                 </ul>
               </section>
 
               <section className="space-y-2">
-                <h3 className="text-sm font-black text-white uppercase tracking-wide">5. Food Safety & Allergen Notice</h3>
+                <h3 className="text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">4.</span> Collection &amp; Delivery Terms
+                </h3>
+                <ul className="list-disc pl-5 space-y-1.5 text-zinc-400">
+                  <li>
+                    <strong className="text-zinc-200">Store Collection:</strong> Orders must be collected from Afro's Chicken Shop, Shop 5, The Junction, 5 Inanda Road, Hillcrest within a reasonable window following your notification.
+                  </li>
+                  <li>
+                    <strong className="text-zinc-200">Delivery Service:</strong> Delivery is provided throughout Hillcrest, Kloof, Waterfall, Gillitts, Winston Park, Assagay, Botha's Hill &amp; surrounding areas. Estimated delivery times are estimates and may fluctuate during peak meal hours, adverse weather, or heavy traffic.
+                  </li>
+                  <li>
+                    <strong className="text-zinc-200">Customer Availability:</strong> Customers must ensure an authorized recipient is at the address, correct access gate codes are supplied, and driver calls are answered to complete handover.
+                  </li>
+                </ul>
+              </section>
+
+              <section className="space-y-2">
+                <h3 className="text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">5.</span> Food Quality &amp; Allergen Advisory
+                </h3>
                 <p>
-                  Our kitchen prepares chicken, spices, dairy (cheese, mayo), bread/gluten (wraps, rolls), and seafood. While we
-                  exercise strict hygiene and preparation controls, cross-contact with allergens may occur. Customers with severe
-                  allergies should inform our team prior to ordering.
+                  We are passionate about fresh, uncomplicated food made well. Our meals feature fresh never-frozen chicken, real potato tjips, and signature sauces.
+                  Our kitchen handles chicken, dairy (cheese, mayo), gluten/wheat (burger rolls, pitas), and sauces. While strict food safety and hygiene protocols are enforced, cross-contact may occur. If you have severe food allergies, please contact our team directly prior to ordering.
                 </p>
               </section>
 
               <section className="space-y-2">
-                <h3 className="text-sm font-black text-white uppercase tracking-wide">6. Quality Guarantee & Complaints</h3>
+                <h3 className="text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">6.</span> Quality Guarantee &amp; Customer Care
+                </h3>
                 <p>
-                  In accordance with the Consumer Protection Act (CPA), we take pride in delivering hot, fresh, quality food. If
-                  your order is incorrect, damaged, or unsatisfactory upon delivery:
+                  In compliance with the Consumer Protection Act (CPA), we stand behind the quality of every meal. If your meal is incorrect or does not meet quality expectations:
                 </p>
-                <ul className="list-disc pl-5 space-y-1 text-zinc-400">
-                  <li>Notify us via telephone or WhatsApp within 2 hours of receiving your meal.</li>
-                  <li>Provide your Order Reference Number and brief details of the issue.</li>
-                  <li>We will promptly rectify the issue with a replacement or appropriate refund.</li>
+                <ul className="list-disc pl-5 space-y-1.5 text-zinc-400">
+                  <li>Contact us via WhatsApp or phone at <strong className="text-[#FFD100]">078 905 7975</strong> within 2 hours of receiving your order.</li>
+                  <li>Provide your order number and a quick description of the issue.</li>
+                  <li>Our management team will promptly replace the item or process an appropriate credit/refund.</li>
                 </ul>
               </section>
 
               <section className="space-y-2">
-                <h3 className="text-sm font-black text-white uppercase tracking-wide">7. Governing Law</h3>
+                <h3 className="text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">7.</span> Governing Law
+                </h3>
                 <p>
-                  These Terms of Service are governed by and construed in accordance with the laws of the Republic of South
-                  Africa. Any dispute arising out of or in connection with these terms shall be subject to the jurisdiction of the
-                  South African courts.
+                  These Terms of Service are governed by and construed in accordance with the laws of the Republic of South Africa. Any disputes will be subject to the jurisdiction of the South African courts.
                 </p>
               </section>
             </div>
@@ -310,14 +328,16 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, initialTab = 'pr
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 bg-zinc-950 border-t border-white/10 flex items-center justify-between shrink-0">
-          <span className="text-xs text-zinc-500">Wrap & Wings Co • Shop 1 Uniland Centre, Pinetown</span>
+        <div className="p-3.5 sm:p-4 bg-zinc-950 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+          <span className="text-[11px] sm:text-xs text-zinc-400 text-center sm:text-left font-medium">
+            Afro's Chicken Shop • Shop 5, The Junction, 5 Inanda Rd, Hillcrest
+          </span>
           <button
             type="button"
             onClick={onClose}
-            className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs transition-colors cursor-pointer"
+            className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#FFD100] hover:bg-[#ffe14d] text-black font-black font-black-grotesque text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer text-center"
           >
-            I Understand & Close
+            I Understand &amp; Close
           </button>
         </div>
 

@@ -93,11 +93,11 @@ body {
   animation-play-state: paused;
 }
 
-/* Hero Animations matching Afros website */
+/* Hero Animations matching Afros website (slowed down by 50% with more travel) */
 @keyframes slideInLeftShort {
   0% {
     opacity: 0;
-    transform: translateX(-55px);
+    transform: translateX(-110px);
   }
   100% {
     opacity: 1;
@@ -108,7 +108,7 @@ body {
 @keyframes slideInRightShort {
   0% {
     opacity: 0;
-    transform: translateX(55px);
+    transform: translateX(110px);
   }
   100% {
     opacity: 1;
@@ -119,16 +119,16 @@ body {
 @keyframes dropDownBounce {
   0% {
     opacity: 0;
-    transform: translateY(-55px);
+    transform: translateY(-95px);
   }
-  58% {
+  55% {
     opacity: 1;
-    transform: translateY(9px);
+    transform: translateY(14px);
   }
-  78% {
-    transform: translateY(-4px);
+  75% {
+    transform: translateY(-6px);
   }
-  90% {
+  88% {
     transform: translateY(2px);
   }
   100% {
@@ -138,13 +138,13 @@ body {
 }
 
 .animate-slide-left {
-  animation: slideInLeftShort 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: slideInLeftShort 1.2s cubic-bezier(0.2, 1, 0.3, 1) both;
 }
 
 .animate-slide-right {
-  animation: slideInRightShort 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: slideInRightShort 1.2s cubic-bezier(0.2, 1, 0.3, 1) both;
 }
 
 .animate-drop-bounce {
-  animation: dropDownBounce 1.05s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: dropDownBounce 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }

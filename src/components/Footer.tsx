@@ -41,16 +41,21 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
             <button
               type="button"
               onClick={() => handleNav('main')}
-              className="flex items-center gap-3 text-left cursor-pointer group"
+              className="flex items-center gap-3.5 text-left cursor-pointer group"
             >
               <img
-                src="/assets/afros/logos/afros-logo.png"
+                src="/assets/afros/logos/afros-logo-round-yellow-bg.png"
                 alt="Afro's Chicken Shop"
-                className="h-9 w-auto object-contain"
+                className="h-16 w-16 sm:h-20 sm:w-20 object-contain rounded-full shadow-lg group-hover:scale-105 transition-transform"
               />
-              <span className="text-[11px] font-black text-[#FFD100] uppercase tracking-wider pl-2 border-l border-white/20">
-                Hillcrest
-              </span>
+              <div className="flex flex-col">
+                <span className="text-sm font-black text-white uppercase tracking-wider font-black-grotesque">
+                  Afro's Chicken Shop
+                </span>
+                <span className="text-xs font-black text-[#FFD100] uppercase tracking-widest">
+                  Hillcrest
+                </span>
+              </div>
             </button>
 
             <p className="text-xs text-zinc-400 leading-relaxed max-w-sm font-medium">

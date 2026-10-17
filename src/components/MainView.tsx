@@ -82,55 +82,55 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* MOBILE HERO VIEW (Matches reference screenshot media_1792238897372.jpg) */}
-        <div className="md:hidden relative w-full bg-[#F3CD17] pb-10">
-          {/* Top: Burger visual on wooden board */}
-          <div className="relative w-full aspect-[4/3] max-h-[380px] overflow-hidden">
-            <img
-              src="/assets/afros/pages/afros-home-page-banner.png"
-              alt="The Real Makoya Burger"
-              className="w-full h-full object-cover object-[26%_center]"
-            />
+        {/* MOBILE HERO VIEW (Matches reference screenshot media_1792241184255.jpg - overlay directly on burger) */}
+        <div className="md:hidden relative w-full aspect-[4/5] min-h-[500px] max-h-[640px] overflow-hidden bg-[#F3CD17]">
+          {/* Full-width authentic Afros hero image */}
+          <div
+            className="absolute inset-0 bg-cover bg-[position:22%_center]"
+            style={{
+              backgroundImage: "url('/assets/afros/pages/afros-home-page-banner.png')",
+            }}
+            aria-hidden="true"
+          />
 
-            {/* 3 yellow wavy lines placed directly over the burger bun with drop-down bounce */}
-            <div className="absolute top-[25%] left-[10%] w-[38%] max-w-[170px] pointer-events-none z-20 animate-drop-bounce">
-              <img
-                src="/assets/afros/logos/afros-yellow-waves-align.png"
-                alt="Yellow wave doodle"
-                className="w-full h-auto object-contain drop-shadow"
-              />
-            </div>
+          {/* 3 yellow wavy lines placed directly over the burger bun with drop-down bounce */}
+          <div className="absolute top-[18%] left-[7%] w-[38%] max-w-[150px] pointer-events-none z-20 animate-drop-bounce">
+            <img
+              src="/assets/afros/logos/afros-yellow-waves-align.png"
+              alt="Yellow wave doodle"
+              className="w-full h-auto object-contain drop-shadow"
+            />
           </div>
 
-          {/* Bottom: Stacked Badges with the EXACT SAME ANIMATIONS as desktop */}
-          <div className="flex flex-col items-center text-center px-4 pt-3 space-y-2 font-black-grotesque">
+          {/* Overlaid Badges & VIEW MENU Button directly on the burger (matching media_1792241184255.jpg) */}
+          <div className="absolute top-[28%] sm:top-[30%] right-3 sm:right-6 z-20 flex flex-col items-end text-right space-y-2 font-black-grotesque">
             {/* THE - Slides in from LEFT */}
             <div className="animate-slide-left">
-              <span className="inline-block bg-black text-white px-7 py-1.5 text-4xl sm:text-5xl font-black uppercase tracking-tight shadow-2xl leading-none">
+              <span className="inline-block bg-black text-white px-5 sm:px-6 py-1 text-3xl sm:text-4xl font-black uppercase tracking-tight shadow-2xl leading-none">
                 THE
               </span>
             </div>
 
             {/* REAL - Slides in from RIGHT */}
             <div className="animate-slide-right">
-              <span className="inline-block bg-black text-white px-7 py-1.5 text-4xl sm:text-5xl font-black uppercase tracking-tight shadow-2xl leading-none">
+              <span className="inline-block bg-black text-white px-5 sm:px-6 py-1 text-3xl sm:text-4xl font-black uppercase tracking-tight shadow-2xl leading-none">
                 REAL
               </span>
             </div>
 
             {/* MAKOYA - Slides in from LEFT */}
             <div className="animate-slide-left">
-              <span className="inline-block bg-black text-white px-7 py-1.5 text-4xl sm:text-5xl font-black uppercase tracking-tight shadow-2xl leading-none">
+              <span className="inline-block bg-black text-white px-5 sm:px-6 py-1 text-3xl sm:text-4xl font-black uppercase tracking-tight shadow-2xl leading-none">
                 MAKOYA
               </span>
             </div>
 
             {/* VIEW MENU CTA BUTTON - Slides in from RIGHT */}
-            <div className="pt-2 animate-slide-right w-full max-w-[280px]">
+            <div className="pt-2 animate-slide-right">
               <button
                 type="button"
                 onClick={() => onNavigate('menu')}
-                className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-[#FFD100] hover:bg-[#ffe14d] active:bg-amber-400 text-black font-black-grotesque text-xl uppercase tracking-wider shadow-xl transition-all cursor-pointer border border-black/15"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FFD100] hover:bg-[#ffe14d] active:bg-amber-400 text-black font-black font-black-grotesque text-lg sm:text-xl uppercase tracking-wider shadow-2xl transition-all cursor-pointer border border-black/15"
               >
                 <span>VIEW MENU</span>
                 <ArrowRight className="w-5 h-5 stroke-[3]" />

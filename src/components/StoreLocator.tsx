@@ -1,7 +1,7 @@
 import React from 'react';
 import { STORES, SOCIAL_LINKS } from '../data/stores';
 import { useCart } from '../context/CartContext';
-import { MapPin, Clock, Phone, Navigation, Check, X } from 'lucide-react';
+import { MapPin, Clock, Phone, Navigation, Check, X, ExternalLink } from 'lucide-react';
 import { StoreLocation } from '../types';
 
 interface StoreModalProps {
@@ -165,12 +165,7 @@ export const StoreLocatorSection: React.FC = () => {
             {/* Quick Direction Actions */}
             <div className="grid grid-cols-2 gap-3 pt-4 border-t border-zinc-200">
               <a
-                href={
-                  flagship.googleMapsUrl ||
-                  `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-                    'Afro’s Chicken Shop, Shop 5, The Junction, 5 Inanda Rd, Hillcrest'
-                  )}`
-                }
+                href={flagship.googleMapsUrl}
                 target="_blank"
                 rel="noreferrer"
                 className="py-3 px-4 rounded-xl bg-[#FFD100] text-black font-black hover:bg-[#ffe14d] text-xs flex items-center justify-center gap-1.5 shadow-sm transition-transform hover:scale-105"
@@ -198,7 +193,7 @@ export const StoreLocatorSection: React.FC = () => {
                 title="Afro’s Chicken Shop (Hillcrest) Location"
                 src={
                   flagship.mapEmbedUrl ||
-                  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d350!2d30.7649!3d-29.7785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef6e382d56cbb3b%3A0x7d6f5f3e9c5c9e2!2sAfro%27s%20Chicken%20Shop%20Hillcrest!5e0!3m2!1sen!2sza!4v1792178000000!5m2!1sen!2sza'
+                  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d350!2d30.7652685!3d-29.7783477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef6fb073d7b934f%3A0x63b003b5b6fe8c7c!2sAfro%27s%20Chicken%20Shop%20(Hillcrest)!5e0!3m2!1sen!2sza!4v1792178000000!5m2!1sen!2sza'
                 }
                 width="100%"
                 height="100%"
@@ -209,14 +204,23 @@ export const StoreLocatorSection: React.FC = () => {
                 className="w-full h-full absolute inset-0"
               />
               
-              {/* Map Floating Card */}
-              <div className="absolute bottom-4 left-4 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-zinc-200 text-xs text-black flex items-center gap-3 shadow-md z-10">
+              {/* Map Floating Card - Clicking opens Google Business page */}
+              <a
+                href={flagship.googleMapsUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="absolute bottom-4 left-4 p-3 rounded-2xl bg-white/95 hover:bg-white backdrop-blur-md border border-zinc-200 text-xs text-black flex items-center gap-3 shadow-md z-10 transition-transform hover:scale-105 group"
+                title="Open Afro's Chicken Shop (Hillcrest) on Google Maps"
+              >
                 <span className="w-3 h-3 rounded-full bg-[#FFD100] border border-black animate-ping shrink-0" />
                 <div>
-                  <div className="font-extrabold text-black">Shop 5, The Junction</div>
-                  <div className="text-[11px] text-zinc-500">5 Inanda Rd, Hillcrest</div>
+                  <div className="font-extrabold text-black flex items-center gap-1.5">
+                    <span>Shop 5, The Junction</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-black transition-colors" />
+                  </div>
+                  <div className="text-[11px] text-zinc-500">5 Inanda Rd, Hillcrest · View in Maps</div>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
 

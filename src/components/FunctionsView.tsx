@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Phone, Mail, MessageSquare, PartyPopper, Check, Users } from 'lucide-react';
+import { Calendar, Mail, MessageSquare, Check } from 'lucide-react';
 import { PageView } from '../types';
 
 interface FunctionsViewProps {
@@ -66,49 +66,8 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* ── 2. F5 IMAGE DIRECTLY UNDER THE HERO ── */}
-      <section className="bg-white pt-10 sm:pt-14 pb-4 px-4 sm:px-6">
-        <div className="max-w-2xl sm:max-w-3xl mx-auto">
-          <div className="overflow-hidden rounded-3xl border-2 border-black/10 shadow-2xl bg-zinc-50 transition-all hover:shadow-3xl">
-            <img
-              src="/assets/afros/functions/F5.webp"
-              alt="We Do Function at Afro's Hillcrest"
-              className="w-full h-auto object-contain block mx-auto"
-              loading="eager"
-            />
-          </div>
-
-          {/* Quick Contact Buttons right below F5 poster */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-            <a
-              href="https://wa.me/27626238449?text=Howzit%20Afro's%20Hillcrest!%20I'd%20like%20to%20inquire%20about%20booking%20a%20function."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#FFD100] hover:bg-[#ffe14d] text-black font-black text-sm uppercase tracking-wider rounded-xl shadow-xs hover:shadow-md transition-all cursor-pointer"
-            >
-              <MessageSquare className="w-4 h-4 text-black" />
-              <span>WhatsApp: 062 623 8449</span>
-            </a>
-            <a
-              href="mailto:nontonzama@afroschicken.co.za?subject=Function%20Inquiry%20-%20Afro's%20Hillcrest"
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-black hover:bg-zinc-800 text-white font-black text-sm uppercase tracking-wider rounded-xl shadow-xs transition-all cursor-pointer"
-            >
-              <Mail className="w-4 h-4 text-[#FFD100]" />
-              <span>Email: nontonzama@afroschicken.co.za</span>
-            </a>
-            <a
-              href="#inquiry-form"
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-zinc-100 hover:bg-zinc-200 text-black font-bold text-sm uppercase tracking-wider rounded-xl border border-zinc-300 transition-all cursor-pointer"
-            >
-              <Calendar className="w-4 h-4 text-zinc-700" />
-              <span>Request Quote Below</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 3. "WE DO FUNCTIONS" STORY SECTION ── */}
-      <section className="bg-white py-14 sm:py-20 px-4 sm:px-6">
+      {/* ── 2. "WE DO FUNCTIONS" STORY SECTION (MOVED UP UNDER HERO) ── */}
+      <section className="bg-white py-14 sm:py-20 md:py-24 px-4 sm:px-6">
         <div className="max-w-4xl lg:max-w-5xl mx-auto text-center space-y-8 sm:space-y-10 text-zinc-900 font-medium-grotesque">
           {/* Main Headline */}
           <h2 className="text-4xl sm:text-5xl md:text-[56px] lg:text-[62px] font-bold font-bold-grotesque tracking-tight text-black leading-tight">
@@ -156,26 +115,27 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* ── 4. EVENT GALLERY (F1, F2, F3, F4) ── */}
+      {/* ── 3. 4 EVENT IMAGE CARDS (BLOCK OF 4: 2 PER LINE ON PC, LARGER TEXT ON MOBILE) ── */}
       <section className="bg-zinc-50 py-16 sm:py-24 border-y border-zinc-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16">
-            <span className="text-xs font-black uppercase tracking-widest text-[#b89500] block mb-2">
+            <span className="text-xs sm:text-sm font-black uppercase tracking-widest text-[#b89500] block mb-2">
               REAL EVENTS • REAL GEES
             </span>
             <h3 className="text-3xl sm:text-4xl md:text-[46px] font-bold font-bold-grotesque tracking-tight text-black">
               Bringing The Flavour To <span className="text-[#00C4D6]">Every Occasion</span>
             </h3>
-            <p className="text-zinc-600 text-base sm:text-lg max-w-2xl mx-auto mt-3 font-medium">
+            <p className="text-zinc-600 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mt-3 font-medium">
               From backyard birthday jols to corporate gatherings and stadium festivals — our team is ready to serve.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Block of 4: 2 per line on PC / tablet, 1 per line on mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
             {/* F1 */}
-            <div className="bg-white rounded-2xl overflow-hidden border border-zinc-200 shadow-xs hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
+            <div className="bg-white rounded-3xl overflow-hidden border border-zinc-200 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
               <div>
-                <div className="aspect-[4/3] overflow-hidden bg-zinc-100">
+                <div className="aspect-[16/10] overflow-hidden bg-zinc-100">
                   <img
                     src="/assets/afros/functions/F1.webp"
                     alt="Afro's Mobile Gazebo Event Setup"
@@ -183,14 +143,14 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
                     loading="lazy"
                   />
                 </div>
-                <div className="p-5">
-                  <span className="text-[11px] font-black uppercase tracking-wider text-[#b89500] block mb-1">
+                <div className="p-6 sm:p-8">
+                  <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-[#b89500] block mb-2">
                     ON-SITE SETUP
                   </span>
-                  <h4 className="font-bold font-bold-grotesque text-lg text-black uppercase leading-snug">
+                  <h4 className="font-bold font-bold-grotesque text-2xl sm:text-3xl text-black uppercase leading-snug">
                     Live Gazebo Setup
                   </h4>
-                  <p className="text-xs sm:text-sm text-zinc-600 mt-2 leading-relaxed font-medium">
+                  <p className="text-base sm:text-lg text-zinc-700 mt-3 leading-relaxed font-medium">
                     Fully equipped mobile gazebo catering on-site, serving flame-grilled chicken and fresh tjips hot off the grill.
                   </p>
                 </div>
@@ -198,9 +158,9 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
             </div>
 
             {/* F2 */}
-            <div className="bg-white rounded-2xl overflow-hidden border border-zinc-200 shadow-xs hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
+            <div className="bg-white rounded-3xl overflow-hidden border border-zinc-200 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
               <div>
-                <div className="aspect-[4/3] overflow-hidden bg-zinc-100">
+                <div className="aspect-[16/10] overflow-hidden bg-zinc-100">
                   <img
                     src="/assets/afros/functions/F2.webp"
                     alt="Outdoor Gatherings & Celebrations"
@@ -208,14 +168,14 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
                     loading="lazy"
                   />
                 </div>
-                <div className="p-5">
-                  <span className="text-[11px] font-black uppercase tracking-wider text-[#b89500] block mb-1">
+                <div className="p-6 sm:p-8">
+                  <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-[#b89500] block mb-2">
                     COMMUNITY &amp; JOLS
                   </span>
-                  <h4 className="font-bold font-bold-grotesque text-lg text-black uppercase leading-snug">
+                  <h4 className="font-bold font-bold-grotesque text-2xl sm:text-3xl text-black uppercase leading-snug">
                     Outdoor Gatherings
                   </h4>
-                  <p className="text-xs sm:text-sm text-zinc-600 mt-2 leading-relaxed font-medium">
+                  <p className="text-base sm:text-lg text-zinc-700 mt-3 leading-relaxed font-medium">
                     Friends and family sharing good times and authentic Durban flavours that bring everyone together.
                   </p>
                 </div>
@@ -223,9 +183,9 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
             </div>
 
             {/* F3 */}
-            <div className="bg-white rounded-2xl overflow-hidden border border-zinc-200 shadow-xs hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
+            <div className="bg-white rounded-3xl overflow-hidden border border-zinc-200 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
               <div>
-                <div className="aspect-[4/3] overflow-hidden bg-zinc-100">
+                <div className="aspect-[16/10] overflow-hidden bg-zinc-100">
                   <img
                     src="/assets/afros/functions/F3.webp"
                     alt="Afro's Hillcrest Dedicated Catering Crew"
@@ -233,14 +193,14 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
                     loading="lazy"
                   />
                 </div>
-                <div className="p-5">
-                  <span className="text-[11px] font-black uppercase tracking-wider text-[#b89500] block mb-1">
+                <div className="p-6 sm:p-8">
+                  <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-[#b89500] block mb-2">
                     HILLCREST CREW
                   </span>
-                  <h4 className="font-bold font-bold-grotesque text-lg text-black uppercase leading-snug">
+                  <h4 className="font-bold font-bold-grotesque text-2xl sm:text-3xl text-black uppercase leading-snug">
                     Our Catering Crew
                   </h4>
-                  <p className="text-xs sm:text-sm text-zinc-600 mt-2 leading-relaxed font-medium">
+                  <p className="text-base sm:text-lg text-zinc-700 mt-3 leading-relaxed font-medium">
                     Passionate, friendly team members committed to quick turnaround, warm hospitality, and zero compromise on taste.
                   </p>
                 </div>
@@ -248,9 +208,9 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
             </div>
 
             {/* F4 */}
-            <div className="bg-white rounded-2xl overflow-hidden border border-zinc-200 shadow-xs hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
+            <div className="bg-white rounded-3xl overflow-hidden border border-zinc-200 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
               <div>
-                <div className="aspect-[4/3] overflow-hidden bg-zinc-100">
+                <div className="aspect-[16/10] overflow-hidden bg-zinc-100">
                   <img
                     src="/assets/afros/functions/F4.webp"
                     alt="Happy Guests and Function Gees"
@@ -258,14 +218,14 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
                     loading="lazy"
                   />
                 </div>
-                <div className="p-5">
-                  <span className="text-[11px] font-black uppercase tracking-wider text-[#b89500] block mb-1">
+                <div className="p-6 sm:p-8">
+                  <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-[#b89500] block mb-2">
                     GUARANTEED GEES
                   </span>
-                  <h4 className="font-bold font-bold-grotesque text-lg text-black uppercase leading-snug">
+                  <h4 className="font-bold font-bold-grotesque text-2xl sm:text-3xl text-black uppercase leading-snug">
                     Happy Guests
                   </h4>
-                  <p className="text-xs sm:text-sm text-zinc-600 mt-2 leading-relaxed font-medium">
+                  <p className="text-base sm:text-lg text-zinc-700 mt-3 leading-relaxed font-medium">
                     Crowd-pleasing food served hot in convenient meal boxes, keeping your guests fully satisfied and energized.
                   </p>
                 </div>
@@ -275,8 +235,22 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
         </div>
       </section>
 
+      {/* ── 4. F5 IMAGE DIRECTLY ABOVE CONTACT FORM (NO BUTTONS) ── */}
+      <section className="bg-white pt-14 sm:pt-20 pb-4 px-4 sm:px-6">
+        <div className="max-w-2xl sm:max-w-3xl mx-auto">
+          <div className="overflow-hidden rounded-3xl border-2 border-black/10 shadow-2xl bg-zinc-50 transition-all hover:shadow-3xl">
+            <img
+              src="/assets/afros/functions/F5.webp"
+              alt="We Do Function at Afro's Hillcrest"
+              className="w-full h-auto object-contain block mx-auto"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* ── 5. EVENT INQUIRY & BOOKING FORM ── */}
-      <section id="inquiry-form" className="py-14 sm:py-20 max-w-4xl mx-auto px-4 sm:px-6">
+      <section id="inquiry-form" className="py-12 sm:py-16 max-w-4xl mx-auto px-4 sm:px-6">
         <div className="rounded-3xl bg-white border-2 border-black p-8 sm:p-12 shadow-2xl relative overflow-hidden">
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[#FFD100] text-black mb-3">

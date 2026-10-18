@@ -27,6 +27,7 @@ export const STORES: StoreLocation[] = [
 export const GOOGLE_BUSINESS_URL =
   "https://www.google.com/maps/place/Afro's+Chicken+Shop+(Hillcrest)/@-29.7783477,30.7626936,17z/data=!3m1!4b1!4m6!3m5!1s0x1ef6fb073d7b934f:0x63b003b5b6fe8c7c!8m2!3d-29.7783477!4d30.7652685!16s%2Fg%2F11gf00dwjq?hl=en&entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D";
 export const GOOGLE_REVIEW_URL = GOOGLE_BUSINESS_URL;
+export const GOOGLE_MAPS_URL = GOOGLE_BUSINESS_URL;
 
 export const SOCIAL_LINKS = {
   tiktok: 'https://www.tiktok.com/@afroschicken',

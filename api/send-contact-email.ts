@@ -108,20 +108,20 @@ export default async function handler(req: any, res: any) {
     
     <!-- Top Accent Bar -->
     <tr>
-      <td height="4" style="background: #ea580c; line-height: 4px; font-size: 4px;">&nbsp;</td>
+      <td height="4" style="background: #FFD100; line-height: 4px; font-size: 4px;">&nbsp;</td>
     </tr>
 
     <!-- Header Banner -->
     <tr>
       <td align="center" style="padding: 22px 16px 18px 16px; background-color: #121215; border-bottom: 1px solid #27272a;">
-        <div style="font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #f59e0b; margin-bottom: 6px;">
-          🌯 WRAP &amp; WINGS CO.
+        <div style="font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #FFD100; margin-bottom: 6px;">
+          🍗 AFRO'S CHICKEN SHOP • HILLCREST
         </div>
         <h1 style="margin: 0 0 8px 0; font-size: 21px; line-height: 26px; font-weight: 800; color: #ffffff;">
           New Customer Message Received!
         </h1>
         <div style="display: inline-block; background-color: #27272a; color: #e4e4e7; font-size: 13px; font-weight: 700; padding: 5px 14px; border-radius: 9999px; border: 1px solid #3f3f46; white-space: nowrap;">
-          Website Contact Form &bull; Pine Crest Centre
+          Website Contact Form &bull; Shop 5, The Junction, Hillcrest
         </div>
       </td>
     </tr>
@@ -148,7 +148,7 @@ export default async function handler(req: any, res: any) {
               Email:
             </td>
             <td class="mobile-value" style="padding: 10px 12px; background-color: #18181b; vertical-align: middle;">
-              <a href="mailto:${email}" style="color: #f59e0b; text-decoration: none; font-weight: 700; font-size: 14px;">${email}</a>
+              <a href="mailto:${email}" style="color: #FFD100; text-decoration: none; font-weight: 700; font-size: 14px;">${email}</a>
             </td>
           </tr>
 
@@ -158,9 +158,9 @@ export default async function handler(req: any, res: any) {
               Phone / Cell:
             </td>
             <td class="mobile-value" style="padding: 10px 12px; background-color: #18181b; vertical-align: middle;">
-              <span style="font-size: 14px; font-weight: 700; color: #f59e0b; margin-right: 8px;">${telephone}</span>
+              <span style="font-size: 14px; font-weight: 700; color: #FFD100; margin-right: 8px;">${telephone}</span>
               <div style="margin-top: 6px;">
-                <a href="tel:${cleanPhone}" style="display: inline-block; background-color: #ea580c; color: #ffffff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-decoration: none; margin-right: 6px;">
+                <a href="tel:${cleanPhone}" style="display: inline-block; background-color: #FFD100; color: #000000; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-decoration: none; margin-right: 6px;">
                   📞 Call
                 </a>
                 ${
@@ -187,12 +187,12 @@ export default async function handler(req: any, res: any) {
         </table>
 
         <!-- Message Box Header -->
-        <div style="font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #f59e0b; margin: 18px 0 10px 0;">
+        <div style="font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #FFD100; margin: 18px 0 10px 0;">
           💬 CUSTOMER MESSAGE:
         </div>
 
         <!-- Customer Message Box -->
-        <div style="background-color: #202024; border: 1px solid #27272a; border-left: 4px solid #ea580c; border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+        <div style="background-color: #202024; border: 1px solid #27272a; border-left: 4px solid #FFD100; border-radius: 8px; padding: 16px; margin-bottom: 20px;">
           <p style="margin: 0; color: #f4f4f5; font-size: 14px; line-height: 22px; white-space: pre-wrap;">${message.replace(
             /</g,
             '&lt;'
@@ -202,15 +202,15 @@ export default async function handler(req: any, res: any) {
         <!-- Direct Reply Action Bar -->
         <div style="background-color: #121215; border: 1px solid #27272a; border-radius: 8px; padding: 14px; text-align: center; margin-bottom: 16px;">
           <p style="margin: 0 0 10px 0; font-size: 12px; color: #a1a1aa;">Ready to respond to this customer?</p>
-          <a href="mailto:${email}?subject=Re:%20Your%20Wrap%20%26%20Wings%20Co%20Inquiry" style="display: inline-block; background-color: #ea580c; color: #ffffff; font-size: 13px; font-weight: 800; padding: 8px 18px; border-radius: 6px; text-decoration: none;">
+          <a href="mailto:${email}?subject=Re:%20Your%20Afro%27s%20Chicken%20Hillcrest%20Inquiry" style="display: inline-block; background-color: #FFD100; color: #000000; font-size: 13px; font-weight: 800; padding: 8px 18px; border-radius: 6px; text-decoration: none;">
             ✉️ Reply to ${firstName}
           </a>
         </div>
 
         <!-- Footer Note -->
         <div style="text-align: center; font-size: 11px; color: #71717a; line-height: 16px; padding-top: 4px;">
-          Received via Wrap &amp; Wings Co. Website Contact Form<br>
-          Delivered to info@wrapandwings.co.za
+          Received via Afro's Chicken Shop (Hillcrest) Website Contact Form<br>
+          Shop 5, The Junction, 5 Inanda Road, Hillcrest
         </div>
 
       </td>
@@ -232,11 +232,11 @@ export default async function handler(req: any, res: any) {
       },
     });
 
-    const subject = `🌯 [NEW INQUIRY] ${fullName} - Website Contact Form`;
+    const subject = `🍗 [AFRO'S HILLCREST INQUIRY] ${fullName} - Website Contact Form`;
 
     await transporter.sendMail({
-      from: `"Wrap & Wings Co Website" <${user}>`,
-      to: 'info@wrapandwings.co.za',
+      from: `"Afro's Chicken Hillcrest" <${user}>`,
+      to: 'info@afroschicken.co.za',
       replyTo: email,
       subject,
       html: htmlContent,

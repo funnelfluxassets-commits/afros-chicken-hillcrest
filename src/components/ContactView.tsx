@@ -244,7 +244,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, onOpenStor
       </section>
 
       {/* ── 3. DIRECT CONTACT CARDS (Light Theme) ── */}
-      <section className="bg-zinc-50 py-12 sm:py-16 border-y border-zinc-200">
+      <section className="bg-white py-12 sm:py-16 border-y border-zinc-200">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 space-y-8">
           
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -253,23 +253,23 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, onOpenStor
               href="https://wa.me/27789057975?text=Howzit%20Afro's%20Hillcrest!%20I'd%20like%20to%20get%20in%20touch."
               target="_blank"
               rel="noreferrer"
-              className="p-6 rounded-3xl bg-white border border-zinc-200 shadow-sm hover:shadow-xl hover:border-[#FFD100] transition-all duration-300 flex flex-col justify-between group"
+              className="p-6 rounded-3xl bg-zinc-100 border border-zinc-300 shadow-sm hover:shadow-xl hover:border-[#FFD100] transition-all duration-300 flex flex-col justify-between group"
             >
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-white text-emerald-600 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform">
                   <MessageCircle className="w-6 h-6" />
                 </div>
                 <div>
-                  <div className="text-xs font-black uppercase tracking-wider text-zinc-400">Call / WhatsApp</div>
+                  <div className="text-xs font-black uppercase tracking-wider text-zinc-500">Call / WhatsApp</div>
                   <div className="text-xl font-bold font-bold-grotesque text-zinc-900 group-hover:text-black mt-1">
                     078 905 7975
                   </div>
-                  <p className="text-xs text-zinc-500 mt-1.5 leading-relaxed">
+                  <p className="text-xs text-zinc-600 mt-1.5 leading-relaxed">
                     Fast orders, instant questions, and chat with Nonto &amp; team.
                   </p>
                 </div>
               </div>
-              <div className="pt-4 mt-4 border-t border-zinc-100 flex items-center text-xs font-bold text-emerald-600 group-hover:translate-x-1 transition-transform">
+              <div className="pt-4 mt-4 border-t border-zinc-200 flex items-center text-xs font-bold text-emerald-600 group-hover:translate-x-1 transition-transform">
                 Chat on WhatsApp &rarr;
               </div>
             </a>
@@ -278,23 +278,23 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, onOpenStor
             <button
               type="button"
               onClick={onOpenStoreModal}
-              className="p-6 rounded-3xl bg-white border border-zinc-200 shadow-sm hover:shadow-xl hover:border-[#FFD100] transition-all duration-300 flex flex-col justify-between group text-left cursor-pointer"
+              className="p-6 rounded-3xl bg-zinc-100 border border-zinc-300 shadow-sm hover:shadow-xl hover:border-[#FFD100] transition-all duration-300 flex flex-col justify-between group text-left cursor-pointer"
             >
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-[#FFD100]/20 text-black flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-white text-black shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform">
                   <MapPin className="w-6 h-6 text-[#b89500]" />
                 </div>
                 <div>
-                  <div className="text-xs font-black uppercase tracking-wider text-zinc-400">Visit Our Store</div>
+                  <div className="text-xs font-black uppercase tracking-wider text-zinc-500">Visit Our Store</div>
                   <div className="text-xl font-bold font-bold-grotesque text-zinc-900 group-hover:text-black mt-1">
                     Shop 5, The Junction
                   </div>
-                  <p className="text-xs text-zinc-500 mt-1.5 leading-relaxed">
+                  <p className="text-xs text-zinc-600 mt-1.5 leading-relaxed">
                     5 Inanda Road, Hillcrest, Upper Highway (Durban).
                   </p>
                 </div>
               </div>
-              <div className="pt-4 mt-4 border-t border-zinc-100 flex items-center text-xs font-bold text-black group-hover:translate-x-1 transition-transform">
+              <div className="pt-4 mt-4 border-t border-zinc-200 flex items-center text-xs font-bold text-black group-hover:translate-x-1 transition-transform">
                 View Store Details &rarr;
               </div>
             </button>
@@ -302,42 +302,42 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, onOpenStor
             {/* Card 3: Email */}
             <a
               href="mailto:info@afroschicken.co.za"
-              className="p-6 rounded-3xl bg-white border border-zinc-200 shadow-sm hover:shadow-xl hover:border-[#FFD100] transition-all duration-300 flex flex-col justify-between group"
+              className="p-6 rounded-3xl bg-zinc-100 border border-zinc-300 shadow-sm hover:shadow-xl hover:border-[#FFD100] transition-all duration-300 flex flex-col justify-between group"
             >
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-white text-amber-600 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Mail className="w-6 h-6" />
                 </div>
                 <div>
-                  <div className="text-xs font-black uppercase tracking-wider text-zinc-400">General Enquiries</div>
+                  <div className="text-xs font-black uppercase tracking-wider text-zinc-500">General Enquiries</div>
                   <div className="text-xl font-bold font-bold-grotesque text-zinc-900 group-hover:text-black mt-1 truncate">
                     info@afroschicken.co.za
                   </div>
-                  <p className="text-xs text-zinc-500 mt-1.5 leading-relaxed">
+                  <p className="text-xs text-zinc-600 mt-1.5 leading-relaxed">
                     Catering bookings, customer feedback &amp; corporate feeds.
                   </p>
                 </div>
               </div>
-              <div className="pt-4 mt-4 border-t border-zinc-100 flex items-center text-xs font-bold text-amber-600 group-hover:translate-x-1 transition-transform">
+              <div className="pt-4 mt-4 border-t border-zinc-200 flex items-center text-xs font-bold text-amber-600 group-hover:translate-x-1 transition-transform">
                 Send an Email &rarr;
               </div>
             </a>
           </div>
 
           {/* Trading Hours Banner (Light Theme) */}
-          <div className="p-5 sm:p-6 rounded-3xl bg-white border border-zinc-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div className="p-5 sm:p-6 rounded-3xl bg-zinc-100 border border-zinc-300 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div className="flex items-center gap-3.5">
-              <div className="p-3 rounded-2xl bg-[#FFD100]/25 text-black shrink-0">
+              <div className="p-3 rounded-2xl bg-white text-black shadow-xs shrink-0">
                 <Clock className="w-5 h-5 text-black" />
               </div>
               <div>
-                <div className="text-xs font-black uppercase tracking-wider text-zinc-400">Store Hours</div>
+                <div className="text-xs font-black uppercase tracking-wider text-zinc-500">Store Hours</div>
                 <div className="text-base sm:text-lg font-bold text-zinc-900">
                   Monday – Sunday: <strong className="text-black font-black">10:00 AM – 8:00 PM</strong>
                 </div>
               </div>
             </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFD100]/20 border border-[#FFD100]/40 text-black text-xs font-bold">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-200 text-black text-xs font-bold shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-[#b89500]" />
               <span>Walk-ins &bull; Takeaways &bull; Doorstep Delivery</span>
             </div>
@@ -362,7 +362,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, onOpenStor
             </p>
           </div>
 
-          <div className="p-6 sm:p-10 rounded-3xl bg-zinc-50 border border-zinc-200 shadow-sm space-y-6">
+          <div className="p-6 sm:p-10 rounded-3xl bg-zinc-100 border border-zinc-300 shadow-sm space-y-6">
             
             {/* Status Notifications */}
             {status === 'success' && (
@@ -541,7 +541,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, onOpenStor
       </section>
 
       {/* ── 5. FREQUENTLY ASKED QUESTIONS (Light Theme) ── */}
-      <section id="faqs-section" className="bg-zinc-50 py-16 sm:py-20 border-t border-zinc-200">
+      <section id="faqs-section" className="bg-white py-16 sm:py-20 border-t border-zinc-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-8">
           
           <div className="text-center space-y-2">
@@ -562,7 +562,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, onOpenStor
               return (
                 <div
                   key={index}
-                  className="rounded-2xl bg-white border border-zinc-200 overflow-hidden shadow-xs hover:border-zinc-300 transition-colors"
+                  className="rounded-2xl bg-zinc-100 border border-zinc-300 overflow-hidden shadow-xs hover:border-zinc-400 transition-colors"
                 >
                   <button
                     type="button"
@@ -578,7 +578,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, onOpenStor
                   </button>
 
                   {isExpanded && (
-                    <div className="px-4 pb-5 sm:px-5 sm:pb-5 text-xs sm:text-sm text-zinc-600 leading-relaxed border-t border-zinc-100 pt-3 animate-fadeIn">
+                    <div className="px-4 pb-5 sm:px-5 sm:pb-5 text-xs sm:text-sm text-zinc-600 leading-relaxed border-t border-zinc-200 pt-3 animate-fadeIn">
                       {item.a}
                     </div>
                   )}

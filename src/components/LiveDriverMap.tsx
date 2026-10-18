@@ -189,16 +189,16 @@ export const LiveDriverMap: React.FC<LiveDriverMapProps> = ({ order }) => {
       // Add Restaurant Marker
       L.marker(RESTAURANT_COORDS, { icon: storeIcon })
         .addTo(map)
-        .bindPopup('<b>Wrap & Wings Co.</b><br>Shop 1, Uniland Centre');
+        .bindPopup('<b>Afro’s Chicken (Hillcrest)</b><br>Shop 1, Uniland Centre');
 
       // Add Destination Marker
       L.marker(destCoords, { icon: customerIcon })
         .addTo(map)
         .bindPopup(`<b>Delivery Address</b><br>${customer.address || suburbName}`);
 
-      // Add Route Line (Glowing Rose / Amber gradient styling)
+      // Add Route Line (Glowing Afro's Yellow styling)
       const polyline = L.polyline(routePoints, {
-        color: '#f43f5e',
+        color: '#FFD100',
         weight: 5,
         opacity: 0.85,
         dashArray: '1, 8',
@@ -296,19 +296,19 @@ export const LiveDriverMap: React.FC<LiveDriverMapProps> = ({ order }) => {
   const cleanDriverPhone = '0832763273';
   const cleanCustomerAddress = `${order.customer.address}, ${order.customer.suburb}`;
   const whatsAppDriverUrl = `https://wa.me/27832763273?text=${encodeURIComponent(
-    `Hi Sipho (Wrap & Wings Driver), I am tracking Order #${order.orderId} to ${cleanCustomerAddress}.${
+    `Hi Sipho (Afro’s Chicken Driver), I am tracking Order #${order.orderId} to ${cleanCustomerAddress}.${
       order.customer.gateCode ? ` Gate Code: ${order.customer.gateCode}.` : ''
     }`
   )}`;
 
   return (
-    <div className="rounded-3xl bg-[#14141c] border-2 border-rose-500/50 shadow-2xl overflow-hidden flex flex-col space-y-0">
+    <div className="rounded-3xl bg-[#14141c] border-2 border-[#FFD100]/50 shadow-2xl overflow-hidden flex flex-col space-y-0">
       
       {/* Map Header Status Bar */}
       <div className="p-4 bg-zinc-950 border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center font-bold text-base">
-            <DeliveryMotorbikeIcon className="w-5 h-5 text-amber-400" />
+          <div className="w-9 h-9 rounded-2xl bg-[#FFD100]/20 text-[#FFD100] border border-[#FFD100]/30 flex items-center justify-center font-bold text-base">
+            <DeliveryMotorbikeIcon className="w-5 h-5 text-[#FFD100]" />
           </div>
           <div>
             <div className="text-xs font-black text-white flex items-center gap-1.5 uppercase tracking-wide">
@@ -325,9 +325,9 @@ export const LiveDriverMap: React.FC<LiveDriverMapProps> = ({ order }) => {
         <div className="flex items-center gap-2">
           <div className="px-3 py-1.5 rounded-xl bg-black/60 border border-white/10 text-right">
             <div className="text-[9px] font-black uppercase text-zinc-400">Distance</div>
-            <div className="text-xs font-black text-amber-400">{distanceKm} away</div>
+            <div className="text-xs font-black text-[#FFD100]">{distanceKm} away</div>
           </div>
-          <div className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-amber-600 text-white font-black text-xs sm:text-sm shadow-md">
+          <div className="px-3 py-1.5 rounded-xl bg-[#FFD100] text-black font-black text-xs sm:text-sm shadow-md">
             ETA: {etaMins} mins
           </div>
         </div>

@@ -362,7 +362,7 @@ export const ReviewDrawView: React.FC<ReviewDrawViewProps> = ({ onNavigate }) =>
               </h2>
 
               <p className="text-sm sm:text-base text-zinc-300 font-medium leading-relaxed">
-                To officially publish your review and lock in your entry for the <strong className="text-amber-400">Weekly Wrap Meal Draw</strong>, please click the button below to open our official Google Business Page and post your feedback:
+                To officially publish your review and lock in your entry for the <strong className="text-amber-400">Weekly Afro’s Meal Draw</strong>, please click the button below to open our official Google Business Page and post your feedback:
               </p>
             </div>
 
@@ -380,7 +380,7 @@ export const ReviewDrawView: React.FC<ReviewDrawViewProps> = ({ onNavigate }) =>
               </a>
 
               <p className="text-[11px] text-zinc-400">
-                Opens directly to Wrap &amp; Wings Co on Google Business
+                Opens directly to Afro’s Chicken Shop (Hillcrest) on Google Business
               </p>
 
               {/* Guidance Info: Where to find the Reviews tab on Google Business */}
@@ -447,7 +447,7 @@ export const ReviewDrawView: React.FC<ReviewDrawViewProps> = ({ onNavigate }) =>
               <ul className="space-y-1.5 pl-6 list-disc text-zinc-300">
                 <li>Entries close every Sunday at midnight.</li>
                 <li>One lucky winner is drawn at random every Sunday night.</li>
-                <li>The winner is contacted directly via WhatsApp with their digital voucher to redeem their free Wrap Meal combo!</li>
+                <li>The winner is contacted directly via WhatsApp with their digital voucher to redeem their free Afro’s Meal combo!</li>
               </ul>
             </div>
 

@@ -1314,7 +1314,7 @@ export function generateWhatsAppDailyReportText(
   const sortedOrdered = Object.entries(orderedItemsMap).sort((a, b) => b[1] - a[1]);
   const totalFoodItems = Object.values(orderedItemsMap).reduce((sum, q) => sum + q, 0);
 
-  let text = `🍗 *WRAP & WINGS CO. — DAILY PERFORMANCE & TRAFFIC REPORT* 🍗\n`;
+  let text = `🍗 *AFRO’S CHICKEN (HILLCREST) — DAILY PERFORMANCE & TRAFFIC REPORT* 🍗\n`;
   text += `📅 *Period:* ${rangeLabel} (${summary.date})\n\n`;
 
   text += `📊 *TRAFFIC & STORE VISITS*\n`;
@@ -1361,7 +1361,7 @@ export function generateWhatsAppDailyReportText(
   text += `• Apple iPhone / iPad: ${summary.devices.ios || 0}\n`;
   text += `• Android Phones: ${summary.devices.android || 0}\n`;
   text += `• Computers: ${summary.devices.desktop || 0}\n\n`;
-  text += `_Generated from Wrap & Wings Co. POS & Traffic System_`;
+  text += `_Generated from Afro’s Chicken (Hillcrest) POS & Traffic System_`;
 
   return text;
 }

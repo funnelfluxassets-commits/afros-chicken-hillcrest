@@ -620,26 +620,26 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-zinc-100 flex flex-col font-sans selection:bg-rose-500 selection:text-white">
+    <div className="min-h-screen bg-[#0a0a0f] text-zinc-100 flex flex-col font-sans selection:bg-[#FFD100] selection:text-black">
       {/* ── Top Manager Navigation Bar ── */}
       <header className="sticky top-0 z-40 bg-[#121218]/95 backdrop-blur-md border-b border-white/10 px-4 sm:px-6 py-3.5 shadow-xl">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           {/* Admin Identity */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 to-amber-500 flex items-center justify-center text-white shadow-md shadow-rose-950/60 shrink-0">
-              <ShieldCheck className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl bg-[#FFD100] text-black flex items-center justify-center shadow-md shadow-yellow-950/50 shrink-0 font-black">
+              <ShieldCheck className="w-5 h-5 text-black" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-black uppercase tracking-widest text-amber-400">
+                <span className="text-xs font-black uppercase tracking-widest text-[#FFD100]">
                   Manager Portal
                 </span>
-                <span className="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 text-[10px] font-bold">
+                <span className="px-2 py-0.5 rounded-full bg-[#FFD100]/20 text-[#FFD100] border border-[#FFD100]/30 text-[10px] font-bold">
                   Protected
                 </span>
               </div>
               <h1 className="text-base sm:text-lg font-black text-white">
-                Wrap &amp; Wings Co Admin Center
+                Afro’s Chicken Shop (Hillcrest) Admin Center
               </h1>
             </div>
           </div>
@@ -652,7 +652,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               className="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-zinc-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
               title="Open Kitchen Display"
             >
-              <ChefHat className="w-3.5 h-3.5 text-rose-500" />
+              <ChefHat className="w-3.5 h-3.5 text-[#FFD100]" />
               <span>Kitchen Display</span>
             </button>
 
@@ -662,7 +662,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               className="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-zinc-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
               title="Open Driver Dispatch"
             >
-              <DeliveryMotorbikeIcon className="w-3.5 h-3.5 text-amber-400" />
+              <DeliveryMotorbikeIcon className="w-3.5 h-3.5 text-[#FFD100]" />
               <span>Driver Portal</span>
             </button>
 
@@ -681,7 +681,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               }`}
               title="Toggle PayFast Sandbox Test Mode for your device"
             >
-              <CreditCard className="w-3.5 h-3.5 text-amber-400" />
+              <CreditCard className="w-3.5 h-3.5 text-[#FFD100]" />
               <span>PayFast Sandbox: <strong className={isPayFastTesting ? 'text-amber-300' : 'text-zinc-500'}>{isPayFastTesting ? 'ON' : 'OFF'}</strong></span>
             </button>
 
@@ -713,7 +713,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
             <button
               type="button"
               onClick={onLogout}
-              className="p-2 rounded-xl bg-rose-950/40 hover:bg-rose-900/60 border border-rose-500/30 text-rose-300 hover:text-white transition-colors cursor-pointer"
+              className="p-2 rounded-xl bg-zinc-900 hover:bg-rose-950/50 border border-white/10 hover:border-rose-500/40 text-zinc-400 hover:text-rose-300 transition-colors cursor-pointer"
               title="Logout from Admin"
             >
               <LogOut className="w-4 h-4" />
@@ -732,13 +732,15 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               onClick={() => setActiveTab('orders')}
               className={`px-3 sm:px-4 py-2 rounded-2xl text-xs sm:text-sm font-black transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0 ${
                 activeTab === 'orders'
-                  ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-950/50'
+                  ? 'bg-[#FFD100] text-black shadow-lg shadow-yellow-950/40 border-2 border-black/20'
                   : 'bg-zinc-900 text-zinc-400 hover:text-white border border-white/5'
               }`}
             >
-              <FileSpreadsheet className="w-4 h-4 text-emerald-300" />
+              <FileSpreadsheet className={`w-4 h-4 ${activeTab === 'orders' ? 'text-black' : 'text-[#FFD100]'}`} />
               <span>Customer Orders &amp; Google Sheets</span>
-              <span className="px-2 py-0.5 rounded-full bg-black/40 text-[11px] font-mono">
+              <span className={`px-2 py-0.5 rounded-full text-[11px] font-mono ${
+                activeTab === 'orders' ? 'bg-black text-[#FFD100]' : 'bg-black/40 text-zinc-300'
+              }`}>
                 {orders.length}
               </span>
             </button>
@@ -748,13 +750,15 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               onClick={() => setActiveTab('reviews')}
               className={`px-3 sm:px-4 py-2 rounded-2xl text-xs sm:text-sm font-black transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0 ${
                 activeTab === 'reviews'
-                  ? 'bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-lg shadow-amber-950/50'
+                  ? 'bg-[#FFD100] text-black shadow-lg shadow-yellow-950/40 border-2 border-black/20'
                   : 'bg-zinc-900 text-zinc-400 hover:text-white border border-white/5'
               }`}
             >
-              <Trophy className="w-4 h-4 text-amber-300" />
+              <Trophy className={`w-4 h-4 ${activeTab === 'reviews' ? 'text-black' : 'text-[#FFD100]'}`} />
               <span>Weekly Meal Review Draw</span>
-              <span className="px-2 py-0.5 rounded-full bg-black/40 text-[11px] font-mono">
+              <span className={`px-2 py-0.5 rounded-full text-[11px] font-mono ${
+                activeTab === 'reviews' ? 'bg-black text-[#FFD100]' : 'bg-black/40 text-zinc-300'
+              }`}>
                 {entries.length}
               </span>
             </button>
@@ -764,13 +768,15 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               onClick={() => setActiveTab('traffic')}
               className={`px-3 sm:px-4 py-2 rounded-2xl text-xs sm:text-sm font-black transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0 ${
                 activeTab === 'traffic'
-                  ? 'bg-gradient-to-r from-rose-600 to-amber-600 text-white shadow-lg shadow-rose-950/50'
+                  ? 'bg-[#FFD100] text-black shadow-lg shadow-yellow-950/40 border-2 border-black/20'
                   : 'bg-zinc-900 text-zinc-400 hover:text-white border border-white/5'
               }`}
             >
-              <BarChart3 className="w-4 h-4 text-rose-300" />
+              <BarChart3 className={`w-4 h-4 ${activeTab === 'traffic' ? 'text-black' : 'text-[#FFD100]'}`} />
               <span>Customer Traffic &amp; Insights</span>
-              <span className="px-2 py-0.5 rounded-full bg-black/40 text-[11px] font-mono flex items-center gap-1.5">
+              <span className={`px-2 py-0.5 rounded-full text-[11px] font-mono flex items-center gap-1.5 ${
+                activeTab === 'traffic' ? 'bg-black text-[#FFD100]' : 'bg-black/40 text-zinc-300'
+              }`}>
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span>{liveVisitors} Live</span>
               </span>
@@ -783,7 +789,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               <button
                 type="button"
                 onClick={() => setDailyOrdersReportModalOpen(true)}
-                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-zinc-950 text-xs font-black flex items-center gap-1.5 shadow-md shadow-amber-950/40 transition-colors cursor-pointer"
+                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#FFD100] hover:bg-[#e6bd00] text-black text-xs font-black flex items-center gap-1.5 shadow-md shadow-yellow-950/40 transition-colors cursor-pointer"
                 title="Generate Daily Orders & Sales Shift Report"
               >
                 <FileText className="w-3.5 h-3.5" />
@@ -794,7 +800,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                 type="button"
                 onClick={() => exportOrdersToCsv(filteredOrders, `orders-${selectedOrderDate}`)}
                 disabled={filteredOrders.length === 0}
-                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shadow-emerald-950/40 transition-colors cursor-pointer disabled:opacity-40"
+                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shadow-emerald-950/40 transition-colors cursor-pointer disabled:opacity-40"
                 title="Download orders in CSV format"
               >
                 <Download className="w-3.5 h-3.5" />
@@ -805,10 +811,10 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                 type="button"
                 onClick={() => exportOrdersToPdf(filteredOrders, formatReportDateLabel(selectedOrderDate), orderMetrics)}
                 disabled={filteredOrders.length === 0}
-                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shadow-rose-950/40 transition-colors cursor-pointer disabled:opacity-40"
+                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-white/10 text-white text-xs font-black flex items-center gap-1.5 shadow-md transition-colors cursor-pointer disabled:opacity-40"
                 title="Download orders in PDF format"
               >
-                <FileText className="w-3.5 h-3.5" />
+                <FileText className="w-3.5 h-3.5 text-[#FFD100]" />
                 <span>Download PDF</span>
               </button>
 
@@ -818,7 +824,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                 className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-zinc-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
                 title="Configure Google Sheets Live Webhook"
               >
-                <Settings className="w-3.5 h-3.5 text-emerald-400" />
+                <Settings className="w-3.5 h-3.5 text-[#FFD100]" />
                 <span className="hidden xl:inline">Live Sheets Auto-Sync</span>
               </button>
             </div>
@@ -833,7 +839,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                 className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-zinc-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
                 title="Refresh customer traffic data"
               >
-                <RefreshCw className={`w-3.5 h-3.5 text-rose-400 ${isRefreshingTraffic ? 'animate-spin' : ''}`} />
+                <RefreshCw className={`w-3.5 h-3.5 text-[#FFD100] ${isRefreshingTraffic ? 'animate-spin' : ''}`} />
                 <span className="hidden sm:inline">Refresh</span>
               </button>
 
@@ -850,7 +856,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               <button
                 type="button"
                 onClick={() => setDailyReportModalOpen(true)}
-                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-zinc-950 text-xs font-black flex items-center gap-1.5 shadow-md shadow-amber-950/40 transition-colors cursor-pointer"
+                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#FFD100] hover:bg-[#e6bd00] text-black text-xs font-black flex items-center gap-1.5 shadow-md shadow-yellow-950/40 transition-colors cursor-pointer"
                 title="Generate Daily Executive Shift Report"
               >
                 <FileText className="w-3.5 h-3.5" />
@@ -860,7 +866,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               <button
                 type="button"
                 onClick={() => exportTrafficToCsv(trafficSummary, trafficRange.toUpperCase())}
-                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shadow-emerald-950/40 transition-colors cursor-pointer"
+                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shadow-emerald-950/40 transition-colors cursor-pointer"
                 title="Download traffic metrics in CSV format"
               >
                 <Download className="w-3.5 h-3.5" />
@@ -870,10 +876,10 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               <button
                 type="button"
                 onClick={() => exportTrafficToPdf(trafficSummary, trafficRange === 'today' ? "Today's Rush" : trafficRange === 'yesterday' ? 'Yesterday' : trafficRange === 'week' ? 'Past 7 Days' : 'All-Time', trafficOrdersData)}
-                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shadow-rose-950/40 transition-colors cursor-pointer"
+                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-white/10 text-white text-xs font-black flex items-center gap-1.5 shadow-md transition-colors cursor-pointer"
                 title="Download traffic intelligence in PDF format"
               >
-                <FileText className="w-3.5 h-3.5" />
+                <FileText className="w-3.5 h-3.5 text-[#FFD100]" />
                 <span>Download PDF</span>
               </button>
             </div>
@@ -886,7 +892,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                 type="button"
                 onClick={() => exportEntriesToCsv(entries)}
                 disabled={entries.length === 0}
-                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shadow-emerald-950/40 transition-colors cursor-pointer disabled:opacity-40"
+                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shadow-emerald-950/40 transition-colors cursor-pointer disabled:opacity-40"
                 title="Download review entries in CSV format"
               >
                 <Download className="w-3.5 h-3.5" />
@@ -897,10 +903,10 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                 type="button"
                 onClick={() => exportReviewEntriesToPdf(entries)}
                 disabled={entries.length === 0}
-                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shadow-rose-950/40 transition-colors cursor-pointer disabled:opacity-40"
+                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-white/10 text-white text-xs font-black flex items-center gap-1.5 shadow-md transition-colors cursor-pointer disabled:opacity-40"
                 title="Download review entries in PDF format"
               >
-                <FileText className="w-3.5 h-3.5" />
+                <FileText className="w-3.5 h-3.5 text-[#FFD100]" />
                 <span>Download PDF</span>
               </button>
             </div>
@@ -922,9 +928,9 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               <div className="p-4 sm:p-5 rounded-2xl bg-[#13131a] border border-white/10 shadow-lg space-y-1">
                 <div className="flex items-center justify-between text-zinc-400">
                   <span className="text-[11px] font-bold uppercase tracking-wider">Total Sales</span>
-                  <DollarSign className="w-4 h-4 text-emerald-400" />
+                  <DollarSign className="w-4 h-4 text-[#FFD100]" />
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-emerald-400">
+                <div className="text-2xl sm:text-3xl font-black text-[#FFD100]">
                   R{orderMetrics.totalRevenue.toFixed(2)}
                 </div>
                 <p className="text-[11px] text-zinc-400">
@@ -935,7 +941,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               <div className="p-4 sm:p-5 rounded-2xl bg-[#13131a] border border-white/10 shadow-lg space-y-1">
                 <div className="flex items-center justify-between text-zinc-400">
                   <span className="text-[11px] font-bold uppercase tracking-wider">Orders Placed</span>
-                  <ShoppingBag className="w-4 h-4 text-rose-500" />
+                  <ShoppingBag className="w-4 h-4 text-[#FFD100]" />
                 </div>
                 <div className="text-2xl sm:text-3xl font-black text-white">
                   {orderMetrics.totalOrders}
@@ -948,9 +954,9 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               <div className="p-4 sm:p-5 rounded-2xl bg-[#13131a] border border-white/10 shadow-lg space-y-1">
                 <div className="flex items-center justify-between text-zinc-400">
                   <span className="text-[11px] font-bold uppercase tracking-wider">Delivery Split</span>
-                  <DeliveryMotorbikeIcon className="w-4 h-4 text-orange-400" />
+                  <DeliveryMotorbikeIcon className="w-4 h-4 text-[#FFD100]" />
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-amber-400">
+                <div className="text-2xl sm:text-3xl font-black text-[#FFD100]">
                   {orderMetrics.deliveriesCount} <span className="text-xs text-zinc-400 font-normal">/ {orderMetrics.collectionsCount} pick</span>
                 </div>
                 <p className="text-[11px] text-zinc-400">
@@ -961,9 +967,9 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               <div className="p-4 sm:p-5 rounded-2xl bg-[#13131a] border border-white/10 shadow-lg space-y-1">
                 <div className="flex items-center justify-between text-zinc-400">
                   <span className="text-[11px] font-bold uppercase tracking-wider">Driver Tips</span>
-                  <Flame className="w-4 h-4 text-yellow-400" />
+                  <Flame className="w-4 h-4 text-[#FFD100]" />
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-yellow-400">
+                <div className="text-2xl sm:text-3xl font-black text-[#FFD100]">
                   R{orderMetrics.totalTips.toFixed(2)}
                 </div>
                 <p className="text-[11px] text-zinc-400">Collected for delivery team</p>
@@ -972,9 +978,9 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               <div className="p-4 sm:p-5 rounded-2xl bg-[#13131a] border border-white/10 shadow-lg space-y-1 col-span-2 lg:col-span-1">
                 <div className="flex items-center justify-between text-zinc-400">
                   <span className="text-[11px] font-bold uppercase tracking-wider">Food Items Sold</span>
-                  <ChefHat className="w-4 h-4 text-cyan-400" />
+                  <ChefHat className="w-4 h-4 text-[#FFD100]" />
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-cyan-400">
+                <div className="text-2xl sm:text-3xl font-black text-white">
                   {orderMetrics.totalItemsCount}
                 </div>
                 <p className="text-[11px] text-zinc-400">Portions cooked on {formatReportDateLabel(selectedOrderDate)}</p>
@@ -988,10 +994,10 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                 <button
                   type="button"
                   onClick={() => setDailyOrdersReportModalOpen(true)}
-                  className="py-3 px-4 sm:px-5 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-400 active:scale-95 text-zinc-950 font-black text-xs sm:text-sm tracking-wide shadow-lg shadow-amber-950/60 transition-all flex items-center gap-2 cursor-pointer"
+                  className="py-3 px-4 sm:px-5 rounded-2xl bg-[#FFD100] hover:bg-[#e6bd00] active:scale-95 text-black font-black text-xs sm:text-sm tracking-wide shadow-lg shadow-yellow-950/60 transition-all flex items-center gap-2 cursor-pointer"
                   title="Open Daily Orders & Sales Shift Report"
                 >
-                  <FileText className="w-4 h-4 text-zinc-950" />
+                  <FileText className="w-4 h-4 text-black" />
                   <span>📄 Daily Orders Report</span>
                 </button>
 
@@ -1000,7 +1006,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                   type="button"
                   onClick={() => exportOrdersToCsv(filteredOrders, `orders-${selectedOrderDate}`)}
                   disabled={filteredOrders.length === 0}
-                  className="py-3 px-4 sm:px-5 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 active:scale-95 text-white font-black text-xs sm:text-sm tracking-wide shadow-lg shadow-emerald-950/60 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="py-3 px-4 sm:px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-black text-xs sm:text-sm tracking-wide shadow-lg shadow-emerald-950/60 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
                   title="Download clean CSV ready for Google Sheets, Microsoft Excel, and Bulk SMS"
                 >
                   <Download className="w-4 h-4" />
@@ -1012,17 +1018,17 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                   type="button"
                   onClick={() => exportOrdersToPdf(filteredOrders, formatReportDateLabel(selectedOrderDate), orderMetrics)}
                   disabled={filteredOrders.length === 0}
-                  className="py-3 px-4 sm:px-5 rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-rose-700 hover:from-rose-500 hover:to-pink-500 active:scale-95 text-white font-black text-xs sm:text-sm tracking-wide shadow-lg shadow-rose-950/60 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="py-3 px-4 sm:px-5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 active:scale-95 text-white font-black text-xs sm:text-sm tracking-wide shadow-lg border border-white/10 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
                   title="Download official branded PDF orders and sales report"
                 >
-                  <FileText className="w-4 h-4" />
+                  <FileText className="w-4 h-4 text-[#FFD100]" />
                   <span>📄 Export PDF</span>
                 </button>
 
                 {/* Date Selector */}
                 <div className="inline-flex items-center gap-1 rounded-xl bg-zinc-900 p-1 border border-white/5 text-xs">
                   <div className="flex items-center gap-1 text-zinc-400 px-1.5 font-bold">
-                    <Calendar className="w-3.5 h-3.5 text-amber-400" />
+                    <Calendar className="w-3.5 h-3.5 text-[#FFD100]" />
                     <span className="hidden sm:inline">Date:</span>
                   </div>
                   <button
@@ -1030,7 +1036,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     onClick={() => setSelectedOrderDate(getLocalTodayDateString())}
                     className={`px-2.5 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
                       selectedOrderDate === getLocalTodayDateString()
-                        ? 'bg-amber-500 text-zinc-950 shadow-sm'
+                        ? 'bg-[#FFD100] text-black font-black shadow-sm'
                         : 'text-zinc-400 hover:text-white'
                     }`}
                   >
@@ -1049,7 +1055,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                         y.setDate(y.getDate() - 1);
                         return selectedOrderDate === formatToLocalDateString(y);
                       })()
-                        ? 'bg-amber-500 text-zinc-950 shadow-sm'
+                        ? 'bg-[#FFD100] text-black font-black shadow-sm'
                         : 'text-zinc-400 hover:text-white'
                     }`}
                   >
@@ -1061,7 +1067,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     onChange={(e) => {
                       if (e.target.value) setSelectedOrderDate(e.target.value);
                     }}
-                    className="bg-zinc-800 text-zinc-200 text-xs px-2 py-1 rounded-lg border border-white/10 focus:outline-none focus:border-amber-400 cursor-pointer font-mono"
+                    className="bg-zinc-800 text-zinc-200 text-xs px-2 py-1 rounded-lg border border-white/10 focus:outline-none focus:border-[#FFD100] cursor-pointer font-mono"
                     title="Pick any specific date from calendar"
                   />
                   <button
@@ -1069,7 +1075,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     onClick={() => setSelectedOrderDate('all')}
                     className={`px-2.5 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
                       selectedOrderDate === 'all'
-                        ? 'bg-zinc-700 text-white'
+                        ? 'bg-[#FFD100] text-black font-black'
                         : 'text-zinc-400 hover:text-white'
                     }`}
                   >
@@ -1084,7 +1090,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     onClick={() => setOrderModeFilter('all')}
                     className={`px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
                       orderModeFilter === 'all'
-                        ? 'bg-rose-600 text-white'
+                        ? 'bg-[#FFD100] text-black font-black'
                         : 'text-zinc-400 hover:text-white'
                     }`}
                   >
@@ -1095,7 +1101,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     onClick={() => setOrderModeFilter('delivery')}
                     className={`px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
                       orderModeFilter === 'delivery'
-                        ? 'bg-orange-500 text-zinc-950'
+                        ? 'bg-[#FFD100] text-black font-black'
                         : 'text-zinc-400 hover:text-white'
                     }`}
                   >
@@ -1106,7 +1112,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     onClick={() => setOrderModeFilter('collection')}
                     className={`px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
                       orderModeFilter === 'collection'
-                        ? 'bg-amber-400 text-zinc-950'
+                        ? 'bg-[#FFD100] text-black font-black'
                         : 'text-zinc-400 hover:text-white'
                     }`}
                   >
@@ -1127,7 +1133,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                   className="p-2.5 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-zinc-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
                   title="Fetch latest cloud orders"
                 >
-                  <RefreshCw className={`w-3.5 h-3.5 text-rose-400 ${isSyncingOrders ? 'animate-spin' : ''}`} />
+                  <RefreshCw className={`w-3.5 h-3.5 text-[#FFD100] ${isSyncingOrders ? 'animate-spin' : ''}`} />
                   <span className="hidden sm:inline">{isSyncingOrders ? 'Syncing...' : 'Sync Cloud'}</span>
                 </button>
               </div>
@@ -1522,25 +1528,25 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
             </div>
 
             {/* QR Code & In-Store Print Kit Card */}
-            <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-br from-[#151520] via-[#121217] to-[#161622] border border-amber-500/30 shadow-xl space-y-4">
+            <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-br from-[#151520] via-[#121217] to-[#161622] border border-[#FFD100]/30 shadow-xl space-y-4">
               <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-xl font-black shrink-0">
-                    📱
+                  <div className="w-12 h-12 rounded-2xl bg-[#FFD100]/15 border border-[#FFD100]/40 flex items-center justify-center text-[#FFD100] text-xl font-black shrink-0">
+                    🍗
                   </div>
                   <div>
-                    <div className="text-[10px] font-black uppercase tracking-wider text-amber-400">
+                    <div className="text-[10px] font-black uppercase tracking-wider text-[#FFD100]">
                       In-Store Till Flyers &amp; Takeaway Bag Inserts
                     </div>
                     <h3 className="text-base sm:text-lg font-black text-white">
-                      Weekly Wrap Meal Draw QR Code &amp; Campaign URL
+                      Weekly Afro’s Meal Draw QR Code &amp; Campaign URL
                     </h3>
                   </div>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2">
                   <a
-                    href="https://wrapandwings.co.za/#review"
+                    href="/#review"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="py-2 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-zinc-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
@@ -1550,11 +1556,11 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                   </a>
 
                   <a
-                    href="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https%3A%2F%2Fwrapandwings.co.za%2F%23review"
-                    download="wrap-and-wings-meal-qr-code.png"
+                    href="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https%3A%2F%2Fhillcrest.funnelfluxassets.com%2F%23review"
+                    download="afros-chicken-meal-draw-qr.png"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-2 px-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-black text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-md"
+                    className="py-2 px-3.5 rounded-xl bg-[#FFD100] hover:bg-[#e6bd00] text-black font-black text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-md"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>Download QR Code (PNG)</span>
@@ -1566,26 +1572,26 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                 {/* QR Code Preview */}
                 <div className="p-3.5 rounded-2xl bg-zinc-900/90 border border-white/10 flex flex-col items-center justify-center text-center space-y-2">
                   <img
-                    src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwrapandwings.co.za%2F%23review"
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fhillcrest.funnelfluxassets.com%2F%23review"
                     alt="Scan for Weekly Meal Draw"
                     className="w-32 h-32 rounded-xl bg-white p-2 shadow-inner"
                   />
-                  <div className="text-[11px] font-mono text-amber-300 font-bold break-all">
-                    wrapandwings.co.za/#review
+                  <div className="text-[11px] font-mono text-[#FFD100] font-bold break-all">
+                    afroschicken.co.za/#review
                   </div>
                 </div>
 
                 {/* Takeaway Bag Insert Copy Draft */}
                 <div className="md:col-span-2 p-4 rounded-2xl bg-zinc-950/80 border border-white/5 space-y-2 text-xs">
                   <div className="flex items-center justify-between text-zinc-400">
-                    <span className="font-bold uppercase tracking-wider text-[11px] text-amber-400">
+                    <span className="font-bold uppercase tracking-wider text-[11px] text-[#FFD100]">
                       📄 Print Copy Draft (Flyer / Bag Insert):
                     </span>
                     <button
                       type="button"
                       onClick={() => {
                         navigator.clipboard.writeText(
-                          "WIN A FREE WRAP MEAL THIS WEEK! 🌯🔥\nLoved your meal? Want to help our brand new local spot grow?\n1. Scan the QR code or visit wrapandwings.co.za/#review\n2. Drop us your receipt number & honest review on Google.\n3. Stand a chance to win this week's featured Wrap Meal combo in our Sunday draw!"
+                          "WIN A FREE AFRO'S MEAL THIS WEEK! 🍗🔥\nLoved your meal? Help Afro's Chicken Hillcrest grow!\n1. Scan the QR code or visit afroschicken.co.za/#review\n2. Drop us your receipt number & honest review on Google.\n3. Stand a chance to win this week's featured Afro's Meal combo in our Sunday draw!"
                         );
                         alert("Flyer text copied to clipboard!");
                       }}
@@ -1595,11 +1601,11 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     </button>
                   </div>
                   <div className="p-3 rounded-xl bg-zinc-900 border border-white/5 font-mono text-[11px] text-zinc-300 leading-relaxed">
-                    <p className="font-bold text-white">WIN A FREE WRAP MEAL THIS WEEK! 🌯🔥</p>
-                    <p>Loved your meal? Want to help our brand new local spot grow?</p>
-                    <p>1. Scan the QR code or visit <strong>wrapandwings.co.za/#review</strong></p>
+                    <p className="font-bold text-[#FFD100]">WIN A FREE AFRO'S MEAL THIS WEEK! 🍗🔥</p>
+                    <p>Loved your meal? Help Afro's Chicken Hillcrest grow!</p>
+                    <p>1. Scan the QR code or visit <strong>afroschicken.co.za/#review</strong></p>
                     <p>2. Enter your receipt slip number &amp; leave a quick review on Google</p>
-                    <p>3. Stand a chance to win this week's featured Wrap Meal combo in our Sunday draw!</p>
+                    <p>3. Stand a chance to win this week's featured Afro's Meal combo in our Sunday draw!</p>
                   </div>
                 </div>
               </div>
@@ -1613,9 +1619,9 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                   type="button"
                   onClick={handleDrawRandomWinner}
                   disabled={entries.length === 0}
-                  className="py-3 px-5 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 hover:from-amber-400 hover:to-rose-500 active:scale-95 text-white font-black text-xs sm:text-sm tracking-wide shadow-lg shadow-amber-950/60 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="py-3 px-5 rounded-2xl bg-[#FFD100] hover:bg-[#e6bd00] active:scale-95 text-black font-black text-xs sm:text-sm tracking-wide shadow-lg shadow-yellow-950/60 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
                 >
-                  <Shuffle className="w-4 h-4" />
+                  <Shuffle className="w-4 h-4 text-black" />
                   <span>🎲 Draw Sunday Winner</span>
                 </button>
 
@@ -1636,10 +1642,10 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                   type="button"
                   onClick={() => exportReviewEntriesToPdf(entries)}
                   disabled={entries.length === 0}
-                  className="py-3 px-4 rounded-2xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-bold text-xs sm:text-sm flex items-center gap-2 transition-colors cursor-pointer disabled:opacity-50 shadow-md shadow-rose-950/40"
+                  className="py-3 px-4 rounded-2xl bg-zinc-800 hover:bg-zinc-700 border border-white/10 text-white font-bold text-xs sm:text-sm flex items-center gap-2 transition-colors cursor-pointer disabled:opacity-50 shadow-md"
                   title="Download review entries in official PDF format"
                 >
-                  <FileText className="w-4 h-4" />
+                  <FileText className="w-4 h-4 text-[#FFD100]" />
                   <span>Export Review PDF</span>
                 </button>
 
@@ -1650,7 +1656,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     onClick={() => setReviewStatusFilter('all')}
                     className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
                       reviewStatusFilter === 'all'
-                        ? 'bg-rose-600 text-white'
+                        ? 'bg-[#FFD100] text-black font-black'
                         : 'text-zinc-400 hover:text-white'
                     }`}
                   >
@@ -1661,7 +1667,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     onClick={() => setReviewStatusFilter('winner')}
                     className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
                       reviewStatusFilter === 'winner'
-                        ? 'bg-amber-500 text-zinc-950'
+                        ? 'bg-[#FFD100] text-black font-black'
                         : 'text-zinc-400 hover:text-white'
                     }`}
                   >
@@ -1678,7 +1684,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                   value={reviewSearchQuery}
                   onChange={(e) => setReviewSearchQuery(e.target.value)}
                   placeholder="Search name, phone, slip #..."
-                  className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-white placeholder-zinc-500 text-xs focus:outline-none focus:border-amber-400 transition-colors"
+                  className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-white placeholder-zinc-500 text-xs focus:outline-none focus:border-[#FFD100] transition-colors"
                 />
               </div>
             </div>
@@ -1687,7 +1693,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
             <div className="rounded-3xl bg-[#13131a] border border-white/10 shadow-2xl overflow-hidden">
               <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
                 <h2 className="text-sm font-black uppercase text-white tracking-wider flex items-center gap-2">
-                  <Trophy className="w-4 h-4 text-amber-400" />
+                  <Trophy className="w-4 h-4 text-[#FFD100]" />
                   <span>Customer Draw Entries ({filteredReviews.length})</span>
                 </h2>
                 <span className="text-xs text-zinc-400">Live Feedback &amp; Review Bridge Log</span>
@@ -1842,9 +1848,9 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     key={range.id}
                     type="button"
                     onClick={() => setTrafficRange(range.id)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all whitespace-nowrap cursor-pointer ${
                       trafficRange === range.id
-                        ? 'bg-rose-600 text-white shadow-md'
+                        ? 'bg-[#FFD100] text-black shadow-md'
                         : 'text-zinc-400 hover:text-white'
                     }`}
                   >
@@ -1906,7 +1912,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               <div className="pt-3 border-t border-white/5 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 text-xs">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-zinc-400 flex items-center gap-1">
-                    <Globe className="w-3.5 h-3.5 text-blue-400" />
+                    <Globe className="w-3.5 h-3.5 text-[#FFD100]" />
                     Your Public IP:
                   </span>
                   <span className="font-mono font-bold text-white bg-black/40 px-2 py-0.5 rounded border border-white/10">
@@ -1916,10 +1922,10 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     <button
                       type="button"
                       onClick={handleToggleCurrentIpExclusion}
-                      className={`px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all cursor-pointer ${
+                      className={`px-2.5 py-1 rounded-lg font-black text-[11px] transition-all cursor-pointer ${
                         excludedIpsList.includes(clientIp)
                           ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                          : 'bg-blue-600 hover:bg-blue-500 text-white'
+                          : 'bg-[#FFD100] hover:bg-[#e6bd00] text-black'
                       }`}
                     >
                       {excludedIpsList.includes(clientIp) ? '✓ IP Excluded' : '+ Exclude This IP'}
@@ -1972,11 +1978,11 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               <div className="p-4 sm:p-5 rounded-3xl bg-[#14141c] border border-white/10 space-y-2 relative overflow-hidden shadow-lg">
                 <div className="flex items-center justify-between text-zinc-400">
                   <span className="text-xs font-bold uppercase tracking-wider">Total Page Views</span>
-                  <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-xl bg-[#FFD100]/20 text-[#FFD100] flex items-center justify-center">
                     <Eye className="w-4 h-4" />
                   </div>
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-blue-400 font-mono text-center">
+                <div className="text-2xl sm:text-3xl font-black text-[#FFD100] font-mono text-center">
                   {trafficSummary.totalPageViews}
                 </div>
                 <p className="text-[11px] text-zinc-400 text-center">Total digital visits &amp; menu browses</p>
@@ -1986,40 +1992,40 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               <div className="p-4 sm:p-5 rounded-3xl bg-[#14141c] border border-white/10 space-y-2 relative overflow-hidden shadow-lg">
                 <div className="flex items-center justify-between text-zinc-400">
                   <span className="text-xs font-bold uppercase tracking-wider">Unique Diners</span>
-                  <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-xl bg-[#FFD100]/20 text-[#FFD100] flex items-center justify-center">
                     <Users className="w-4 h-4" />
                   </div>
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-blue-400 font-mono text-center">
+                <div className="text-2xl sm:text-3xl font-black text-[#FFD100] font-mono text-center">
                   {trafficSummary.uniqueVisitorIds.length}
                 </div>
                 <p className="text-[11px] text-zinc-400 text-center">Individual phones &amp; devices</p>
               </div>
 
               {/* Card 3: Live In Shop Right Now */}
-              <div className="p-4 sm:p-5 rounded-3xl bg-[#14141c] border border-blue-500/30 space-y-2 relative overflow-hidden shadow-lg">
-                <div className="flex items-center justify-between text-blue-400">
+              <div className="p-4 sm:p-5 rounded-3xl bg-[#14141c] border border-[#FFD100]/30 space-y-2 relative overflow-hidden shadow-lg">
+                <div className="flex items-center justify-between text-emerald-400">
                   <span className="text-xs font-bold uppercase tracking-wider">Online Right Now</span>
-                  <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center relative">
-                    <span className="w-2.5 h-2.5 rounded-full bg-blue-400 animate-ping absolute" />
+                  <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center relative">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping absolute" />
                     <Activity className="w-4 h-4 relative" />
                   </div>
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-blue-400 font-mono text-center">
+                <div className="text-2xl sm:text-3xl font-black text-emerald-400 font-mono text-center">
                   {liveVisitors}
                 </div>
                 <p className="text-[11px] text-zinc-400 text-center">Active in the last 10 minutes</p>
               </div>
 
               {/* Card 4: Items Ordered & Food Sold */}
-              <div className="p-4 sm:p-5 rounded-3xl bg-[#14141c] border border-blue-500/30 space-y-2 relative overflow-hidden shadow-lg">
-                <div className="flex items-center justify-between text-blue-400">
+              <div className="p-4 sm:p-5 rounded-3xl bg-[#14141c] border border-[#FFD100]/30 space-y-2 relative overflow-hidden shadow-lg">
+                <div className="flex items-center justify-between text-[#FFD100]">
                   <span className="text-xs font-bold uppercase tracking-wider">Food Items Ordered</span>
-                  <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-xl bg-[#FFD100]/20 text-[#FFD100] flex items-center justify-center">
                     <ShoppingBag className="w-4 h-4" />
                   </div>
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-blue-400 font-mono text-center">
+                <div className="text-2xl sm:text-3xl font-black text-[#FFD100] font-mono text-center">
                   {trafficOrdersData.totalItemsCount}
                 </div>
                 <p className="text-[11px] text-zinc-400 text-center">
@@ -2038,7 +2044,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                 <div className="bg-[#14141c] border border-white/10 rounded-3xl p-5 sm:p-6 space-y-5 shadow-xl">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-xl bg-[#FFD100]/20 text-[#FFD100] flex items-center justify-center">
                         <Globe className="w-4 h-4" />
                       </div>
                       <h3 className="text-sm font-black text-white uppercase tracking-wider">
@@ -2060,29 +2066,29 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                         name: 'Google Business Profile & Maps',
                         desc: 'Found via Google Search & Google Maps in Hillcrest',
                         count: trafficSummary.sources.google_gmb || 0,
-                        color: 'from-blue-500 to-indigo-600',
-                        textColor: 'text-blue-400',
+                        color: 'from-[#FFD100] to-amber-500',
+                        textColor: 'text-[#FFD100]',
                       },
                       {
                         name: 'WhatsApp Broadcasts & Chat',
                         desc: 'Tapped links in WhatsApp status & chats',
                         count: trafficSummary.sources.whatsapp || 0,
-                        color: 'from-blue-500 to-indigo-600',
-                        textColor: 'text-blue-400',
+                        color: 'from-[#FFD100] to-amber-500',
+                        textColor: 'text-[#FFD100]',
                       },
                       {
                         name: 'Social Media (Instagram/TikTok/FB)',
                         desc: 'Arrived from social promo links',
                         count: trafficSummary.sources.social || 0,
-                        color: 'from-blue-500 to-indigo-600',
-                        textColor: 'text-blue-400',
+                        color: 'from-[#FFD100] to-amber-500',
+                        textColor: 'text-[#FFD100]',
                       },
                       {
                         name: 'Direct & Brand Bookmark',
-                        desc: 'Typed wrapandwings.co.za directly',
+                        desc: 'Typed website address directly or visited bookmark',
                         count: trafficSummary.sources.direct || 0,
-                        color: 'from-blue-500 to-indigo-600',
-                        textColor: 'text-blue-400',
+                        color: 'from-[#FFD100] to-amber-500',
+                        textColor: 'text-[#FFD100]',
                       },
                     ];
 
@@ -2124,7 +2130,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                 <div className="bg-[#14141c] border border-white/10 rounded-3xl p-5 sm:p-6 space-y-4 shadow-xl">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-xl bg-[#FFD100]/20 text-[#FFD100] flex items-center justify-center">
                         <Smartphone className="w-4 h-4" />
                       </div>
                       <h3 className="text-sm font-black text-white uppercase tracking-wider">
@@ -2146,7 +2152,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     return (
                       <div className="grid grid-cols-3 gap-3 pt-1">
                         <div className="p-3.5 rounded-2xl bg-zinc-900/80 border border-white/5 text-center space-y-1">
-                          <Smartphone className="w-5 h-5 mx-auto text-blue-400" />
+                          <Smartphone className="w-5 h-5 mx-auto text-[#FFD100]" />
                           <div className="text-xs font-bold text-zinc-300">Apple iPhone</div>
                           <div className="text-lg font-black text-white font-mono">
                             {trafficSummary.devices.ios || 0}
@@ -2155,7 +2161,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                         </div>
 
                         <div className="p-3.5 rounded-2xl bg-zinc-900/80 border border-white/5 text-center space-y-1">
-                          <Smartphone className="w-5 h-5 mx-auto text-blue-400" />
+                          <Smartphone className="w-5 h-5 mx-auto text-[#FFD100]" />
                           <div className="text-xs font-bold text-zinc-300">Android</div>
                           <div className="text-lg font-black text-white font-mono">
                             {trafficSummary.devices.android || 0}
@@ -2164,7 +2170,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                         </div>
 
                         <div className="p-3.5 rounded-2xl bg-zinc-900/80 border border-white/5 text-center space-y-1">
-                          <Laptop className="w-5 h-5 mx-auto text-blue-400" />
+                          <Laptop className="w-5 h-5 mx-auto text-[#FFD100]" />
                           <div className="text-xs font-bold text-zinc-300">Computer</div>
                           <div className="text-lg font-black text-white font-mono">
                             {trafficSummary.devices.desktop || 0}
@@ -2180,7 +2186,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                 <div className="bg-[#14141c] border border-white/10 rounded-3xl p-5 sm:p-6 space-y-4 shadow-xl">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-xl bg-[#FFD100]/20 text-[#FFD100] flex items-center justify-center">
                         <Phone className="w-4 h-4" />
                       </div>
                       <h3 className="text-sm font-black text-white uppercase tracking-wider">
@@ -2194,12 +2200,12 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     <div className="p-3.5 rounded-2xl bg-zinc-900/80 border border-white/5 flex items-center justify-between">
                       <div className="space-y-0.5">
                         <span className="text-xs font-bold text-zinc-300 flex items-center gap-1.5">
-                          <MessageCircle className="w-3.5 h-3.5 text-blue-400" />
+                          <MessageCircle className="w-3.5 h-3.5 text-[#FFD100]" />
                           <span>WhatsApp Clicks</span>
                         </span>
                         <p className="text-[10px] text-zinc-500">Started direct chat</p>
                       </div>
-                      <span className="text-lg font-mono font-black text-blue-400">
+                      <span className="text-lg font-mono font-black text-[#FFD100]">
                         {trafficSummary.directActions.whatsappChat || 0}
                       </span>
                     </div>
@@ -2207,12 +2213,12 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     <div className="p-3.5 rounded-2xl bg-zinc-900/80 border border-white/5 flex items-center justify-between">
                       <div className="space-y-0.5">
                         <span className="text-xs font-bold text-zinc-300 flex items-center gap-1.5">
-                          <Phone className="w-3.5 h-3.5 text-blue-400" />
+                          <Phone className="w-3.5 h-3.5 text-[#FFD100]" />
                           <span>Phone Calls</span>
                         </span>
                         <p className="text-[10px] text-zinc-500">Called shop counter</p>
                       </div>
-                      <span className="text-lg font-mono font-black text-blue-400">
+                      <span className="text-lg font-mono font-black text-[#FFD100]">
                         {trafficSummary.directActions.phoneCall || 0}
                       </span>
                     </div>
@@ -2220,12 +2226,12 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     <div className="p-3.5 rounded-2xl bg-zinc-900/80 border border-white/5 flex items-center justify-between">
                       <div className="space-y-0.5">
                         <span className="text-xs font-bold text-zinc-300 flex items-center gap-1.5">
-                          <MapPin className="w-3.5 h-3.5 text-blue-400" />
+                          <MapPin className="w-3.5 h-3.5 text-[#FFD100]" />
                           <span>Maps / Waze Taps</span>
                         </span>
                         <p className="text-[10px] text-zinc-500">Navigation to Shop 1</p>
                       </div>
-                      <span className="text-lg font-mono font-black text-blue-400">
+                      <span className="text-lg font-mono font-black text-[#FFD100]">
                         {trafficSummary.directActions.directions || 0}
                       </span>
                     </div>
@@ -2233,12 +2239,12 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     <div className="p-3.5 rounded-2xl bg-zinc-900/80 border border-white/5 flex items-center justify-between">
                       <div className="space-y-0.5">
                         <span className="text-xs font-bold text-zinc-300 flex items-center gap-1.5">
-                          <Trophy className="w-3.5 h-3.5 text-blue-400" />
+                          <Trophy className="w-3.5 h-3.5 text-[#FFD100]" />
                           <span>Review Draw Entries</span>
                         </span>
                         <p className="text-[10px] text-zinc-500">Win meal contest</p>
                       </div>
-                      <span className="text-lg font-mono font-black text-blue-400">
+                      <span className="text-lg font-mono font-black text-[#FFD100]">
                         {entries.length}
                       </span>
                     </div>
@@ -2251,10 +2257,10 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
               <div className="space-y-6">
 
                 {/* Items Actually Ordered (Quantities Sold) Card */}
-                <div className="bg-[#14141c] border border-blue-500/30 rounded-3xl p-5 sm:p-6 space-y-4 shadow-xl">
+                <div className="bg-[#14141c] border border-white/10 rounded-3xl p-5 sm:p-6 space-y-4 shadow-xl">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-xl bg-[#FFD100]/20 text-[#FFD100] flex items-center justify-center">
                         <ShoppingBag className="w-4 h-4" />
                       </div>
                       <div>
@@ -2264,7 +2270,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                         <p className="text-[11px] text-zinc-400">Total units cooked &amp; dispatched</p>
                       </div>
                     </div>
-                    <span className="px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 font-mono font-black text-xs">
+                    <span className="px-2.5 py-1 rounded-full bg-[#FFD100]/20 text-[#FFD100] border border-[#FFD100]/30 font-mono font-black text-xs">
                       {trafficOrdersData.totalItemsCount} Total Units
                     </span>
                   </div>
@@ -2293,20 +2299,20 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                             <div key={idx} className="p-2.5 rounded-2xl bg-zinc-900/80 border border-white/5 space-y-1.5">
                               <div className="flex items-center justify-between text-xs">
                                 <div className="flex items-center gap-2">
-                                  <span className="w-5 h-5 rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-black flex items-center justify-center">
+                                  <span className="w-5 h-5 rounded-full bg-[#FFD100]/20 text-[#FFD100] text-[10px] font-black flex items-center justify-center">
                                     #{idx + 1}
                                   </span>
                                   <span className="font-bold text-white truncate max-w-[170px] sm:max-w-[220px]">
                                     {name}
                                   </span>
                                 </div>
-                                <span className="font-mono font-black text-blue-400 px-2 py-0.5 rounded-md bg-blue-500/10 border border-blue-500/20 text-xs">
+                                <span className="font-mono font-black text-[#FFD100] px-2 py-0.5 rounded-md bg-[#FFD100]/10 border border-[#FFD100]/20 text-xs">
                                   {qty}x Ordered
                                 </span>
                               </div>
                               <div className="w-full h-2 rounded-full bg-zinc-900 overflow-hidden">
                                 <div
-                                  className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 transition-all"
+                                  className="h-full rounded-full bg-gradient-to-r from-[#FFD100] to-amber-500 transition-all"
                                   style={{ width: `${Math.max(8, pct)}%` }}
                                 />
                               </div>
@@ -2322,7 +2328,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                 <div className="bg-[#14141c] border border-white/10 rounded-3xl p-5 sm:p-6 space-y-4 shadow-xl">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-xl bg-[#FFD100]/20 text-[#FFD100] flex items-center justify-center">
                         <Flame className="w-4 h-4" />
                       </div>
                       <h3 className="text-sm font-black text-white uppercase tracking-wider">
@@ -2356,20 +2362,20 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                             <div key={idx} className="space-y-1">
                               <div className="flex items-center justify-between text-xs">
                                 <div className="flex items-center gap-2">
-                                  <span className="w-5 h-5 rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-black flex items-center justify-center">
+                                  <span className="w-5 h-5 rounded-full bg-[#FFD100]/20 text-[#FFD100] text-[10px] font-black flex items-center justify-center">
                                     #{idx + 1}
                                   </span>
                                   <span className="font-bold text-white truncate max-w-[200px] sm:max-w-[260px]">
                                     {itemName}
                                   </span>
                                 </div>
-                                <span className="font-mono font-black text-blue-400">
+                                <span className="font-mono font-black text-[#FFD100]">
                                   {count} views
                                 </span>
                               </div>
                               <div className="w-full h-2 rounded-full bg-zinc-900 overflow-hidden">
                                 <div
-                                  className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 transition-all"
+                                  className="h-full rounded-full bg-gradient-to-r from-[#FFD100] to-amber-500 transition-all"
                                   style={{ width: `${Math.max(6, pct)}%` }}
                                 />
                               </div>
@@ -2385,7 +2391,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                 <div className="bg-[#14141c] border border-white/10 rounded-3xl p-5 sm:p-6 space-y-4 shadow-xl">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-xl bg-[#FFD100]/20 text-[#FFD100] flex items-center justify-center">
                         <TrendingUp className="w-4 h-4" />
                       </div>
                       <h3 className="text-sm font-black text-white uppercase tracking-wider">
@@ -2401,31 +2407,31 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                         id: 'lemony',
                         name: '🍋 Lemony',
                         count: Math.max(trafficSummary.flavourPreferences?.lemony || 0, trafficOrdersData.flavourCounts?.lemony || 0),
-                        color: 'from-blue-400 to-indigo-500'
+                        color: 'from-[#FFD100] to-amber-400'
                       },
                       {
                         id: 'mild',
                         name: '🌶️ Mild',
                         count: Math.max(trafficSummary.flavourPreferences?.mild || 0, trafficOrdersData.flavourCounts?.mild || 0),
-                        color: 'from-blue-500 to-indigo-600'
+                        color: 'from-[#FFD100] to-amber-500'
                       },
                       {
                         id: 'bbq',
                         name: '🍶 Barbeque',
                         count: Math.max(trafficSummary.flavourPreferences?.bbq || 0, trafficOrdersData.flavourCounts?.bbq || 0),
-                        color: 'from-blue-600 to-indigo-700'
+                        color: 'from-amber-400 to-amber-600'
                       },
                       {
                         id: 'sweet_chilli',
                         name: '🍯 Sweet Chilli',
                         count: Math.max(trafficSummary.flavourPreferences?.sweet_chilli || 0, trafficOrdersData.flavourCounts?.sweet_chilli || 0),
-                        color: 'from-indigo-500 to-blue-500'
+                        color: 'from-[#FFD100] to-amber-500'
                       },
                       {
                         id: 'hot',
                         name: '🔥 Hot',
                         count: Math.max(trafficSummary.flavourPreferences?.hot || 0, trafficOrdersData.flavourCounts?.hot || 0),
-                        color: 'from-blue-400 to-indigo-600'
+                        color: 'from-amber-500 to-red-500'
                       },
                     ];
 
@@ -2440,7 +2446,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                               <div className="flex items-center justify-between text-xs">
                                 <span className="font-bold text-zinc-200">{flv.name}</span>
                                 <div className="space-x-1.5 font-mono">
-                                  <span className="font-black text-blue-400">{flv.count}</span>
+                                  <span className="font-black text-[#FFD100]">{flv.count}</span>
                                   <span className="text-[11px] text-zinc-500">({pct}%)</span>
                                 </div>
                               </div>
@@ -2462,7 +2468,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                 <div className="bg-[#14141c] border border-white/10 rounded-3xl p-5 sm:p-6 space-y-4 shadow-xl">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-xl bg-[#FFD100]/20 text-[#FFD100] flex items-center justify-center">
                         <ShoppingBag className="w-4 h-4" />
                       </div>
                       <h3 className="text-sm font-black text-white uppercase tracking-wider">
@@ -2497,25 +2503,25 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                         step: '1. Menu Browsed',
                         desc: 'Viewed restaurant meals',
                         count: menuViewsCount,
-                        color: 'text-blue-400',
+                        color: 'text-[#FFD100]',
                       },
                       {
                         step: '2. Added Items to Cart',
                         desc: 'Placed food onto order tray',
                         count: cartAddsCount,
-                        color: 'text-blue-400',
+                        color: 'text-[#FFD100]',
                       },
                       {
                         step: '3. Started Checkout',
                         desc: 'Opened delivery or collection form',
                         count: checkoutCount,
-                        color: 'text-blue-400',
+                        color: 'text-[#FFD100]',
                       },
                       {
                         step: '4. Order Placed & Sent',
                         desc: 'Dispatched to kitchen display',
                         count: completedOrdersCount,
-                        color: 'text-blue-400',
+                        color: 'text-[#FFD100]',
                       },
                     ];
 
@@ -2530,7 +2536,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                               <div className={`text-xs font-bold ${step.color}`}>{step.step}</div>
                               <div className="text-[11px] text-zinc-500">{step.desc}</div>
                             </div>
-                            <div className="text-base font-black text-blue-400 font-mono">
+                            <div className="text-base font-black text-[#FFD100] font-mono">
                               {step.count}
                             </div>
                           </div>
@@ -2626,7 +2632,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                   </a>
                 </li>
                 <li>Match Receipt Number <strong>"{selectedWinner.receiptNumber}"</strong> in your POS.</li>
-                <li>Notify customer via WhatsApp with digital voucher code for their free Wrap Meal combo!</li>
+                <li>Notify customer via WhatsApp with digital voucher code for their free Afro’s Meal combo!</li>
               </ol>
             </div>
 
@@ -2636,7 +2642,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                 href={`https://wa.me/${getCleanWhatsAppPhone(
                   selectedWinner.phone
                 )}?text=${encodeURIComponent(
-                  `Hi ${selectedWinner.fullName}! 🎉 Congratulations from Wrap & Wings Co! You have won our Weekly Customer Meal Draw (Free Chicken Shwarma Wrap Meal + Side) with receipt #${selectedWinner.receiptNumber}. Please reply to claim your meal voucher code!`
+                  `Hi ${selectedWinner.fullName}! 🎉 Congratulations from Afro’s Chicken (Hillcrest)! You have won our Weekly Customer Meal Draw (Free Flame-Grilled Chicken Meal + Hand-Cut Tjips) with receipt #${selectedWinner.receiptNumber}. Please reply to claim your meal voucher code!`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -2694,7 +2700,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
             <div className="p-4 rounded-2xl bg-zinc-900 border border-white/5 space-y-2 text-xs text-zinc-300">
               <div className="font-bold text-amber-300">How to connect to Google Sheets (Free):</div>
               <ol className="list-decimal pl-5 space-y-1 text-zinc-300 text-[11px]">
-                <li>Create a Google Sheet called <strong>"Wrap and Wings Orders"</strong>.</li>
+                <li>Create a Google Sheet called <strong>"Afro's Chicken Hillcrest Orders"</strong>.</li>
                 <li>Go to <strong>Extensions &gt; Apps Script</strong> and paste the auto-append script.</li>
                 <li>Deploy as <strong>Web App</strong> (set access to <em>"Anyone"</em>) and copy the URL.</li>
                 <li>Paste your Web App URL below and click Save.</li>
@@ -3013,7 +3019,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                     <span>Daily Orders &amp; Sales Report</span>
                   </h3>
                   <p className="text-xs text-zinc-400">
-                    Wrap &amp; Wings Co. • Shift Performance (Collections &amp; Deliveries)
+                    Afro’s Chicken Shop (Hillcrest) • Shift Performance (Collections &amp; Deliveries)
                   </p>
                 </div>
               </div>

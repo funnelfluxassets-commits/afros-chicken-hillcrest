@@ -61,9 +61,9 @@ export async function saveReviewDrawEntry(
     }
   }
 
-  // 3. Email notification via FormSubmit AJAX to info@wrapandwings.co.za
+  // 3. Email notification via FormSubmit AJAX to info@afroschicken.co.za
   try {
-    fetch('https://formsubmit.co/ajax/info@wrapandwings.co.za', {
+    fetch('https://formsubmit.co/ajax/info@afroschicken.co.za', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ export async function saveReviewDrawEntry(
         'Star Rating': `${entry.rating || 5} / 5`,
         'Comments / Feedback': entry.comments || 'None',
         'Submission Time': new Date(entry.createdAt).toLocaleString('en-ZA'),
-        _subject: `🍗 Wrap & Wings Weekly Meal Draw Entry: ${entry.fullName} (Slip #${entry.receiptNumber})`,
+        _subject: `🍗 Afro's Chicken Hillcrest Weekly Meal Draw Entry: ${entry.fullName} (Slip #${entry.receiptNumber})`,
         _template: 'table',
         _captcha: 'false',
       }),

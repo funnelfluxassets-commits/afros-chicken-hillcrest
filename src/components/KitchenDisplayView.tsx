@@ -281,7 +281,7 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
           </style>
         </head>
         <body>
-          <div class="center bold" style="font-size: 16px;">WRAP & WINGS CO.</div>
+          <div class="center bold" style="font-size: 16px;">AFRO’S CHICKEN (HILLCREST)</div>
           <div class="center">Shop 5, The Junction, Hillcrest</div>
           <div class="line"></div>
           <div class="bold" style="font-size: 18px;">ORDER #${order.orderId}</div>

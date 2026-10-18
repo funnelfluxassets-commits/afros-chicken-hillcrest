@@ -535,7 +535,7 @@ export const DeliveryDriverView: React.FC<DeliveryDriverViewProps> = ({
                     </a>
 
                     <a
-                      href={`https://wa.me/${waNumber}?text=Hi%20${encodeURIComponent(customer.customerName || 'there')}!%20This%20is%20your%20Wrap%20%26%20Wings%20Co.%20driver%20with%20order%20%23${order.orderId}.%20I%20am%20on%20my%20way!`}
+                      href={`https://wa.me/${waNumber}?text=Hi%20${encodeURIComponent(customer.customerName || 'there')}!%20This%20is%20your%20Afro%E2%80%99s%20Chicken%20driver%20with%20order%20%23${order.orderId}.%20I%20am%20on%20my%20way!`}
                       target="_blank"
                       rel="noreferrer"
                       className="py-2.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 hover:text-white border border-emerald-500/30 flex items-center justify-center gap-1.5 transition-colors cursor-pointer text-center"

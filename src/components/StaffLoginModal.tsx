@@ -249,7 +249,7 @@ export const StaffLoginModal: React.FC<StaffLoginModalProps> = ({
         {/* Security Notice */}
         <div className="pt-2 border-t border-white/5 text-center">
           <p className="text-[11px] text-zinc-500">
-            Wrap & Wings Co. Internal POS & Dispatch Security
+            Afro’s Chicken (Hillcrest) Internal POS & Dispatch Security
           </p>
         </div>
 

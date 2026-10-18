@@ -68,7 +68,7 @@ export function exportOrdersToPdf(
   doc.setTextColor(255, 255, 255);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(16);
-  doc.text('WRAP & WINGS CO.', margin, 12);
+  doc.text("AFRO'S CHICKEN (HILLCREST)", margin, 12);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
@@ -306,7 +306,7 @@ export function exportTrafficToPdf(
   doc.setTextColor(255, 255, 255);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(16);
-  doc.text('WRAP & WINGS CO.', margin, 12);
+  doc.text("AFRO'S CHICKEN (HILLCREST)", margin, 12);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
@@ -407,7 +407,7 @@ export function exportTrafficToPdf(
     { name: 'Google Search & Maps', count: trafficSummary.sources?.google_gmb || 0 },
     { name: 'WhatsApp Broadcasts & Chat', count: trafficSummary.sources?.whatsapp || 0 },
     { name: 'Social Media (Instagram/TikTok)', count: trafficSummary.sources?.social || 0 },
-    { name: 'Direct wrapandwings.co.za', count: trafficSummary.sources?.direct || 0 },
+    { name: 'Direct Website / Bookmark', count: trafficSummary.sources?.direct || 0 },
   ];
 
   // Draw Sources Table
@@ -680,7 +680,7 @@ export function exportTrafficToPdf(
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7);
     doc.setTextColor(113, 113, 122);
-    doc.text('Wrap & Wings Co. • Customer Traffic & Digital Intelligence Report', margin, pageHeight - 6);
+    doc.text("Afro's Chicken (Hillcrest) • Customer Traffic & Digital Intelligence Report", margin, pageHeight - 6);
     doc.text(`Page ${i} of ${totalPages}`, pageWidth - margin, pageHeight - 6, { align: 'right' });
   }
 
@@ -728,7 +728,7 @@ export function exportReviewEntriesToPdf(entries: ReviewDrawEntry[]) {
   doc.setTextColor(255, 255, 255);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(16);
-  doc.text('WRAP & WINGS CO.', margin, 12);
+  doc.text("AFRO'S CHICKEN (HILLCREST)", margin, 12);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
@@ -811,9 +811,9 @@ export function exportReviewEntriesToPdf(entries: ReviewDrawEntry[]) {
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7);
     doc.setTextColor(113, 113, 122);
-    doc.text('Wrap & Wings Co. • Weekly Google Review Draw Register', margin, pageHeight - 6);
+    doc.text("Afro's Chicken (Hillcrest) • Weekly Google Review Draw Register", margin, pageHeight - 6);
     doc.text(`Page ${i} of ${totalPages}`, pageWidth - margin, pageHeight - 6, { align: 'right' });
   }
 
-  doc.save('wrap-and-wings-review-entries.pdf');
+  doc.save('afros-chicken-review-entries.pdf');
 }

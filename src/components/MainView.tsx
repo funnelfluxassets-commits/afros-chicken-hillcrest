@@ -49,7 +49,7 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
           <div
             className="absolute inset-0 bg-cover bg-[center_top]"
             style={{
-              backgroundImage: "url('/assets/afros/pages/afros-home-page-banner.png')",
+              backgroundImage: "url('/assets/afros/pages/afros-home-page-banner.webp')",
             }}
             aria-hidden="true"
           />
@@ -117,7 +117,7 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
           <div
             className="absolute inset-0 bg-cover bg-[position:22%_top]"
             style={{
-              backgroundImage: "url('/assets/afros/pages/afros-home-page-banner.png')",
+              backgroundImage: "url('/assets/afros/pages/afros-home-page-banner.webp')",
             }}
             aria-hidden="true"
           />

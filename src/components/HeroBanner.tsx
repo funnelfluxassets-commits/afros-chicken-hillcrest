@@ -7,7 +7,7 @@ export const HeroBanner: React.FC = () => {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-102"
         style={{
-          backgroundImage: "url('/assets/afros/images/afros-menu-header.jpg')",
+          backgroundImage: "url('/assets/afros/images/afros-menu-header.webp')",
         }}
         aria-hidden="true"
       />

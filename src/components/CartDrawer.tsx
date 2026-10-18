@@ -75,19 +75,16 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onOpenCheckout }) => {
               <span>🛍️ Collection</span>
               {orderMode === 'collection' && <Check className="w-3.5 h-3.5 stroke-[3]" />}
             </button>
-            <button
-              type="button"
-              onClick={() => setOrderMode('delivery')}
-              className={`py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                orderMode === 'delivery'
-                  ? 'bg-[#FFD100] text-black font-black border-2 border-black shadow-xs'
-                  : 'text-zinc-600 hover:text-black font-bold'
-              }`}
+            <div
+              title="Doorstep Delivery is coming soon to Afro's Hillcrest!"
+              className="py-2 rounded-lg flex items-center justify-center gap-1.5 bg-zinc-200/60 text-zinc-400 border border-zinc-300/80 select-none cursor-not-allowed opacity-75"
             >
-              <DeliveryMotorbikeIcon className="w-3.5 h-3.5 shrink-0" />
-              <span>🏍️ Delivery</span>
-              {orderMode === 'delivery' && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-            </button>
+              <DeliveryMotorbikeIcon className="w-3.5 h-3.5 shrink-0 text-zinc-400" />
+              <span className="line-through decoration-zinc-400">Delivery</span>
+              <span className="text-[9px] bg-zinc-300/90 text-zinc-700 font-black px-1.5 py-0.5 rounded tracking-wide uppercase">
+                COMING SOON
+              </span>
+            </div>
           </div>
         </div>
 

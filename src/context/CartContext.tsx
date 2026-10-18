@@ -36,7 +36,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   });
 
   // Temporarily locked to 'collection' until delivery infrastructure is activated
-  const [orderMode, setOrderMode] = useState<OrderMode>('collection');
+  const [orderMode, setOrderModeState] = useState<OrderMode>('collection');
+
+  const setOrderMode = (mode: OrderMode) => {
+    // Delivery is coming soon, lock to collection
+    if (mode === 'delivery') {
+      setOrderModeState('collection');
+      return;
+    }
+    setOrderModeState(mode);
+  };
 
   const [selectedStore, setSelectedStore] = useState<StoreLocation>(STORES[0]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -49,7 +58,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     try {
-      localStorage.setItem('wrap_wing_mode', orderMode);
+      localStorage.setItem('afros_order_mode', 'collection');
     } catch {}
   }, [orderMode]);
 

@@ -90,6 +90,7 @@ const MainContent: React.FC = () => {
   const [staffLoginInitialRole, setStaffLoginInitialRole] = useState<StaffRole>('kitchen');
   const [payfastNotice, setPayfastNotice] = useState<{ type: 'success' | 'cancelled'; orderId?: string } | null>(null);
   const [isStaffTestActive, setIsStaffTestActive] = useState(() => isPayFastStaffTestMode());
+  const [pendingCategoryScroll, setPendingCategoryScroll] = useState<string | null>(null);
 
   // Detect PayFast callback redirects or staff test mode flag in URL
   useEffect(() => {
@@ -212,6 +213,17 @@ const MainContent: React.FC = () => {
       const hash = window.location.hash.toLowerCase().replace('#', '');
       const path = window.location.pathname.toLowerCase().replace(/^\//, '').replace(/\/$/, '');
       const target = hash || path;
+
+      const cleanCat = target.startsWith('cat-') ? target.replace('cat-', '') : target;
+      if (
+        ['strips', 'burgers', 'wraps', 'flamed', 'schnitzel', 'pops', 'salads', 'breakfast', 'tjips_drinks', 'quick_bites'].includes(
+          cleanCat
+        )
+      ) {
+        handleNavigate('menu', cleanCat as CategoryId);
+        return;
+      }
+
       if (
         ['main', 'menu', 'about', 'team', 'functions', 'kitchen', 'delivery', 'track', 'contact', 'review', 'admin'].includes(
           target
@@ -259,10 +271,19 @@ const MainContent: React.FC = () => {
   }, [trackedOrderId]);
 
   const handleNavigate = (view: PageView, categoryId?: CategoryId) => {
-    if (categoryId) {
-      setActiveCategory(categoryId);
-    }
     setCurrentView(view);
+
+    if (categoryId) {
+      const resolvedCat = categoryId === 'quick_bites' ? 'pops' : categoryId;
+      setActiveCategory(resolvedCat as CategoryId);
+      setPendingCategoryScroll(resolvedCat);
+    } else {
+      setPendingCategoryScroll(null);
+      if (typeof window !== 'undefined') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
     if (typeof window !== 'undefined') {
       if (view === 'main') {
         if (window.location.hash) {
@@ -272,8 +293,38 @@ const MainContent: React.FC = () => {
         window.location.hash = view;
       }
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Scroll directly to category section when navigating with categoryId
+  useEffect(() => {
+    if (currentView === 'menu' && pendingCategoryScroll) {
+      const target = pendingCategoryScroll;
+      const targetElementId = `cat-${target}`;
+
+      let attempts = 0;
+      const maxAttempts = 12;
+
+      const performScroll = () => {
+        const elem =
+          document.getElementById(targetElementId) ||
+          (target === 'pops' ? document.getElementById('cat-quick_bites') : null) ||
+          document.getElementById(target);
+
+        if (elem) {
+          elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setPendingCategoryScroll(null);
+        } else if (attempts < maxAttempts) {
+          attempts++;
+          setTimeout(performScroll, 50);
+        } else {
+          setPendingCategoryScroll(null);
+        }
+      };
+
+      const timer = setTimeout(performScroll, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [currentView, pendingCategoryScroll]);
 
   // Filter items by category & search query
   const filteredItems = useMemo(() => {
@@ -524,6 +575,9 @@ const MainContent: React.FC = () => {
                       id={`cat-${category.id}`}
                       className="scroll-mt-32 sm:scroll-mt-36"
                     >
+                      {category.id === 'pops' && (
+                        <span id="cat-quick_bites" className="scroll-mt-32 sm:scroll-mt-36 sr-only" />
+                      )}
                       {/* Centered Category Title */}
                       <div className="text-center mb-5 sm:mb-7">
                         <h2 className="text-3xl sm:text-4xl font-black font-black-grotesque text-black tracking-tight uppercase">

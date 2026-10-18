@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { CATEGORIES } from '../data/menuData';
 import { CategoryId } from '../types';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -25,6 +25,16 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({ activeCategory, onSele
     }
   };
 
+  // Keep the active category pill visible and centered in the horizontal nav
+  useEffect(() => {
+    if (scrollRef.current && activeCategory) {
+      const activeBtn = scrollRef.current.querySelector<HTMLElement>('[data-active="true"]');
+      if (activeBtn) {
+        activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+  }, [activeCategory]);
+
   return (
     <div className="sticky top-[72px] sm:top-[80px] z-30 bg-white/95 backdrop-blur-md border-y border-zinc-200 py-2 sm:py-2.5 shadow-2xs">
       <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 flex items-center gap-1.5 sm:gap-2">
@@ -47,6 +57,7 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({ activeCategory, onSele
           {/* "All" Category Pill */}
           <button
             type="button"
+            data-active={activeCategory === 'all' ? 'true' : 'false'}
             onClick={(e) => handleSelect('all', e.currentTarget)}
             className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer shrink-0 border ${
               activeCategory === 'all'
@@ -60,11 +71,12 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({ activeCategory, onSele
 
           {/* Category Pills */}
           {CATEGORIES.map((cat) => {
-            const isSelected = activeCategory === cat.id;
+            const isSelected = activeCategory === cat.id || (activeCategory === 'quick_bites' && cat.id === 'pops');
             return (
               <button
                 key={cat.id}
                 type="button"
+                data-active={isSelected ? 'true' : 'false'}
                 onClick={(e) => handleSelect(cat.id, e.currentTarget)}
                 className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer shrink-0 border ${
                   isSelected

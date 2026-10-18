@@ -23,7 +23,8 @@ export type CategoryId =
   | 'schnitzel_pops'
   | 'salads'
   | 'breakfast'
-  | 'tjips_drinks';
+  | 'tjips_drinks'
+  | 'quick_bites';
 
 export interface MenuCategory {
   id: CategoryId;

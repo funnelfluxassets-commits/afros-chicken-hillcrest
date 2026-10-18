@@ -99,7 +99,7 @@ export const CATEGORIES: MenuCategory[] = [
   },
   {
     id: 'pops',
-    name: "AFRO'S POPS",
+    name: "AFRO'S POPS & QUICK BITES",
     icon: '🍿',
     description: 'Crispy bite-sized pieces of pure chicken breast tossed in your favourite basting sauce or dusty spice.',
     tagBox: "ADD YOUR FAVOURITE AFRO'S SAUCE OR NEW DUSTY SPICE",

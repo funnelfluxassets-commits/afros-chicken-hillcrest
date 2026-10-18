@@ -12,7 +12,7 @@ interface ItemModalProps {
 const BASE_EXTRAS_OPTIONS = [
   { name: 'Extra Bacon', price: 18.0 },
   { name: 'Extra Avo', price: 18.0 },
-  { name: 'Extra Cheese', price: 10.0 },
+  { name: 'Extra Cheese', price: 12.0 },
   { name: 'Extra Egg', price: 5.0 },
   { name: 'Extra Roll', price: 6.0 },
   { name: 'Extra Chicken Fillet', price: 28.0 },

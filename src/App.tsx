@@ -722,7 +722,7 @@ const MainContent: React.FC = () => {
                             </div>
                             <div className="flex justify-between items-center">
                               <span>CHEESE</span>
-                              <span>10</span>
+                              <span>12</span>
                             </div>
                             <div className="flex justify-between items-center">
                               <span>BACON</span>
@@ -774,7 +774,7 @@ const MainContent: React.FC = () => {
                               </div>
                               <div className="flex justify-between items-center border-b border-zinc-800/80 pb-1.5">
                                 <span>CHEESE</span>
-                                <span>10</span>
+                                <span>12</span>
                               </div>
                               <div className="flex justify-between items-center pb-0.5">
                                 <span>BACON</span>

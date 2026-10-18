@@ -37,24 +37,6 @@ const DRINK_GROUPS = [
     ],
   },
   {
-    id: 'mocktails' as const,
-    title: '🍹 Refreshing Craft Mocktails',
-    priceText: '+R39.90',
-    drinks: [
-      { id: 'drink-watermelon-mocktail', name: 'Watermelon Mocktail', price: 39.90, badge: 'MOCKTAIL' },
-      { id: 'drink-lime-mocktail', name: 'Lime Mocktail', price: 39.90, badge: 'MOCKTAIL' },
-      { id: 'drink-blueberry-mocktail', name: 'Blueberry Mocktail', price: 39.90, badge: 'MOCKTAIL' },
-    ],
-  },
-  {
-    id: 'coffee' as const,
-    title: '☕ Hot Brewed Coffee',
-    priceText: '+R19.90',
-    drinks: [
-      { id: 'drink-cuppaccino', name: 'Cuppaccino (Medium)', price: 19.90, badge: 'HOT COFFEE' },
-    ],
-  },
-  {
     id: 'buddies' as const,
     title: '🥤 440ml Cold Buddy Sodas',
     priceText: '+R18.00',
@@ -79,7 +61,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
   const availableSides = item.sideOptions || (item.includesSide ? SIDES_LIST : []);
   const availableDrinks = MENU_ITEMS.filter((m) => m.categoryId === 'tjips_drinks');
   const [isDrinksExpanded, setIsDrinksExpanded] = useState(false);
-  const [drinkCategoryFilter, setDrinkCategoryFilter] = useState<'all' | 'water' | 'sharing' | 'mocktails' | 'coffee' | 'buddies'>('all');
+  const [drinkCategoryFilter, setDrinkCategoryFilter] = useState<'all' | 'water' | 'sharing' | 'buddies'>('all');
   const [selectedSide, setSelectedSide] = useState<string>(
     availableSides.length > 0 ? availableSides[0] : ''
   );
@@ -423,7 +405,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                           <div className="text-[11px] text-zinc-500 font-medium truncate">
                             {hasSelectedDrinks
                               ? selectedDrinkItems.map((d) => d.name).join(', ')
-                              : '1.5L Coke, Waters, 3 Mocktails & 440ml Sodas'}
+                              : '1.5L Coke, Waters & 440ml Cold Buddies'}
                           </div>
                         </div>
                       </div>
@@ -482,28 +464,6 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                             }`}
                           >
                             🍾 1.5L Coke (1)
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setDrinkCategoryFilter('mocktails')}
-                            className={`px-2.5 py-1 rounded-lg transition-colors shrink-0 cursor-pointer ${
-                              drinkCategoryFilter === 'mocktails'
-                                ? 'bg-black text-[#FFD100] font-black'
-                                : 'bg-zinc-100 text-zinc-700 hover:text-black font-bold'
-                            }`}
-                          >
-                            🍹 Mocktails (3)
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setDrinkCategoryFilter('coffee')}
-                            className={`px-2.5 py-1 rounded-lg transition-colors shrink-0 cursor-pointer ${
-                              drinkCategoryFilter === 'coffee'
-                                ? 'bg-black text-[#FFD100] font-black'
-                                : 'bg-zinc-100 text-zinc-700 hover:text-black font-bold'
-                            }`}
-                          >
-                            ☕ Coffee (1)
                           </button>
                           <button
                             type="button"

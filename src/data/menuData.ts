@@ -562,13 +562,4 @@ export const MENU_ITEMS: MenuItem[] = [
     description: 'The green legend of South African cool drinks.',
     price: 22.00,
   },
-  {
-    id: 'watermelon-mocktail',
-    categoryId: 'tjips_drinks',
-    name: 'WATERMELON MINT MOCKTAIL',
-    description: 'Freshly pressed watermelon puree, garden mint, lime juice, and sparkling soda over ice.',
-    price: 38.00,
-    popular: true,
-    badge: 'Artisanal Drink',
-  },
 ];

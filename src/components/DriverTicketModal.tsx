@@ -124,7 +124,7 @@ export const DriverTicketModal: React.FC<DriverTicketModalProps> = ({ order, onC
               <div className="pt-1">
                 <a
                   href={`https://wa.me/?text=${encodeURIComponent(
-                    `🏍️ *WRAP & WINGS CO - DRIVER DISPATCH TICKET #${order.orderId}*\n\n` +
+                    `🏍️ *AFRO’S CHICKEN SHOP (HILLCREST) - DRIVER DISPATCH TICKET #${order.orderId}*\n\n` +
                     `📍 *Destination:* ${order.customer.address}, ${order.customer.suburb}\n` +
                     (order.customer.complexOrUnit ? `🏢 Unit: ${order.customer.complexOrUnit}\n` : '') +
                     (order.customer.gateCode ? `🔑 Gate Code: ${order.customer.gateCode}\n` : '') +

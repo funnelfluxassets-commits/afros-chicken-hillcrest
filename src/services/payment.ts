@@ -48,7 +48,7 @@ export function buildWhatsAppOrderMessage(payload: CheckoutPayload): string {
   const { orderId, orderMode, items, subtotal, deliveryFee, grandTotal, customer, store, paymentMethod, preferredTime } = payload;
   const isDelivery = orderMode === 'delivery';
 
-  let msg = `🔥 *NEW ORDER - WRAP & WINGS CO.*\n`;
+  let msg = `🔥 *NEW ORDER - AFRO’S CHICKEN (HILLCREST)*\n`;
   msg += `*Order Ref:* #${orderId}\n`;
   msg += `*Type:* ${isDelivery ? '🏍️ HOME DELIVERY' : '🛍️ STORE COLLECTION'}\n`;
   msg += `*Store:* ${store.name} (${store.mall})\n`;
@@ -106,7 +106,7 @@ export function buildWhatsAppOrderMessage(payload: CheckoutPayload): string {
       : '💬 Direct WhatsApp Confirmation'
   }\n`;
   msg += `─────────────────────────\n`;
-  msg += `_Thank you for ordering with Wrap & Wings Co.!_`;
+  msg += `_Thank you for ordering with Afro’s Chicken (Hillcrest)!_`;
 
   return msg;
 }
@@ -214,7 +214,7 @@ export function initiatePayFastCheckout(payload: CheckoutPayload, options?: { is
     cell_number: sanitizedCell, // only include if strictly valid SA format; omitted otherwise so PayFast never errors
     m_payment_id: cleanId,
     amount: payload.grandTotal.toFixed(2),
-    item_name: `Wrap & Wings Co Order #${cleanId}`,
+    item_name: `Afro's Chicken Hillcrest Order #${cleanId}`,
     item_description: `${payload.items.length} item(s) from ${payload.store.name}`,
     payment_method: 'cc', // Forces PayFast to display the Credit / Debit Card input screen
   };

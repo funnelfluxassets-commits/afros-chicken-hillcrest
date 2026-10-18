@@ -187,9 +187,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
       <div
-        className="relative w-full max-w-xl max-h-[92vh] rounded-3xl bg-[#141419] border border-zinc-200 shadow-2xl flex flex-col overflow-hidden text-black"
+        className="relative w-full max-w-xl max-h-[92vh] rounded-3xl bg-white border border-zinc-300 shadow-2xl flex flex-col overflow-hidden text-black"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -198,35 +198,39 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
             <h2 className="text-lg sm:text-xl font-black text-black flex items-center gap-2">
               {orderMode === 'delivery' ? (
                 <>
-                  <DeliveryMotorbikeIcon className="w-5 h-5 text-yellow-400 shrink-0" />
+                  <span className="p-1 rounded-lg bg-[#FFD100] text-black shrink-0">
+                    <DeliveryMotorbikeIcon className="w-5 h-5 text-black shrink-0" />
+                  </span>
                   <span>Delivery Checkout</span>
                 </>
               ) : (
                 <>
-                  <ShoppingBag className="w-5 h-5 text-[#FFD100] shrink-0" />
+                  <span className="p-1 rounded-lg bg-[#FFD100] text-black shrink-0">
+                    <ShoppingBag className="w-5 h-5 text-black shrink-0" />
+                  </span>
                   <span>Collection Checkout</span>
                 </>
               )}
             </h2>
-            <p className="text-xs text-zinc-700">
-              Afro’s Chicken (Hillcrest)
+            <p className="text-xs text-zinc-600 font-semibold mt-0.5">
+              Afro’s Chicken (Hillcrest) • Fresh flame-grilled order
             </p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-600 hover:text-black transition-colors cursor-pointer"
+            className="p-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-600 hover:text-black transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmitOrder} className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-5">
+        <form onSubmit={handleSubmitOrder} className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-5 bg-white">
           
           {/* Saved Profile Autofill Notice */}
           {hasAutofilled && (
-            <div className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500/15 to-orange-500/10 border border-amber-500/30 text-amber-300 text-xs">
+            <div className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs">
               <span className="truncate flex items-center gap-1.5 font-medium">
                 <span>👋</span>
                 <span>Welcome back{firstName ? `, ${firstName}` : ''}! Your details have been auto-filled.</span>
@@ -234,7 +238,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
               <button
                 type="button"
                 onClick={handleClearSavedDetails}
-                className="text-[11px] font-bold text-zinc-600 hover:text-amber-200 underline cursor-pointer ml-3 shrink-0"
+                className="text-[11px] font-bold text-zinc-600 hover:text-black underline cursor-pointer ml-3 shrink-0"
               >
                 Clear
               </button>
@@ -243,12 +247,17 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
 
           {/* Customer Details */}
           <div className="space-y-3">
-            <h3 className="text-xs font-black uppercase tracking-wider text-[#FFD100] flex items-center gap-1.5">
-              <span>1. Contact Details</span>
-            </h3>
+            <div className="flex items-center gap-2">
+              <span className="w-6 h-6 rounded-full bg-[#FFD100] text-black text-xs font-black flex items-center justify-center shrink-0 border border-black/10">
+                1
+              </span>
+              <h3 className="text-xs sm:text-sm font-black uppercase tracking-wide text-black">
+                Contact Details
+              </h3>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="text-[11px] font-bold text-zinc-700 block mb-1">Your Full Name *</label>
+                <label className="text-xs font-bold text-zinc-700 block mb-1">Your Full Name *</label>
                 <input
                   type="text"
                   name="name"
@@ -257,11 +266,11 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
                   placeholder="e.g. John Doe"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-black placeholder-zinc-400 focus:outline-none focus:border-[#FFD100]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-100/80 focus:bg-white border border-zinc-300 focus:border-black focus:ring-1 focus:ring-black text-xs text-black placeholder-zinc-400 focus:outline-none transition-all"
                 />
               </div>
               <div>
-                <label className="text-[11px] font-bold text-zinc-700 block mb-1">Mobile / WhatsApp Number *</label>
+                <label className="text-xs font-bold text-zinc-700 block mb-1">Mobile / WhatsApp Number *</label>
                 <input
                   type="tel"
                   name="tel"
@@ -270,7 +279,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="e.g. 082 123 4567"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-black placeholder-zinc-400 focus:outline-none focus:border-[#FFD100]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-100/80 focus:bg-white border border-zinc-300 focus:border-black focus:ring-1 focus:ring-black text-xs text-black placeholder-zinc-400 focus:outline-none transition-all"
                 />
               </div>
             </div>
@@ -278,17 +287,22 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
 
           {/* Delivery Address (If delivery mode) */}
           {orderMode === 'delivery' && (
-            <div className="space-y-3 pt-3 border-t border-zinc-200">
+            <div className="space-y-3 pt-4 border-t border-zinc-200">
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-black uppercase tracking-wider text-[#FFD100] flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4 text-[#FFD100]" />
-                  <span>2. Delivery Address</span>
-                </h3>
-                <span className="text-[11px] text-zinc-700">Connected to Driver GPS</span>
+                <div className="flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-[#FFD100] text-black text-xs font-black flex items-center justify-center shrink-0 border border-black/10">
+                    2
+                  </span>
+                  <h3 className="text-xs sm:text-sm font-black uppercase tracking-wide text-black flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 text-black" />
+                    <span>Delivery Address</span>
+                  </h3>
+                </div>
+                <span className="text-[11px] font-semibold text-zinc-500">Connected to Driver GPS</span>
               </div>
 
               <div>
-                <label className="text-[11px] font-bold text-zinc-700 block mb-1">Street Address *</label>
+                <label className="text-xs font-bold text-zinc-700 block mb-1">Street Address *</label>
                 <input
                   type="text"
                   name="address"
@@ -297,17 +311,17 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   placeholder="e.g. 14 Josiah Gumede Road"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-black placeholder-zinc-400 focus:outline-none focus:border-[#FFD100]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-100/80 focus:bg-white border border-zinc-300 focus:border-black focus:ring-1 focus:ring-black text-xs text-black placeholder-zinc-400 focus:outline-none transition-all"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[11px] font-bold text-zinc-700 block mb-1">Suburb / Area</label>
+                  <label className="text-xs font-bold text-zinc-700 block mb-1">Suburb / Area</label>
                   <select
                     value={suburb}
                     onChange={(e) => setSuburb(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-black focus:outline-none focus:border-[#FFD100]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-100/80 focus:bg-white border border-zinc-300 focus:border-black focus:ring-1 focus:ring-black text-xs text-black font-semibold focus:outline-none transition-all"
                   >
                     <option value="Hillcrest">Hillcrest Central</option>
                     <option value="Kloof">Kloof</option>
@@ -315,45 +329,43 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                     <option value="Waterfall">Waterfall</option>
                     <option value="Bothas Hill">Botha's Hill</option>
                     <option value="Winston Park">Winston Park</option>
-                    <option value="New Germany">New Germany</option>
-                    <option value="Westville">Westville</option>
-                    <option value="Sarnia">Sarnia</option>
-                    <option value="Cowies Hill">Cowies Hill</option>
-                    <option value="Hatton Estate">Hatton Estate</option>
-                    <option value="Kloof">Kloof</option>
+                    <option value="Assagay">Assagay</option>
+                    <option value="Everton">Everton</option>
+                    <option value="Forest Hills">Forest Hills</option>
+                    <option value="Plantations">Plantations Estate</option>
                   </select>
                 </div>
                 <div>
-                  <label className="text-[11px] font-bold text-zinc-700 block mb-1">Complex / Unit (Optional)</label>
+                  <label className="text-xs font-bold text-zinc-700 block mb-1">Complex / Unit (Optional)</label>
                   <input
                     type="text"
                     value={complexOrUnit}
                     onChange={(e) => setComplexOrUnit(e.target.value)}
                     placeholder="e.g. Unit 4, Sunset Oaks"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-black placeholder-zinc-400 focus:outline-none focus:border-[#FFD100]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-100/80 focus:bg-white border border-zinc-300 focus:border-black focus:ring-1 focus:ring-black text-xs text-black placeholder-zinc-400 focus:outline-none transition-all"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[11px] font-bold text-zinc-700 block mb-1">Gate Code / Access</label>
+                  <label className="text-xs font-bold text-zinc-700 block mb-1">Gate Code / Access</label>
                   <input
                     type="text"
                     value={gateCode}
                     onChange={(e) => setGateCode(e.target.value)}
                     placeholder="e.g. #1234 or Ring 4"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-black placeholder-zinc-400 focus:outline-none focus:border-[#FFD100]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-100/80 focus:bg-white border border-zinc-300 focus:border-black focus:ring-1 focus:ring-black text-xs text-black placeholder-zinc-400 focus:outline-none transition-all"
                   />
                 </div>
                 <div>
-                  <label className="text-[11px] font-bold text-zinc-700 block mb-1">Driver Instructions</label>
+                  <label className="text-xs font-bold text-zinc-700 block mb-1">Driver Instructions</label>
                   <input
                     type="text"
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="e.g. Please leave at reception"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-black placeholder-zinc-400 focus:outline-none focus:border-[#FFD100]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-100/80 focus:bg-white border border-zinc-300 focus:border-black focus:ring-1 focus:ring-black text-xs text-black placeholder-zinc-400 focus:outline-none transition-all"
                   />
                 </div>
               </div>
@@ -361,54 +373,71 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
           )}
 
           {/* Order Timing / Pickup Schedule */}
-          <div className="space-y-2 pt-3 border-t border-zinc-200">
+          <div className="space-y-3 pt-4 border-t border-zinc-200">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-black uppercase tracking-wider text-[#FFD100] flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5" />
-                <span>Preparation Timing</span>
-              </label>
-              <span className="text-[10px] text-amber-400 font-bold">
+              <div className="flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-[#FFD100] text-black text-xs font-black flex items-center justify-center shrink-0 border border-black/10">
+                  <Clock className="w-3.5 h-3.5" />
+                </span>
+                <label className="text-xs sm:text-sm font-black uppercase tracking-wide text-black">
+                  Preparation Timing
+                </label>
+              </div>
+              <span className="text-xs font-black text-black bg-[#FFD100]/40 px-2.5 py-1 rounded-full border border-black/10">
                 {orderMode === 'collection' ? '⚡ Ready in ~15–20 mins' : '⚡ Delivery in ~35–45 mins'}
               </span>
             </div>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-3 gap-2.5">
               {[
                 { label: 'ASAP', desc: orderMode === 'collection' ? '15–20 mins' : '35–45 mins' },
                 { label: 'In 45 Mins', desc: 'Pre-order' },
                 { label: 'In 1.5 Hours', desc: 'Later Today' },
-              ].map((opt) => (
-                <button
-                  key={opt.label}
-                  type="button"
-                  onClick={() => setPreferredTime(opt.label)}
-                  className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
-                    preferredTime === opt.label
-                      ? 'bg-[#FFD100]/20 border-[#FFD100] text-black ring-1 ring-[#FFD100]'
-                      : 'bg-zinc-50 border-zinc-200 text-zinc-600 hover:text-black'
-                  }`}
-                >
-                  <div className="text-xs font-black">{opt.label}</div>
-                  <div className="text-[10px] text-zinc-500">{opt.desc}</div>
-                </button>
-              ))}
+              ].map((opt) => {
+                const isSelected = preferredTime === opt.label;
+                return (
+                  <button
+                    key={opt.label}
+                    type="button"
+                    onClick={() => setPreferredTime(opt.label)}
+                    className={`p-3 rounded-xl border text-center transition-all cursor-pointer ${
+                      isSelected
+                        ? 'bg-[#FFD100] border-2 border-black text-black font-black shadow-xs'
+                        : 'bg-zinc-100 hover:bg-zinc-200/70 border-zinc-300 text-zinc-900 font-bold'
+                    }`}
+                  >
+                    <div className="text-xs font-black uppercase">{opt.label}</div>
+                    <div className={`text-[10px] ${isSelected ? 'text-black/80 font-bold' : 'text-zinc-500 font-medium'}`}>
+                      {opt.desc}
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           {/* Kitchen WhatsApp Live Dispatch Banner */}
-          <div className="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/30 flex items-center gap-2.5 text-xs text-zinc-700">
-            <MessageSquare className="w-4 h-4 text-emerald-400 shrink-0" />
-            <span>
-              Orders are dispatched straight to our test kitchen WhatsApp (<strong className="text-emerald-300">+27 83 276 3273</strong>) for instant confirmation.
-            </span>
+          <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center gap-3 text-xs text-emerald-950">
+            <div className="w-8 h-8 rounded-xl bg-emerald-100 border border-emerald-200 flex items-center justify-center shrink-0 text-emerald-700">
+              <MessageSquare className="w-4 h-4" />
+            </div>
+            <div className="flex-1 min-w-0 font-medium">
+              Orders are dispatched straight to our Hillcrest kitchen WhatsApp (
+              <strong className="text-emerald-800 font-black">+27 78 905 7975</strong>
+              ) for instant confirmation.
+            </div>
           </div>
 
           {/* Payment Method Selector */}
-          <div className="space-y-3 pt-3 border-t border-zinc-200">
+          <div className="space-y-3 pt-4 border-t border-zinc-200">
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-black uppercase tracking-wider text-[#FFD100] flex items-center gap-1.5">
-                <CreditCard className="w-4 h-4 text-[#FFD100]" />
-                <span>Payment Method</span>
-              </h3>
+              <div className="flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-[#FFD100] text-black text-xs font-black flex items-center justify-center shrink-0 border border-black/10">
+                  <CreditCard className="w-3.5 h-3.5" />
+                </span>
+                <h3 className="text-xs sm:text-sm font-black uppercase tracking-wide text-black">
+                  Payment Method
+                </h3>
+              </div>
               {isStaffTest && (
                 <button
                   type="button"
@@ -417,7 +446,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                     setIsStaffTest(false);
                     if (paymentMethod === 'payfast') setPaymentMethod('cod');
                   }}
-                  className="text-[10px] text-amber-400 hover:text-black underline font-semibold cursor-pointer"
+                  className="text-xs text-amber-700 hover:text-black underline font-bold cursor-pointer"
                 >
                   Exit Test Mode
                 </button>
@@ -425,9 +454,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
             </div>
 
             {isStaffTest && (
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-300 animate-fadeIn">
-                <div className="flex items-center gap-1.5 font-medium">
-                  <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 animate-fadeIn">
+                <div className="flex items-center gap-2 font-semibold">
+                  <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
                   <span>Staff Test Mode: PayFast Sandbox Active (Zero real money charged)</span>
                 </div>
               </div>
@@ -438,102 +467,104 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
               <button
                 type="button"
                 onClick={() => setPaymentMethod('cod')}
-                className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between shadow-sm ${
+                className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between shadow-xs ${
                   paymentMethod === 'cod'
-                    ? 'bg-[#FFD100]/20 border-[#FFD100] ring-1 ring-[#FFD100] text-black'
-                    : 'border-zinc-200 bg-zinc-50 text-zinc-600 hover:border-white/20 hover:text-zinc-700'
+                    ? 'bg-[#FFD100]/25 border-2 border-black text-black font-black'
+                    : 'border-zinc-300 bg-zinc-100 hover:bg-zinc-200/70 text-zinc-900 font-bold'
                 }`}
               >
                 <div>
-                  <div className="text-xs font-black flex items-center gap-1.5">
-                    <span className={paymentMethod === 'cod' ? 'text-black' : 'text-zinc-700'}>Pay On Handover</span>
-                    <span className="text-[9px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded font-extrabold uppercase">ACTIVE</span>
+                  <div className="text-xs font-black flex items-center gap-2">
+                    <span>Pay On Handover</span>
+                    <span className="text-[9px] bg-emerald-600 text-white px-2 py-0.5 rounded-full font-black uppercase tracking-wider">
+                      ACTIVE
+                    </span>
                   </div>
-                  <div className="text-[11px] text-zinc-700">Cash or Speedpoint card machine</div>
+                  <div className="text-[11px] text-zinc-600 font-medium mt-0.5">Cash or Speedpoint card machine</div>
                 </div>
                 <div
-                  className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all ${
+                  className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
                     paymentMethod === 'cod'
-                      ? 'border-[#FFD100] bg-[#FFD100]'
-                      : 'border-zinc-700 bg-zinc-50'
+                      ? 'border-black bg-black'
+                      : 'border-zinc-400 bg-white'
                   }`}
                 >
-                  {paymentMethod === 'cod' && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                  {paymentMethod === 'cod' && <div className="w-1.5 h-1.5 rounded-full bg-[#FFD100]" />}
                 </div>
               </button>
 
-              {/* PayFast (Active in Staff Test Mode, Coming Soon for public) */}
+              {/* PayFast */}
               {isStaffTest ? (
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('payfast')}
-                  className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between shadow-sm ${
+                  className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between shadow-xs ${
                     paymentMethod === 'payfast'
-                      ? 'bg-[#FFD100]/20 border-[#FFD100] ring-1 ring-[#FFD100] text-black'
-                      : 'border-zinc-200 bg-zinc-50 text-zinc-600 hover:border-white/20 hover:text-zinc-700'
+                      ? 'bg-[#FFD100]/25 border-2 border-black text-black font-black'
+                      : 'border-zinc-300 bg-zinc-100 hover:bg-zinc-200/70 text-zinc-900 font-bold'
                   }`}
                 >
                   <div>
-                    <div className="text-xs font-black flex items-center gap-1.5">
-                      <span className={paymentMethod === 'payfast' ? 'text-black' : 'text-zinc-700'}>PayFast</span>
-                      <span className="text-[9px] bg-sky-500/20 text-sky-300 border border-sky-500/30 px-1.5 py-0.5 rounded font-extrabold uppercase">
+                    <div className="text-xs font-black flex items-center gap-2">
+                      <span>PayFast</span>
+                      <span className="text-[9px] bg-sky-600 text-white px-2 py-0.5 rounded-full font-black uppercase">
                         SANDBOX TEST
                       </span>
                     </div>
-                    <div className="text-[11px] text-zinc-600">Instant EFT, Capitec Pay, Cards</div>
+                    <div className="text-[11px] text-zinc-600 font-medium mt-0.5">Instant EFT, Capitec Pay, Cards</div>
                   </div>
                   <div
-                    className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all ${
+                    className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
                       paymentMethod === 'payfast'
-                        ? 'border-[#FFD100] bg-[#FFD100]'
-                        : 'border-zinc-700 bg-zinc-50'
+                        ? 'border-black bg-black'
+                        : 'border-zinc-400 bg-white'
                     }`}
                   >
-                    {paymentMethod === 'payfast' && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                    {paymentMethod === 'payfast' && <div className="w-1.5 h-1.5 rounded-full bg-[#FFD100]" />}
                   </div>
                 </button>
               ) : (
                 <div
-                  className="p-3 rounded-xl border border-zinc-200 bg-zinc-50/40 text-left flex items-center justify-between opacity-50 cursor-not-allowed select-none"
+                  className="p-3.5 rounded-xl border border-zinc-200 bg-zinc-50 text-left flex items-center justify-between opacity-60 cursor-not-allowed select-none"
                   title="Online payments coming soon"
                 >
                   <div>
-                    <div className="text-xs font-bold text-zinc-600 flex items-center gap-1.5">
+                    <div className="text-xs font-bold text-zinc-500 flex items-center gap-2">
                       <span>PayFast</span>
-                      <span className="text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-1.5 py-0.5 rounded uppercase font-black">
+                      <span className="text-[9px] bg-zinc-200 text-zinc-600 px-2 py-0.5 rounded-full font-black uppercase">
                         COMING SOON
                       </span>
                     </div>
-                    <div className="text-[11px] text-zinc-500">Instant EFT, Capitec Pay, Cards</div>
+                    <div className="text-[11px] text-zinc-400 font-medium mt-0.5">Instant EFT, Capitec Pay, Cards</div>
                   </div>
-                  <div className="w-4 h-4 rounded-full border border-zinc-700" />
+                  <div className="w-4 h-4 rounded-full border border-zinc-300 bg-zinc-100" />
                 </div>
               )}
             </div>
           </div>
 
           {/* Order Summary & Tip Breakdown */}
-          <div className="p-3.5 rounded-2xl bg-zinc-50/90 border border-zinc-200 space-y-2 text-xs text-zinc-700">
-            <div className="flex justify-between">
-              <span>Items Subtotal</span>
-              <span className="text-black font-bold">R{subtotal.toFixed(2)}</span>
+          <div className="p-4 rounded-2xl bg-zinc-100 border border-zinc-300 space-y-2.5 text-xs text-zinc-700">
+            <div className="flex justify-between items-center">
+              <span className="font-semibold text-zinc-600">Items Subtotal</span>
+              <span className="text-black font-black text-sm">R{subtotal.toFixed(2)}</span>
             </div>
             {orderMode === 'delivery' && (
               <>
-                <div className="flex justify-between">
-                  <span>Delivery Fee</span>
-                  <span className="text-black font-bold">R{deliveryFee.toFixed(2)}</span>
+                <div className="flex justify-between items-center">
+                  <span className="font-semibold text-zinc-600">Delivery Fee</span>
+                  <span className="text-black font-black text-sm">R{deliveryFee.toFixed(2)}</span>
                 </div>
-                <div className="flex items-center justify-between py-1.5 border-t border-zinc-200 my-0.5">
-                  <span className="text-zinc-700 font-semibold">Add Driver Tip:</span>
-                  <div className="flex items-center gap-1.5">
+                <div className="flex items-center justify-between py-2 border-t border-zinc-200 my-0.5">
+                  <span className="text-zinc-800 font-bold">Add Driver Tip:</span>
+                  <div className="flex items-center gap-2">
                     <button
                       type="button"
                       onClick={() => setTip(tip === 5 ? 0 : 5)}
-                      className={`px-3 py-1 rounded-lg text-xs font-black transition-all cursor-pointer ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all cursor-pointer ${
                         tip === 5
-                          ? 'bg-amber-400 text-zinc-950 shadow-md ring-1 ring-amber-300'
-                          : 'bg-zinc-800 text-zinc-700 hover:text-black hover:bg-zinc-700 border border-zinc-200'
+                          ? 'bg-[#FFD100] text-black border-2 border-black shadow-xs'
+                          : 'bg-white text-zinc-700 hover:text-black hover:bg-zinc-200 border border-zinc-300'
                       }`}
                       title={tip === 5 ? 'Click to remove tip' : 'Add R5 tip'}
                     >
@@ -542,10 +573,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                     <button
                       type="button"
                       onClick={() => setTip(tip === 10 ? 0 : 10)}
-                      className={`px-3 py-1 rounded-lg text-xs font-black transition-all cursor-pointer ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all cursor-pointer ${
                         tip === 10
-                          ? 'bg-amber-400 text-zinc-950 shadow-md ring-1 ring-amber-300'
-                          : 'bg-zinc-800 text-zinc-700 hover:text-black hover:bg-zinc-700 border border-zinc-200'
+                          ? 'bg-[#FFD100] text-black border-2 border-black shadow-xs'
+                          : 'bg-white text-zinc-700 hover:text-black hover:bg-zinc-200 border border-zinc-300'
                       }`}
                       title={tip === 10 ? 'Click to remove tip' : 'Add R10 tip'}
                     >
@@ -554,23 +585,25 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                   </div>
                 </div>
                 {tip > 0 && (
-                  <div className="flex justify-between text-xs text-amber-300 font-bold">
+                  <div className="flex justify-between text-xs text-black font-bold">
                     <span>Driver Tip</span>
                     <span>+R{tip.toFixed(2)}</span>
                   </div>
                 )}
               </>
             )}
-            <div className="flex justify-between text-sm font-black text-black pt-2 border-t border-zinc-200">
-              <span>Total Bill</span>
-              <span className="text-amber-400 text-base">R{grandTotal.toFixed(2)}</span>
+            <div className="flex justify-between items-center text-sm font-black text-black pt-2.5 border-t border-zinc-300">
+              <span className="uppercase tracking-wider">Total Bill</span>
+              <span className="text-lg font-black text-black bg-[#FFD100] px-3 py-1 rounded-xl border border-black/10">
+                R{grandTotal.toFixed(2)}
+              </span>
             </div>
           </div>
 
           {/* Trust Banner */}
-          <div className="p-3 rounded-xl bg-zinc-50/90 border border-zinc-200 flex items-center gap-2.5 text-xs text-zinc-700">
-            <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
-            <span>Encrypted 256-bit checkout • Food freshly prepared upon confirmation</span>
+          <div className="p-3 rounded-xl bg-zinc-100 border border-zinc-300 flex items-center gap-2.5 text-xs text-zinc-600">
+            <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+            <span>Encrypted 256-bit checkout • Food freshly flame-grilled upon confirmation</span>
           </div>
 
           {/* Total & Submit Button */}
@@ -578,10 +611,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
             <button
               type="submit"
               disabled={isProcessing}
-              className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-rose-600 via-rose-500 to-red-600 hover:from-rose-500 hover:to-red-500 text-black font-black text-sm tracking-wide shadow-xl shadow-rose-950/40 hover:scale-[1.01] transition-all flex items-center justify-between cursor-pointer disabled:opacity-50"
+              className="w-full py-4 px-5 rounded-2xl bg-[#FFD100] hover:bg-[#e6bd00] text-black font-black text-sm sm:text-base tracking-wide shadow-md hover:shadow-lg transition-all flex items-center justify-between cursor-pointer border-2 border-black disabled:opacity-50"
             >
               <span>{isProcessing ? 'CONFIRMING ORDER...' : 'CONFIRM & PLACE ORDER'}</span>
-              <span>R{grandTotal.toFixed(2)}</span>
+              <span className="text-base sm:text-lg">R{grandTotal.toFixed(2)}</span>
             </button>
           </div>
         </form>

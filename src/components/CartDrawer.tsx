@@ -51,66 +51,66 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onOpenCheckout }) => {
           <button
             type="button"
             onClick={() => setIsCartOpen(false)}
-            className="py-1.5 px-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 hover:text-black transition-all text-xs font-black flex items-center gap-1.5 cursor-pointer shadow-sm"
+            className="py-1.5 px-3 rounded-xl bg-[#FFD100] hover:bg-[#e6bd00] border-2 border-black text-black transition-all text-xs font-black flex items-center gap-1.5 cursor-pointer shadow-xs"
             aria-label="Add More Items"
             title="Return to menu to add more items"
           >
-            <Plus className="w-3.5 h-3.5 text-amber-400 stroke-[3]" />
+            <Plus className="w-3.5 h-3.5 text-black stroke-[3]" />
             <span>ADD ITEMS</span>
           </button>
         </div>
 
         {/* Order Mode Toggle (Collection vs Delivery) */}
         <div className="p-3 bg-zinc-50 border-b border-zinc-200">
-          <div className="grid grid-cols-2 gap-1.5 p-1 bg-zinc-100 rounded-xl border border-zinc-200 text-xs font-bold">
+          <div className="grid grid-cols-2 gap-1.5 p-1 bg-zinc-100 rounded-xl border border-zinc-300 text-xs font-bold">
             <button
               type="button"
               onClick={() => setOrderMode('collection')}
               className={`py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                 orderMode === 'collection'
-                  ? 'bg-[#FFD100] text-black font-bold shadow-md'
-                  : 'text-zinc-500 hover:text-black'
+                  ? 'bg-[#FFD100] text-black font-black border-2 border-black shadow-xs'
+                  : 'text-zinc-600 hover:text-black font-bold'
               }`}
             >
-              <span>🛍️ Store Collection</span>
-              {orderMode === 'collection' && <Check className="w-3 h-3" />}
+              <span>🛍️ Collection</span>
+              {orderMode === 'collection' && <Check className="w-3.5 h-3.5 stroke-[3]" />}
             </button>
             <button
               type="button"
               onClick={() => setOrderMode('delivery')}
               className={`py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                 orderMode === 'delivery'
-                  ? 'bg-[#FFD100] text-black font-bold shadow-md'
-                  : 'text-zinc-500 hover:text-black'
+                  ? 'bg-[#FFD100] text-black font-black border-2 border-black shadow-xs'
+                  : 'text-zinc-600 hover:text-black font-bold'
               }`}
             >
               <DeliveryMotorbikeIcon className="w-3.5 h-3.5 shrink-0" />
-              <span>🏍️ Home Delivery</span>
-              {orderMode === 'delivery' && <Check className="w-3 h-3" />}
+              <span>🏍️ Delivery</span>
+              {orderMode === 'delivery' && <Check className="w-3.5 h-3.5 stroke-[3]" />}
             </button>
           </div>
         </div>
 
         {/* Items List */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3.5">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3.5 bg-white">
           {items.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center p-6 text-zinc-500">
-              <div className="w-16 h-16 rounded-full bg-zinc-900 border border-zinc-200 flex items-center justify-center mb-3">
-                <ChickenWingIcon className="w-8 h-8" />
+              <div className="w-16 h-16 rounded-full bg-[#FFD100] border-2 border-black flex items-center justify-center mb-3 shadow-md">
+                <span className="text-2xl">🔥</span>
               </div>
-              <h3 className="text-base font-extrabold text-zinc-700">Your basket is empty</h3>
-              <p className="text-xs text-zinc-500 mt-1 max-w-xs">
-                Explore our flame-grilled chicken, delicious wraps, and wings to build your feast.
+              <h3 className="text-base font-black text-black">Your basket is empty</h3>
+              <p className="text-xs text-zinc-600 mt-1 max-w-xs font-medium">
+                Explore our flame-grilled chicken, burgers, strips, and hand-cut tjips to build your feast.
               </p>
             </div>
           ) : (
             items.map((item) => (
               <div
                 key={item.id}
-                className="p-3.5 rounded-2xl bg-zinc-50 border border-zinc-200 flex items-start gap-3 relative group"
+                className="p-3.5 rounded-2xl bg-zinc-100 border border-zinc-300 flex items-start gap-3 relative group shadow-xs"
               >
                 {/* Item Thumbnail */}
-                <div className="w-14 h-14 rounded-xl overflow-hidden bg-zinc-50 shrink-0 border border-zinc-200">
+                <div className="w-14 h-14 rounded-xl overflow-hidden bg-white shrink-0 border border-zinc-300">
                   {item.menuItem.image ? (
                     <img
                       src={item.menuItem.image}
@@ -128,46 +128,46 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onOpenCheckout }) => {
                     <h4 className="text-xs sm:text-sm font-black text-black truncate">
                       {item.menuItem.name}
                     </h4>
-                    <span className="text-xs font-black text-amber-400 shrink-0">
+                    <span className="text-xs sm:text-sm font-black text-black shrink-0">
                       R{item.itemTotal.toFixed(2)}
                     </span>
                   </div>
 
                   {/* Customizations */}
-                  <div className="text-[11px] text-zinc-600 mt-0.5 space-y-0.5">
+                  <div className="text-[11px] text-zinc-700 mt-1 space-y-0.5">
                     {item.customization?.flavour && (
-                      <div className="capitalize text-[#FFD100] font-semibold">
+                      <div className="capitalize text-black font-black bg-[#FFD100]/40 px-1.5 py-0.5 rounded inline-block text-[10px] mr-1">
                         Flavour: {item.customization.flavour}
                       </div>
                     )}
                     {item.customization?.side && (
-                      <div>Side: {item.customization.side}</div>
+                      <div className="font-semibold text-zinc-700">Side: {item.customization.side}</div>
                     )}
                     {item.customization?.extras?.map((e) => (
-                      <div key={e.name} className="text-amber-300/80">
+                      <div key={e.name} className="text-zinc-600 font-medium">
                         + {e.name}
                       </div>
                     ))}
                     {item.customization?.notes && (
-                      <div className="italic text-zinc-700">"{item.customization.notes}"</div>
+                      <div className="italic text-zinc-500">"{item.customization.notes}"</div>
                     )}
                   </div>
 
                   {/* Quantity & Remove controls */}
                   <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-200">
-                    <div className="flex items-center bg-zinc-50 border border-zinc-200 rounded-lg p-0.5">
+                    <div className="flex items-center bg-white border border-zinc-300 rounded-lg p-0.5 shadow-2xs">
                       <button
                         type="button"
                         onClick={() => updateQuantity(item.id, -1)}
-                        className="w-6 h-6 rounded flex items-center justify-center text-zinc-500 hover:text-black cursor-pointer"
+                        className="w-6 h-6 rounded flex items-center justify-center text-zinc-700 hover:text-black hover:bg-zinc-100 cursor-pointer"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
-                      <span className="w-6 text-center text-xs font-bold">{item.quantity}</span>
+                      <span className="w-6 text-center text-xs font-black text-black">{item.quantity}</span>
                       <button
                         type="button"
                         onClick={() => updateQuantity(item.id, 1)}
-                        className="w-6 h-6 rounded flex items-center justify-center text-zinc-500 hover:text-black cursor-pointer"
+                        className="w-6 h-6 rounded flex items-center justify-center text-zinc-700 hover:text-black hover:bg-zinc-100 cursor-pointer"
                       >
                         <Plus className="w-3 h-3" />
                       </button>
@@ -176,7 +176,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onOpenCheckout }) => {
                     <button
                       type="button"
                       onClick={() => removeItem(item.id)}
-                      className="p-1.5 rounded-lg text-zinc-500 hover:text-[#FFD100] hover:bg-rose-500/10 transition-colors cursor-pointer"
+                      className="p-1.5 rounded-lg text-zinc-400 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
                       title="Remove item"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -191,27 +191,27 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onOpenCheckout }) => {
         {/* Drawer Footer / Summary & Checkout */}
         {items.length > 0 && (
           <div className="p-4 sm:p-5 bg-zinc-50 border-t border-zinc-200 space-y-3">
-            <div className="space-y-1.5 text-xs text-zinc-600">
+            <div className="space-y-1.5 text-xs text-zinc-700">
               <div className="flex justify-between">
-                <span>Subtotal</span>
-                <span className="text-black font-bold">R{subtotal.toFixed(2)}</span>
+                <span className="font-semibold text-zinc-600">Subtotal</span>
+                <span className="text-black font-black text-sm">R{subtotal.toFixed(2)}</span>
               </div>
               {orderMode === 'delivery' && (
                 <>
-                  <div className="flex justify-between text-zinc-600">
-                    <span>Delivery Fee</span>
-                    <span className="text-black font-bold">R{deliveryFee.toFixed(2)}</span>
+                  <div className="flex justify-between">
+                    <span className="font-semibold text-zinc-600">Delivery Fee</span>
+                    <span className="text-black font-black text-sm">R{deliveryFee.toFixed(2)}</span>
                   </div>
                   <div className="flex items-center justify-between py-1.5 border-t border-zinc-200 my-0.5">
-                    <span className="text-zinc-700 font-semibold text-xs">Add Driver Tip:</span>
+                    <span className="text-zinc-800 font-bold text-xs">Add Driver Tip:</span>
                     <div className="flex items-center gap-1.5">
                       <button
                         type="button"
                         onClick={() => setTip(tip === 5 ? 0 : 5)}
-                        className={`px-3 py-1 rounded-lg text-xs font-black transition-all cursor-pointer ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all cursor-pointer ${
                           tip === 5
-                            ? 'bg-amber-400 text-zinc-950 shadow-md ring-1 ring-amber-300'
-                            : 'bg-zinc-800 text-zinc-700 hover:text-black hover:bg-zinc-700 border border-zinc-200'
+                            ? 'bg-[#FFD100] text-black border-2 border-black shadow-xs'
+                            : 'bg-white text-zinc-700 hover:text-black hover:bg-zinc-200 border border-zinc-300'
                         }`}
                         title={tip === 5 ? 'Click to remove tip' : 'Add R5 tip'}
                       >
@@ -220,10 +220,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onOpenCheckout }) => {
                       <button
                         type="button"
                         onClick={() => setTip(tip === 10 ? 0 : 10)}
-                        className={`px-3 py-1 rounded-lg text-xs font-black transition-all cursor-pointer ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all cursor-pointer ${
                           tip === 10
-                            ? 'bg-amber-400 text-zinc-950 shadow-md ring-1 ring-amber-300'
-                            : 'bg-zinc-800 text-zinc-700 hover:text-black hover:bg-zinc-700 border border-zinc-200'
+                            ? 'bg-[#FFD100] text-black border-2 border-black shadow-xs'
+                            : 'bg-white text-zinc-700 hover:text-black hover:bg-zinc-200 border border-zinc-300'
                         }`}
                         title={tip === 10 ? 'Click to remove tip' : 'Add R10 tip'}
                       >
@@ -232,16 +232,18 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onOpenCheckout }) => {
                     </div>
                   </div>
                   {tip > 0 && (
-                    <div className="flex justify-between text-xs text-amber-300 font-bold">
+                    <div className="flex justify-between text-xs text-black font-bold">
                       <span>Driver Tip</span>
                       <span>+R{tip.toFixed(2)}</span>
                     </div>
                   )}
                 </>
               )}
-              <div className="flex justify-between text-sm sm:text-base font-black text-black pt-2 border-t border-zinc-200">
-                <span>Total Due</span>
-                <span className="text-amber-400 text-lg">R{grandTotal.toFixed(2)}</span>
+              <div className="flex justify-between items-center text-sm sm:text-base font-black text-black pt-2.5 border-t border-zinc-200">
+                <span className="uppercase tracking-wider">Total Due</span>
+                <span className="text-lg font-black text-black bg-[#FFD100] px-3 py-1 rounded-xl border border-black/10">
+                  R{grandTotal.toFixed(2)}
+                </span>
               </div>
             </div>
 
@@ -251,16 +253,16 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onOpenCheckout }) => {
                 setIsCartOpen(false);
                 onOpenCheckout();
               }}
-              className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-rose-600 via-rose-500 to-red-600 hover:from-rose-500 hover:to-red-500 text-black font-black text-sm tracking-wide shadow-xl shadow-rose-950/40 hover:scale-[1.02] transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-4 px-5 rounded-2xl bg-[#FFD100] hover:bg-[#e6bd00] text-black font-black text-sm sm:text-base tracking-wide shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer border-2 border-black"
             >
               <span>PROCEED TO CHECKOUT</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 stroke-[3]" />
             </button>
 
             <button
               type="button"
               onClick={() => setIsCartOpen(false)}
-              className="w-full py-2 text-center text-xs font-bold text-zinc-500 hover:text-amber-300 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+              className="w-full py-2 text-center text-xs font-bold text-zinc-600 hover:text-black transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Add More Items to Order</span>

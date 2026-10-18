@@ -190,7 +190,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, onOpenStor
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('/images/brand/African-Art-Design.webp')",
+            backgroundImage: "url('/assets/afros/images/afros-menu-header.webp')",
           }}
           aria-hidden="true"
         />

@@ -190,7 +190,7 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
                 {/* 1. Top-Right Card: Afro Pops & Box with Yellow Background (z-20 so seeds slide behind it) */}
                 <div className="absolute top-0 right-0 w-[58%] z-20 shadow-xl rounded-2xl overflow-hidden bg-[#F3CD17] border border-black/10 transform hover:scale-102 transition-transform duration-300">
                   <img
-                    src="/assets/afros/pages/Main Page-2 Image 2 afros-pops.png"
+                    src="/assets/afros/images/afros-pops.webp"
                     alt="Afro Pops & Box"
                     className="w-full h-auto object-contain block"
                   />
@@ -307,7 +307,7 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
             className="relative min-h-[340px] md:min-h-full aspect-[4/3] md:aspect-auto overflow-hidden group cursor-pointer bg-zinc-100"
           >
             <img
-              src="/assets/afros/pages/Main Page 3 - Image Quick Bites afros-side-chicks-sarmie.png"
+              src="/assets/afros/pages/afros-side-chicks-sarmie.webp"
               alt="QUICK BITES"
               className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
             />
@@ -367,7 +367,7 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
             className="relative aspect-[16/9] sm:aspect-[4/3] overflow-hidden group cursor-pointer bg-zinc-100"
           >
             <img
-              src="/assets/afros/pages/Main Page-3 - Image Strips afros-crispy-strips-and-side.png"
+              src="/assets/afros/pages/afros-crispy-strips-and-side.webp"
               alt="STRIPS"
               className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
             />

@@ -18,7 +18,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('/assets/afros/pages/afros-about-hero.jpg')",
+            backgroundImage: "url('/assets/afros/pages/afros-about-hero.webp')",
           }}
           aria-hidden="true"
         />

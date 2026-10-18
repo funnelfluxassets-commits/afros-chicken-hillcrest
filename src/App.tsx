@@ -12,7 +12,6 @@ import { BrandHighlights } from './components/BrandHighlights';
 import { Footer } from './components/Footer';
 import { LegalModal, LegalTab } from './components/LegalModal';
 import { CookieBanner } from './components/CookieBanner';
-import { StoryView } from './components/StoryView';
 import { TeamView } from './components/TeamView';
 import { ContactView } from './components/ContactView';
 import { ReviewDrawView } from './components/ReviewDrawView';

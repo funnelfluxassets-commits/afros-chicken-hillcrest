@@ -12,7 +12,7 @@ export const FoodCard: React.FC<FoodCardProps> = ({ item, onSelect }) => {
   return (
     <div
       onClick={() => onSelect(item)}
-      className="group relative rounded-2xl bg-white border border-zinc-200 hover:border-black transition-all duration-300 hover:shadow-xl overflow-hidden flex flex-col justify-between cursor-pointer"
+      className="group relative rounded-2xl bg-zinc-100 border border-zinc-300 hover:border-black transition-all duration-300 hover:shadow-xl overflow-hidden flex flex-col justify-between cursor-pointer"
     >
       <div>
         {/* Food Image Container */}
@@ -63,7 +63,7 @@ export const FoodCard: React.FC<FoodCardProps> = ({ item, onSelect }) => {
 
           {/* Flavours Available Pills */}
           {item.hasFlavourChoice && (
-            <div className="flex items-center gap-1.5 mb-3 pt-2 border-t border-zinc-100">
+            <div className="flex items-center gap-1.5 mb-3 pt-2 border-t border-zinc-200">
               <span className="text-[11px] font-black text-black uppercase tracking-wider mr-1">5 Bastings:</span>
               <div className="flex -space-x-1">
                 {FLAVOURS.map((f) => (
@@ -86,7 +86,7 @@ export const FoodCard: React.FC<FoodCardProps> = ({ item, onSelect }) => {
       </div>
 
       {/* Footer / Price & Add Button */}
-      <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 flex items-center justify-between gap-3 border-t border-zinc-100 mt-auto">
+      <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 flex items-center justify-between gap-3 border-t border-zinc-200 mt-auto">
         <div>
           <span className="text-[11px] font-bold text-zinc-400 uppercase block">Price</span>
           <span className="text-lg sm:text-xl font-black text-black">

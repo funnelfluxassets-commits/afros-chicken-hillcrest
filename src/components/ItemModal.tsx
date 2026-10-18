@@ -200,7 +200,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                       className={`p-2.5 sm:p-3 rounded-xl border text-left transition-all flex items-center justify-between cursor-pointer ${
                         isSelected
                           ? 'bg-[#FFD100]/25 border-2 border-black text-black font-black shadow-xs'
-                          : 'bg-zinc-50 hover:bg-zinc-100 border-zinc-200 text-zinc-900 font-bold'
+                          : 'bg-zinc-100 hover:bg-zinc-200/70 border-zinc-300 text-zinc-900 font-bold'
                       }`}
                     >
                       <div className="flex items-center gap-3 min-w-0">
@@ -256,7 +256,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                       className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer font-black text-xs ${
                         isSelected
                           ? 'bg-[#FFD100] border-2 border-black text-black shadow-xs'
-                          : 'bg-zinc-50 hover:bg-zinc-100 border-zinc-200 text-black'
+                          : 'bg-zinc-100 hover:bg-zinc-200/70 border-zinc-300 text-black'
                       }`}
                     >
                       <div>{side}</div>
@@ -290,7 +290,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                     className={`w-full p-2.5 sm:p-3 rounded-xl border text-left transition-all flex items-center justify-between cursor-pointer ${
                       isSelected
                         ? 'bg-[#FFD100]/20 border-2 border-black text-black font-black shadow-2xs'
-                        : 'bg-zinc-50 hover:bg-zinc-100 border-zinc-200 text-black font-bold'
+                        : 'bg-zinc-100 hover:bg-zinc-200/70 border-zinc-300 text-black font-bold'
                     }`}
                   >
                     <span className="text-xs sm:text-sm font-bold text-black">{extra.name}</span>
@@ -313,7 +313,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                 className={`p-2.5 sm:p-3 rounded-xl border transition-all ${
                   isExtraSauceSelected
                     ? 'bg-[#FFD100]/20 border-2 border-black text-black font-black shadow-2xs'
-                    : 'bg-zinc-50 hover:bg-zinc-100 border-zinc-200 text-black font-bold'
+                    : 'bg-zinc-100 hover:bg-zinc-200/70 border-zinc-300 text-black font-bold'
                 }`}
               >
                 <div
@@ -366,7 +366,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                     className={`w-full p-2.5 sm:p-3 rounded-xl border text-left transition-all flex items-center justify-between cursor-pointer ${
                       isSelected
                         ? 'bg-[#FFD100]/20 border-2 border-black text-black font-black shadow-2xs'
-                        : 'bg-zinc-50 hover:bg-zinc-100 border-zinc-200 text-black font-bold'
+                        : 'bg-zinc-100 hover:bg-zinc-200/70 border-zinc-300 text-black font-bold'
                     }`}
                   >
                     <span className="text-xs sm:text-sm font-bold text-black">{extra.name}</span>
@@ -401,7 +401,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                     className={`rounded-2xl border transition-all overflow-hidden ${
                       hasSelectedDrinks
                         ? 'border-2 border-black bg-[#FFD100]/15'
-                        : 'border-zinc-200 bg-zinc-50 hover:bg-zinc-100/70'
+                        : 'border-zinc-300 bg-zinc-100 hover:bg-zinc-200/70'
                     }`}
                   >
                     <button
@@ -537,7 +537,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                                     className={`w-full p-2.5 rounded-xl border text-left transition-all flex items-center justify-between cursor-pointer ${
                                       isSelected
                                         ? 'bg-[#FFD100]/25 border-2 border-black text-black font-black'
-                                        : 'bg-zinc-50 hover:bg-zinc-100 border-zinc-200 text-black'
+                                        : 'bg-zinc-100 hover:bg-zinc-200/70 border-zinc-300 text-black'
                                     }`}
                                   >
                                     <div className="flex items-center gap-2 min-w-0 pr-2">
@@ -582,7 +582,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
               onChange={(e) => setNotes(e.target.value)}
               placeholder="e.g. Extra sauce, no garnish, chips extra crispy..."
               rows={2}
-              className="w-full px-3 py-2 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-black placeholder-zinc-500 focus:outline-none focus:border-rose-500"
+              className="w-full px-3 py-2 rounded-xl bg-zinc-100 border border-zinc-300 text-xs text-black placeholder-zinc-500 focus:outline-none focus:border-[#FFD100]"
             />
           </div>
 

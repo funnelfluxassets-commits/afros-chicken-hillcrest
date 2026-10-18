@@ -171,7 +171,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                 <span className="text-[11px] font-bold text-[#FFD100] uppercase">Required</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div className="flex flex-col gap-2">
                 {FLAVOURS.map((f) => {
                   const isSelected = selectedFlavour === f.id;
                   return (
@@ -179,14 +179,14 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                       key={f.id}
                       type="button"
                       onClick={() => setSelectedFlavour(f.id)}
-                      className={`p-2.5 sm:p-3 rounded-xl border text-left transition-all flex items-center justify-between cursor-pointer ${
+                      className={`py-2 px-3 sm:py-2.5 sm:px-3.5 rounded-xl border text-left transition-all flex items-center justify-between cursor-pointer ${
                         isSelected
                           ? 'bg-[#FFD100]/25 border-2 border-black text-black font-black shadow-xs'
                           : 'bg-zinc-100 hover:bg-zinc-200/70 border-zinc-300 text-zinc-900 font-bold'
                       }`}
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden bg-white border border-zinc-200 flex items-center justify-center shrink-0 shadow-2xs">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden bg-white border border-zinc-200 flex items-center justify-center shrink-0 shadow-2xs">
                           {f.badgeUrl ? (
                             <img
                               src={f.badgeUrl}
@@ -197,7 +197,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                             <span className="text-base">{f.emoji}</span>
                           )}
                         </div>
-                        <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-black">
+                        <span className="text-sm sm:text-base font-black uppercase tracking-wide text-black truncate">
                           {f.name}
                         </span>
                       </div>
@@ -227,7 +227,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                 <span className="text-[11px] font-bold text-[#FFD100] uppercase">Included</span>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
                 {availableSides.map((side) => {
                   const isSelected = selectedSide === side;
                   return (
@@ -235,7 +235,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                       key={side}
                       type="button"
                       onClick={() => setSelectedSide(side)}
-                      className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer font-black text-xs ${
+                      className={`py-2.5 sm:py-3 px-3 rounded-xl border text-center transition-all cursor-pointer font-black text-xs sm:text-sm whitespace-nowrap ${
                         isSelected
                           ? 'bg-[#FFD100] border-2 border-black text-black shadow-xs'
                           : 'bg-zinc-100 hover:bg-zinc-200/70 border-zinc-300 text-black'
@@ -269,15 +269,15 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                     key={extra.name}
                     type="button"
                     onClick={() => toggleExtra(extra)}
-                    className={`w-full p-2.5 sm:p-3 rounded-xl border text-left transition-all flex items-center justify-between cursor-pointer ${
+                    className={`w-full py-2.5 px-3 sm:py-3 sm:px-3.5 rounded-xl border text-left transition-all flex items-center justify-between cursor-pointer ${
                       isSelected
                         ? 'bg-[#FFD100]/20 border-2 border-black text-black font-black shadow-2xs'
                         : 'bg-zinc-100 hover:bg-zinc-200/70 border-zinc-300 text-black font-bold'
                     }`}
                   >
-                    <span className="text-xs sm:text-sm font-bold text-black">{extra.name}</span>
-                    <div className="flex items-center gap-2.5">
-                      <span className="text-xs sm:text-sm font-black text-black">+R{extra.price.toFixed(2)}</span>
+                    <span className="text-sm sm:text-[15px] font-bold text-black truncate">{extra.name}</span>
+                    <div className="flex items-center gap-2.5 shrink-0">
+                      <span className="text-sm sm:text-[15px] font-black text-black">+R{extra.price.toFixed(2)}</span>
                       <div
                         className={`w-4 h-4 rounded-md border flex items-center justify-center shrink-0 ${
                           isSelected ? 'border-black bg-[#FFD100] text-black font-black' : 'border-zinc-300 bg-white'
@@ -292,7 +292,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
 
               {/* 6. Extra Sauce with Custom Sauce Flavour Dropdown */}
               <div
-                className={`p-2.5 sm:p-3 rounded-xl border transition-all ${
+                className={`py-2.5 px-3 sm:py-3 sm:px-3.5 rounded-xl border transition-all ${
                   isExtraSauceSelected
                     ? 'bg-[#FFD100]/20 border-2 border-black text-black font-black shadow-2xs'
                     : 'bg-zinc-100 hover:bg-zinc-200/70 border-zinc-300 text-black font-bold'
@@ -302,11 +302,11 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                   onClick={handleToggleExtraSauce}
                   className="flex items-center justify-between cursor-pointer"
                 >
-                  <span className="text-xs sm:text-sm font-bold text-black">
+                  <span className="text-sm sm:text-[15px] font-bold text-black truncate">
                     Extra Sauce {isExtraSauceSelected ? `(${extraSauceFlavour})` : ''}
                   </span>
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-xs sm:text-sm font-black text-black">+R8.00</span>
+                  <div className="flex items-center gap-2.5 shrink-0">
+                    <span className="text-sm sm:text-[15px] font-black text-black">+R8.00</span>
                     <div
                       className={`w-4 h-4 rounded-md border flex items-center justify-center shrink-0 ${
                         isExtraSauceSelected ? 'border-black bg-[#FFD100] text-black font-black' : 'border-zinc-300 bg-white'
@@ -345,15 +345,15 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                     key={extra.name}
                     type="button"
                     onClick={() => toggleExtra(extra)}
-                    className={`w-full p-2.5 sm:p-3 rounded-xl border text-left transition-all flex items-center justify-between cursor-pointer ${
+                    className={`w-full py-2.5 px-3 sm:py-3 sm:px-3.5 rounded-xl border text-left transition-all flex items-center justify-between cursor-pointer ${
                       isSelected
                         ? 'bg-[#FFD100]/20 border-2 border-black text-black font-black shadow-2xs'
                         : 'bg-zinc-100 hover:bg-zinc-200/70 border-zinc-300 text-black font-bold'
                     }`}
                   >
-                    <span className="text-xs sm:text-sm font-bold text-black">{extra.name}</span>
-                    <div className="flex items-center gap-2.5">
-                      <span className="text-xs sm:text-sm font-black text-black">+R{extra.price.toFixed(2)}</span>
+                    <span className="text-sm sm:text-[15px] font-bold text-black truncate">{extra.name}</span>
+                    <div className="flex items-center gap-2.5 shrink-0">
+                      <span className="text-sm sm:text-[15px] font-black text-black">+R{extra.price.toFixed(2)}</span>
                       <div
                         className={`w-4 h-4 rounded-md border flex items-center justify-center shrink-0 ${
                           isSelected ? 'border-black bg-[#FFD100] text-black font-black' : 'border-zinc-300 bg-white'

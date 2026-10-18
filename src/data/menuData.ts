@@ -91,7 +91,7 @@ export const CATEGORIES: MenuCategory[] = [
   {
     id: 'schnitzel',
     name: 'CRISPY SCHNITZEL',
-    icon: '✨',
+    icon: '🍽️',
     description: 'Crisp golden crumbed chicken breast fillets served with fresh lemon and chips.',
     tagBox: 'CRUMBED CHICKEN BREAST FILLET',
   },

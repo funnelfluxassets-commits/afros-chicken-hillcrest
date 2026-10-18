@@ -65,8 +65,8 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({ activeCategory, onSele
                 : 'bg-white border-zinc-300 hover:border-black hover:bg-zinc-50 text-zinc-800 font-bold'
             }`}
           >
-            <span>✨</span>
-            <span>All Items</span>
+            <span>📋</span>
+            <span>ALL ITEMS</span>
           </button>
 
           {/* Category Pills */}

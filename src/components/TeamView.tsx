@@ -31,7 +31,7 @@ export const TeamView: React.FC<TeamViewProps> = ({ onNavigate, onOpenStoreModal
       image: '/assets/afros/team/S3.webp',
       tag: 'UPPER HIGHWAY HOSPITALITY',
       title: 'Care in Every Single Meal',
-      desc: 'As the owner of Afro’s Chicken Hillcrest, Nonto Zama is a passionate, hands-on leader working alongside her team every single day. She ensures every meal is checked, generously basted, and packed hot with genuine personal warmth.',
+      desc: 'As the owner of Afro’s Chicken Hillcrest, Nonto Nzama is a passionate, hands-on leader working alongside her team every single day. She ensures every meal is checked, generously basted, and packed hot with genuine personal warmth.',
       highlight: 'Hands-On Owner & Leader',
     },
     {

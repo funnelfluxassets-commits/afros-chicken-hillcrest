@@ -22,29 +22,22 @@ const DRINK_GROUPS = [
   {
     id: 'water' as const,
     title: '💧 Still & Sparkling Spring Water',
-    priceText: '+R15.00',
+    priceText: '+R18.00',
     drinks: [
-      { id: 'drink-valpre-water-500ml', name: 'Valpré Still Spring Water (500ml)', price: 15.00, badge: 'STILL WATER' },
-      { id: 'drink-valpre-sparkling-500ml', name: 'Valpré Sparkling Spring Water (500ml)', price: 15.00, badge: 'SPARKLING WATER' },
-    ],
-  },
-  {
-    id: 'sharing' as const,
-    title: '🍾 1.5L Sharing Bottles',
-    priceText: '+R25.00',
-    drinks: [
-      { id: 'drink-coke-original-15l', name: 'Coca-Cola Original (1.5L)', price: 25.00, badge: '1.5L SHARING' },
+      { id: 'drink-valpre-water-500ml', name: 'Valpré Still Spring Water (500ml)', price: 18.00, badge: 'STILL WATER' },
+      { id: 'drink-valpre-sparkling-500ml', name: 'Valpré Sparkling Spring Water (500ml)', price: 18.00, badge: 'SPARKLING WATER' },
     ],
   },
   {
     id: 'buddies' as const,
     title: '🥤 440ml Cold Buddy Sodas',
-    priceText: '+R18.00',
+    priceText: 'From +R20.00',
     drinks: [
-      { id: 'drink-coke-original-440ml', name: 'Coca-Cola Original (440ml)', price: 18.00, badge: '440ML BUDDY' },
-      { id: 'drink-fanta-orange-440ml', name: 'Fanta Orange (440ml)', price: 18.00, badge: '440ML BUDDY' },
-      { id: 'drink-sprite-440ml', name: 'Sprite (440ml)', price: 18.00, badge: '440ML BUDDY' },
-      { id: 'drink-stoney-440ml', name: 'Stoney Ginger Beer (440ml)', price: 18.00, badge: 'KWETZA' },
+      { id: 'drink-coke-original-440ml', name: 'Coca-Cola Original (440ml)', price: 22.00, badge: '440ML BUDDY' },
+      { id: 'drink-coke-no-sugar-440ml', name: 'Coca-Cola No Sugar (440ml)', price: 20.00, badge: 'ZERO SUGAR' },
+      { id: 'drink-stoney-440ml', name: 'Stoney Ginger Beer (440ml)', price: 22.00, badge: 'KWETZA' },
+      { id: 'drink-sprite-440ml', name: 'Sprite (440ml)', price: 22.00, badge: '440ML BUDDY' },
+      { id: 'drink-creme-soda-440ml', name: 'Spar-letta Creme Soda (440ml)', price: 22.00, badge: 'GREEN LEGEND' },
     ],
   },
 ];
@@ -61,7 +54,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
   const availableSides = item.sideOptions || (item.includesSide ? SIDES_LIST : []);
   const availableDrinks = MENU_ITEMS.filter((m) => m.categoryId === 'tjips_drinks');
   const [isDrinksExpanded, setIsDrinksExpanded] = useState(false);
-  const [drinkCategoryFilter, setDrinkCategoryFilter] = useState<'all' | 'water' | 'sharing' | 'buddies'>('all');
+  const [drinkCategoryFilter, setDrinkCategoryFilter] = useState<'all' | 'water' | 'buddies'>('all');
   const [selectedSide, setSelectedSide] = useState<string>(
     availableSides.length > 0 ? availableSides[0] : ''
   );
@@ -405,7 +398,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                           <div className="text-[11px] text-zinc-500 font-medium truncate">
                             {hasSelectedDrinks
                               ? selectedDrinkItems.map((d) => d.name).join(', ')
-                              : '1.5L Coke, Waters & 440ml Cold Buddies'}
+                              : 'Cold Buddies & Natural Spring Waters'}
                           </div>
                         </div>
                       </div>
@@ -414,7 +407,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                         <span className="text-xs sm:text-sm font-black text-black">
                           {hasSelectedDrinks
                             ? `+R${selectedDrinkItems.reduce((sum, d) => sum + d.price, 0).toFixed(2)}`
-                            : 'From +R15.00'}
+                            : 'From +R18.00'}
                         </span>
                         <div
                           className={`p-1 rounded-md bg-zinc-200 text-black transition-transform ${
@@ -441,7 +434,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                                 : 'bg-zinc-100 text-zinc-700 hover:text-black font-bold'
                             }`}
                           >
-                            All ({availableDrinks.length})
+                            All ({DRINK_GROUPS.reduce((acc, g) => acc + g.drinks.length, 0)})
                           </button>
                           <button
                             type="button"
@@ -456,17 +449,6 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                           </button>
                           <button
                             type="button"
-                            onClick={() => setDrinkCategoryFilter('sharing')}
-                            className={`px-2.5 py-1 rounded-lg transition-colors shrink-0 cursor-pointer ${
-                              drinkCategoryFilter === 'sharing'
-                                ? 'bg-black text-[#FFD100] font-black'
-                                : 'bg-zinc-100 text-zinc-700 hover:text-black font-bold'
-                            }`}
-                          >
-                            🍾 1.5L Coke (1)
-                          </button>
-                          <button
-                            type="button"
                             onClick={() => setDrinkCategoryFilter('buddies')}
                             className={`px-2.5 py-1 rounded-lg transition-colors shrink-0 cursor-pointer ${
                               drinkCategoryFilter === 'buddies'
@@ -474,7 +456,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                                 : 'bg-zinc-100 text-zinc-700 hover:text-black font-bold'
                             }`}
                           >
-                            🥤 440ml Buddies (9)
+                            🥤 440ml Buddies (5)
                           </button>
                         </div>
 

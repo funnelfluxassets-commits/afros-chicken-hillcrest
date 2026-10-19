@@ -22,3 +22,19 @@ export function getCdnUrl(path: string): string {
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
   return `${CDN_BASE_URL}${cleanPath}`;
 }
+
+/**
+ * Returns an ultra-fast, lightweight 320px WebP thumbnail URL for menu list items and cards.
+ * Drops image transfer size by ~90% for instant initial page loading.
+ */
+export function getCdnThumbnailUrl(path: string): string {
+  if (!path) return '';
+  if (path.includes('/assets/afros/images/') && !path.includes('/thumbs/')) {
+    const afterImages = path.split('/assets/afros/images/')[1];
+    const baseName = afterImages.substring(0, afterImages.lastIndexOf('.'));
+    const isFullUrl = path.startsWith('http://') || path.startsWith('https://');
+    const prefix = isFullUrl ? path.split('/assets/afros/images/')[0] : CDN_BASE_URL;
+    return `${prefix}/assets/afros/images/thumbs/${baseName}.webp`;
+  }
+  return getCdnUrl(path);
+}

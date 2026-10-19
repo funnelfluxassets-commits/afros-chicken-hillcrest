@@ -26,6 +26,7 @@ import { OrderTrackerView } from './components/OrderTrackerView';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { MENU_ITEMS, CATEGORIES, FLAVOURS } from './data/menuData';
 import { CategoryId, MenuItem, PageView, LiveOrder, StaffRole } from './types';
+import { getCdnThumbnailUrl } from './utils/cdn';
 import { CheckoutPayload, isPayFastStaffTestMode, setPayFastStaffTestMode } from './services/payment';
 import { subscribeToOrders, getCurrentOrderId, setCurrentOrderId, createLiveOrder, recordCancelledOrder } from './services/orderService';
 import { logPageView, logItemView, fetchAndSyncClientIp, isAnalyticsExcluded, setDeviceAnalyticsExcluded } from './services/analyticsService';
@@ -616,12 +617,20 @@ const MainContent: React.FC = () => {
                               {item.image && (
                                 <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden bg-zinc-100 shrink-0 border border-zinc-200/80">
                                   <img
-                                    src={item.image}
+                                    src={getCdnThumbnailUrl(item.image)}
                                     alt={item.name}
+                                    width="80"
+                                    height="80"
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                     loading="lazy"
+                                    decoding="async"
                                     onError={(e) => {
-                                      (e.target as HTMLImageElement).src = '/assets/afros/images/afros-burger.jpg';
+                                      const target = e.target as HTMLImageElement;
+                                      if (item.image && target.src !== item.image) {
+                                        target.src = item.image;
+                                      } else {
+                                        target.src = '/assets/afros/images/afros-burger.jpg';
+                                      }
                                     }}
                                   />
                                 </div>

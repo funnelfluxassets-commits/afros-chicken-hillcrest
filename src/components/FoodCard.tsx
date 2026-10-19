@@ -2,6 +2,7 @@ import React from 'react';
 import { MenuItem } from '../types';
 import { Plus } from 'lucide-react';
 import { FLAVOURS } from '../data/menuData';
+import { getCdnThumbnailUrl } from '../utils/cdn';
 
 interface FoodCardProps {
   item: MenuItem;
@@ -19,12 +20,18 @@ export const FoodCard: React.FC<FoodCardProps> = ({ item, onSelect }) => {
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-zinc-100">
           {item.image ? (
             <img
-              src={item.image}
+              src={getCdnThumbnailUrl(item.image)}
               alt={item.name}
               className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
+              decoding="async"
               onError={(e) => {
-                (e.target as HTMLImageElement).src = '/assets/afros/images/afros-burger.jpg';
+                const target = e.target as HTMLImageElement;
+                if (item.image && target.src !== item.image) {
+                  target.src = item.image;
+                } else {
+                  target.src = '/assets/afros/images/afros-burger.jpg';
+                }
               }}
             />
           ) : (

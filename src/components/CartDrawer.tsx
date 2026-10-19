@@ -3,6 +3,7 @@ import { useCart } from '../context/CartContext';
 import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, Check } from 'lucide-react';
 import { ChickenWingIcon } from './icons/ChickenWingIcon';
 import { DeliveryMotorbikeIcon } from './icons/DeliveryMotorbikeIcon';
+import { getCdnThumbnailUrl } from '../utils/cdn';
 
 interface CartDrawerProps {
   onOpenCheckout: () => void;
@@ -110,9 +111,21 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onOpenCheckout }) => {
                 <div className="w-14 h-14 rounded-xl overflow-hidden bg-white shrink-0 border border-zinc-300">
                   {item.menuItem.image ? (
                     <img
-                      src={item.menuItem.image}
+                      src={getCdnThumbnailUrl(item.menuItem.image)}
                       alt={item.menuItem.name}
+                      width="56"
+                      height="56"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        if (item.menuItem.image && target.src !== item.menuItem.image) {
+                          target.src = item.menuItem.image;
+                        } else {
+                          target.src = '/assets/afros/images/afros-burger.jpg';
+                        }
+                      }}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-xl">🔥</div>

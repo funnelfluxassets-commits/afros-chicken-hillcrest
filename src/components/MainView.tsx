@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, MapPin, Phone } from 'lucide-react';
 import { STORES } from '../data/stores';
 import { CategoryId, MenuItem, PageView } from '../types';
+import { getCdnUrl } from '../utils/cdn';
 
 interface MainViewProps {
   onNavigate: (view: PageView, categoryId?: CategoryId) => void;
@@ -49,7 +50,7 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
           <div
             className="absolute inset-0 bg-cover bg-[center_top]"
             style={{
-              backgroundImage: "url('/assets/afros/pages/afros-home-page-banner.webp')",
+              backgroundImage: `url('${getCdnUrl('/assets/afros/pages/afros-home-page-banner.webp')}')`,
             }}
             aria-hidden="true"
           />
@@ -57,7 +58,8 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
           {/* 3 yellow wavy lines placed directly over the burger bun on desktop with drop-bounce animation */}
           <div className="absolute top-[21%] lg:top-[23%] left-[17%] lg:left-[19%] z-20 pointer-events-none animate-drop-bounce">
             <img
-              src="/assets/afros/logos/afros-yellow-waves-align.png"
+              src={getCdnUrl('/assets/afros/logos/afros-yellow-waves-align.png')}
+              onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/logos/afros-yellow-waves-align.png'; }}
               alt="Yellow waves doodle"
               className="h-8 lg:h-11 w-auto object-contain drop-shadow-sm"
             />
@@ -117,7 +119,7 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
           <div
             className="absolute inset-0 bg-cover bg-[position:22%_top]"
             style={{
-              backgroundImage: "url('/assets/afros/pages/afros-home-page-banner.webp')",
+              backgroundImage: `url('${getCdnUrl('/assets/afros/pages/afros-home-page-banner.webp')}')`,
             }}
             aria-hidden="true"
           />
@@ -125,7 +127,8 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
           {/* 3 yellow wavy lines placed directly over the burger bun with drop-down bounce */}
           <div className="absolute top-[16%] left-[7%] w-[38%] max-w-[145px] pointer-events-none z-20 animate-drop-bounce">
             <img
-              src="/assets/afros/logos/afros-yellow-waves-align.png"
+              src={getCdnUrl('/assets/afros/logos/afros-yellow-waves-align.png')}
+              onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/logos/afros-yellow-waves-align.png'; }}
               alt="Yellow wave doodle"
               className="w-full h-auto object-contain drop-shadow"
             />
@@ -190,7 +193,8 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
                 {/* 1. Top-Right Card: Afro Pops & Box with Yellow Background (z-20 so seeds slide behind it) */}
                 <div className="absolute top-0 right-0 w-[58%] z-20 shadow-xl rounded-2xl overflow-hidden bg-[#F3CD17] border border-black/10 transform hover:scale-102 transition-transform duration-300">
                   <img
-                    src="/assets/afros/images/afros-pops.webp"
+                    src={getCdnUrl('/assets/afros/images/afros-pops.webp')}
+                    onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/images/afros-pops.webp'; }}
                     alt="Afro Pops & Box"
                     className="w-full h-auto object-contain block"
                   />
@@ -199,7 +203,8 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
                 {/* 2. Yellow Circle Accent behind bottom-left of the chicken strips plate */}
                 <div className="absolute bottom-2 left-0 w-44 h-44 sm:w-56 sm:h-56 z-0 pointer-events-none">
                   <img
-                    src="/assets/afros/logos/afros-yellow-circle.png"
+                    src={getCdnUrl('/assets/afros/logos/afros-yellow-circle.png')}
+                    onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/logos/afros-yellow-circle.png'; }}
                     alt="Yellow circle accent"
                     className="w-full h-full object-contain"
                   />
@@ -208,7 +213,8 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
                 {/* 3. Bottom-Left Card: Strips Plate overlapping only bottom-left tip of Pops card (z-30) */}
                 <div className="absolute bottom-0 left-6 sm:left-10 w-[60%] z-30 shadow-2xl rounded-2xl overflow-hidden border-2 border-white bg-white transform -rotate-1 hover:rotate-0 transition-transform duration-300">
                   <img
-                    src="/assets/afros/pages/Main Page-2 image 1 afros-chicken-strip.jpg"
+                    src={getCdnUrl('/assets/afros/pages/Main Page-2 image 1 afros-chicken-strip.jpg')}
+                    onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/pages/Main Page-2 image 1 afros-chicken-strip.jpg'; }}
                     alt="Chicken Strips and Hand-cut Tjips"
                     className="w-full h-auto object-cover block"
                   />
@@ -270,7 +276,8 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
               className="relative aspect-[4/3] overflow-hidden group cursor-pointer bg-zinc-100"
             >
               <img
-                src="/assets/afros/pages/Main Page-3 -Image FLAMED afros-chicekn-and-chips.jpg"
+                src={getCdnUrl('/assets/afros/pages/Main Page-3 -Image FLAMED afros-chicekn-and-chips.jpg')}
+                onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/pages/Main Page-3 -Image FLAMED afros-chicekn-and-chips.jpg'; }}
                 alt="FLAMED"
                 className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
               />
@@ -288,7 +295,8 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
               className="relative aspect-[4/3] overflow-hidden group cursor-pointer bg-zinc-100"
             >
               <img
-                src="/assets/afros/pages/Main Page-3 - Image Breakfast afros-burger.jpg"
+                src={getCdnUrl('/assets/afros/pages/Main Page-3 - Image Breakfast afros-burger.jpg')}
+                onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/pages/Main Page-3 - Image Breakfast afros-burger.jpg'; }}
                 alt="BREAKFAST"
                 className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
               />
@@ -307,7 +315,8 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
             className="relative min-h-[340px] md:min-h-full aspect-[4/3] md:aspect-auto overflow-hidden group cursor-pointer bg-zinc-100"
           >
             <img
-              src="/assets/afros/pages/afros-side-chicks-sarmie.webp"
+              src={getCdnUrl('/assets/afros/pages/afros-side-chicks-sarmie.webp')}
+              onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/pages/afros-side-chicks-sarmie.webp'; }}
               alt="QUICK BITES"
               className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
             />
@@ -327,7 +336,8 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
               className="relative aspect-[4/3] overflow-hidden group cursor-pointer bg-zinc-100"
             >
               <img
-                src="/assets/afros/pages/Main Page 3 Image Burgers afros-burger-and-chips.jpg"
+                src={getCdnUrl('/assets/afros/pages/Main Page 3 Image Burgers afros-burger-and-chips.jpg')}
+                onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/pages/Main Page 3 Image Burgers afros-burger-and-chips.jpg'; }}
                 alt="BURGERS"
                 className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
               />
@@ -345,7 +355,8 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
               className="relative aspect-[4/3] overflow-hidden group cursor-pointer bg-zinc-100"
             >
               <img
-                src="/assets/afros/pages/Main Page-3 - Image Salads afros-crispy-chicken-salad.jpg"
+                src={getCdnUrl('/assets/afros/pages/Main Page-3 - Image Salads afros-crispy-chicken-salad.jpg')}
+                onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/pages/Main Page-3 - Image Salads afros-crispy-chicken-salad.jpg'; }}
                 alt="SALADS"
                 className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
               />
@@ -367,7 +378,8 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
             className="relative aspect-[16/9] sm:aspect-[4/3] overflow-hidden group cursor-pointer bg-zinc-100"
           >
             <img
-              src="/assets/afros/pages/afros-crispy-strips-and-side.webp"
+              src={getCdnUrl('/assets/afros/pages/afros-crispy-strips-and-side.webp')}
+              onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/pages/afros-crispy-strips-and-side.webp'; }}
               alt="STRIPS"
               className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
             />
@@ -385,7 +397,8 @@ export const MainView: React.FC<MainViewProps> = ({ onNavigate }) => {
             className="relative aspect-[16/9] sm:aspect-[4/3] overflow-hidden group cursor-pointer bg-zinc-100"
           >
             <img
-              src="/assets/afros/pages/Main Page-3 - Image Wraps afros-crispy-wrap-and-side.jpg"
+              src={getCdnUrl('/assets/afros/pages/Main Page-3 - Image Wraps afros-crispy-wrap-and-side.jpg')}
+              onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/pages/Main Page-3 - Image Wraps afros-crispy-wrap-and-side.jpg'; }}
               alt="WRAPS"
               className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
             />

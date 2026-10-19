@@ -4,6 +4,7 @@ import { FacebookIcon } from './icons/FacebookIcon';
 import { MapPin, Phone, Mail, Clock, Heart, ShieldCheck, Home, Utensils, BookOpen, PartyPopper, Package } from 'lucide-react';
 import { LegalTab } from './LegalModal';
 import { PageView } from '../types';
+import { getCdnUrl } from '../utils/cdn';
 
 interface FooterProps {
   onOpenLegal: (tab: LegalTab) => void;
@@ -34,7 +35,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
               className="flex items-center gap-3.5 text-left cursor-pointer group"
             >
               <img
-                src="/assets/afros/logos/afros-logo-round-yellow-bg.png"
+                src={getCdnUrl('/assets/afros/logos/afros-logo-round-yellow-bg.png')}
+                onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/logos/afros-logo-round-yellow-bg.png'; }}
                 alt="Afro's Chicken Shop"
                 className="h-16 w-16 sm:h-20 sm:w-20 object-contain rounded-full shadow-lg group-hover:scale-105 transition-transform"
               />

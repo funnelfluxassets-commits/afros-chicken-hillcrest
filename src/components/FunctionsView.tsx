@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Mail, MessageSquare, Check } from 'lucide-react';
 import { PageView } from '../types';
+import { getCdnUrl } from '../utils/cdn';
 
 interface FunctionsViewProps {
   onNavigate: (view: PageView) => void;
@@ -50,7 +51,7 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('/assets/afros/functions/functions-hero.webp')",
+            backgroundImage: `url('${getCdnUrl('/assets/afros/functions/functions-hero.webp')}')`,
           }}
           aria-hidden="true"
         />
@@ -137,7 +138,8 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
               <div>
                 <div className="aspect-[16/10] overflow-hidden bg-zinc-100">
                   <img
-                    src="/assets/afros/functions/F1.webp"
+                    src={getCdnUrl('/assets/afros/functions/F1.webp')}
+                    onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/functions/F1.webp'; }}
                     alt="Afro's Mobile Gazebo Event Setup"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
@@ -162,7 +164,8 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
               <div>
                 <div className="aspect-[16/10] overflow-hidden bg-zinc-100">
                   <img
-                    src="/assets/afros/functions/F2.webp"
+                    src={getCdnUrl('/assets/afros/functions/F2.webp')}
+                    onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/functions/F2.webp'; }}
                     alt="Outdoor Gatherings & Celebrations"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
@@ -187,7 +190,8 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
               <div>
                 <div className="aspect-[16/10] overflow-hidden bg-zinc-100">
                   <img
-                    src="/assets/afros/functions/F3.webp"
+                    src={getCdnUrl('/assets/afros/functions/F3.webp')}
+                    onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/functions/F3.webp'; }}
                     alt="Afro's Hillcrest Dedicated Catering Crew"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
@@ -212,7 +216,8 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
               <div>
                 <div className="aspect-[16/10] overflow-hidden bg-zinc-100">
                   <img
-                    src="/assets/afros/functions/F4.webp"
+                    src={getCdnUrl('/assets/afros/functions/F4.webp')}
+                    onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/functions/F4.webp'; }}
                     alt="Happy Guests and Function Gees"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
@@ -240,7 +245,8 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
         <div className="max-w-2xl sm:max-w-3xl mx-auto">
           <div className="overflow-hidden rounded-3xl border-2 border-black/10 shadow-2xl bg-zinc-50 transition-all hover:shadow-3xl">
             <img
-              src="/assets/afros/functions/F5.webp"
+              src={getCdnUrl('/assets/afros/functions/F5.webp')}
+              onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/functions/F5.webp'; }}
               alt="We Do Function at Afro's Hillcrest"
               className="w-full h-auto object-contain block mx-auto"
               loading="lazy"

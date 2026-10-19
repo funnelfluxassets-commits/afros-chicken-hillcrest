@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext';
 import { DeliveryMotorbikeIcon } from './icons/DeliveryMotorbikeIcon';
 import { PageView } from '../types';
 import { subscribeToOrders, getCurrentOrderId } from '../services/orderService';
+import { getCdnUrl } from '../utils/cdn';
 
 export interface NavbarProps {
   onOpenStoreModal?: () => void;
@@ -62,13 +63,18 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
               title="Afro's Chicken Shop (Hillcrest)"
             >
               <img
-                src="/assets/afros/logos/afros-logo.png"
+                src={getCdnUrl('/assets/afros/logos/afros-logo.png')}
                 alt="Afro's Chicken"
                 height="48"
                 style={{ maxHeight: '48px', width: 'auto' }}
                 className="h-10 sm:h-12 w-auto object-contain transform group-hover:scale-102 transition-transform"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
+                  const target = e.target as HTMLImageElement;
+                  if (target.src.includes('cdn.jsdelivr.net')) {
+                    target.src = '/assets/afros/logos/afros-logo.png';
+                  } else {
+                    target.style.display = 'none';
+                  }
                 }}
               />
               <span className="inline-block text-sm sm:text-base md:text-[17px] font-black font-black-grotesque text-black uppercase tracking-wider pl-2.5 sm:pl-3 border-l-2 border-zinc-300">

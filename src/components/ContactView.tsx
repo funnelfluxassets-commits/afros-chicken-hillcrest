@@ -13,6 +13,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { PageView } from '../types';
+import { getCdnUrl } from '../utils/cdn';
 import { SOCIAL_LINKS, GOOGLE_MAPS_URL } from '../data/stores';
 
 interface ContactViewProps {
@@ -202,7 +203,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, onOpenStor
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('/assets/afros/pages/get-in-touch-hero.webp')",
+            backgroundImage: `url('${getCdnUrl('/assets/afros/pages/get-in-touch-hero.webp')}')`,
           }}
           aria-hidden="true"
         />

@@ -13,6 +13,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { PageView } from '../types';
+import { getCdnUrl } from '../utils/cdn';
 import { GOOGLE_REVIEW_URL } from '../data/stores';
 import { saveReviewDrawEntry } from '../services/reviewService';
 
@@ -99,7 +100,7 @@ export const ReviewDrawView: React.FC<ReviewDrawViewProps> = ({ onNavigate }) =>
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('/assets/afros/images/afros-menu-header.webp')",
+            backgroundImage: `url('${getCdnUrl('/assets/afros/images/afros-menu-header.webp')}')`,
           }}
           aria-hidden="true"
         />
@@ -140,7 +141,8 @@ export const ReviewDrawView: React.FC<ReviewDrawViewProps> = ({ onNavigate }) =>
               <div className="relative shrink-0 pt-2.5">
                 <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border border-amber-500/40 shadow-lg">
                   <img
-                    src="/assets/afros/images/afros-burger-and-chips.jpg"
+                    src={getCdnUrl('/assets/afros/images/afros-burger-and-chips.jpg')}
+                    onError={(e) => { (e.target as HTMLImageElement).src = '/assets/afros/images/afros-burger-and-chips.jpg'; }}
                     alt="This Week's Featured Prize: Afro's Chicken Burger + Hand-cut Tjips"
                     className="w-full h-full object-cover"
                   />

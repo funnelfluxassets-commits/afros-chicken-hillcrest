@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { PageView } from '../types';
+import { getCdnUrl } from '../utils/cdn';
 
 interface AboutViewProps {
   onNavigate: (view: PageView) => void;
@@ -18,7 +19,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('/assets/afros/pages/afros-about-hero.webp')",
+            backgroundImage: `url('${getCdnUrl('/assets/afros/pages/afros-about-hero.webp')}')`,
           }}
           aria-hidden="true"
         />

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Users, Heart, Sparkles, MapPin, Phone, MessageSquare, Clock, ArrowRight, UtensilsCrossed, Flame, CheckCircle } from 'lucide-react';
 import { PageView } from '../types';
+import { getCdnUrl } from '../utils/cdn';
 
 interface TeamViewProps {
   onNavigate?: (view: PageView) => void;
@@ -14,28 +15,28 @@ export const TeamView: React.FC<TeamViewProps> = ({ onNavigate, onOpenStoreModal
 
   const teamHighlights = [
     {
-      image: '/assets/afros/team/S1.webp',
+      image: getCdnUrl('/assets/afros/team/S1.webp'),
       tag: 'COUNTER & KITCHEN CREW',
       title: 'The Front & Kitchen Family',
       desc: 'Our frontline and kitchen team operate with high energy and deep pride. From taking your order with genuine smiles to hand-cutting real potato tjips and grilling over open flame, every shift is a shared effort.',
       highlight: 'Warm Smiles & Fast Service',
     },
     {
-      image: '/assets/afros/team/S2.webp',
+      image: getCdnUrl('/assets/afros/team/S2.webp'),
       tag: 'THE REAL MAKOYA',
       title: 'Proudly Local & Hillcrest Rooted',
       desc: 'Standing tall with our signature Afro’s banner at The Junction, 5 Inanda Road. We are deeply committed to training, mentoring, and empowering local talent right here in the Upper Highway community.',
       highlight: 'Locally Owned & Operated',
     },
     {
-      image: '/assets/afros/team/S3.webp',
+      image: getCdnUrl('/assets/afros/team/S3.webp'),
       tag: 'UPPER HIGHWAY HOSPITALITY',
       title: 'Care in Every Single Meal',
       desc: 'As the owner of Afro’s Chicken Hillcrest, Nonto Nzama is a passionate, hands-on leader working alongside her team every single day. She ensures every meal is checked, generously basted, and packed hot with genuine personal warmth.',
       highlight: 'Hands-On Owner & Leader',
     },
     {
-      image: '/assets/afros/team/S4.webp',
+      image: getCdnUrl('/assets/afros/team/S4.webp'),
       tag: 'THE HILLCREST SPACE',
       title: 'Pull In For A Chow',
       desc: 'Our relaxed sit-down dining area with handcrafted woven pendant lights and solid wooden tables is designed for everyone — from quick business lunches to vibrant family dinners and weekend gatherings.',
@@ -75,7 +76,7 @@ export const TeamView: React.FC<TeamViewProps> = ({ onNavigate, onOpenStoreModal
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('/assets/afros/team/our-team-hero.webp')",
+            backgroundImage: `url('${getCdnUrl('/assets/afros/team/our-team-hero.webp')}')`,
           }}
           aria-hidden="true"
         />

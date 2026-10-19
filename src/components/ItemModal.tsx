@@ -38,6 +38,18 @@ const DRINK_GROUPS = [
       { id: 'drink-stoney-440ml', name: 'Stoney Ginger Beer (440ml)', price: 22.00, badge: 'KWETZA' },
       { id: 'drink-sprite-440ml', name: 'Sprite (440ml)', price: 22.00, badge: '440ML BUDDY' },
       { id: 'drink-creme-soda-440ml', name: 'Spar-letta Creme Soda (440ml)', price: 22.00, badge: 'GREEN LEGEND' },
+      { id: 'drink-fanta-orange-440ml', name: 'Fanta Orange (440ml)', price: 22.00, badge: 'ORANGE' },
+    ],
+  },
+  {
+    id: 'juices' as const,
+    title: '🧃 100% Pure Fruit Juices',
+    priceText: 'From +R20.00',
+    drinks: [
+      { id: 'drink-juice-orange', name: '100% Orange Juice', price: 20.00, badge: 'ORANGE' },
+      { id: 'drink-juice-mango-orange', name: '100% Mango Orange Juice', price: 20.00, badge: 'MANGO' },
+      { id: 'drink-juice-breakfast-punch', name: '100% Breakfast Punch Juice', price: 20.00, badge: 'PUNCH' },
+      { id: 'drink-juice-apple', name: '100% Apple Juice', price: 22.00, badge: 'APPLE' },
     ],
   },
 ];
@@ -54,7 +66,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
   const availableSides = item.sideOptions || (item.includesSide ? SIDES_LIST : []);
   const availableDrinks = MENU_ITEMS.filter((m) => m.categoryId === 'tjips_drinks');
   const [isDrinksExpanded, setIsDrinksExpanded] = useState(false);
-  const [drinkCategoryFilter, setDrinkCategoryFilter] = useState<'all' | 'water' | 'buddies'>('all');
+  const [drinkCategoryFilter, setDrinkCategoryFilter] = useState<'all' | 'water' | 'buddies' | 'juices'>('all');
   const [selectedSide, setSelectedSide] = useState<string>(
     availableSides.length > 0 ? availableSides[0] : ''
   );
@@ -456,7 +468,18 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                                 : 'bg-zinc-100 text-zinc-700 hover:text-black font-bold'
                             }`}
                           >
-                            🥤 440ml Buddies (5)
+                            🥤 440ml Buddies (6)
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setDrinkCategoryFilter('juices')}
+                            className={`px-2.5 py-1 rounded-lg transition-colors shrink-0 cursor-pointer ${
+                              drinkCategoryFilter === 'juices'
+                                ? 'bg-black text-[#FFD100] font-black'
+                                : 'bg-zinc-100 text-zinc-700 hover:text-black font-bold'
+                            }`}
+                          >
+                            🧃 Juices (4)
                           </button>
                         </div>
 

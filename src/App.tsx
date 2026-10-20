@@ -638,102 +638,73 @@ const MainContent: React.FC = () => {
                                 }
                                 setSelectedItem(item);
                               }}
-                              className={`bg-white border rounded-none p-3.5 sm:p-4.5 flex items-center justify-between transition-all select-none gap-3 sm:gap-4 ${
-                                isOutOfStock
-                                  ? 'border-zinc-200 border-b-[3px] border-b-zinc-400 bg-zinc-50/70 opacity-65 cursor-not-allowed'
-                                  : 'border-zinc-200 border-b-[3px] border-b-black hover:border-black hover:shadow-md cursor-pointer group'
-                              }`}
+                              className="bg-white border border-zinc-200 border-b-[3px] border-b-black rounded-none p-3.5 sm:p-4.5 flex items-center justify-between hover:border-black hover:shadow-md transition-all cursor-pointer group select-none gap-3 sm:gap-4"
                             >
                               <div className="flex items-center gap-3 sm:gap-3.5 flex-1 min-w-0">
                                 {item.image && (
-                                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden bg-zinc-100 shrink-0 border border-zinc-200/80">
-                                    <img
-                                      src={getCdnThumbnailUrl(item.image)}
-                                      alt={item.name}
-                                      width="80"
-                                      height="80"
-                                      className={`w-full h-full object-cover transition-transform duration-300 ${
-                                        isOutOfStock
-                                          ? 'grayscale-[35%] opacity-75'
-                                          : 'group-hover:scale-105'
-                                      }`}
-                                      loading="lazy"
-                                      decoding="async"
-                                      onError={(e) => {
-                                        const target = e.target as HTMLImageElement;
-                                        if (item.image && target.src !== item.image) {
-                                          target.src = item.image;
-                                        } else {
-                                          target.src = '/assets/afros/images/afros-burger.jpg';
-                                        }
-                                      }}
-                                    />
+                                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0">
+                                    <div className="w-full h-full rounded-md overflow-hidden bg-zinc-100 border border-zinc-200/80">
+                                      <img
+                                        src={getCdnThumbnailUrl(item.image)}
+                                        alt={item.name}
+                                        width="80"
+                                        height="80"
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                        loading="lazy"
+                                        decoding="async"
+                                        onError={(e) => {
+                                          const target = e.target as HTMLImageElement;
+                                          if (item.image && target.src !== item.image) {
+                                            target.src = item.image;
+                                          } else {
+                                            target.src = '/assets/afros/images/afros-burger.jpg';
+                                          }
+                                        }}
+                                      />
+                                    </div>
+                                    {/* (1) Small yellow banner with "SOLD OUT" in black on the top border: 50% on image, 50% outside, length just short of image width */}
                                     {isOutOfStock && (
-                                      <div className="absolute inset-0 bg-black/40 backdrop-blur-[0.5px] flex items-center justify-center p-1 text-center">
-                                        <span className="text-[9px] font-black uppercase tracking-wider text-white bg-black/85 px-1.5 py-0.5 rounded border border-white/20 shadow-sm">
-                                          Sold Out
-                                        </span>
+                                      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-[88%] z-10 pointer-events-none">
+                                        <div className="bg-[#FFD100] text-black font-black font-black-grotesque text-[9px] sm:text-[10px] uppercase tracking-wider text-center py-0.5 shadow-xs border border-black/15 leading-tight">
+                                          SOLD OUT
+                                        </div>
                                       </div>
                                     )}
                                   </div>
                                 )}
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center gap-2">
-                                    <h3
-                                      className={`text-xs sm:text-[13px] font-black uppercase tracking-wider leading-tight ${
-                                        isOutOfStock
-                                          ? 'text-zinc-500 line-through decoration-zinc-400/80'
-                                          : 'text-black group-hover:text-black'
-                                      }`}
-                                    >
+                                    <h3 className="text-xs sm:text-[13px] font-black text-black uppercase tracking-wider group-hover:text-black leading-tight">
                                       {item.name}
                                     </h3>
-                                    {isOutOfStock ? (
-                                      <span className="inline-block px-1.5 py-0.5 bg-zinc-200 text-zinc-700 text-[9px] font-bold uppercase tracking-wider rounded shrink-0">
-                                        Sold Out Today
+                                    {item.badge && (
+                                      <span className="hidden sm:inline-block px-1.5 py-0.5 bg-[#FFD100] text-black text-[9px] font-black uppercase tracking-wider shrink-0">
+                                        {item.badge}
                                       </span>
-                                    ) : (
-                                      item.badge && (
-                                        <span className="hidden sm:inline-block px-1.5 py-0.5 bg-[#FFD100] text-black text-[9px] font-black uppercase tracking-wider shrink-0">
-                                          {item.badge}
-                                        </span>
-                                      )
                                     )}
                                   </div>
                                   {item.subtitle && (
-                                    <p
-                                      className={`text-[11px] sm:text-xs font-medium mt-1 leading-snug ${
-                                        isOutOfStock ? 'text-zinc-400' : 'text-zinc-500'
-                                      }`}
-                                    >
+                                    <p className="text-[11px] sm:text-xs text-zinc-500 font-medium mt-1 leading-snug">
                                       {item.subtitle}
                                     </p>
                                   )}
                                 </div>
                               </div>
                               <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 ml-1">
-                                <span
-                                  className={`text-xs sm:text-sm font-black tracking-tight whitespace-nowrap ${
-                                    isOutOfStock ? 'text-zinc-400' : 'text-black'
-                                  }`}
-                                >
+                                <span className="text-xs sm:text-sm font-black text-black tracking-tight whitespace-nowrap">
                                   R{item.price.toFixed(0)}
                                 </span>
-                                {isOutOfStock ? (
-                                  <span
-                                    className="px-2 py-1 rounded bg-zinc-200 text-zinc-600 font-bold text-[10px] sm:text-[11px] uppercase tracking-wider cursor-not-allowed select-none shrink-0"
-                                    title="Temporarily out of stock"
-                                  >
-                                    Sold Out
-                                  </span>
-                                ) : (
-                                  <span
-                                    className="w-7 h-7 rounded-full bg-[#FFD100] group-hover:bg-black group-hover:text-[#FFD100] text-black flex items-center justify-center font-black text-xs transition-colors shadow-2xs shrink-0"
-                                    title="Customize & Add"
-                                  >
-                                    +
-                                  </span>
-                                )}
+                                {/* (5 & 6) Turn yellow + icon into grey icon without extra text */}
+                                <span
+                                  className={`w-7 h-7 rounded-full flex items-center justify-center font-black text-xs transition-colors shadow-2xs shrink-0 ${
+                                    isOutOfStock
+                                      ? 'bg-zinc-200 text-zinc-400 cursor-not-allowed select-none'
+                                      : 'bg-[#FFD100] group-hover:bg-black group-hover:text-[#FFD100] text-black'
+                                  }`}
+                                  title={isOutOfStock ? 'Sold out today' : 'Customize & Add'}
+                                >
+                                  +
+                                </span>
                               </div>
                             </div>
                           );
@@ -767,14 +738,12 @@ const MainContent: React.FC = () => {
                                 NEW
                               </span>
                               {isPaellaOut && (
-                                <span className="px-2 py-0.5 bg-zinc-800 text-zinc-300 font-bold text-xs uppercase tracking-wider rounded border border-white/20">
-                                  Sold Out Today
+                                <span className="px-2 py-0.5 bg-[#FFD100] text-black font-black font-black-grotesque text-xs uppercase tracking-wider">
+                                  SOLD OUT
                                 </span>
                               )}
                             </div>
-                            <h3 className={`font-black font-black-grotesque text-2xl sm:text-3xl tracking-wide uppercase mb-3 ${
-                              isPaellaOut ? 'text-zinc-400 line-through decoration-zinc-500' : 'text-white'
-                            }`}>
+                            <h3 className="font-black font-black-grotesque text-2xl sm:text-3xl tracking-wide uppercase mb-3 text-white">
                               AFRO’S PAELLA
                             </h3>
                             <p className="font-bold text-xs sm:text-sm text-white/80 tracking-wider uppercase max-w-xs mx-auto mb-4 leading-relaxed">
@@ -784,11 +753,6 @@ const MainContent: React.FC = () => {
                               <div className="font-black font-black-grotesque text-2xl sm:text-3xl text-white">
                                 R79
                               </div>
-                              {isPaellaOut && (
-                                <span className="px-2.5 py-1 rounded bg-zinc-800 text-zinc-400 font-bold text-xs uppercase">
-                                  Sold Out
-                                </span>
-                              )}
                             </div>
                           </div>
 
@@ -799,14 +763,12 @@ const MainContent: React.FC = () => {
                                 NEW
                               </span>
                               <div className="flex items-center gap-3">
-                                <h3 className={`font-black font-black-grotesque text-2xl lg:text-3xl tracking-wide uppercase whitespace-nowrap ${
-                                  isPaellaOut ? 'text-zinc-400 line-through decoration-zinc-500' : 'text-white'
-                                }`}>
+                                <h3 className="font-black font-black-grotesque text-2xl lg:text-3xl tracking-wide uppercase whitespace-nowrap text-white">
                                   AFRO’S PAELLA
                                 </h3>
                                 {isPaellaOut && (
-                                  <span className="px-2.5 py-1 bg-zinc-800 text-zinc-300 font-bold text-xs uppercase tracking-wider rounded border border-white/20">
-                                    Sold Out Today
+                                  <span className="px-2.5 py-1 bg-[#FFD100] text-black font-black font-black-grotesque text-xs uppercase tracking-wider">
+                                    SOLD OUT
                                   </span>
                                 )}
                               </div>
@@ -818,11 +780,6 @@ const MainContent: React.FC = () => {
                               <div className="font-black font-black-grotesque text-2xl lg:text-3xl text-white whitespace-nowrap">
                                 R79
                               </div>
-                              {isPaellaOut && (
-                                <span className="px-3 py-1.5 rounded bg-zinc-800 text-zinc-400 font-bold text-xs uppercase">
-                                  Sold Out
-                                </span>
-                              )}
                             </div>
                           </div>
                         </div>

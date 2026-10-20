@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { MenuItem, FlavourId } from '../types';
 import { FLAVOURS, SIDES_LIST, MENU_ITEMS } from '../data/menuData';
 import { useCart } from '../context/CartContext';
+import { isItemOutOfStock } from '../services/stockService';
 import { X, Plus, Minus, Flame, Check, Sparkles, ChevronDown } from 'lucide-react';
 
 interface ItemModalProps {
@@ -493,7 +494,26 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
 
                             <div className="space-y-1">
                               {group.drinks.map((drink) => {
+                                const isDrinkOut = isItemOutOfStock(drink.id);
                                 const isSelected = selectedExtras.some((e) => e.name === drink.name);
+
+                                if (isDrinkOut) {
+                                  return (
+                                    <div
+                                      key={drink.id}
+                                      className="w-full p-2.5 rounded-xl border border-zinc-200 bg-zinc-100/80 text-left flex items-center justify-between cursor-not-allowed opacity-60 select-none"
+                                    >
+                                      <div className="flex items-center gap-2 min-w-0 pr-2">
+                                        <span className="text-xs font-bold text-zinc-500 line-through truncate">{drink.name}</span>
+                                        <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-zinc-200 text-zinc-600 shrink-0">
+                                          Sold Out
+                                        </span>
+                                      </div>
+                                      <span className="text-xs font-bold text-zinc-400">+R{drink.price.toFixed(2)}</span>
+                                    </div>
+                                  );
+                                }
+
                                 return (
                                   <button
                                     key={drink.id}
@@ -555,35 +575,54 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
 
         {/* Footer / Quantity & Add to Cart Action */}
         <div className="p-4 sm:p-5 bg-zinc-950 border-t border-zinc-200 flex items-center justify-between gap-4 mt-auto">
-          {/* Quantity Controls */}
-          <div className="flex items-center bg-white border border-zinc-300 rounded-xl p-1 shrink-0">
-            <button
-              type="button"
-              onClick={() => setQuantity(Math.max(1, quantity - 1))}
-              disabled={quantity <= 1}
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-zinc-600 hover:text-black hover:bg-zinc-100 disabled:opacity-40 cursor-pointer"
-            >
-              <Minus className="w-4 h-4" />
-            </button>
-            <span className="w-8 text-center text-sm font-black text-black">{quantity}</span>
-            <button
-              type="button"
-              onClick={() => setQuantity(quantity + 1)}
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-zinc-600 hover:text-black hover:bg-zinc-100 cursor-pointer"
-            >
-              <Plus className="w-4 h-4" />
-            </button>
-          </div>
+          {(() => {
+            const isMainItemOut = isItemOutOfStock(item.id);
+            if (isMainItemOut) {
+              return (
+                <button
+                  type="button"
+                  disabled
+                  className="w-full py-3.5 px-5 rounded-xl bg-zinc-800 text-zinc-400 font-black text-xs uppercase tracking-wider flex items-center justify-center cursor-not-allowed select-none border border-white/10"
+                >
+                  TEMPORARILY SOLD OUT TODAY
+                </button>
+              );
+            }
 
-          {/* Submit Button */}
-          <button
-            type="button"
-            onClick={handleAddToCart}
-            className="flex-1 py-3 px-5 rounded-xl bg-[#FFD100] hover:bg-[#ffe14d] text-black font-black text-sm tracking-wide shadow-lg shadow-[#FFD100]/25 transition-all hover:scale-[1.02] flex items-center justify-between cursor-pointer"
-          >
-            <span>ADD TO ORDER</span>
-            <span>R{totalPrice.toFixed(2)}</span>
-          </button>
+            return (
+              <>
+                {/* Quantity Controls */}
+                <div className="flex items-center bg-white border border-zinc-300 rounded-xl p-1 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    disabled={quantity <= 1}
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-zinc-600 hover:text-black hover:bg-zinc-100 disabled:opacity-40 cursor-pointer"
+                  >
+                    <Minus className="w-4 h-4" />
+                  </button>
+                  <span className="w-8 text-center text-sm font-black text-black">{quantity}</span>
+                  <button
+                    type="button"
+                    onClick={() => setQuantity(quantity + 1)}
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-zinc-600 hover:text-black hover:bg-zinc-100 cursor-pointer"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="button"
+                  onClick={handleAddToCart}
+                  className="flex-1 py-3 px-5 rounded-xl bg-[#FFD100] hover:bg-[#ffe14d] text-black font-black text-sm tracking-wide shadow-lg shadow-[#FFD100]/25 transition-all hover:scale-[1.02] flex items-center justify-between cursor-pointer"
+                >
+                  <span>ADD TO ORDER</span>
+                  <span>R{totalPrice.toFixed(2)}</span>
+                </button>
+              </>
+            );
+          })()}
         </div>
 
       </div>

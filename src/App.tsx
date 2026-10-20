@@ -30,7 +30,8 @@ import { getCdnThumbnailUrl } from './utils/cdn';
 import { CheckoutPayload, isPayFastStaffTestMode, setPayFastStaffTestMode } from './services/payment';
 import { subscribeToOrders, getCurrentOrderId, setCurrentOrderId, createLiveOrder, recordCancelledOrder } from './services/orderService';
 import { logPageView, logItemView, fetchAndSyncClientIp, isAnalyticsExcluded, setDeviceAnalyticsExcluded } from './services/analyticsService';
-import { Search, ShoppingBag, ArrowRight, Flame, ShieldAlert, CheckCircle2, X } from 'lucide-react';
+import { getOutOfStockItemIds, subscribeToStockStatus } from './services/stockService';
+import { Search, ShoppingBag, ArrowRight, Flame, ShieldAlert, CheckCircle2, X, AlertCircle } from 'lucide-react';
 
 const getInitialView = (): PageView => {
   if (typeof window === 'undefined') return 'main';
@@ -92,6 +93,23 @@ const MainContent: React.FC = () => {
   const [payfastNotice, setPayfastNotice] = useState<{ type: 'success' | 'cancelled'; orderId?: string } | null>(null);
   const [isStaffTestActive, setIsStaffTestActive] = useState(() => isPayFastStaffTestMode());
   const [pendingCategoryScroll, setPendingCategoryScroll] = useState<string | null>(null);
+  const [outOfStockIds, setOutOfStockIds] = useState<string[]>(() => getOutOfStockItemIds());
+  const [soldOutToast, setSoldOutToast] = useState<string | null>(null);
+
+  // Subscribe to real-time menu stock changes (86 list)
+  useEffect(() => {
+    const unsub = subscribeToStockStatus((ids) => {
+      setOutOfStockIds(ids);
+    });
+    return unsub;
+  }, []);
+
+  const triggerSoldOutToast = (itemName: string) => {
+    setSoldOutToast(itemName);
+    setTimeout(() => {
+      setSoldOutToast((prev) => (prev === itemName ? null : prev));
+    }, 2800);
+  };
 
   // Detect PayFast callback redirects or staff test mode flag in URL
   useEffect(() => {
@@ -607,114 +625,209 @@ const MainContent: React.FC = () => {
 
                       {/* 2-Column Cards Grid with food images visible */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4 max-w-5xl mx-auto">
-                        {catItems.map((item) => (
-                          <div
-                            key={item.id}
-                            onClick={() => setSelectedItem(item)}
-                            className="bg-white border border-zinc-200 border-b-[3px] border-b-black rounded-none p-3.5 sm:p-4.5 flex items-center justify-between hover:border-black hover:shadow-md transition-all cursor-pointer group select-none gap-3 sm:gap-4"
-                          >
-                            <div className="flex items-center gap-3 sm:gap-3.5 flex-1 min-w-0">
-                              {item.image && (
-                                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden bg-zinc-100 shrink-0 border border-zinc-200/80">
-                                  <img
-                                    src={getCdnThumbnailUrl(item.image)}
-                                    alt={item.name}
-                                    width="80"
-                                    height="80"
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                    loading="lazy"
-                                    decoding="async"
-                                    onError={(e) => {
-                                      const target = e.target as HTMLImageElement;
-                                      if (item.image && target.src !== item.image) {
-                                        target.src = item.image;
-                                      } else {
-                                        target.src = '/assets/afros/images/afros-burger.jpg';
-                                      }
-                                    }}
-                                  />
-                                </div>
-                              )}
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2">
-                                  <h3 className="text-xs sm:text-[13px] font-black text-black uppercase tracking-wider group-hover:text-black leading-tight">
-                                    {item.name}
-                                  </h3>
-                                  {item.badge && (
-                                    <span className="hidden sm:inline-block px-1.5 py-0.5 bg-[#FFD100] text-black text-[9px] font-black uppercase tracking-wider shrink-0">
-                                      {item.badge}
-                                    </span>
+                        {catItems.map((item) => {
+                          const isOutOfStock = outOfStockIds.includes(item.id);
+
+                          return (
+                            <div
+                              key={item.id}
+                              onClick={() => {
+                                if (isOutOfStock) {
+                                  triggerSoldOutToast(item.name);
+                                  return;
+                                }
+                                setSelectedItem(item);
+                              }}
+                              className={`bg-white border rounded-none p-3.5 sm:p-4.5 flex items-center justify-between transition-all select-none gap-3 sm:gap-4 ${
+                                isOutOfStock
+                                  ? 'border-zinc-200 border-b-[3px] border-b-zinc-400 bg-zinc-50/70 opacity-65 cursor-not-allowed'
+                                  : 'border-zinc-200 border-b-[3px] border-b-black hover:border-black hover:shadow-md cursor-pointer group'
+                              }`}
+                            >
+                              <div className="flex items-center gap-3 sm:gap-3.5 flex-1 min-w-0">
+                                {item.image && (
+                                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden bg-zinc-100 shrink-0 border border-zinc-200/80">
+                                    <img
+                                      src={getCdnThumbnailUrl(item.image)}
+                                      alt={item.name}
+                                      width="80"
+                                      height="80"
+                                      className={`w-full h-full object-cover transition-transform duration-300 ${
+                                        isOutOfStock
+                                          ? 'grayscale-[35%] opacity-75'
+                                          : 'group-hover:scale-105'
+                                      }`}
+                                      loading="lazy"
+                                      decoding="async"
+                                      onError={(e) => {
+                                        const target = e.target as HTMLImageElement;
+                                        if (item.image && target.src !== item.image) {
+                                          target.src = item.image;
+                                        } else {
+                                          target.src = '/assets/afros/images/afros-burger.jpg';
+                                        }
+                                      }}
+                                    />
+                                    {isOutOfStock && (
+                                      <div className="absolute inset-0 bg-black/40 backdrop-blur-[0.5px] flex items-center justify-center p-1 text-center">
+                                        <span className="text-[9px] font-black uppercase tracking-wider text-white bg-black/85 px-1.5 py-0.5 rounded border border-white/20 shadow-sm">
+                                          Sold Out
+                                        </span>
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-2">
+                                    <h3
+                                      className={`text-xs sm:text-[13px] font-black uppercase tracking-wider leading-tight ${
+                                        isOutOfStock
+                                          ? 'text-zinc-500 line-through decoration-zinc-400/80'
+                                          : 'text-black group-hover:text-black'
+                                      }`}
+                                    >
+                                      {item.name}
+                                    </h3>
+                                    {isOutOfStock ? (
+                                      <span className="inline-block px-1.5 py-0.5 bg-zinc-200 text-zinc-700 text-[9px] font-bold uppercase tracking-wider rounded shrink-0">
+                                        Sold Out Today
+                                      </span>
+                                    ) : (
+                                      item.badge && (
+                                        <span className="hidden sm:inline-block px-1.5 py-0.5 bg-[#FFD100] text-black text-[9px] font-black uppercase tracking-wider shrink-0">
+                                          {item.badge}
+                                        </span>
+                                      )
+                                    )}
+                                  </div>
+                                  {item.subtitle && (
+                                    <p
+                                      className={`text-[11px] sm:text-xs font-medium mt-1 leading-snug ${
+                                        isOutOfStock ? 'text-zinc-400' : 'text-zinc-500'
+                                      }`}
+                                    >
+                                      {item.subtitle}
+                                    </p>
                                   )}
                                 </div>
-                                {item.subtitle && (
-                                  <p className="text-[11px] sm:text-xs text-zinc-500 font-medium mt-1 leading-snug">
-                                    {item.subtitle}
-                                  </p>
+                              </div>
+                              <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 ml-1">
+                                <span
+                                  className={`text-xs sm:text-sm font-black tracking-tight whitespace-nowrap ${
+                                    isOutOfStock ? 'text-zinc-400' : 'text-black'
+                                  }`}
+                                >
+                                  R{item.price.toFixed(0)}
+                                </span>
+                                {isOutOfStock ? (
+                                  <span
+                                    className="px-2 py-1 rounded bg-zinc-200 text-zinc-600 font-bold text-[10px] sm:text-[11px] uppercase tracking-wider cursor-not-allowed select-none shrink-0"
+                                    title="Temporarily out of stock"
+                                  >
+                                    Sold Out
+                                  </span>
+                                ) : (
+                                  <span
+                                    className="w-7 h-7 rounded-full bg-[#FFD100] group-hover:bg-black group-hover:text-[#FFD100] text-black flex items-center justify-center font-black text-xs transition-colors shadow-2xs shrink-0"
+                                    title="Customize & Add"
+                                  >
+                                    +
+                                  </span>
                                 )}
                               </div>
                             </div>
-                            <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 ml-1">
-                              <span className="text-xs sm:text-sm font-black text-black tracking-tight whitespace-nowrap">
-                                R{item.price.toFixed(0)}
-                              </span>
-                              <span
-                                className="w-7 h-7 rounded-full bg-[#FFD100] group-hover:bg-black group-hover:text-[#FFD100] text-black flex items-center justify-center font-black text-xs transition-colors shadow-2xs shrink-0"
-                                title="Customize & Add"
-                              >
-                                +
-                              </span>
-                            </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </section>
 
                     {/* ── AFRO'S PAELLA BANNER (Under WRAPS) matching media_1792252750055.jpg & media_1792253354349.png ── */}
-                    {category.id === 'wraps' && (
-                      <div
-                        onClick={() => {
-                          const paella = MENU_ITEMS.find((i) => i.id === 'afros-paella');
-                          if (paella) setSelectedItem(paella);
-                        }}
-                        className="bg-black text-white max-w-5xl mx-auto my-8 sm:my-14 px-6 sm:px-10 py-7 sm:py-8 cursor-pointer group hover:ring-2 hover:ring-[#FFD100] transition-all select-none shadow-md"
-                      >
-                        {/* Mobile Layout (< md) matching media_1792252750055.jpg */}
-                        <div className="flex md:hidden flex-col items-center text-center">
-                          <div className="mb-1">
-                            <span className="font-black font-black-grotesque text-[#FFD100] text-3xl transform -rotate-12 inline-block tracking-wider">
-                              NEW
-                            </span>
-                          </div>
-                          <h3 className="font-black font-black-grotesque text-2xl sm:text-3xl text-white tracking-wide uppercase mb-3">
-                            AFRO’S PAELLA
-                          </h3>
-                          <p className="font-bold text-xs sm:text-sm text-white tracking-wider uppercase max-w-xs mx-auto mb-4 leading-relaxed">
-                            JUICY STRIPS WITH SAVOURY RICE & DRESSING (GRILLED OR CRISPY)
-                          </p>
-                          <div className="font-black font-black-grotesque text-2xl sm:text-3xl text-white">
-                            R79
-                          </div>
-                        </div>
-
-                        {/* Desktop Layout (>= md) matching media_1792253354349.png */}
-                        <div className="hidden md:flex items-center justify-between gap-6">
-                          <div className="flex items-center gap-6">
-                            <span className="font-black font-black-grotesque text-[#FFD100] text-3xl transform -rotate-12 inline-block tracking-wider shrink-0">
-                              NEW
-                            </span>
-                            <h3 className="font-black font-black-grotesque text-2xl lg:text-3xl text-white tracking-wide uppercase whitespace-nowrap">
+                    {category.id === 'wraps' && (() => {
+                      const isPaellaOut = outOfStockIds.includes('afros-paella');
+                      return (
+                        <div
+                          onClick={() => {
+                            if (isPaellaOut) {
+                              triggerSoldOutToast("Afro’s Paella");
+                              return;
+                            }
+                            const paella = MENU_ITEMS.find((i) => i.id === 'afros-paella');
+                            if (paella) setSelectedItem(paella);
+                          }}
+                          className={`bg-black text-white max-w-5xl mx-auto my-8 sm:my-14 px-6 sm:px-10 py-7 sm:py-8 transition-all select-none shadow-md ${
+                            isPaellaOut
+                              ? 'opacity-70 cursor-not-allowed ring-1 ring-zinc-700'
+                              : 'cursor-pointer group hover:ring-2 hover:ring-[#FFD100]'
+                          }`}
+                        >
+                          {/* Mobile Layout (< md) */}
+                          <div className="flex md:hidden flex-col items-center text-center">
+                            <div className="mb-1 flex items-center gap-2">
+                              <span className="font-black font-black-grotesque text-[#FFD100] text-3xl transform -rotate-12 inline-block tracking-wider">
+                                NEW
+                              </span>
+                              {isPaellaOut && (
+                                <span className="px-2 py-0.5 bg-zinc-800 text-zinc-300 font-bold text-xs uppercase tracking-wider rounded border border-white/20">
+                                  Sold Out Today
+                                </span>
+                              )}
+                            </div>
+                            <h3 className={`font-black font-black-grotesque text-2xl sm:text-3xl tracking-wide uppercase mb-3 ${
+                              isPaellaOut ? 'text-zinc-400 line-through decoration-zinc-500' : 'text-white'
+                            }`}>
                               AFRO’S PAELLA
                             </h3>
+                            <p className="font-bold text-xs sm:text-sm text-white/80 tracking-wider uppercase max-w-xs mx-auto mb-4 leading-relaxed">
+                              JUICY STRIPS WITH SAVOURY RICE & DRESSING (GRILLED OR CRISPY)
+                            </p>
+                            <div className="flex items-center gap-3">
+                              <div className="font-black font-black-grotesque text-2xl sm:text-3xl text-white">
+                                R79
+                              </div>
+                              {isPaellaOut && (
+                                <span className="px-2.5 py-1 rounded bg-zinc-800 text-zinc-400 font-bold text-xs uppercase">
+                                  Sold Out
+                                </span>
+                              )}
+                            </div>
                           </div>
-                          <p className="font-bold text-xs lg:text-sm text-white tracking-wider uppercase text-center max-w-md leading-relaxed px-4">
-                            JUICY STRIPS WITH SAVOURY RICE & DRESSING (GRILLED OR CRISPY)
-                          </p>
-                          <div className="font-black font-black-grotesque text-2xl lg:text-3xl text-white shrink-0 whitespace-nowrap">
-                            R79
+
+                          {/* Desktop Layout (>= md) */}
+                          <div className="hidden md:flex items-center justify-between gap-6">
+                            <div className="flex items-center gap-4">
+                              <span className="font-black font-black-grotesque text-[#FFD100] text-3xl transform -rotate-12 inline-block tracking-wider shrink-0">
+                                NEW
+                              </span>
+                              <div className="flex items-center gap-3">
+                                <h3 className={`font-black font-black-grotesque text-2xl lg:text-3xl tracking-wide uppercase whitespace-nowrap ${
+                                  isPaellaOut ? 'text-zinc-400 line-through decoration-zinc-500' : 'text-white'
+                                }`}>
+                                  AFRO’S PAELLA
+                                </h3>
+                                {isPaellaOut && (
+                                  <span className="px-2.5 py-1 bg-zinc-800 text-zinc-300 font-bold text-xs uppercase tracking-wider rounded border border-white/20">
+                                    Sold Out Today
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                            <p className="font-bold text-xs lg:text-sm text-white/80 tracking-wider uppercase text-center max-w-md leading-relaxed px-4">
+                              JUICY STRIPS WITH SAVOURY RICE & DRESSING (GRILLED OR CRISPY)
+                            </p>
+                            <div className="flex items-center gap-4 shrink-0">
+                              <div className="font-black font-black-grotesque text-2xl lg:text-3xl text-white whitespace-nowrap">
+                                R79
+                              </div>
+                              {isPaellaOut && (
+                                <span className="px-3 py-1.5 rounded bg-zinc-800 text-zinc-400 font-bold text-xs uppercase">
+                                  Sold Out
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    )}
+                      );
+                    })()}
 
                     {/* ── Authentic Black Banner: ADD SOME MORE & CHOOSE YOUR AFRO'S FLAVOUR (Before Schnitzel) ── */}
                     {category.id === 'flamed' && (
@@ -893,6 +1006,27 @@ const MainContent: React.FC = () => {
       }
     }}
   />
+
+  {/* Elegant Sold Out Item Toast Notification */}
+  {soldOutToast && (
+    <div className="fixed top-20 sm:top-24 left-1/2 -translate-x-1/2 z-50 animate-bounce px-4 max-w-md w-full pointer-events-none">
+      <div className="bg-[#14141c]/95 border-2 border-[#FFD100]/60 text-white rounded-2xl p-3 sm:p-3.5 shadow-2xl backdrop-blur-md flex items-center justify-between gap-3 pointer-events-auto">
+        <div className="flex items-center gap-2.5 min-w-0">
+          <AlertCircle className="w-4 h-4 text-[#FFD100] shrink-0" />
+          <span className="text-xs font-bold text-zinc-200 truncate">
+            <strong className="text-white">{soldOutToast}</strong> is currently sold out today.
+          </span>
+        </div>
+        <button
+          type="button"
+          onClick={() => setSoldOutToast(null)}
+          className="p-1 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+        >
+          <X className="w-3.5 h-3.5" />
+        </button>
+      </div>
+    </div>
+  )}
 
   {/* Cookie & POPIA Privacy Notice */}
   <CookieBanner

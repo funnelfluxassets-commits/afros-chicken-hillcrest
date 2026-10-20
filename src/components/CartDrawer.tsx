@@ -1,6 +1,7 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
-import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, Check } from 'lucide-react';
+import { isItemOutOfStock } from '../services/stockService';
+import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, Check, AlertCircle } from 'lucide-react';
 import { ChickenWingIcon } from './icons/ChickenWingIcon';
 import { DeliveryMotorbikeIcon } from './icons/DeliveryMotorbikeIcon';
 import { getCdnThumbnailUrl } from '../utils/cdn';
@@ -102,11 +103,16 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onOpenCheckout }) => {
               </p>
             </div>
           ) : (
-            items.map((item) => (
-              <div
-                key={item.id}
-                className="p-3.5 rounded-2xl bg-zinc-100 border border-zinc-300 flex items-start gap-3 relative group shadow-xs"
-              >
+            items.map((item) => {
+              const isOut = isItemOutOfStock(item.menuItem.id);
+
+              return (
+                <div
+                  key={item.id}
+                  className={`p-3.5 rounded-2xl border flex items-start gap-3 relative group shadow-xs ${
+                    isOut ? 'bg-amber-50/60 border-amber-300' : 'bg-zinc-100 border-zinc-300'
+                  }`}
+                >
                 {/* Item Thumbnail */}
                 <div className="w-14 h-14 rounded-xl overflow-hidden bg-white shrink-0 border border-zinc-300">
                   {item.menuItem.image ? (
@@ -161,6 +167,12 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onOpenCheckout }) => {
                     {item.customization?.notes && (
                       <div className="italic text-zinc-500">"{item.customization.notes}"</div>
                     )}
+                    {isOut && (
+                      <div className="mt-2 flex items-center gap-1.5 text-[11px] font-bold text-amber-800 bg-amber-100/90 px-2.5 py-1 rounded-lg">
+                        <AlertCircle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                        <span>Item is sold out today. Please remove to continue.</span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Quantity & Remove controls */}
@@ -194,7 +206,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onOpenCheckout }) => {
                   </div>
                 </div>
               </div>
-            ))
+            );
+          })
           )}
         </div>
 
@@ -257,17 +270,29 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onOpenCheckout }) => {
               </div>
             </div>
 
-            <button
-              type="button"
-              onClick={() => {
-                setIsCartOpen(false);
-                onOpenCheckout();
-              }}
-              className="w-full py-4 px-5 rounded-2xl bg-[#FFD100] hover:bg-[#e6bd00] text-black font-black text-sm sm:text-base tracking-wide shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer border-2 border-black"
-            >
-              <span>PROCEED TO CHECKOUT</span>
-              <ArrowRight className="w-4 h-4 stroke-[3]" />
-            </button>
+            {(() => {
+              const hasOutOfStockItem = items.some((i) => isItemOutOfStock(i.menuItem.id));
+
+              return (
+                <button
+                  type="button"
+                  disabled={hasOutOfStockItem}
+                  onClick={() => {
+                    if (hasOutOfStockItem) return;
+                    setIsCartOpen(false);
+                    onOpenCheckout();
+                  }}
+                  className={`w-full py-4 px-5 rounded-2xl font-black text-sm sm:text-base tracking-wide shadow-md transition-all flex items-center justify-center gap-2 border-2 ${
+                    hasOutOfStockItem
+                      ? 'bg-zinc-200 text-zinc-500 border-zinc-300 cursor-not-allowed select-none'
+                      : 'bg-[#FFD100] hover:bg-[#e6bd00] text-black border-black cursor-pointer hover:shadow-lg'
+                  }`}
+                >
+                  <span>{hasOutOfStockItem ? 'REMOVE SOLD OUT ITEMS TO PROCEED' : 'PROCEED TO CHECKOUT'}</span>
+                  {!hasOutOfStockItem && <ArrowRight className="w-4 h-4 stroke-[3]" />}
+                </button>
+              );
+            })()}
 
             <button
               type="button"

@@ -240,18 +240,13 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                       key={side}
                       type="button"
                       onClick={() => setSelectedSide(side)}
-                      className={`py-2.5 sm:py-3 px-1.5 sm:px-3 rounded-xl border text-center transition-all cursor-pointer font-black whitespace-nowrap flex flex-col items-center justify-center min-h-[48px] sm:min-h-[52px] ${
+                      className={`py-2.5 sm:py-3 px-2 sm:px-3 rounded-xl border text-center transition-all cursor-pointer font-black whitespace-nowrap flex items-center justify-center min-h-[46px] sm:min-h-[50px] ${
                         isSelected
                           ? 'bg-[#FFD100] border-2 border-black text-black shadow-xs'
                           : 'bg-zinc-100 hover:bg-zinc-200/70 border-zinc-300 text-black'
                       }`}
                     >
-                      <div className="font-black text-xs sm:text-sm leading-tight">{side}</div>
-                      {side === '50/50' && (
-                        <div className="text-[9px] sm:text-[10px] font-bold text-zinc-600 leading-none mt-0.5">
-                          Chips &amp; Slaw
-                        </div>
-                      )}
+                      <span className="font-black text-[13px] sm:text-[15px] leading-none">{side}</span>
                     </button>
                   );
                 })}

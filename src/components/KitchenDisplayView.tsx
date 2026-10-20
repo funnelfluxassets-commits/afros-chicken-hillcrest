@@ -1210,11 +1210,13 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
       )}
 
       {/* Kitchen Stock Availability / 86 Items Modal */}
-      <StockManagementModal
-        isOpen={isStockModalOpen}
-        onClose={() => setIsStockModalOpen(false)}
-        outOfStockIds={outOfStockIds}
-      />
+      {isStockModalOpen && (
+        <StockManagementModal
+          isOpen={isStockModalOpen}
+          onClose={() => setIsStockModalOpen(false)}
+          outOfStockIds={outOfStockIds}
+        />
+      )}
     </div>
   );
 };

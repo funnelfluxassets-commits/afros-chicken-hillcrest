@@ -966,7 +966,9 @@ const MainContent: React.FC = () => {
   )}
 
   {/* Modals & Drawers */}
-  <ItemModal item={selectedItem} onClose={() => setSelectedItem(null)} />
+  {selectedItem && (
+    <ItemModal item={selectedItem} onClose={() => setSelectedItem(null)} />
+  )}
   
   <CartDrawer onOpenCheckout={() => setIsCheckoutOpen(true)} />
 

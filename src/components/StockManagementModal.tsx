@@ -29,11 +29,9 @@ export const StockManagementModal: React.FC<StockManagementModalProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<CategoryId | 'all' | 'out_only'>('all');
   const [isUpdating, setIsUpdating] = useState<string | null>(null);
 
-  if (!isOpen) return null;
-
   const outOfStockCount = outOfStockIds.length;
 
-  // Filter items by category, out_only tab, and search query
+  // Filter items by category, out_only tab, and search query (Always call unconditionally at top level)
   const filteredItems = useMemo(() => {
     let items = MENU_ITEMS;
 
@@ -74,6 +72,8 @@ export const StockManagementModal: React.FC<StockManagementModalProps> = ({
       await resetAllToInStock();
     }
   };
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-md animate-fadeIn">

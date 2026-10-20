@@ -10,10 +10,10 @@ import {
   subscribeToSingleFirestoreOrder,
 } from './firebase';
 
-const STORAGE_KEY = 'wrap_wing_live_orders';
-const CURRENT_ORDER_KEY = 'wrap_wing_current_order_id';
+const STORAGE_KEY = 'afros_live_orders';
+const CURRENT_ORDER_KEY = 'afros_current_order_id';
 const CHANNEL_NAME = 'afros_orders_channel';
-const CLOUD_TOPIC = 'wrap_and_wing_live_orders_shop1';
+const CLOUD_TOPIC = 'afros_chicken_live_orders_hillcrest';
 const NTFY_BASE_URL = 'https://ntfy.sh';
 
 export const STATUS_RANK: Record<OrderStatus, number> = {
@@ -208,6 +208,11 @@ try {
       if (e.data && e.data.type === 'ORDER_STATUS_CHANGED') {
         if (typeof window !== 'undefined') {
           window.dispatchEvent(
+            new CustomEvent('afros_order_status_updated', {
+              detail: e.data,
+            })
+          );
+          window.dispatchEvent(
             new CustomEvent('wrap_wing_order_status_updated', {
               detail: e.data,
             })
@@ -321,7 +326,7 @@ export function purgeKnownTestOrdersFromCloud(): void {
 export function getAllOrders(): LiveOrder[] {
   if (typeof window === 'undefined') return [];
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('wrap_wing_live_orders');
     if (!raw) {
       return [];
     }
@@ -402,7 +407,7 @@ export function getOrderById(orderId: string): LiveOrder | null {
 
 export function getCurrentOrderId(): string | null {
   if (typeof window === 'undefined') return null;
-  const direct = localStorage.getItem(CURRENT_ORDER_KEY);
+  const direct = localStorage.getItem(CURRENT_ORDER_KEY) || localStorage.getItem('wrap_wing_current_order_id');
   const orders = getAllOrders();
 
   if (direct) {
@@ -703,35 +708,31 @@ function handleIncomingCloudEvent(event: CloudOrderEvent, isRealtimePush = false
       }
 
       if (typeof window !== 'undefined') {
-        window.dispatchEvent(
-          new CustomEvent('wrap_wing_order_status_updated', {
-            detail: {
-              orderId: targetId,
-              newStatus,
-              status: newStatus,
-              order: updated,
-              note: event.note,
-              isRealtimePush,
-              senderDeviceId: event.senderDeviceId,
-            },
-          })
-        );
+        const detail = {
+          orderId: targetId,
+          newStatus,
+          status: newStatus,
+          order: updated,
+          note: event.note,
+          isRealtimePush,
+          senderDeviceId: event.senderDeviceId,
+        };
+        window.dispatchEvent(new CustomEvent('afros_order_status_updated', { detail }));
+        window.dispatchEvent(new CustomEvent('wrap_wing_order_status_updated', { detail }));
       }
     } else if (event.order) {
       currentOrders.unshift(event.order);
       saveOrders(currentOrders, true);
       if (typeof window !== 'undefined') {
-        window.dispatchEvent(
-          new CustomEvent('wrap_wing_order_status_updated', {
-            detail: {
-              orderId: event.order.orderId,
-              newStatus: event.order.status,
-              note: event.note,
-              isRealtimePush,
-              senderDeviceId: event.senderDeviceId,
-            },
-          })
-        );
+        const detail = {
+          orderId: event.order.orderId,
+          newStatus: event.order.status,
+          note: event.note,
+          isRealtimePush,
+          senderDeviceId: event.senderDeviceId,
+        };
+        window.dispatchEvent(new CustomEvent('afros_order_status_updated', { detail }));
+        window.dispatchEvent(new CustomEvent('wrap_wing_order_status_updated', { detail }));
       }
     }
   }
@@ -1192,20 +1193,18 @@ export function updateOrderStatus(orderId: string, newStatus: OrderStatus, note?
 
   // Local window and cross-tab instant event broadcast
   if (typeof window !== 'undefined') {
-    window.dispatchEvent(
-      new CustomEvent('wrap_wing_order_status_updated', {
-        detail: {
-          orderId: updatedOrder.orderId,
-          newStatus,
-          status: newStatus,
-          note,
-          timelineEvent,
-          cookingStartedAt,
-          completedAt,
-          order: updatedOrder,
-        },
-      })
-    );
+    const detail = {
+      orderId: updatedOrder.orderId,
+      newStatus,
+      status: newStatus,
+      note,
+      timelineEvent,
+      cookingStartedAt,
+      completedAt,
+      order: updatedOrder,
+    };
+    window.dispatchEvent(new CustomEvent('afros_order_status_updated', { detail }));
+    window.dispatchEvent(new CustomEvent('wrap_wing_order_status_updated', { detail }));
   }
   if (broadcastChannel) {
     try {

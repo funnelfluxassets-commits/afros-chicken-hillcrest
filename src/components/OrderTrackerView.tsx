@@ -150,6 +150,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
         }
       }
     };
+    window.addEventListener('afros_order_status_updated', handleCustomStatusEvent);
     window.addEventListener('wrap_wing_order_status_updated', handleCustomStatusEvent);
 
     // Active 1.2-second tracker radar to check for kitchen status progression
@@ -169,6 +170,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
 
     return () => {
       unsubscribe();
+      window.removeEventListener('afros_order_status_updated', handleCustomStatusEvent);
       window.removeEventListener('wrap_wing_order_status_updated', handleCustomStatusEvent);
       clearInterval(trackerRadar);
     };

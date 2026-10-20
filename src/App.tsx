@@ -665,7 +665,7 @@ const MainContent: React.FC = () => {
                                     {/* (1) Small yellow banner with "SOLD OUT" in black on the top border: 50% on image, 50% outside, length just short of image width */}
                                     {isOutOfStock && (
                                       <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-[88%] z-10 pointer-events-none">
-                                        <div className="bg-[#FFD100] text-black font-black font-black-grotesque text-[9px] sm:text-[10px] uppercase tracking-wider text-center py-0.5 shadow-xs border border-black/15 leading-tight">
+                                        <div className="bg-[#FFD100] text-black font-black font-black-grotesque text-[9px] sm:text-[10px] uppercase tracking-wider text-center py-0.5 shadow-xs border border-black/20 leading-tight rounded-[3px]">
                                           SOLD OUT
                                         </div>
                                       </div>
@@ -738,7 +738,7 @@ const MainContent: React.FC = () => {
                                 NEW
                               </span>
                               {isPaellaOut && (
-                                <span className="px-2 py-0.5 bg-[#FFD100] text-black font-black font-black-grotesque text-xs uppercase tracking-wider">
+                                <span className="px-2 py-0.5 bg-[#FFD100] text-black font-black font-black-grotesque text-xs uppercase tracking-wider rounded-[3px] border border-black/20 shadow-xs">
                                   SOLD OUT
                                 </span>
                               )}
@@ -767,7 +767,7 @@ const MainContent: React.FC = () => {
                                   AFRO’S PAELLA
                                 </h3>
                                 {isPaellaOut && (
-                                  <span className="px-2.5 py-1 bg-[#FFD100] text-black font-black font-black-grotesque text-xs uppercase tracking-wider">
+                                  <span className="px-2.5 py-1 bg-[#FFD100] text-black font-black font-black-grotesque text-xs uppercase tracking-wider rounded-[3px] border border-black/20 shadow-xs">
                                     SOLD OUT
                                   </span>
                                 )}

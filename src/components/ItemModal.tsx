@@ -232,7 +232,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                 <span className="text-[11px] font-bold text-[#FFD100] uppercase">Included</span>
               </div>
 
-              <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+              <div className={`grid gap-2 sm:gap-2.5 ${availableSides.length >= 3 ? 'grid-cols-3' : availableSides.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
                 {availableSides.map((side) => {
                   const isSelected = selectedSide === side;
                   return (
@@ -240,13 +240,18 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
                       key={side}
                       type="button"
                       onClick={() => setSelectedSide(side)}
-                      className={`py-2.5 sm:py-3 px-3 rounded-xl border text-center transition-all cursor-pointer font-black text-xs sm:text-sm whitespace-nowrap ${
+                      className={`py-2.5 sm:py-3 px-1.5 sm:px-3 rounded-xl border text-center transition-all cursor-pointer font-black whitespace-nowrap flex flex-col items-center justify-center min-h-[48px] sm:min-h-[52px] ${
                         isSelected
                           ? 'bg-[#FFD100] border-2 border-black text-black shadow-xs'
                           : 'bg-zinc-100 hover:bg-zinc-200/70 border-zinc-300 text-black'
                       }`}
                     >
-                      <div>{side}</div>
+                      <div className="font-black text-xs sm:text-sm leading-tight">{side}</div>
+                      {side === '50/50' && (
+                        <div className="text-[9px] sm:text-[10px] font-bold text-zinc-600 leading-none mt-0.5">
+                          Chips &amp; Slaw
+                        </div>
+                      )}
                     </button>
                   );
                 })}

@@ -1,6 +1,7 @@
 export const SIDES_LIST = [
   'Chips',
   'Coleslaw',
+  '50/50',
 ];
 
 import { MenuCategory, MenuItem, Flavour } from '../types';
@@ -140,7 +141,7 @@ export const MENU_ITEMS: MenuItem[] = [
     popular: true,
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
     badge: 'Legendary',
   },
   {
@@ -153,7 +154,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: getCdnUrl('/assets/afros/images/strips-regular-with-chips-coleslaw.webp'),
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
   },
   {
     id: 'afros-paella',
@@ -180,7 +181,7 @@ export const MENU_ITEMS: MenuItem[] = [
     popular: true,
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
     badge: '#1 Best Seller',
   },
   {
@@ -193,7 +194,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: getCdnUrl('/assets/afros/images/cheese-burger.webp'),
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
   },
   {
     id: 'afros-bacon-burger',
@@ -205,7 +206,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: getCdnUrl('/assets/afros/images/bacon-burger.webp'),
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
   },
   {
     id: 'afros-bacon-avo-burger',
@@ -217,7 +218,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: getCdnUrl('/assets/afros/images/bacon-and-avo-burger.webp'),
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
     badge: 'Signature',
   },
   {
@@ -230,7 +231,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: getCdnUrl('/assets/afros/images/double-up-burger.webp'),
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
     badge: 'Big Eater',
   },
 
@@ -246,7 +247,7 @@ export const MENU_ITEMS: MenuItem[] = [
     popular: true,
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
     badge: 'Popular',
   },
   {
@@ -259,7 +260,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: getCdnUrl('/assets/afros/images/avo-wrap.webp'),
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
   },
   {
     id: 'afros-bacon-wrap',
@@ -271,7 +272,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: getCdnUrl('/assets/afros/images/bacon-wrap.webp'),
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
   },
   {
     id: 'afros-bacon-avo-wrap',
@@ -283,7 +284,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: getCdnUrl('/assets/afros/images/bacon-and-avo-wrap.webp'),
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
     badge: 'Top Pick',
   },
   {
@@ -310,7 +311,7 @@ export const MENU_ITEMS: MenuItem[] = [
     popular: true,
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
   },
   {
     id: 'afros-quarter-chicken-meal',
@@ -322,7 +323,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: getCdnUrl('/assets/afros/images/1-4-chicken-meal.webp'),
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
   },
   {
     id: 'afros-half-chicken-chips',
@@ -335,7 +336,7 @@ export const MENU_ITEMS: MenuItem[] = [
     popular: true,
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
   },
   {
     id: 'afros-half-chicken-chips-slaw-roll',
@@ -359,7 +360,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: getCdnUrl('/assets/afros/images/1-2-chicken-with-chips-and-coleslaw.webp'),
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
   },
   {
     id: 'afros-whole-chicken',
@@ -396,7 +397,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: getCdnUrl('/assets/afros/images/schnitzel-b_7j0cu_optimized.webp'),
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
   },
   {
     id: 'afros-schnitzel-double',
@@ -408,7 +409,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: getCdnUrl('/assets/afros/images/schnitzel-double-b_ci3xrk_optimized.webp'),
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
     badge: 'Double Fillet',
   },
 
@@ -434,7 +435,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: getCdnUrl('/assets/afros/images/pulled-chicken-sandwich.webp'),
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
   },
   {
     id: 'afros-loaded-chips',
@@ -457,7 +458,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: getCdnUrl('/assets/afros/images/afros-pops-small.webp'),
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
   },
   {
     id: 'afros-pops-large',
@@ -470,7 +471,7 @@ export const MENU_ITEMS: MenuItem[] = [
     popular: true,
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
     badge: 'Top Pick',
   },
   {
@@ -531,7 +532,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: getCdnUrl('/assets/afros/images/bacon-and-egg-roll.webp'),
     popular: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
   },
   {
     id: 'afros-regmakker',
@@ -544,7 +545,7 @@ export const MENU_ITEMS: MenuItem[] = [
     popular: true,
     hasFlavourChoice: true,
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
     badge: 'Legendary',
   },
   {
@@ -556,7 +557,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 89.00,
     image: getCdnUrl('/assets/afros/images/babalas-wrap.webp'),
     includesSide: true,
-    sideOptions: ['Chips', 'Coleslaw'],
+    sideOptions: SIDES_LIST,
     badge: 'NEW',
   },
 

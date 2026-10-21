@@ -200,7 +200,7 @@ export function initiatePayFastCheckout(payload: CheckoutPayload, options?: { is
 
   // PayFast requires an email address. Use customer phone or fallback if not entered
   const emailPhoneTag = sanitizedCell || (payload.customer.phone || '').replace(/\D/g, '') || 'orders';
-  const email = `${emailPhoneTag}@afroschicken.co.za`;
+  const email = payload.customer.email?.trim() || `${emailPhoneTag}@afroschicken-hillcrest.co.za`;
 
   const fields: Record<string, string | undefined> = {
     merchant_id: merchantId,

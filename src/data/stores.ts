@@ -35,5 +35,7 @@ export const SOCIAL_LINKS = {
   instagram: 'https://www.instagram.com/afroschicken',
   whatsappDirect: 'https://wa.me/27789057975',
   phoneDirect: 'tel:0789057975',
-  emailInfo: 'mailto:info@afroschicken.co.za',
+  emailInfo: 'mailto:info@afroschicken-hillcrest.co.za',
+  emailOrders: 'mailto:orders@afroschicken-hillcrest.co.za',
+  emailNonto: 'mailto:nonto@afroschicken-hillcrest.co.za',
 };

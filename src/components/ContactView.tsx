@@ -115,7 +115,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, onOpenStor
     setErrorMessage('');
 
     try {
-      // 1. Primary: Direct Serverless Function to info@afroschicken.co.za
+      // 1. Primary: Direct Serverless Function to info@afroschicken-hillcrest.co.za
       let sentSuccessfully = false;
       try {
         const primaryRes = await fetch('/api/send-contact-email', {
@@ -143,7 +143,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, onOpenStor
       }
 
       // 2. Backup Fallback: FormSubmit AJAX service
-      const response = await fetch('https://formsubmit.co/ajax/info@afroschicken.co.za', {
+      const response = await fetch('https://formsubmit.co/ajax/info@afroschicken-hillcrest.co.za', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -172,7 +172,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, onOpenStor
     } catch {
       // 3. Fallback: Graceful direct mailto
       try {
-        const mailtoUrl = `mailto:info@afroschicken.co.za?subject=${encodeURIComponent(
+        const mailtoUrl = `mailto:info@afroschicken-hillcrest.co.za?subject=${encodeURIComponent(
           `Afro's Chicken Hillcrest Inquiry from ${formData.firstName} ${formData.lastName}`
         )}&body=${encodeURIComponent(
           `Title: ${formData.title}\nName: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\nPhone: ${formData.telephone}\n\nMessage:\n${formData.message}`
@@ -182,7 +182,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, onOpenStor
         setFormData(INITIAL_FORM);
       } catch {
         setStatus('error');
-        setErrorMessage('Unable to send at this moment. Please email info@afroschicken.co.za or call/WhatsApp us at 078 905 7975.');
+        setErrorMessage('Unable to send at this moment. Please email info@afroschicken-hillcrest.co.za or call/WhatsApp us at 078 905 7975.');
       }
     }
   };
@@ -302,7 +302,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, onOpenStor
 
             {/* Card 3: Email */}
             <a
-              href="mailto:info@afroschicken.co.za"
+              href="mailto:info@afroschicken-hillcrest.co.za"
               className="p-6 rounded-3xl bg-zinc-100 border border-zinc-300 shadow-sm hover:shadow-xl hover:border-[#FFD100] transition-all duration-300 flex flex-col justify-between group"
             >
               <div className="space-y-4">
@@ -312,7 +312,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, onOpenStor
                 <div>
                   <div className="text-xs font-black uppercase tracking-wider text-zinc-500">General Enquiries</div>
                   <div className="text-xl font-bold font-bold-grotesque text-zinc-900 group-hover:text-black mt-1 truncate">
-                    info@afroschicken.co.za
+                    info@afroschicken-hillcrest.co.za
                   </div>
                   <p className="text-xs text-zinc-600 mt-1.5 leading-relaxed">
                     Catering bookings, customer feedback &amp; corporate feeds.

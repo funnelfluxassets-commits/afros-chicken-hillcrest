@@ -243,7 +243,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, initialTab = 'pr
                   </div>
                   <div className="flex items-center gap-2">
                     <Mail className="w-3.5 h-3.5 text-[#FFD100] shrink-0" />
-                    <span className="break-all">Email: info@afroschicken.co.za</span>
+                    <span className="break-all">Email: info@afroschicken-hillcrest.co.za</span>
                   </div>
                 </div>
               </section>
@@ -483,7 +483,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, initialTab = 'pr
                   <div><strong className="text-white">Physical Store Address:</strong> Shop 5, The Junction, 5 Inanda Road, Hillcrest, 3650, KwaZulu-Natal, South Africa</div>
                   <div><strong className="text-white">Order &amp; Customer Care Line:</strong> 078 905 7975</div>
                   <div><strong className="text-white">WhatsApp Support &amp; Dispatch:</strong> +27 78 905 7975</div>
-                  <div><strong className="text-white">Customer Service Email:</strong> info@afroschicken.co.za</div>
+                  <div><strong className="text-white">Customer Service Email:</strong> info@afroschicken-hillcrest.co.za / orders@afroschicken-hillcrest.co.za</div>
                   <div><strong className="text-white">Trading Hours:</strong> Monday – Sunday: 10:00 AM – 8:00 PM</div>
                 </div>
               </section>

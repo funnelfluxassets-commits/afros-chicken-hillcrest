@@ -61,9 +61,9 @@ export async function saveReviewDrawEntry(
     }
   }
 
-  // 3. Email notification via FormSubmit AJAX to info@afroschicken.co.za
+  // 3. Email notification via FormSubmit AJAX to info@afroschicken-hillcrest.co.za
   try {
-    fetch('https://formsubmit.co/ajax/info@afroschicken.co.za', {
+    fetch('https://formsubmit.co/ajax/info@afroschicken-hillcrest.co.za', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

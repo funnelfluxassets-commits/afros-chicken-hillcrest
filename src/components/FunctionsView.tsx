@@ -27,6 +27,29 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
+
+    try {
+      fetch('https://formsubmit.co/ajax/nonto@afroschicken-hillcrest.co.za', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          'Status Notice': '🍗 New Afro’s Hillcrest Functions & Catering Inquiry',
+          'Customer Name': formData.name,
+          'Phone / WhatsApp': formData.phone,
+          'Customer Email': formData.email || 'Not provided',
+          'Event Date': formData.date,
+          'Estimated Guests': formData.guestCount,
+          'Event Type': formData.eventType,
+          'Special Requests / Notes': formData.notes || 'None',
+          _subject: `🍗 [AFRO'S FUNCTIONS] Catering Booking: ${formData.name} (${formData.eventType} on ${formData.date})`,
+          _template: 'table',
+          _captcha: 'false',
+        }),
+      }).catch((err) => console.warn('Functions FormSubmit notice:', err));
+    } catch {}
   };
 
   const handleWhatsAppChat = () => {
@@ -97,10 +120,10 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
             <p>
               For your next function chat to us:{' '}
               <a
-                href="mailto:nontonzama@afroschicken.co.za"
+                href="mailto:nonto@afroschicken-hillcrest.co.za"
                 className="text-[#E53E3E] hover:underline font-bold"
               >
-                nontonzama@afroschicken.co.za
+                nonto@afroschicken-hillcrest.co.za
               </a>{' '}
               or{' '}
               <a

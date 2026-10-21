@@ -1049,7 +1049,7 @@ export async function createLiveOrder(payload: CheckoutPayload): Promise<LiveOrd
   // Auto-sync to Google Sheets webhook if configured
   sendOrderToGoogleSheets(newOrder).catch((e) => console.warn('Google Sheets auto-sync notice:', e));
 
-  // Auto-send instant email notification to orders@afroschicken.co.za
+  // Auto-send instant email notification to orders@afroschicken-hillcrest.co.za
   sendOrderEmailNotification(newOrder).catch((e) => console.warn('Order email notification notice:', e));
 
   // Broadcast to cloud so Kitchen display on PC/counter tablet receives immediately!
@@ -1432,7 +1432,7 @@ export async function sendOrderToGoogleSheets(order: LiveOrder): Promise<boolean
 }
 
 /**
- * Sends an automated, beautifully formatted email order ticket directly to orders@afroschicken.co.za
+ * Sends an automated, beautifully formatted email order ticket directly to orders@afroschicken-hillcrest.co.za
  * First attempts to dispatch via direct Hostinger SMTP serverless function (/api/send-order-email).
  * If unavailable, smoothly falls back to FormSubmit AJAX service as backup.
  */
@@ -1499,14 +1499,14 @@ export async function sendOrderEmailNotification(order: LiveOrder): Promise<bool
           }${order.customer?.gateCode ? ` [Gate: ${order.customer.gateCode}]` : ''}`
         : 'Store Collection (Shop 5, The Junction, Hillcrest)';
 
-    const response = await fetch('https://formsubmit.co/ajax/orders@afroschicken.co.za', {
+    const response = await fetch('https://formsubmit.co/ajax/orders@afroschicken-hillcrest.co.za', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
       body: JSON.stringify({
-        'Status Notice': '🍗 Someone just submitted their order on afroschicken.co.za',
+        'Status Notice': '🍗 Someone just submitted their order on afroschicken-hillcrest.co.za',
         'Order Number': order.orderId,
         'Order Type': modeLabel,
         'Customer Name': order.customer?.customerName || 'Customer',
@@ -1523,7 +1523,7 @@ export async function sendOrderEmailNotification(order: LiveOrder): Promise<bool
         'Tip': `R${(order.tip || 0).toFixed(2)}`,
         'Grand Total': `R${(order.grandTotal || 0).toFixed(2)}`,
         'Order Placed At': order.createdAt || new Date().toLocaleString('en-ZA'),
-        _subject: `🌯 [NEW ORDER] #${order.orderId} - ${
+        _subject: `🍗 [NEW AFRO'S ORDER] #${order.orderId} - ${
           order.orderMode === 'collection' ? 'COLLECTION' : 'DELIVERY'
         } - ${order.customer?.customerName || 'Customer'} (R${(order.grandTotal || 0).toFixed(2)})`,
         _template: 'table',

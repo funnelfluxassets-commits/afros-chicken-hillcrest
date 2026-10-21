@@ -161,8 +161,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
 
               <div className="flex items-center gap-2.5 pt-1">
                 <Mail className="w-4 h-4 text-[#FFD100] shrink-0" />
-                <a href="mailto:info@afroschicken.co.za" className="text-zinc-300 hover:text-white font-medium">
-                  info@afroschicken.co.za
+                <a href="mailto:info@afroschicken-hillcrest.co.za" className="text-zinc-300 hover:text-white font-medium">
+                  info@afroschicken-hillcrest.co.za
                 </a>
               </div>
             </div>

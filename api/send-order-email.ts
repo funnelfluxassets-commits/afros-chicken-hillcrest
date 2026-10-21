@@ -22,7 +22,7 @@ export default async function handler(req: any, res: any) {
   // Read environment variables INSIDE handler execution
   const host = process.env.SMTP_HOST || process.env.VITE_SMTP_HOST || 'smtp.hostinger.com';
   const port = Number(process.env.SMTP_PORT || process.env.VITE_SMTP_PORT || 465);
-  const user = process.env.SMTP_USER || process.env.VITE_SMTP_USER || 'orders@wrapandwings.co.za';
+  const user = process.env.SMTP_USER || process.env.VITE_SMTP_USER || 'orders@afroschicken-hillcrest.co.za';
   let pass =
     process.env.SMTP_PASS ||
     process.env.SMTP_PASSWORD ||
@@ -417,14 +417,14 @@ export default async function handler(req: any, res: any) {
       },
     });
 
-    const subject = `🌯 [NEW ORDER] #${orderId} - ${
+    const subject = `🍗 [NEW AFRO'S ORDER] #${orderId} - ${
       order.orderMode === 'collection' ? 'COLLECTION' : 'DELIVERY'
     } - ${customerName} (${grandTotal})`;
 
     await transporter.sendMail({
-      from: `"Wrap & Wings Co Orders" <${user}>`,
-      to: 'orders@wrapandwings.co.za',
-      replyTo: order.customer?.email || 'info@wrapandwings.co.za',
+      from: `"Afro's Chicken Hillcrest" <${user}>`,
+      to: 'orders@afroschicken-hillcrest.co.za',
+      replyTo: order.customer?.email || 'info@afroschicken-hillcrest.co.za',
       subject,
       html: htmlContent,
     });

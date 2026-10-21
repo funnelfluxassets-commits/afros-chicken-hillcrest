@@ -22,7 +22,7 @@ export default async function handler(req: any, res: any) {
   // Read environment variables INSIDE handler execution
   const host = process.env.SMTP_HOST || process.env.VITE_SMTP_HOST || 'smtp.hostinger.com';
   const port = Number(process.env.SMTP_PORT || process.env.VITE_SMTP_PORT || 465);
-  const user = process.env.SMTP_USER || process.env.VITE_SMTP_USER || 'orders@wrapandwings.co.za';
+  const user = process.env.SMTP_USER || process.env.VITE_SMTP_USER || 'info@afroschicken-hillcrest.co.za';
   let pass =
     process.env.SMTP_PASS ||
     process.env.SMTP_PASSWORD ||
@@ -236,7 +236,7 @@ export default async function handler(req: any, res: any) {
 
     await transporter.sendMail({
       from: `"Afro's Chicken Hillcrest" <${user}>`,
-      to: 'info@afroschicken.co.za',
+      to: 'info@afroschicken-hillcrest.co.za',
       replyTo: email,
       subject,
       html: htmlContent,

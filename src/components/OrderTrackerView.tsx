@@ -421,17 +421,26 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
       {/* Main Content Container */}
       <main className="max-w-3xl w-full mx-auto p-4 sm:p-6 space-y-6">
         
-        {/* Real-Time Kitchen Update Toast Alert */}
+        {/* Real-Time Kitchen Update Toast Alert - Afro's Brand Style */}
         {toastMessage && (
-          <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-600 to-red-600 text-black font-extrabold text-xs sm:text-sm shadow-2xl flex items-center justify-between gap-3 animate-slideDown border border-amber-300/40">
-            <div className="flex items-center gap-2.5">
-              <span className="text-xl animate-bounce">🔔</span>
-              <span>{toastMessage}</span>
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-white border-2 border-[#FFD100] shadow-xl flex items-center justify-between gap-3 animate-slideDown">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#FFD100] flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-sm border border-amber-300">
+                🔔
+              </div>
+              <div className="min-w-0">
+                <div className="text-[10px] font-black uppercase tracking-wider text-amber-700">
+                  Kitchen Update
+                </div>
+                <div className="text-xs sm:text-sm font-black text-zinc-950 leading-snug">
+                  {toastMessage}
+                </div>
+              </div>
             </div>
             <button
               type="button"
               onClick={() => setToastMessage(null)}
-              className="px-2 py-1 rounded-lg bg-black/40 hover:bg-black/60 text-black text-xs cursor-pointer font-bold"
+              className="px-3.5 py-1.5 rounded-xl bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-black uppercase tracking-wider cursor-pointer shrink-0 shadow-sm transition-all"
             >
               Dismiss
             </button>
@@ -751,66 +760,107 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
           )}
         </div>
 
-        {/* Items Ordered Card */}
-        <div className="p-5 sm:p-6 rounded-3xl bg-white border border-zinc-200 space-y-3">
-          <h3 className="text-xs font-black uppercase tracking-wider text-zinc-700">
-            Your Meal ({items.length} items)
-          </h3>
+        {/* Items Ordered Card - High Visibility & Contrast Afro's Style */}
+        <div className="p-5 sm:p-6 rounded-3xl bg-white border border-zinc-200 shadow-sm space-y-4">
+          <div className="flex items-center justify-between pb-1 border-b border-zinc-100">
+            <h3 className="text-xs font-black uppercase tracking-wider text-zinc-500">
+              Your Meal ({items.length} {items.length === 1 ? 'item' : 'items'})
+            </h3>
+            <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wide">
+              Freshly Grilled
+            </span>
+          </div>
 
-          <div className="space-y-2">
-            {items.map((item, idx) => (
-              <div
-                key={idx}
-                className="p-3.5 rounded-2xl bg-zinc-50/80 border border-zinc-200 flex items-start justify-between text-xs"
-              >
-                <div>
-                  <span className="font-extrabold text-black text-sm">
-                    {item.quantity || 1}x {item.menuItem?.name || 'Meal'}
-                  </span>
-                  <div className="text-[11px] text-zinc-700 mt-1 space-y-0.5">
-                    {item.customization?.flavour && (
-                      <div className="text-[#FFD100] font-bold capitalize">
-                        Baste: {item.customization.flavour}
+          <div className="space-y-3">
+            {items.map((item, idx) => {
+              const qty = item.quantity || 1;
+              const rawPrice = typeof item.itemTotal === 'number'
+                ? item.itemTotal
+                : (item.menuItem?.price ? item.menuItem.price * qty : 0);
+              const safePrice = typeof rawPrice === 'number' && !isNaN(rawPrice) ? rawPrice : 0;
+
+              return (
+                <div
+                  key={idx}
+                  className="p-4 rounded-2xl bg-zinc-50/90 border border-zinc-200/90 flex flex-col sm:flex-row sm:items-start justify-between gap-3 text-sm"
+                >
+                  <div className="space-y-2 flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="px-2.5 py-0.5 rounded-lg bg-[#FFD100] text-zinc-950 font-black text-xs shrink-0 shadow-sm">
+                        {qty}x
+                      </span>
+                      <span className="font-black text-zinc-950 text-base sm:text-lg tracking-tight">
+                        {item.menuItem?.name || 'Meal'}
+                      </span>
+                    </div>
+
+                    {/* Baste & Side Badges */}
+                    <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                      {item.customization?.flavour && (
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-amber-100/90 border border-amber-300 text-amber-950 text-xs font-black uppercase tracking-wide shadow-sm">
+                          <span>🔥 BASTE:</span>
+                          <span>{item.customization.flavour}</span>
+                        </span>
+                      )}
+                      {item.customization?.side && (
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-zinc-200/80 border border-zinc-300 text-zinc-900 text-xs font-black shadow-sm">
+                          <span>🍟 SIDE:</span>
+                          <span>{item.customization.side}</span>
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Extras in High-Contrast Dark Text */}
+                    {Array.isArray(item.customization?.extras) && item.customization.extras.length > 0 && (
+                      <div className="pt-1 space-y-1">
+                        {item.customization.extras.map((e) => (
+                          <div key={e.name} className="text-xs sm:text-sm font-bold text-zinc-800 flex items-center gap-1.5">
+                            <span className="text-amber-600 font-black text-sm">+</span>
+                            <span>{e.name}</span>
+                          </div>
+                        ))}
                       </div>
                     )}
-                    {item.customization?.side && <div>Side: {item.customization.side}</div>}
-                    {Array.isArray(item.customization?.extras) &&
-                      item.customization.extras.map((e) => (
-                        <div key={e.name} className="text-amber-300">+ {e.name}</div>
-                      ))}
+
+                    {/* Order Notes */}
                     {item.customization?.notes && (
-                      <div className="italic text-zinc-700">"{item.customization.notes}"</div>
+                      <div className="text-xs italic text-zinc-700 bg-amber-50 p-2 rounded-xl border border-amber-200/70 mt-1">
+                        "{item.customization.notes}"
+                      </div>
                     )}
                   </div>
+
+                  <div className="sm:text-right shrink-0">
+                    <span className="font-black text-zinc-950 text-base sm:text-lg">
+                      R{safePrice.toFixed(2)}
+                    </span>
+                  </div>
                 </div>
-                <span className="font-black text-amber-400 text-sm">
-                  R{(typeof item.itemTotal === 'number' ? item.itemTotal : 0).toFixed(2)}
-                </span>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Pricing Totals */}
-          <div className="pt-3 border-t border-zinc-200 space-y-1.5 text-xs text-zinc-700">
+          <div className="pt-4 border-t border-zinc-200 space-y-2 text-xs sm:text-sm text-zinc-700">
             <div className="flex justify-between">
-              <span>Subtotal</span>
-              <span className="text-black font-bold">R{(typeof subtotal === 'number' ? subtotal : 0).toFixed(2)}</span>
+              <span className="font-medium text-zinc-600">Subtotal</span>
+              <span className="text-zinc-950 font-bold">R{(typeof subtotal === 'number' ? subtotal : 0).toFixed(2)}</span>
             </div>
             {isDelivery && (
               <div className="flex justify-between">
-                <span>Delivery Fee</span>
-                <span className="text-black font-bold">R{(typeof deliveryFee === 'number' ? deliveryFee : 0).toFixed(2)}</span>
+                <span className="font-medium text-zinc-600">Delivery Fee</span>
+                <span className="text-zinc-950 font-bold">R{(typeof deliveryFee === 'number' ? deliveryFee : 0).toFixed(2)}</span>
               </div>
             )}
             {isDelivery && typeof order.tip === 'number' && order.tip > 0 && (
-              <div className="flex justify-between text-amber-700 font-bold">
+              <div className="flex justify-between text-amber-800 font-bold">
                 <span>Driver Tip</span>
                 <span>+R{(typeof order.tip === 'number' ? order.tip : 0).toFixed(2)}</span>
               </div>
             )}
-            <div className="flex justify-between text-base font-black text-black pt-2 border-t border-zinc-200">
+            <div className="flex justify-between text-base sm:text-lg font-black text-zinc-950 pt-2.5 border-t border-zinc-200">
               <span>Total Amount</span>
-              <span className="text-amber-600 text-lg">R{(typeof grandTotal === 'number' ? grandTotal : 0).toFixed(2)}</span>
+              <span className="text-zinc-950 text-xl font-black">R{(typeof grandTotal === 'number' ? grandTotal : 0).toFixed(2)}</span>
             </div>
           </div>
         </div>

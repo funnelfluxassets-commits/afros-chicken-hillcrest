@@ -109,11 +109,6 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
             Our gazebo set up is perfect for big &amp; small events or functions at your home or office.
           </p>
 
-          {/* Paragraph 3 */}
-          <p className="text-lg sm:text-xl md:text-[22px] lg:text-[24px] leading-relaxed text-zinc-900">
-            See us at the <strong className="font-bold text-black">Shark Tank</strong> and{' '}
-            <strong className="font-bold text-black">Kingsmead Cricket Grounds</strong>.
-          </p>
 
           {/* Paragraph 4 - Direct Contact Callout */}
           <div className="pt-2 text-lg sm:text-xl md:text-[22px] lg:text-[24px] leading-relaxed text-zinc-900">

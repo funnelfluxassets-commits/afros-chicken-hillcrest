@@ -188,43 +188,58 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate, onOpenS
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
+        {/* Bottom Bar with POPIA, Terms & Refund Links */}
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+          <div className="flex flex-col md:flex-row items-center gap-2.5 md:gap-4 text-center md:text-left">
             <div>© {new Date().getFullYear()} Afro's Chicken Shop (Hillcrest). All Rights Reserved.</div>
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={() => onOpenLegal('privacy')}
-                className="text-zinc-400 hover:text-white transition-colors underline-offset-4 hover:underline cursor-pointer"
-              >
-                Privacy Policy (POPIA)
-              </button>
-              <span>•</span>
-              <button
-                type="button"
-                onClick={() => onOpenLegal('terms')}
-                className="text-zinc-400 hover:text-white transition-colors underline-offset-4 hover:underline cursor-pointer"
-              >
-                Terms of Service
-              </button>
-              {onOpenStaffLogin && (
-                <>
-                  <span>•</span>
-                  <button
-                    type="button"
-                    onClick={onOpenStaffLogin}
-                    className="text-zinc-500 hover:text-[#FFD100] transition-colors cursor-pointer flex items-center gap-1 font-semibold"
-                    title="Staff Portal (Kitchen, Driver &amp; Admin Access)"
-                  >
-                    <span>🔒 Staff Portal</span>
-                  </button>
-                </>
-              )}
+
+            {/* Legal links: clean balanced 2-row layout on mobile, seamless single row on desktop */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-zinc-400">
+              <div className="flex items-center gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => onOpenLegal('privacy')}
+                  className="hover:text-white transition-colors underline-offset-4 hover:underline cursor-pointer"
+                >
+                  Privacy Policy (POPIA)
+                </button>
+                <span className="text-zinc-600">•</span>
+                <button
+                  type="button"
+                  onClick={() => onOpenLegal('terms')}
+                  className="hover:text-white transition-colors underline-offset-4 hover:underline cursor-pointer"
+                >
+                  Terms of Service
+                </button>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <span className="hidden sm:inline text-zinc-600">•</span>
+                <button
+                  type="button"
+                  onClick={() => onOpenLegal('refunds')}
+                  className="hover:text-white transition-colors underline-offset-4 hover:underline cursor-pointer"
+                >
+                  Refund &amp; Cancellation Policy
+                </button>
+                {onOpenStaffLogin && (
+                  <>
+                    <span className="text-zinc-600">•</span>
+                    <button
+                      type="button"
+                      onClick={onOpenStaffLogin}
+                      className="text-zinc-500 hover:text-[#FFD100] transition-colors cursor-pointer flex items-center gap-1 font-semibold"
+                      title="Staff Portal (Kitchen, Driver &amp; Admin Access)"
+                    >
+                      <span>🔒 Staff Portal</span>
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-1 font-bold">
+          <div className="flex items-center gap-1 font-bold pt-1 md:pt-0">
             <span>Proudly Local</span>
             <Heart className="w-3.5 h-3.5 text-[#FFD100] fill-[#FFD100]" />
             <span>Durban Beachfront Heritage</span>

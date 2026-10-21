@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { X, ShieldCheck, FileText, Lock, Scale, Phone, Mail, MapPin, CheckCircle2 } from 'lucide-react';
+import { X, ShieldCheck, FileText, Lock, Scale, RotateCcw, Phone, Mail, MapPin, CheckCircle2 } from 'lucide-react';
 import { STORES } from '../data/stores';
 
-export type LegalTab = 'privacy' | 'terms';
+export type LegalTab = 'privacy' | 'terms' | 'refunds';
 
 interface LegalModalProps {
   isOpen: boolean;
@@ -43,11 +43,15 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, initialTab = 'pr
         <div className="p-3.5 sm:p-5 bg-zinc-950 border-b border-white/10 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
             <div className="p-2 rounded-xl bg-[#FFD100]/10 text-[#FFD100] border border-[#FFD100]/20 shrink-0">
-              {activeTab === 'privacy' ? <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5" /> : <Scale className="w-4 h-4 sm:w-5 sm:h-5" />}
+              {activeTab === 'privacy' && <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5" />}
+              {activeTab === 'terms' && <Scale className="w-4 h-4 sm:w-5 sm:h-5" />}
+              {activeTab === 'refunds' && <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />}
             </div>
             <div className="min-w-0">
               <h2 className="text-sm sm:text-lg font-black text-white font-black-grotesque uppercase tracking-wide truncate">
-                {activeTab === 'privacy' ? 'Privacy Policy (POPIA)' : 'Terms of Service'}
+                {activeTab === 'privacy' && 'Privacy Policy (POPIA)'}
+                {activeTab === 'terms' && 'Terms of Service'}
+                {activeTab === 'refunds' && 'Refund & Cancellation Policy'}
               </h2>
               <p className="text-[11px] sm:text-xs text-zinc-400 font-semibold truncate">
                 Afro's Chicken Shop (Hillcrest) • South Africa
@@ -65,33 +69,46 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, initialTab = 'pr
           </button>
         </div>
 
-        {/* Tab Switcher - 2-Column Grid that perfectly fits within mobile device borders without horizontal overflow */}
-        <div className="px-3 sm:px-6 pt-2 sm:pt-3 bg-zinc-950/70 border-b border-white/5 shrink-0">
-          <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
+        {/* Tab Switcher - Horizontal scroll on small mobile, clean grid on desktop */}
+        <div className="px-3 sm:px-6 pt-2 sm:pt-3 bg-zinc-950/70 border-b border-white/5 shrink-0 overflow-x-auto">
+          <div className="flex sm:grid sm:grid-cols-3 gap-1.5 sm:gap-2 whitespace-nowrap">
             <button
               type="button"
               onClick={() => setActiveTab('privacy')}
-              className={`pb-2.5 sm:pb-3 px-2 sm:px-3 text-xs sm:text-sm font-bold border-b-2 transition-all cursor-pointer flex items-center justify-center gap-1.5 text-center ${
+              className={`pb-2.5 sm:pb-3 px-2.5 sm:px-3 text-xs sm:text-sm font-bold border-b-2 transition-all cursor-pointer flex items-center justify-center gap-1.5 text-center ${
                 activeTab === 'privacy'
                   ? 'border-[#FFD100] text-[#FFD100]'
                   : 'border-transparent text-zinc-400 hover:text-zinc-200'
               }`}
             >
               <Lock className="w-3.5 h-3.5 shrink-0" />
-              <span className="truncate">Privacy Policy</span>
+              <span>Privacy Policy</span>
             </button>
 
             <button
               type="button"
               onClick={() => setActiveTab('terms')}
-              className={`pb-2.5 sm:pb-3 px-2 sm:px-3 text-xs sm:text-sm font-bold border-b-2 transition-all cursor-pointer flex items-center justify-center gap-1.5 text-center ${
+              className={`pb-2.5 sm:pb-3 px-2.5 sm:px-3 text-xs sm:text-sm font-bold border-b-2 transition-all cursor-pointer flex items-center justify-center gap-1.5 text-center ${
                 activeTab === 'terms'
                   ? 'border-[#FFD100] text-[#FFD100]'
                   : 'border-transparent text-zinc-400 hover:text-zinc-200'
               }`}
             >
               <FileText className="w-3.5 h-3.5 shrink-0" />
-              <span className="truncate">Terms of Service</span>
+              <span>Terms of Service</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab('refunds')}
+              className={`pb-2.5 sm:pb-3 px-2.5 sm:px-3 text-xs sm:text-sm font-bold border-b-2 transition-all cursor-pointer flex items-center justify-center gap-1.5 text-center ${
+                activeTab === 'refunds'
+                  ? 'border-[#FFD100] text-[#FFD100]'
+                  : 'border-transparent text-zinc-400 hover:text-zinc-200'
+              }`}
+            >
+              <RotateCcw className="w-3.5 h-3.5 shrink-0" />
+              <span>Refund &amp; Cancellation</span>
             </button>
           </div>
         </div>
@@ -337,6 +354,138 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, initialTab = 'pr
                 <p>
                   These Terms of Service are governed by and construed in accordance with the laws of the Republic of South Africa. Any disputes will be subject to the jurisdiction of the South African courts.
                 </p>
+              </section>
+            </div>
+          )}
+
+          {/* ─────────────────────────────────────────────────────────────────── */}
+          {/* TAB 3: REFUND & CANCELLATION POLICY                                */}
+          {/* ─────────────────────────────────────────────────────────────────── */}
+          {activeTab === 'refunds' && (
+            <div className="space-y-4 sm:space-y-6">
+              <div className="p-3.5 sm:p-4 rounded-2xl bg-zinc-900 border border-[#FFD100]/20 space-y-1.5">
+                <div className="text-xs font-black text-[#FFD100] uppercase tracking-wider flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 shrink-0" />
+                  <span>Consumer Protection Act (CPA) &amp; PayFast Compliant</span>
+                </div>
+                <p className="text-xs text-zinc-300 leading-normal">
+                  Last updated: October 2026. This Refund &amp; Cancellation Policy applies to all food orders, online transactions, collections, and deliveries placed with Afro's Chicken Shop (Hillcrest) via our website and secure payment gateway (PayFast).
+                </p>
+                <div className="text-[11px] text-zinc-500 pt-0.5">
+                  CPA Section 56 Compliant • PayFast Merchant Standards
+                </div>
+              </div>
+
+              <section className="space-y-2">
+                <h3 className="text-xs sm:text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">1.</span> Fresh Food &amp; Perishable Goods Nature
+                </h3>
+                <p>
+                  At Afro's Chicken Shop (Hillcrest), every meal is prepared fresh to order using steam-grilled never-frozen chicken, real hand-cut potato tjips, and signature lemon &amp; fire bastings. Because our menu consists of freshly cooked, perishable food items intended for immediate consumption, standard statutory cooling-off periods under Section 44 of the Electronic Communications and Transactions Act (ECTA) do not apply to customized prepared meals. However, we strictly honor your statutory consumer rights under the South African Consumer Protection Act (No. 68 of 2008).
+                </p>
+              </section>
+
+              <section className="space-y-2">
+                <h3 className="text-xs sm:text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">2.</span> Order Cancellation Policy
+                </h3>
+                <div className="space-y-3">
+                  <div className="p-3.5 rounded-xl bg-zinc-900 border border-white/5 space-y-1.5">
+                    <div className="font-bold text-white text-xs flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                      Before Kitchen Preparation Commences
+                    </div>
+                    <p className="text-xs text-zinc-300">
+                      You may cancel your order free of charge within <strong className="text-white">5 minutes</strong> of placing it, or at any time before our kitchen team has accepted and commenced grilling or preparing your meal. If cancelled before preparation begins, you will receive a <strong className="text-[#FFD100]">100% full refund</strong> back to your original payment method.
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-zinc-900 border border-white/5 space-y-1.5">
+                    <div className="font-bold text-white text-xs flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-amber-400" />
+                      After Kitchen Preparation Has Commenced
+                    </div>
+                    <p className="text-xs text-zinc-300">
+                      Once our grillmasters have accepted the order and started grilling, basting, or preparing your food, cancellations cannot be accepted as fresh ingredients and meals cannot be re-used or returned to stock.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <section className="space-y-2">
+                <h3 className="text-xs sm:text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">3.</span> Order Accuracy &amp; Quality Guarantee
+                </h3>
+                <p>
+                  We stand 100% behind the quality of our food. If your order falls short of our standards in any of the following circumstances, we will promptly make it right:
+                </p>
+                <ul className="list-disc pl-4 sm:pl-5 space-y-1.5 text-zinc-300">
+                  <li><strong className="text-zinc-100">Incorrect Item Received:</strong> If you received an item different from what was ordered (e.g., incorrect burger, wrong basting level, missing sauce, or wrong drink).</li>
+                  <li><strong className="text-zinc-100">Missing Items:</strong> If any paid item, side dish, sauce, or beverage was omitted from your sealed package.</li>
+                  <li><strong className="text-zinc-100">Quality or Food Safety Issues:</strong> In the rare event that food is undercooked, damaged during transit, or fails our freshness standards.</li>
+                </ul>
+                <p className="text-zinc-400 pt-1">
+                  Please notify our store team within <strong className="text-white">2 hours</strong> of receiving your order (or collection) by calling <strong className="text-[#FFD100]">078 905 7975</strong> or messaging our WhatsApp dispatch at <strong className="text-[#FFD100]">+27 78 905 7975</strong> with your Order ID and a photo of the affected item.
+                </p>
+              </section>
+
+              <section className="space-y-2">
+                <h3 className="text-xs sm:text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">4.</span> Resolution &amp; Remedy Options
+                </h3>
+                <p>
+                  Upon validating an order accuracy or food quality issue, customer satisfaction is our top priority. In accordance with the Consumer Protection Act, we offer:
+                </p>
+                <ul className="list-disc pl-4 sm:pl-5 space-y-1.5 text-zinc-300">
+                  <li><strong className="text-zinc-100">Immediate Replacement:</strong> Priority re-preparation and prompt dispatch/handover of the correct freshly grilled meal at no additional cost.</li>
+                  <li><strong className="text-zinc-100">Store Credit / Voucher:</strong> An instant digital coupon or store credit code equal to or greater than the value of the affected item for your next order.</li>
+                  <li><strong className="text-zinc-100">Monetary Refund:</strong> A full or partial refund of the purchase price (including the delivery fee if the entire order was unfulfilled or compromised).</li>
+                </ul>
+              </section>
+
+              <section className="space-y-2">
+                <h3 className="text-xs sm:text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">5.</span> Refund Processing via PayFast
+                </h3>
+                <p>
+                  All online payments (Visa, Mastercard, Instant EFT, Debit Card, and digital wallets) are securely processed by our authorized South African payment gateway partner, <strong className="text-white">PayFast (Pty) Ltd</strong>.
+                </p>
+                <ul className="list-disc pl-4 sm:pl-5 space-y-1.5 text-zinc-300">
+                  <li>Approved refunds are submitted directly through the <strong className="text-white">PayFast merchant portal</strong> back to the customer's <strong className="text-white">original payment method</strong>.</li>
+                  <li>Refund processing is initiated immediately by store management upon approval. Depending on your bank (Capitec, FNB, Standard Bank, Nedbank, Absa, Discovery, TymeBank), funds typically reflect within <strong className="text-white">3 to 7 business days</strong>.</li>
+                  <li>For security and compliance reasons, we never issue cash refunds for transactions completed online via PayFast.</li>
+                </ul>
+              </section>
+
+              <section className="space-y-2">
+                <h3 className="text-xs sm:text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">6.</span> Non-Refundable Circumstances
+                </h3>
+                <p>
+                  Refunds cannot be issued under the following circumstances:
+                </p>
+                <ul className="list-disc pl-4 sm:pl-5 space-y-1.5 text-zinc-300">
+                  <li>The customer provided an incorrect or incomplete delivery address, and the driver was unable to deliver after reasonable communication attempts.</li>
+                  <li>The customer was unreachable at the delivery destination, or failed to collect an order within 60 minutes of the ready-for-collection notice.</li>
+                  <li>Customer change of mind or personal taste preference after food has been prepared strictly according to the order placed.</li>
+                </ul>
+              </section>
+
+              <section className="space-y-2">
+                <h3 className="text-xs sm:text-sm font-black text-white uppercase tracking-wide flex items-center gap-2">
+                  <span className="text-[#FFD100]">7.</span> Contact Information for Cancellations &amp; Refunds
+                </h3>
+                <p>
+                  To request a cancellation, report an order issue, or follow up on a refund, please contact our management team:
+                </p>
+                <div className="p-3.5 sm:p-4 rounded-2xl bg-zinc-900/80 border border-white/5 space-y-1.5 text-xs text-zinc-300">
+                  <div><strong className="text-white">Business Name:</strong> Afro's Chicken Shop (Hillcrest)</div>
+                  <div><strong className="text-white">Physical Store Address:</strong> Shop 5, The Junction, 5 Inanda Road, Hillcrest, 3650, KwaZulu-Natal, South Africa</div>
+                  <div><strong className="text-white">Order &amp; Customer Care Line:</strong> 078 905 7975</div>
+                  <div><strong className="text-white">WhatsApp Support &amp; Dispatch:</strong> +27 78 905 7975</div>
+                  <div><strong className="text-white">Customer Service Email:</strong> info@afroschicken.co.za</div>
+                  <div><strong className="text-white">Trading Hours:</strong> Monday – Sunday: 10:00 AM – 8:00 PM</div>
+                </div>
               </section>
             </div>
           )}

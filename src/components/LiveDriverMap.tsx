@@ -19,22 +19,23 @@ interface LiveDriverMapProps {
   order: LiveOrder;
 }
 
-// Suburb GPS coordinates around Pinetown / Greater Durban
+// Suburb GPS coordinates around Hillcrest / Upper Highway / Greater Durban
 const SUBURB_COORDINATES: Record<string, [number, number]> = {
+  Hillcrest: [-29.7783, 30.7653],
+  Gillitts: [-29.790, 30.790],
+  Kloof: [-29.785, 30.825],
+  Waterfall: [-29.750, 30.810],
+  'Bothas Hill': [-29.752, 30.738],
+  'Winston Park': [-29.800, 30.800],
   Pinetown: [-29.825, 30.865],
   'New Germany': [-29.805, 30.875],
   Westville: [-29.833, 30.933],
   'Cowies Hill': [-29.83, 30.89],
-  Kloof: [-29.785, 30.825],
-  Sarnia: [-29.845, 30.865],
-  Moseley: [-29.849, 30.88],
-  Hatton: [-29.832, 30.855],
-  Cleremont: [-29.795, 30.895],
   Durban: [-29.858, 31.021],
 };
 
-// Shop 1, Uniland Centre, Pinetown
-const RESTAURANT_COORDS: [number, number] = [-29.8156, 30.8544];
+// Shop 5, The Junction, 5 Inanda Road, Hillcrest
+const RESTAURANT_COORDS: [number, number] = [-29.7783477, 30.7652685];
 
 export const LiveDriverMap: React.FC<LiveDriverMapProps> = ({ order }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -51,12 +52,12 @@ export const LiveDriverMap: React.FC<LiveDriverMapProps> = ({ order }) => {
   const customer = order.customer || {
     customerName: 'Customer',
     phone: '',
-    address: 'Pinetown',
+    address: 'Hillcrest',
     suburb: 'Hillcrest',
   };
   const suburbName = customer.suburb || 'Hillcrest';
   const destCoords: [number, number] =
-    SUBURB_COORDINATES[suburbName] || SUBURB_COORDINATES['Pinetown'];
+    SUBURB_COORDINATES[suburbName] || SUBURB_COORDINATES['Hillcrest'];
 
   // Interpolate route points between Shop and Customer
   const generateRoutePoints = (

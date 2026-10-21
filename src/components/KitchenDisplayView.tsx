@@ -749,7 +749,7 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
               const rawPhone = customer.phone || '';
               const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
               const address = customer.address || '';
-              const suburb = customer.suburb || 'Pinetown';
+              const suburb = customer.suburb || 'Hillcrest';
               const googleMapsUrl = generateGoogleMapsUrl(address, suburb);
               const items = Array.isArray(order.items) ? order.items : [];
               const grandTotal = typeof order.grandTotal === 'number' ? order.grandTotal : 0;

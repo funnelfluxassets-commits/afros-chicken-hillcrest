@@ -398,7 +398,7 @@ export const DeliveryDriverView: React.FC<DeliveryDriverViewProps> = ({
             {displayedOrders.map((order) => {
               const customer = order.customer || ({} as any);
               const address = customer.address || 'Address on file';
-              const suburb = customer.suburb || 'Pinetown';
+              const suburb = customer.suburb || 'Hillcrest';
               const cleanPhone = (customer.phone || '').replace(/[^0-9+]/g, '');
               const waNumber = cleanPhone.startsWith('0')
                 ? `27${cleanPhone.slice(1)}`

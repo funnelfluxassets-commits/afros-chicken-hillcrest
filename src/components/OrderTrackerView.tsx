@@ -222,15 +222,15 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
     customerName: 'Customer',
     phone: '',
     address: '',
-    suburb: 'Pinetown',
+    suburb: 'Hillcrest',
     complexOrUnit: '',
     gateCode: '',
     notes: '',
   };
   const store = order.store || {
-    name: 'Shop 5, The Junction, Hillcrest, Pinetown',
-    phone: '083 490 8593',
-    address: 'Shop 5, The Junction, Hillcrest, Pinetown',
+    name: "Afro's Chicken Shop — Hillcrest",
+    phone: '078 905 7975',
+    address: 'Shop 5, The Junction, 5 Inanda Road, Hillcrest',
     googleMapsUrl: 'https://maps.google.com/?q=The+Junction+5+Inanda+Road+Hillcrest+3650',
   };
   const items = Array.isArray(order.items) ? order.items : [];
@@ -540,7 +540,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
               </h2>
               <p className="text-xs sm:text-sm text-zinc-700 mt-1 max-w-md leading-relaxed">
                 {order.status === 'received' &&
-                  'Your order has been transmitted to the Pinetown kitchen. Standing by for staff to accept your ticket and begin grilling.'}
+                  'Your order has been transmitted to the Hillcrest kitchen. Standing by for staff to accept your ticket and begin grilling.'}
                 {order.status === 'cooking' &&
                   'The kitchen has accepted your ticket! Your chicken and meals are sizzling on the flame grill with your selected baste flavour.'}
                 {order.status === 'ready' &&
@@ -690,7 +690,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
               <div className="flex items-center gap-2 text-zinc-700">
                 <MapPin className="w-4 h-4 text-[#FFD100] shrink-0" />
                 <span className="font-semibold text-black">
-                  Delivery to: {customer.address ? `${customer.address}, ${customer.suburb || 'Pinetown'}` : (customer.suburb || 'Pinetown')}
+                  Delivery to: {customer.address ? `${customer.address}, ${customer.suburb || 'Hillcrest'}` : (customer.suburb || 'Hillcrest')}
                 </span>
               </div>
               <span className="text-[10px] font-bold text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded-md self-start sm:self-auto">
@@ -713,11 +713,11 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
           {!isDelivery ? (
             <div className="text-xs text-zinc-700 space-y-2">
               <div>
-                <div className="font-extrabold text-black text-base">Shop 5, The Junction, Hillcrest, Pinetown</div>
-                <div className="text-zinc-700 mt-0.5">Behind Hollywoodbets • Durban, KZN</div>
+                <div className="font-extrabold text-black text-base">Shop 5, The Junction, 5 Inanda Road, Hillcrest</div>
+                <div className="text-zinc-700 mt-0.5">The Junction Shopping Centre • Hillcrest, KZN</div>
               </div>
               <div className="text-[11px] text-emerald-400 font-bold">
-                ⏰ Open Monday – Sunday: 9:00 AM – 6:00 PM
+                ⏰ Open Monday – Sunday: 9:00 AM – 8:00 PM
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
@@ -748,7 +748,7 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
             <div className="text-xs text-zinc-700 space-y-1.5">
               <div>
                 <div className="font-extrabold text-black text-base">{customer.address || 'Address on file'}</div>
-                <div className="text-zinc-700">{customer.suburb || 'Pinetown'}, Durban</div>
+                <div className="text-zinc-700">{customer.suburb || 'Hillcrest'}, Durban</div>
               </div>
               {customer.complexOrUnit && (
                 <div className="text-amber-300 font-semibold">Unit: {customer.complexOrUnit}</div>

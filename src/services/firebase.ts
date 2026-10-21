@@ -10,6 +10,7 @@ import {
   query,
   orderBy,
   arrayUnion,
+  getDoc,
   Firestore
 } from 'firebase/firestore';
 import { LiveOrder, OrderStatus, OrderTimelineEvent } from '../types';
@@ -43,13 +44,25 @@ if (isFirebaseConfigured) {
 const ORDERS_COLLECTION = 'afros_orders';
 
 /**
+ * Helper to strip undefined values so Firestore setDoc never throws
+ */
+function sanitizeForFirestore<T>(data: T): T {
+  return JSON.parse(JSON.stringify(data));
+}
+
+/**
  * Save or create an order in Firestore
  */
 export async function saveOrderToFirestore(order: LiveOrder): Promise<void> {
   if (!db || !order || !order.orderId) return;
   try {
-    const docRef = doc(db, ORDERS_COLLECTION, order.orderId);
-    await setDoc(docRef, order, { merge: true });
+    const cleanDoc = sanitizeForFirestore(order);
+    const docId = String(order.orderId).replace('#', '').trim();
+    const docRef = doc(db, ORDERS_COLLECTION, docId);
+    await setDoc(docRef, cleanDoc, { merge: true });
+    if (order.orderId !== docId) {
+      await setDoc(doc(db, ORDERS_COLLECTION, order.orderId), cleanDoc, { merge: true });
+    }
   } catch (err) {
     console.error('Error saving order to Firestore:', err);
   }
@@ -67,10 +80,10 @@ export async function updateOrderStatusInFirestore(
 ): Promise<void> {
   if (!db || !orderId) return;
   try {
-    const docRef = doc(db, ORDERS_COLLECTION, orderId);
+    const docId = String(orderId).replace('#', '').trim();
     const updateData: Record<string, any> = { status: newStatus };
     if (timelineEvent) {
-      updateData.timeline = arrayUnion(timelineEvent);
+      updateData.timeline = arrayUnion(sanitizeForFirestore(timelineEvent));
     }
     if (cookingStartedAt) {
       updateData.cookingStartedAt = cookingStartedAt;
@@ -78,7 +91,11 @@ export async function updateOrderStatusInFirestore(
     if (completedAt) {
       updateData.completedAt = completedAt;
     }
-    await setDoc(docRef, updateData, { merge: true });
+    const cleanUpdate = sanitizeForFirestore(updateData);
+    await setDoc(doc(db, ORDERS_COLLECTION, docId), cleanUpdate, { merge: true });
+    if (orderId !== docId) {
+      await setDoc(doc(db, ORDERS_COLLECTION, orderId), cleanUpdate, { merge: true });
+    }
   } catch (err) {
     console.error('Error updating order status in Firestore:', err);
   }
@@ -100,14 +117,15 @@ export function subscribeToFirestoreOrders(
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
-        const orders: LiveOrder[] = [];
+        const orderMap = new Map<string, LiveOrder>();
         snapshot.forEach((docSnap) => {
           const data = docSnap.data() as LiveOrder;
           if (data && data.orderId) {
-            orders.push(data);
+            const cleanId = String(data.orderId).replace('#', '').trim();
+            orderMap.set(cleanId, data);
           }
         });
-        callback(orders);
+        callback(Array.from(orderMap.values()));
       },
       (error) => {
         console.warn('Firestore orders subscription error:', error);
@@ -130,16 +148,29 @@ export function subscribeToSingleFirestoreOrder(
   callback: (order: LiveOrder | null) => void
 ): () => void {
   if (!db || !orderId) return () => {};
+  const docId = String(orderId).replace('#', '').trim();
 
   try {
-    const docRef = doc(db, ORDERS_COLLECTION, orderId);
+    const docRef = doc(db, ORDERS_COLLECTION, docId);
     const unsubscribe = onSnapshot(
       docRef,
       (docSnap) => {
         if (docSnap.exists()) {
           callback(docSnap.data() as LiveOrder);
         } else {
-          callback(null);
+          // If clean doc doesn't exist, try raw doc
+          if (orderId !== docId) {
+            const rawRef = doc(db, ORDERS_COLLECTION, orderId);
+            getDoc(rawRef).then((rawSnap) => {
+              if (rawSnap.exists()) {
+                callback(rawSnap.data() as LiveOrder);
+              } else {
+                callback(null);
+              }
+            }).catch(() => callback(null));
+          } else {
+            callback(null);
+          }
         }
       },
       (error) => {
@@ -160,8 +191,11 @@ export function subscribeToSingleFirestoreOrder(
 export async function deleteOrderFromFirestore(orderId: string): Promise<void> {
   if (!db || !orderId) return;
   try {
-    const docRef = doc(db, ORDERS_COLLECTION, orderId);
-    await deleteDoc(docRef);
+    const docId = String(orderId).replace('#', '').trim();
+    await deleteDoc(doc(db, ORDERS_COLLECTION, docId));
+    if (orderId !== docId) {
+      await deleteDoc(doc(db, ORDERS_COLLECTION, orderId));
+    }
   } catch (err) {
     console.error('Error deleting order from Firestore:', err);
   }

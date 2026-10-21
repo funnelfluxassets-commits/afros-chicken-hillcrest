@@ -110,22 +110,24 @@ export const FunctionsView: React.FC<FunctionsViewProps> = ({ onNavigate }) => {
           </p>
 
 
-          {/* Paragraph 4 - Direct Contact Callout */}
-          <div className="pt-2 text-lg sm:text-xl md:text-[22px] lg:text-[24px] leading-relaxed text-zinc-900">
+          {/* Direct Contact Callout */}
+          <div className="pt-2 text-lg sm:text-xl md:text-[22px] lg:text-[24px] leading-relaxed text-zinc-900 space-y-1 sm:space-y-1.5">
             <p>
               For your next function chat to us:{' '}
               <a
                 href="mailto:nonto@afroschicken-hillcrest.co.za"
-                className="text-[#E53E3E] hover:underline font-bold"
+                className="text-[#E53E3E] hover:underline font-bold inline-block break-all sm:break-normal"
               >
                 nonto@afroschicken-hillcrest.co.za
-              </a>{' '}
+              </a>
+            </p>
+            <p>
               or{' '}
               <a
                 href="https://wa.me/27626238449"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#00C4D6] hover:underline font-bold"
+                className="text-[#00C4D6] hover:underline font-bold whitespace-nowrap inline-block"
               >
                 062 623 8449
               </a>

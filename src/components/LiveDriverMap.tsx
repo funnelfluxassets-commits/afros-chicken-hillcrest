@@ -312,11 +312,11 @@ export const LiveDriverMap: React.FC<LiveDriverMapProps> = ({ order }) => {
             <DeliveryMotorbikeIcon className="w-5 h-5 text-[#FFD100]" />
           </div>
           <div>
-            <div className="text-xs font-black text-white flex items-center gap-1.5 uppercase tracking-wide">
+            <div className="text-[13px] font-black text-white flex items-center gap-1.5 uppercase tracking-wide">
               <span>LIVE DRIVER GPS TRACKER</span>
               <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
             </div>
-            <div className="text-[11px] text-zinc-400">
+            <div className="text-[12px] text-zinc-400">
               {driverCurrentRoad}
             </div>
           </div>
@@ -325,10 +325,10 @@ export const LiveDriverMap: React.FC<LiveDriverMapProps> = ({ order }) => {
         {/* ETA & Distance Badges */}
         <div className="flex items-center gap-2">
           <div className="px-3 py-1.5 rounded-xl bg-black/60 border border-white/10 text-right">
-            <div className="text-[9px] font-black uppercase text-zinc-400">Distance</div>
-            <div className="text-xs font-black text-[#FFD100]">{distanceKm} away</div>
+            <div className="text-[10px] font-black uppercase text-zinc-400">Distance</div>
+            <div className="text-[13px] font-black text-[#FFD100]">{distanceKm} away</div>
           </div>
-          <div className="px-3 py-1.5 rounded-xl bg-[#FFD100] text-black font-black text-xs sm:text-sm shadow-md">
+          <div className="px-3 py-1.5 rounded-xl bg-[#FFD100] text-black font-black text-[13px] sm:text-sm shadow-md">
             ETA: {etaMins} mins
           </div>
         </div>
@@ -359,7 +359,7 @@ export const LiveDriverMap: React.FC<LiveDriverMapProps> = ({ order }) => {
         </div>
 
         {/* Live Speed & Sensor Overlay */}
-        <div className="absolute bottom-3 left-3 z-10 px-3 py-1.5 rounded-xl bg-black/80 border border-white/15 backdrop-blur-md flex items-center gap-2 text-[10px] text-zinc-300">
+        <div className="absolute bottom-3 left-3 z-10 px-3 py-1.5 rounded-xl bg-black/80 border border-white/15 backdrop-blur-md flex items-center gap-2 text-[11px] text-zinc-300">
           <span className="flex h-2 w-2 rounded-full bg-emerald-400" />
           <span>Vehicle Speed: <strong className="text-white">38 km/h</strong></span>
           <span>•</span>
@@ -376,7 +376,7 @@ export const LiveDriverMap: React.FC<LiveDriverMapProps> = ({ order }) => {
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-rose-600 flex items-center justify-center font-black text-white shadow-lg shadow-rose-950/60">
               <DeliveryMotorbikeIcon className="w-6 h-6 text-white" />
             </div>
-            <span className="absolute -bottom-1 -right-1 p-0.5 rounded-full bg-emerald-500 text-zinc-950 text-[10px]">
+            <span className="absolute -bottom-1 -right-1 p-0.5 rounded-full bg-emerald-500 text-zinc-950 text-[11px]">
               <CheckCircle2 className="w-3.5 h-3.5 fill-emerald-400 text-zinc-950" />
             </span>
           </div>
@@ -384,11 +384,11 @@ export const LiveDriverMap: React.FC<LiveDriverMapProps> = ({ order }) => {
           <div>
             <div className="flex items-center gap-2">
               <h4 className="text-sm sm:text-base font-extrabold text-white">Sipho M.</h4>
-              <span className="text-[10px] font-black px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+              <span className="text-[11px] font-black px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
                 4.9 ⭐ (1,240 drops)
               </span>
             </div>
-            <div className="text-xs text-zinc-300 mt-0.5">
+            <div className="text-[13px] text-zinc-300 mt-0.5">
               White Honda Delivery Bike • <span className="font-mono text-zinc-400">ND 482-910</span>
             </div>
           </div>
@@ -398,7 +398,7 @@ export const LiveDriverMap: React.FC<LiveDriverMapProps> = ({ order }) => {
         <div className="flex items-center gap-2.5 shrink-0">
           <a
             href={`tel:${cleanDriverPhone}`}
-            className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 border border-white/10 transition-colors cursor-pointer"
+            className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-extrabold text-[13px] flex items-center justify-center gap-1.5 border border-white/10 transition-colors cursor-pointer"
           >
             <Phone className="w-3.5 h-3.5 text-emerald-400" />
             <span>Call Driver</span>
@@ -408,7 +408,7 @@ export const LiveDriverMap: React.FC<LiveDriverMapProps> = ({ order }) => {
             href={whatsAppDriverUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-emerald-950/60 transition-transform hover:scale-105 cursor-pointer"
+            className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[13px] flex items-center justify-center gap-1.5 shadow-md shadow-emerald-950/60 transition-transform hover:scale-105 cursor-pointer"
           >
             <MessageSquare className="w-3.5 h-3.5 fill-white" />
             <span>WhatsApp Driver</span>

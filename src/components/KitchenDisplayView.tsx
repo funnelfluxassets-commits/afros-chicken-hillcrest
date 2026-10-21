@@ -489,8 +489,8 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
               <span className="text-base sm:text-lg font-black tracking-tight text-white uppercase">
                 🍳 KITCHEN DISPLAY SYSTEM
               </span>
-              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30">
-                PINETOWN SHOP 1
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#FFD100]/20 text-[#FFD100] border border-[#FFD100]/40">
+                HILLCREST SHOP
               </span>
             </div>
             <div className="text-[11px] text-zinc-400">

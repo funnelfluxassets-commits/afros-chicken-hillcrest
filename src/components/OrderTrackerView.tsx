@@ -477,19 +477,19 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
         )}
 
         {/* Dynamic Status Highlight Card - Afro's Brand Style */}
-        <div className="p-6 sm:p-7 rounded-3xl bg-white border-2 border-[#FFD100] shadow-xl relative overflow-hidden transition-all">
+        <div className="p-4 sm:p-7 rounded-3xl bg-white border-2 border-[#FFD100] shadow-xl relative overflow-hidden transition-all">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] sm:text-[13px] font-black uppercase tracking-wider bg-amber-50 border border-amber-300 text-zinc-950 mb-3 whitespace-nowrap overflow-hidden shadow-sm">
-                <span className="flex items-center gap-1.5 shrink-0">
+              <span className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-tight sm:tracking-wide bg-amber-50 border border-amber-300 text-zinc-950 mb-3 whitespace-nowrap shadow-sm max-w-full">
+                <span className="flex items-center gap-1 sm:gap-1.5 shrink-0">
                   {isDelivery ? (
                     <>
-                      <DeliveryMotorbikeIcon className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                      <DeliveryMotorbikeIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-500 shrink-0" />
                       <span>HOME DELIVERY</span>
                     </>
                   ) : (
                     <>
-                      <ShoppingBag className="w-3.5 h-3.5 text-amber-600 shrink-0" strokeWidth={2} />
+                      <ShoppingBag className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-600 shrink-0" strokeWidth={2.5} />
                       <span>STORE COLLECTION</span>
                     </>
                   )}
@@ -509,13 +509,13 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
                 )}
                 {order.status === 'dispatched' && (
                   <span className="text-emerald-700 font-black flex items-center gap-1 shrink-0">
-                    <DeliveryMotorbikeIcon className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <DeliveryMotorbikeIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-600 shrink-0" />
                     <span>Out For Delivery</span>
                   </span>
                 )}
                 {order.status === 'completed' && (
-                  <span className="text-emerald-700 font-black flex items-center gap-1.5 shrink-0">
-                    <CheckCircle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span className="text-emerald-700 font-black flex items-center gap-1 sm:gap-1.5 shrink-0">
+                    <CheckCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-600 shrink-0" />
                     <span>{isDelivery ? 'Delivered & Complete' : 'Collected & Handed Over'}</span>
                   </span>
                 )}

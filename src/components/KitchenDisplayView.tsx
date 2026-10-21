@@ -788,142 +788,30 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
                   key={order.orderId}
                   className="rounded-3xl border border-orange-500/25 bg-[#171720] flex flex-col overflow-hidden shadow-2xl transition-all hover:border-orange-500/40"
                 >
-                  {/* Card Header */}
-                  <div className="p-3.5 sm:p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-orange-500/20 bg-zinc-950/90 text-zinc-100">
-                    <div className="flex items-center gap-3">
-                      <div className="flex items-center gap-2">
-                        <h3 className="text-lg font-black text-white tracking-tight">
+                  {/* Card Header - Professional 2-Tier Commercial KDS Layout */}
+                  <div className="p-3.5 sm:p-4 border-b border-orange-500/20 bg-zinc-950 text-zinc-100 space-y-2.5">
+                    {/* Tier 1: Order Identity & Action Toolbar */}
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <h3 className="text-lg sm:text-xl font-mono font-black text-white tracking-tight whitespace-nowrap shrink-0">
                           #{order.orderId}
                         </h3>
                         <span
-                          className={`px-2.5 py-0.5 rounded-lg text-[10px] font-black uppercase tracking-wide ${
+                          className={`px-2.5 py-1 rounded-lg text-[11px] font-black uppercase tracking-wider whitespace-nowrap shrink-0 flex items-center gap-1.5 shadow-sm ${
                             isDelivery ? 'bg-orange-500 text-zinc-950' : 'bg-[#FFD100] text-zinc-950'
                           }`}
                         >
-                          {isDelivery ? '🏍️ DELIVERY' : '🛍️ COLLECTION'}
+                          {isDelivery ? (
+                            <Truck className="w-3.5 h-3.5 shrink-0" />
+                          ) : (
+                            <ShoppingBag className="w-3.5 h-3.5 shrink-0" strokeWidth={2.5} />
+                          )}
+                          <span>{isDelivery ? 'DELIVERY' : 'COLLECTION'}</span>
                         </span>
                       </div>
-                      <div className="text-[11px] text-zinc-400 flex items-center gap-1.5">
-                        <Clock className="w-3 h-3 text-amber-400 shrink-0" />
-                        <span>Placed: {createdAt}</span>
-                        <span>•</span>
-                        <span className="text-amber-300 font-bold">{preferredTime}</span>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-2 flex-wrap md:flex-nowrap justify-between md:justify-end">
-                      {/* Incoming Order Ringing Badge - Single Line & Silence Toggle */}
-                      {order.status === 'received' && (() => {
-                        const isSilenced = silencedAlarms.has(order.orderId);
-                        return (
-                          <div className="flex items-center gap-2 whitespace-nowrap shrink-0">
-                            <div
-                              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border font-black text-xs shadow-md whitespace-nowrap transition-all ${
-                                isSilenced
-                                  ? 'bg-zinc-800/80 border-zinc-700 text-zinc-400'
-                                  : 'bg-amber-500/20 border-amber-400 text-amber-300 shadow-amber-500/20 animate-pulse'
-                              }`}
-                              title="Incoming order awaiting kitchen acceptance"
-                            >
-                              <Bell className={`w-3.5 h-3.5 shrink-0 ${isSilenced ? 'text-zinc-500' : 'text-amber-400 animate-bounce'}`} />
-                              <span className="whitespace-nowrap font-black uppercase tracking-wide text-[11px]">
-                                {isSilenced ? 'New Order (Muted)' : 'New Order Ringing'}
-                              </span>
-                            </div>
-
-                            <button
-                              type="button"
-                              onClick={() => toggleSilenceAlarm(order.orderId)}
-                              className={`px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider border cursor-pointer transition-all flex items-center gap-1.5 shadow-sm whitespace-nowrap ${
-                                isSilenced
-                                  ? 'bg-zinc-800 text-zinc-300 border-zinc-700 hover:bg-zinc-700'
-                                  : 'bg-[#FFD100] hover:bg-[#ffe14d] text-zinc-950 border-amber-300 animate-bounce'
-                              }`}
-                              title={isSilenced ? 'Unmute ringtone for this ticket' : 'Silence ringtone for this ticket'}
-                            >
-                              {isSilenced ? (
-                                <VolumeX className="w-3.5 h-3.5 shrink-0" />
-                              ) : (
-                                <Volume2 className="w-3.5 h-3.5 shrink-0" />
-                              )}
-                              <span>{isSilenced ? 'Muted' : 'Silence'}</span>
-                            </button>
-                          </div>
-                        );
-                      })()}
-
-                      {/* 10-Minute Cooking Countdown Timer & Overdue Alarm */}
-                      {order.status === 'cooking' && (() => {
-                        const cookingStart = getOrderCookingStartTime(order);
-                        const elapsedSeconds = Math.max(0, Math.floor((Date.now() - cookingStart) / 1000));
-                        const remainingSeconds = 600 - elapsedSeconds;
-                        const isOverdue = remainingSeconds <= 0;
-                        const isSilenced = silencedAlarms.has(order.orderId);
-
-                        if (!isOverdue) {
-                          const mins = Math.floor(remainingSeconds / 60);
-                          const secs = remainingSeconds % 60;
-                          const formattedTime = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-                          const isWarning = remainingSeconds <= 180; // under 3 minutes
-
-                          return (
-                            <div
-                              className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border font-mono font-black text-xs shadow-md whitespace-nowrap shrink-0 transition-all ${
-                                isWarning
-                                  ? 'bg-amber-500/25 border-amber-500/70 text-amber-300 animate-pulse'
-                                  : 'bg-orange-500/20 border-orange-500/40 text-orange-400'
-                              }`}
-                              title="Target grill & pack timer: 10 minutes"
-                            >
-                              <Flame
-                                className={`w-3.5 h-3.5 shrink-0 ${
-                                  isWarning ? 'text-amber-400 animate-bounce' : 'text-orange-400'
-                                }`}
-                              />
-                              <span className="font-bold">Cook:</span>
-                              <span className="text-sm font-black">{formattedTime}</span>
-                            </div>
-                          );
-                        } else {
-                          const overdueSeconds = Math.abs(remainingSeconds);
-                          const oMins = Math.floor(overdueSeconds / 60);
-                          const oSecs = overdueSeconds % 60;
-                          const formattedOverdue = `${String(oMins).padStart(2, '0')}:${String(oSecs).padStart(2, '0')}`;
-
-                          return (
-                            <div className="flex items-center gap-2 whitespace-nowrap shrink-0">
-                              <div
-                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-600 border border-red-400 text-white font-mono font-black text-xs shadow-lg animate-pulse whitespace-nowrap"
-                                title="Cooking time exceeded 10 minutes! Order is overdue."
-                              >
-                                <AlertCircle className="w-3.5 h-3.5 text-white animate-spin shrink-0" />
-                                <span>OVERDUE -{formattedOverdue}</span>
-                              </div>
-
-                              <button
-                                type="button"
-                                onClick={() => toggleSilenceAlarm(order.orderId)}
-                                className={`px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider border cursor-pointer transition-all flex items-center gap-1.5 shadow-sm whitespace-nowrap ${
-                                  isSilenced
-                                    ? 'bg-zinc-800 text-zinc-300 border-zinc-700 hover:bg-zinc-700'
-                                    : 'bg-[#FFD100] hover:bg-[#ffe14d] text-zinc-950 border-amber-300 animate-bounce'
-                                }`}
-                                title={isSilenced ? 'Alarm muted for this ticket' : 'Silence alarm for this ticket'}
-                              >
-                                {isSilenced ? (
-                                  <VolumeX className="w-3.5 h-3.5 shrink-0" />
-                                ) : (
-                                  <Volume2 className="w-3.5 h-3.5 shrink-0" />
-                                )}
-                                <span>{isSilenced ? 'Muted' : 'Silence'}</span>
-                              </button>
-                            </div>
-                          );
-                        }
-                      })()}
 
                       {/* Grouped Print & Delete Toolbar */}
-                      <div className="flex items-center gap-1 bg-zinc-900/90 p-1 rounded-xl border border-white/10 shrink-0">
+                      <div className="flex items-center gap-1 bg-zinc-900/90 p-1 rounded-xl border border-white/10 shrink-0 shadow-sm">
                         <button
                           type="button"
                           onClick={() => handlePrintSlip(order)}
@@ -932,7 +820,6 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
                         >
                           <Printer className="w-4 h-4" />
                         </button>
-
                         <button
                           type="button"
                           onClick={() => {
@@ -946,6 +833,134 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
+                      </div>
+                    </div>
+
+                    {/* Tier 2: Timing, Ringing Alerts & Kitchen Timers */}
+                    <div className="flex items-center justify-between gap-2 pt-2 border-t border-white/10 flex-wrap">
+                      {/* Clean Timestamp & Target Delivery/Collection Window */}
+                      <div className="flex items-center gap-2 text-xs text-zinc-300 whitespace-nowrap">
+                        <div className="flex items-center gap-1 text-zinc-400">
+                          <Clock className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                          <span>Placed: {createdAt.includes(' ') ? createdAt.split(' ').slice(1).join(' ') : createdAt}</span>
+                        </div>
+                        <span className="text-zinc-600">•</span>
+                        <span className="px-2 py-0.5 rounded-md bg-amber-400/15 border border-amber-400/30 text-amber-300 font-bold text-[11px]">
+                          {preferredTime}
+                        </span>
+                      </div>
+
+                      {/* Dynamic Alert / Silence / Cook Timer */}
+                      <div className="flex items-center gap-2 whitespace-nowrap shrink-0">
+                        {/* Incoming Order Ringing Badge & Silence Toggle */}
+                        {order.status === 'received' && (() => {
+                          const isSilenced = silencedAlarms.has(order.orderId);
+                          return (
+                            <div className="flex items-center gap-1.5 whitespace-nowrap shrink-0">
+                              <div
+                                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-xl border font-black text-xs shadow-md whitespace-nowrap transition-all ${
+                                  isSilenced
+                                    ? 'bg-zinc-800/90 border-zinc-700 text-zinc-400'
+                                    : 'bg-amber-500/20 border-amber-400 text-amber-300 shadow-amber-500/20 animate-pulse'
+                                }`}
+                                title="Incoming order awaiting kitchen acceptance"
+                              >
+                                <Bell className={`w-3.5 h-3.5 shrink-0 ${isSilenced ? 'text-zinc-500' : 'text-amber-400 animate-bounce'}`} />
+                                <span className="whitespace-nowrap font-black uppercase tracking-wide text-[11px]">
+                                  {isSilenced ? 'New Order (Muted)' : 'New Order Ringing'}
+                                </span>
+                              </div>
+
+                              <button
+                                type="button"
+                                onClick={() => toggleSilenceAlarm(order.orderId)}
+                                className={`px-2.5 py-1 rounded-xl text-xs font-black uppercase tracking-wider border cursor-pointer transition-all flex items-center gap-1.5 shadow-sm whitespace-nowrap ${
+                                  isSilenced
+                                    ? 'bg-zinc-800 text-zinc-300 border-zinc-700 hover:bg-zinc-700'
+                                    : 'bg-[#FFD100] hover:bg-[#ffe14d] text-zinc-950 border-amber-300 animate-bounce'
+                                }`}
+                                title={isSilenced ? 'Unmute ringtone for this ticket' : 'Silence ringtone for this ticket'}
+                              >
+                                {isSilenced ? (
+                                  <VolumeX className="w-3.5 h-3.5 shrink-0" />
+                                ) : (
+                                  <Volume2 className="w-3.5 h-3.5 shrink-0" />
+                                )}
+                                <span>{isSilenced ? 'Muted' : 'Silence'}</span>
+                              </button>
+                            </div>
+                          );
+                        })()}
+
+                        {/* 10-Minute Cooking Countdown Timer & Overdue Alarm */}
+                        {order.status === 'cooking' && (() => {
+                          const cookingStart = getOrderCookingStartTime(order);
+                          const elapsedSeconds = Math.max(0, Math.floor((Date.now() - cookingStart) / 1000));
+                          const remainingSeconds = 600 - elapsedSeconds;
+                          const isOverdue = remainingSeconds <= 0;
+                          const isSilenced = silencedAlarms.has(order.orderId);
+
+                          if (!isOverdue) {
+                            const mins = Math.floor(remainingSeconds / 60);
+                            const secs = remainingSeconds % 60;
+                            const formattedTime = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                            const isWarning = remainingSeconds <= 180; // under 3 minutes
+
+                            return (
+                              <div
+                                className={`flex items-center gap-2 px-3 py-1 rounded-xl border font-mono font-black text-xs shadow-md whitespace-nowrap shrink-0 transition-all ${
+                                  isWarning
+                                    ? 'bg-amber-500/25 border-amber-500/70 text-amber-300 animate-pulse'
+                                    : 'bg-orange-500/20 border-orange-500/40 text-orange-400'
+                                }`}
+                                title="Target grill & pack timer: 10 minutes"
+                              >
+                                <Flame
+                                  className={`w-3.5 h-3.5 shrink-0 ${
+                                    isWarning ? 'text-amber-400 animate-bounce' : 'text-orange-400'
+                                  }`}
+                                />
+                                <span className="font-bold">Cook:</span>
+                                <span className="text-sm font-black">{formattedTime}</span>
+                              </div>
+                            );
+                          } else {
+                            const overdueSeconds = Math.abs(remainingSeconds);
+                            const oMins = Math.floor(overdueSeconds / 60);
+                            const oSecs = overdueSeconds % 60;
+                            const formattedOverdue = `${String(oMins).padStart(2, '0')}:${String(oSecs).padStart(2, '0')}`;
+
+                            return (
+                              <div className="flex items-center gap-1.5 whitespace-nowrap shrink-0">
+                                <div
+                                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-red-600 border border-red-400 text-white font-mono font-black text-xs shadow-lg animate-pulse whitespace-nowrap"
+                                  title="Cooking time exceeded 10 minutes! Order is overdue."
+                                >
+                                  <AlertCircle className="w-3.5 h-3.5 text-white animate-spin shrink-0" />
+                                  <span>OVERDUE -{formattedOverdue}</span>
+                                </div>
+
+                                <button
+                                  type="button"
+                                  onClick={() => toggleSilenceAlarm(order.orderId)}
+                                  className={`px-2.5 py-1 rounded-xl text-xs font-black uppercase tracking-wider border cursor-pointer transition-all flex items-center gap-1.5 shadow-sm whitespace-nowrap ${
+                                    isSilenced
+                                      ? 'bg-zinc-800 text-zinc-300 border-zinc-700 hover:bg-zinc-700'
+                                      : 'bg-[#FFD100] hover:bg-[#ffe14d] text-zinc-950 border-amber-300 animate-bounce'
+                                  }`}
+                                  title={isSilenced ? 'Alarm muted for this ticket' : 'Silence alarm for this ticket'}
+                                >
+                                  {isSilenced ? (
+                                    <VolumeX className="w-3.5 h-3.5 shrink-0" />
+                                  ) : (
+                                    <Volume2 className="w-3.5 h-3.5 shrink-0" />
+                                  )}
+                                  <span>{isSilenced ? 'Muted' : 'Silence'}</span>
+                                </button>
+                              </div>
+                            );
+                          }
+                        })()}
                       </div>
                     </div>
                   </div>

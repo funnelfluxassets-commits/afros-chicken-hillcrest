@@ -371,12 +371,31 @@ export function getAllOrders(): LiveOrder[] {
         createdAt: o.createdAt || 'Just now',
       }));
 
-    if (valid.length !== parsed.length) {
-      // Clean up localStorage to permanently remove any leftover legacy static demo tickets
-      saveOrders(valid, false);
+    // Deduplicate by clean orderId (e.g. C-2101 vs #C-2101), keeping highest status & latest timeline
+    const dedupedMap = new Map<string, LiveOrder>();
+    for (const o of valid) {
+      const clean = String(o.orderId).replace('#', '').trim();
+      const existing = dedupedMap.get(clean);
+      if (!existing) {
+        dedupedMap.set(clean, o);
+      } else {
+        const existingRank = STATUS_RANK[existing.status] || 0;
+        const currentRank = STATUS_RANK[o.status] || 0;
+        const best = currentRank >= existingRank ? o : existing;
+        dedupedMap.set(clean, {
+          ...existing,
+          ...best,
+          timeline: (o.timeline?.length || 0) >= (existing.timeline?.length || 0) ? o.timeline : existing.timeline,
+        });
+      }
+    }
+    const deduped = Array.from(dedupedMap.values());
+
+    if (deduped.length !== parsed.length) {
+      saveOrders(deduped, false);
     }
 
-    return valid;
+    return deduped;
   } catch {
     return [];
   }
@@ -1171,13 +1190,22 @@ export function updateOrderStatus(orderId: string, newStatus: OrderStatus, note?
     completedAt,
   };
 
-  orders[index] = updatedOrder;
-  saveOrders(orders, true);
+  const updatedOrders = orders.map((o) => {
+    const oClean = o.orderId?.replace('#', '').trim();
+    if (o.orderId === orderId || oClean === cleanId) {
+      return {
+        ...updatedOrder,
+        orderId: o.orderId,
+      };
+    }
+    return o;
+  });
+  saveOrders(updatedOrders, true);
 
-  // If order is cancelled, remove from customer device active storage so it disappears
-  if (typeof window !== 'undefined' && newStatus === 'cancelled') {
+  // If order is finished (completed or cancelled), remove from customer device active storage so bottom banner clears
+  if (typeof window !== 'undefined' && (newStatus === 'completed' || newStatus === 'cancelled')) {
     const currentActiveId = localStorage.getItem(CURRENT_ORDER_KEY);
-    if (currentActiveId === orderId || currentActiveId?.replace('#', '').trim() === cleanId) {
+    if (!currentActiveId || currentActiveId === orderId || currentActiveId?.replace('#', '').trim() === cleanId) {
       localStorage.removeItem(CURRENT_ORDER_KEY);
     }
   }
@@ -1258,7 +1286,10 @@ export function subscribeToOrders(callback: (orders: LiveOrder[]) => void): () =
         const currentOrders = getAllOrders();
         const orderMap = new Map<string, LiveOrder>();
         for (const o of currentOrders) {
-          if (o && o.orderId && !isTestOrder(o)) orderMap.set(o.orderId, o);
+          if (o && o.orderId && !isTestOrder(o)) {
+            const clean = String(o.orderId).replace('#', '').trim();
+            orderMap.set(clean, o);
+          }
         }
         for (const f of firestoreOrders) {
           if (isTestOrder(f)) {
@@ -1267,16 +1298,18 @@ export function subscribeToOrders(callback: (orders: LiveOrder[]) => void): () =
             continue;
           }
           if (f && f.orderId) {
-            const existing = orderMap.get(f.orderId);
+            const clean = String(f.orderId).replace('#', '').trim();
+            const existing = orderMap.get(clean);
             if (!existing) {
-              orderMap.set(f.orderId, f);
+              orderMap.set(clean, f);
             } else {
               const existingRank = STATUS_RANK[existing.status] || 0;
               const firestoreRank = STATUS_RANK[f.status] || 0;
               const resolvedStatus = existingRank >= firestoreRank ? existing.status : f.status;
-              orderMap.set(f.orderId, {
+              orderMap.set(clean, {
                 ...existing,
                 ...f,
+                orderId: existing.orderId || f.orderId,
                 status: resolvedStatus,
                 timeline: (f.timeline?.length || 0) >= (existing.timeline?.length || 0) ? f.timeline : existing.timeline,
               });

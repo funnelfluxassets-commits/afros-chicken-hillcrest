@@ -113,7 +113,13 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
   const [filter, setFilter] = useState<'active' | 'cooking' | 'ready' | 'completed_today' | 'history'>('active');
   const [currentDate, setCurrentDate] = useState(() => formatDisplayDate(new Date()));
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
-  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [soundEnabled, setSoundEnabled] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('afros_kitchen_chime_enabled');
+      if (saved !== null) return saved === 'true';
+    }
+    return true;
+  });
   const [isSyncing, setIsSyncing] = useState(false);
   const [silencedAlarms, setSilencedAlarms] = useState<Set<string>>(new Set());
   const [viewingDriverOrder, setViewingDriverOrder] = useState<LiveOrder | null>(null);
@@ -121,7 +127,13 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
   const [outOfStockIds, setOutOfStockIds] = useState<string[]>(() => getOutOfStockItemIds());
 
   // Track known order IDs to immediately chime on brand new incoming orders
-  const knownOrderIdsRef = useRef<Set<string>>(new Set(getAllOrders().filter((o) => !isTestOrder(o)).map((o) => o.orderId)));
+  const knownOrderIdsRef = useRef<Set<string>>(
+    new Set(
+      getAllOrders()
+        .filter((o) => !isTestOrder(o))
+        .map((o) => String(o.orderId).replace('#', '').trim())
+    )
+  );
   const isInitializedRef = useRef<boolean>(false);
 
   // Subscribe to real-time stock updates
@@ -152,7 +164,8 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
       const cleanOrders = newOrders.filter((o) => !isTestOrder(o));
       const currentKnown = knownOrderIdsRef.current;
       const newIncoming = cleanOrders.filter((o) => {
-        if (currentKnown.has(o.orderId)) return false;
+        const cleanId = String(o.orderId).replace('#', '').trim();
+        if (currentKnown.has(cleanId) || currentKnown.has(o.orderId)) return false;
         if (o.paymentMethod === 'payfast' && o.paymentStatus !== 'paid') return false;
         return true;
       });
@@ -160,8 +173,9 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
         playKitchenChime();
       }
       cleanOrders.forEach((o) => {
-        // Only mark known if it was eligible to chime (or paid)
+        const cleanId = String(o.orderId).replace('#', '').trim();
         if (o.paymentMethod !== 'payfast' || o.paymentStatus === 'paid') {
+          currentKnown.add(cleanId);
           currentKnown.add(o.orderId);
         }
       });
@@ -213,7 +227,8 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
       const cleanOrders = freshOrders.filter((o) => !isTestOrder(o));
       const currentKnown = knownOrderIdsRef.current;
       const newIncoming = cleanOrders.filter((o) => {
-        if (currentKnown.has(o.orderId)) return false;
+        const cleanId = String(o.orderId).replace('#', '').trim();
+        if (currentKnown.has(cleanId) || currentKnown.has(o.orderId)) return false;
         if (o.paymentMethod === 'payfast' && o.paymentStatus !== 'paid') return false;
         return true;
       });
@@ -221,7 +236,9 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
         playKitchenChime();
       }
       cleanOrders.forEach((o) => {
+        const cleanId = String(o.orderId).replace('#', '').trim();
         if (o.paymentMethod !== 'payfast' || o.paymentStatus === 'paid') {
+          currentKnown.add(cleanId);
           currentKnown.add(o.orderId);
         }
       });
@@ -511,8 +528,14 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
           <button
             type="button"
             onClick={() => {
-              playKitchenChime();
-              setSoundEnabled(!soundEnabled);
+              const next = !soundEnabled;
+              setSoundEnabled(next);
+              if (typeof window !== 'undefined') {
+                localStorage.setItem('afros_kitchen_chime_enabled', String(next));
+              }
+              if (next) {
+                playKitchenChime();
+              }
             }}
             className={`p-2 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
               soundEnabled

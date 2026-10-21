@@ -41,7 +41,7 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({ 
   const handleCopyOrder = () => {
     const summary = `Afro’s Chicken Shop (Hillcrest). Order #${order.orderId}\nType: ${
       isDelivery ? 'Delivery' : 'Store Collection'
-    }\nTotal: R${order.grandTotal.toFixed(2)}`;
+    }\nTotal: R${(typeof order.grandTotal === 'number' ? order.grandTotal : 0).toFixed(2)}`;
     navigator.clipboard?.writeText(summary);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -287,7 +287,7 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({ 
                           )}
                         </div>
                       </div>
-                      <span className="font-black text-black text-sm">R{item.itemTotal.toFixed(2)}</span>
+                      <span className="font-black text-black text-sm">R{(typeof item.itemTotal === 'number' ? item.itemTotal : (item.menuItem?.price ? item.menuItem.price * (item.quantity || 1) : 0)).toFixed(2)}</span>
                     </div>
                   ))}
                 </div>
@@ -297,12 +297,12 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({ 
               <div className="p-4 rounded-2xl bg-zinc-100 border border-zinc-300 space-y-2 text-xs text-zinc-700">
                 <div className="flex justify-between items-center">
                   <span className="font-semibold text-zinc-600">Subtotal</span>
-                  <span className="text-black font-black text-sm">R{order.subtotal.toFixed(2)}</span>
+                  <span className="text-black font-black text-sm">R{(typeof order.subtotal === 'number' ? order.subtotal : order.grandTotal || 0).toFixed(2)}</span>
                 </div>
                 {isDelivery && (
                   <div className="flex justify-between items-center">
                     <span className="font-semibold text-zinc-600">Local Delivery Fee</span>
-                    <span className="text-black font-black text-sm">R{order.deliveryFee.toFixed(2)}</span>
+                    <span className="text-black font-black text-sm">R{(typeof order.deliveryFee === 'number' ? order.deliveryFee : 0).toFixed(2)}</span>
                   </div>
                 )}
                 {isDelivery && typeof order.tip === 'number' && order.tip > 0 && (
@@ -314,7 +314,7 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({ 
                 <div className="flex justify-between items-center text-sm sm:text-base font-black text-black pt-2.5 border-t border-zinc-300">
                   <span className="uppercase tracking-wider">Total Paid / Due</span>
                   <span className="text-lg font-black text-black bg-[#FFD100] px-3 py-1 rounded-xl border border-black/10">
-                    R{order.grandTotal.toFixed(2)}
+                    R{(typeof order.grandTotal === 'number' ? order.grandTotal : 0).toFixed(2)}
                   </span>
                 </div>
                 <div className="pt-1.5 text-xs text-zinc-700 font-semibold flex items-center justify-between">

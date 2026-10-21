@@ -45,57 +45,73 @@ export function generateWazeUrl(address: string, suburb: string): string {
 
 // ── WhatsApp Order Message Formatter ─────────────────────────────────────────
 export function buildWhatsAppOrderMessage(payload: CheckoutPayload): string {
-  const { orderId, orderMode, items, subtotal, deliveryFee, grandTotal, customer, store, paymentMethod, preferredTime } = payload;
+  if (!payload) return '';
+  const orderId = payload.orderId || '';
+  const orderMode = payload.orderMode || 'collection';
   const isDelivery = orderMode === 'delivery';
+  const items = Array.isArray(payload.items) ? payload.items : [];
+  const grandTotal = typeof payload.grandTotal === 'number' ? payload.grandTotal : 0;
+  const subtotal = typeof payload.subtotal === 'number' ? payload.subtotal : grandTotal;
+  const deliveryFee = typeof payload.deliveryFee === 'number' ? payload.deliveryFee : (isDelivery ? 25 : 0);
+  const customer = payload.customer || ({} as any);
+  const store = payload.store || { name: "Afro's Chicken Shop — Hillcrest", mall: 'The Junction (Shop 5)' };
+  const paymentMethod = payload.paymentMethod || 'cod';
+  const preferredTime = payload.preferredTime || 'ASAP';
 
   let msg = `🔥 *NEW ORDER - AFRO’S CHICKEN (HILLCREST)*\n`;
   msg += `*Order Ref:* #${orderId}\n`;
   msg += `*Type:* ${isDelivery ? '🏍️ HOME DELIVERY' : '🛍️ STORE COLLECTION'}\n`;
-  msg += `*Store:* ${store.name} (${store.mall})\n`;
+  msg += `*Store:* ${store.name || "Afro's Chicken Shop — Hillcrest"} (${store.mall || 'The Junction'})\n`;
   if (preferredTime) {
     msg += `*Requested Time:* ⏰ ${preferredTime}\n`;
   }
   msg += `─────────────────────────\n`;
   msg += `*CUSTOMER DETAILS:*\n`;
-  msg += `👤 *Name:* ${customer.customerName}\n`;
-  msg += `📞 *Phone:* ${customer.phone}\n`;
+  msg += `👤 *Name:* ${customer.customerName || 'Customer'}\n`;
+  msg += `📞 *Phone:* ${customer.phone || 'N/A'}\n`;
 
   if (isDelivery) {
-    msg += `📍 *Address:* ${customer.address}\n`;
-    msg += `🏙️ *Suburb:* ${customer.suburb}\n`;
+    msg += `📍 *Address:* ${customer.address || ''}\n`;
+    msg += `🏙️ *Suburb:* ${customer.suburb || 'Hillcrest'}\n`;
     if (customer.complexOrUnit) msg += `🏢 *Unit/Complex:* ${customer.complexOrUnit}\n`;
     if (customer.gateCode) msg += `🔑 *Gate Code:* ${customer.gateCode}\n`;
     if (customer.notes) msg += `📝 *Notes:* ${customer.notes}\n`;
-    msg += `\n🏍️ *DRIVER GPS LINK:* \n${generateGoogleMapsUrl(customer.address, customer.suburb)}\n`;
+    msg += `\n🏍️ *DRIVER GPS LINK:* \n${generateGoogleMapsUrl(customer.address || '', customer.suburb || 'Hillcrest')}\n`;
   }
 
   msg += `─────────────────────────\n`;
   msg += `*ITEMS ORDERED:*\n`;
   items.forEach((item, idx) => {
-    msg += `${idx + 1}. *${item.quantity}x ${item.menuItem.name}* (R${item.itemTotal.toFixed(2)})\n`;
-    if (item.customization?.flavour) {
-      msg += `   • Flavour: *${item.customization.flavour.toUpperCase()}*\n`;
+    const qty = typeof item?.quantity === 'number' ? item.quantity : 1;
+    const rawTotal = typeof item?.itemTotal === 'number'
+      ? item.itemTotal
+      : (typeof item?.menuItem?.price === 'number' ? item.menuItem.price * qty : 0);
+    const safeTotal = typeof rawTotal === 'number' && !isNaN(rawTotal) ? rawTotal : 0;
+    const itemName = item?.menuItem?.name || 'Meal';
+    msg += `${idx + 1}. *${qty}x ${itemName}* (R${safeTotal.toFixed(2)})\n`;
+    if (item?.customization?.flavour) {
+      msg += `   • Flavour: *${String(item.customization.flavour).toUpperCase()}*\n`;
     }
-    if (item.customization?.side) {
+    if (item?.customization?.side) {
       msg += `   • Side: *${item.customization.side}*\n`;
     }
-    if (item.customization?.extras && item.customization.extras.length > 0) {
+    if (item?.customization?.extras && item.customization.extras.length > 0) {
       msg += `   • Extras: ${item.customization.extras.map((e) => e.name).join(', ')}\n`;
     }
-    if (item.customization?.notes) {
+    if (item?.customization?.notes) {
       msg += `   • Notes: _${item.customization.notes}_\n`;
     }
   });
 
   msg += `─────────────────────────\n`;
-  msg += `*Subtotal:* R${subtotal.toFixed(2)}\n`;
+  msg += `*Subtotal:* R${(typeof subtotal === 'number' ? subtotal : 0).toFixed(2)}\n`;
   if (isDelivery) {
-    msg += `*Delivery Fee:* R${deliveryFee.toFixed(2)}\n`;
-    if (payload.tip && payload.tip > 0) {
+    msg += `*Delivery Fee:* R${(typeof deliveryFee === 'number' ? deliveryFee : 0).toFixed(2)}\n`;
+    if (typeof payload.tip === 'number' && payload.tip > 0) {
       msg += `*Driver Tip:* R${payload.tip.toFixed(2)}\n`;
     }
   }
-  msg += `*TOTAL DUE:* *R${grandTotal.toFixed(2)}*\n`;
+  msg += `*TOTAL DUE:* *R${(typeof grandTotal === 'number' ? grandTotal : 0).toFixed(2)}*\n`;
   msg += `*Payment:* ${
     paymentMethod === 'payfast'
       ? '✅ Paid via PayFast (Instant EFT / Card)'

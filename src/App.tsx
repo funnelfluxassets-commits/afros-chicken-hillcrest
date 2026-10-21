@@ -1009,35 +1009,51 @@ const MainContent: React.FC = () => {
             : 'bottom-4 lg:bottom-6 left-3 right-3 lg:left-auto lg:right-6 lg:w-96'
         }`}
       >
-        <button
-          type="button"
-          onClick={() => {
-            setTrackedOrderId(activeOrder.orderId);
-            handleNavigate('track');
-          }}
-          className="w-full p-3 sm:p-3.5 rounded-2xl bg-[#14141c]/95 border-2 border-rose-500 shadow-2xl flex items-center justify-between gap-3 text-white backdrop-blur-md cursor-pointer hover:border-amber-400 transition-colors"
-        >
-          <div className="flex items-center gap-2.5 min-w-0">
-            <span className="flex h-3 w-3 rounded-full bg-emerald-400 animate-ping shrink-0" />
-            <div className="text-left truncate">
-              <div className="text-xs font-black truncate flex items-center gap-1.5">
-                <span>Order #{activeOrder.orderId}</span>
-                <span className="text-[10px] font-bold text-amber-300">
-                  {activeOrder.preferredTime}
-                </span>
-              </div>
-              <div className="text-[11px] text-zinc-300 truncate">
-                {activeOrder.status === 'received' && '📝 Kitchen preparing ticket'}
-                {activeOrder.status === 'cooking' && '🔥 On The Flame Grill'}
-                {activeOrder.status === 'ready' && '🛍️ Hot & ready for collection'}
-                {activeOrder.status === 'dispatched' && '🏍️ Out for delivery with driver'}
+        <div className="relative group">
+          <button
+            type="button"
+            onClick={() => {
+              setTrackedOrderId(activeOrder.orderId);
+              handleNavigate('track');
+            }}
+            className="w-full p-3 sm:p-3.5 rounded-2xl bg-white/95 border-2 border-[#FFD100] shadow-2xl flex items-center justify-between gap-3 text-zinc-950 backdrop-blur-md cursor-pointer hover:border-amber-400 transition-colors"
+          >
+            <div className="flex items-center gap-2.5 min-w-0">
+              <span className="flex h-3 w-3 rounded-full bg-amber-500 animate-ping shrink-0" />
+              <div className="text-left truncate">
+                <div className="text-xs font-black truncate flex items-center gap-1.5 text-zinc-950">
+                  <span>Order #{activeOrder.orderId}</span>
+                  <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
+                    {activeOrder.preferredTime}
+                  </span>
+                </div>
+                <div className="text-[11px] text-zinc-600 font-medium truncate">
+                  {activeOrder.status === 'received' && '📝 Kitchen preparing ticket'}
+                  {activeOrder.status === 'cooking' && '🔥 On The Flame Grill'}
+                  {activeOrder.status === 'ready' && '🛍️ Hot & ready for collection'}
+                  {activeOrder.status === 'dispatched' && '🏍️ Out for delivery with driver'}
+                </div>
               </div>
             </div>
-          </div>
-          <div className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-amber-600 text-white font-extrabold text-xs shrink-0 shadow-md">
-            Track ➔
-          </div>
-        </button>
+            <div className="flex items-center gap-2 shrink-0">
+              <div className="px-3 py-1.5 rounded-xl bg-[#FFD100] hover:bg-[#ffe14d] text-zinc-950 font-black text-xs shadow-md">
+                Track ➔
+              </div>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveOrder(null);
+                  clearCurrentOrder();
+                }}
+                className="w-6 h-6 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-500 hover:text-black flex items-center justify-center text-xs font-bold cursor-pointer transition-colors"
+                title="Dismiss order banner"
+              >
+                ✕
+              </button>
+            </div>
+          </button>
+        </div>
       </div>
     )}
 
@@ -1047,16 +1063,16 @@ const MainContent: React.FC = () => {
           <button
             type="button"
             onClick={() => setIsCartOpen(true)}
-            className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-rose-600 via-rose-500 to-red-600 text-white font-black text-sm tracking-wide shadow-2xl shadow-rose-950/80 flex items-center justify-between border border-white/20 cursor-pointer"
+            className="w-full py-3.5 px-4 rounded-2xl bg-[#FFD100] hover:bg-[#ffe14d] text-zinc-950 font-black text-sm tracking-wide shadow-2xl flex items-center justify-between border-2 border-amber-400 cursor-pointer"
           >
             <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-lg bg-black/30 flex items-center justify-center text-xs">
+              <div className="w-7 h-7 rounded-lg bg-black/10 text-zinc-950 font-black flex items-center justify-center text-xs">
                 {totalItemCount}
               </div>
               <span>View Cart & Checkout</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-amber-300 font-extrabold">R{grandTotal.toFixed(2)}</span>
+              <span className="text-zinc-950 font-black">R{grandTotal.toFixed(2)}</span>
               <ArrowRight className="w-4 h-4" />
             </div>
           </button>

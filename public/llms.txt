@@ -5,7 +5,7 @@
 ## About Us
 Afro's Chicken Shop (Hillcrest) is a vibrant fast-casual restaurant located at Shop 5, The Junction, Inanda Road, Hillcrest. Known across South Africa for our fresh never-frozen steam-grilled chicken, hand-cut golden potato tjips, and unforgettable lemon and chilli bastings.
 
-- **Website**: https://afros-chicken-hillcrest.vercel.app/
+- **Website**: https://www.afroschicken-hillcrest.co.za/
 - **Location**: Shop 5, The Junction, 5 Inanda Road, Hillcrest, KwaZulu-Natal, 3610, South Africa
 - **Phone / WhatsApp**: +27 78 905 7975 (078 905 7975)
 - **Email (General Inquiries)**: info@afroschicken.co.za
@@ -29,7 +29,7 @@ Afro's Chicken Shop (Hillcrest) is a vibrant fast-casual restaurant located at S
 
 ## How to Order Online
 Customers can order directly on the website:
-1. Visit https://afros-chicken-hillcrest.vercel.app/
+1. Visit https://www.afroschicken-hillcrest.co.za/
 2. Select your flame-grilled chicken meals, strips, or burgers, pick your basting flavour, and customize sides.
 3. Choose Store Collection (Shop 5, The Junction, Hillcrest) or Upper Highway Delivery.
 4. Pay securely online via PayFast, Pay on Delivery, or Cash / Card on Collection.

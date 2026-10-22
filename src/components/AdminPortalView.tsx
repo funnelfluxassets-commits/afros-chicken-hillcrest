@@ -2976,7 +2976,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                   onClick={() => exportTrafficToPdf(trafficSummary, trafficRange === 'today' ? "Today's Rush" : trafficRange === 'yesterday' ? 'Yesterday' : trafficRange === 'week' ? 'Past 7 Days' : 'All-Time', trafficOrdersData)}
                   className="px-4 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
-                  <FileText className="w-4 h-4 text-rose-400" />
+                  <FileText className="w-4 h-4 text-[#FFD100]" />
                   <span>Download PDF</span>
                 </button>
 
@@ -3348,7 +3348,7 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                   disabled={dayOrdersData.totalOrders === 0}
                   className="px-4 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer disabled:opacity-40"
                 >
-                  <FileText className="w-4 h-4 text-rose-400" />
+                  <FileText className="w-4 h-4 text-[#FFD100]" />
                   <span>Download Shift PDF</span>
                 </button>
 

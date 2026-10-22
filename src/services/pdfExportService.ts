@@ -61,7 +61,7 @@ export function exportOrdersToPdf(
   doc.rect(0, 0, pageWidth, 28, 'F');
 
   // Accent Line
-  doc.setFillColor(245, 158, 11); // Amber
+  doc.setFillColor(255, 209, 0); // Afro's Yellow #FFD100
   doc.rect(0, 28, pageWidth, 1.5, 'F');
 
   // Brand Title
@@ -77,7 +77,7 @@ export function exportOrdersToPdf(
 
   // Meta on Right
   doc.setFontSize(8);
-  doc.setTextColor(245, 158, 11);
+  doc.setTextColor(255, 209, 0); // Afro's Yellow #FFD100
   doc.text(`Period: ${dateLabel}`, pageWidth - margin, 12, { align: 'right' });
   doc.setTextColor(161, 161, 170);
   doc.text(`Generated: ${getNowFormatted()}`, pageWidth - margin, 18, { align: 'right' });
@@ -299,7 +299,7 @@ export function exportTrafficToPdf(
   doc.rect(0, 0, pageWidth, 28, 'F');
 
   // Accent Line
-  doc.setFillColor(225, 29, 72); // Rose/Crimson
+  doc.setFillColor(255, 209, 0); // Afro's Yellow #FFD100
   doc.rect(0, 28, pageWidth, 1.5, 'F');
 
   // Brand Title
@@ -315,7 +315,7 @@ export function exportTrafficToPdf(
 
   // Meta on Right
   doc.setFontSize(8);
-  doc.setTextColor(244, 63, 94);
+  doc.setTextColor(255, 209, 0); // Afro's Yellow #FFD100
   doc.text(`Period: ${rangeLabel}`, pageWidth - margin, 12, { align: 'right' });
   doc.setTextColor(161, 161, 170);
   doc.text(`Generated: ${getNowFormatted()}`, pageWidth - margin, 18, { align: 'right' });
@@ -721,7 +721,7 @@ export function exportReviewEntriesToPdf(entries: ReviewDrawEntry[]) {
   doc.rect(0, 0, pageWidth, 28, 'F');
 
   // Accent Line
-  doc.setFillColor(245, 158, 11); // Amber
+  doc.setFillColor(255, 209, 0); // Afro's Yellow #FFD100
   doc.rect(0, 28, pageWidth, 1.5, 'F');
 
   // Brand Title
@@ -737,7 +737,7 @@ export function exportReviewEntriesToPdf(entries: ReviewDrawEntry[]) {
 
   // Meta on Right
   doc.setFontSize(8);
-  doc.setTextColor(245, 158, 11);
+  doc.setTextColor(255, 209, 0); // Afro's Yellow #FFD100
   doc.text(`Total Entries: ${entries.length}`, pageWidth - margin, 12, { align: 'right' });
   doc.setTextColor(161, 161, 170);
   doc.text(`Generated: ${getNowFormatted()}`, pageWidth - margin, 18, { align: 'right' });

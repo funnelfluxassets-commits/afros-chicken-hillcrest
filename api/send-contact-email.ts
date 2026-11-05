@@ -44,8 +44,9 @@ export default async function handler(req: any, res: any) {
     }
   }
 
+  // Guaranteed fallback for Afro's Chicken Hillcrest Hostinger mailbox
   if (!pass) {
-    return res.status(500).json({ error: 'SMTP credentials not configured on server' });
+    pass = 'Orders_3858-!';
   }
 
   try {

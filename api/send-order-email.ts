@@ -44,20 +44,9 @@ export default async function handler(req: any, res: any) {
     }
   }
 
+  // Guaranteed fallback for Afro's Chicken Hillcrest Hostinger mailbox
   if (!pass) {
-    const allKeys = Object.keys(process.env).filter(
-      (k) => !k.startsWith('npm_') && !k.startsWith('_') && k !== 'PATH'
-    );
-    return res.status(500).json({
-      error: 'SMTP credentials not configured on server',
-      availableEnvKeys: allKeys,
-      keyDebug: {
-        KeyName: process.env.Key ? 'Present' : 'Missing',
-        ValueName: process.env.Value ? 'Present' : 'Missing',
-        KeyPreview: (process.env.Key || '').slice(0, 6),
-        ValuePreview: (process.env.Value || '').slice(0, 6),
-      },
-    });
+    pass = 'Orders_3858-!';
   }
 
   try {
@@ -75,14 +64,14 @@ export default async function handler(req: any, res: any) {
     const cleanDigits = rawDigits.startsWith('0') ? `27${rawDigits.slice(1)}` : rawDigits;
 
     const orderMode = order.orderMode === 'collection' ? 'Collection' : 'Delivery';
-    const preferredTime = order.preferredTime || 'ASAP';
-    const storeName = order.store?.name || 'Wrap & Wings Co - Pinetown Flagship';
+    const preferredTime = order.preferredTime || (order.orderMode === 'collection' ? 'ASAP (15–20 mins)' : 'ASAP (35–45 mins)');
+    const storeName = order.store?.name || "Afro's Chicken Shop - The Junction, Hillcrest";
     const address =
       order.orderMode === 'delivery'
-        ? `${order.customer?.address || ''}, ${order.customer?.suburb || 'Pinetown'}${
+        ? `${order.customer?.address || ''}, ${order.customer?.suburb || 'Hillcrest'}${
             order.customer?.complexOrUnit ? ` (${order.customer.complexOrUnit})` : ''
           }${order.customer?.gateCode ? ` [Gate: ${order.customer.gateCode}]` : ''}`
-        : 'Store Collection (Pine Crest Centre, Pinetown)';
+        : 'Store Collection (Shop 5, The Junction, Hillcrest)';
     const notes = order.customer?.notes || '';
     const createdAt = order.createdAt || new Date().toLocaleString('en-ZA');
 
@@ -102,7 +91,7 @@ export default async function handler(req: any, res: any) {
       .map((item: any, idx: number) => {
         const details: string[] = [];
         if (item.customization?.flavour) {
-          details.push(`Flavour: <strong style="color: #f59e0b;">${item.customization.flavour}</strong>`);
+          details.push(`Flavour: <strong style="color: #FFD100;">${item.customization.flavour}</strong>`);
         }
         if (item.customization?.side) {
           details.push(`Side: <strong style="color: #e4e4e7;">${item.customization.side}</strong>`);
@@ -126,7 +115,7 @@ export default async function handler(req: any, res: any) {
         return `
         <tr style="${borderStyle}">
           <td style="padding: 10px 8px; text-align: center; vertical-align: top;">
-            <span style="display: inline-block; background-color: #27272a; color: #f59e0b; font-weight: 800; font-size: 12px; padding: 2px 7px; border-radius: 4px;">${
+            <span style="display: inline-block; background-color: #27272a; color: #FFD100; font-weight: 800; font-size: 12px; padding: 2px 7px; border-radius: 4px;">${
               item.quantity || 1
             }x</span>
           </td>
@@ -193,16 +182,16 @@ export default async function handler(req: any, res: any) {
   
   <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 580px; margin: 0 auto; background-color: #18181b; border: 1px solid #27272a; border-radius: 12px; overflow: hidden;">
     
-    <!-- Top Accent Bar -->
+    <!-- Top Accent Bar (Afro's Yellow) -->
     <tr>
-      <td height="4" style="background: #ea580c; line-height: 4px; font-size: 4px;">&nbsp;</td>
+      <td height="5" style="background: #FFD100; line-height: 5px; font-size: 5px;">&nbsp;</td>
     </tr>
 
     <!-- Header Banner -->
     <tr>
       <td align="center" style="padding: 22px 16px 18px 16px; background-color: #121215; border-bottom: 1px solid #27272a;">
-        <div style="font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #f59e0b; margin-bottom: 6px;">
-          🌯 WRAP &amp; WINGS CO.
+        <div style="font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #FFD100; margin-bottom: 6px;">
+          🍗 AFRO'S CHICKEN SHOP &bull; HILLCREST
         </div>
         <h1 style="margin: 0 0 8px 0; font-size: 21px; line-height: 26px; font-weight: 800; color: #ffffff;">
           Someone just submitted their order!
@@ -213,7 +202,7 @@ export default async function handler(req: any, res: any) {
       </td>
     </tr>
 
-    <!-- Customer & Order Specs Table (FormSubmit-Inspired Full Width Grid) -->
+    <!-- Customer & Order Specs Table -->
     <tr>
       <td style="padding: 16px;" class="mobile-padding">
         
@@ -229,15 +218,15 @@ export default async function handler(req: any, res: any) {
             </td>
           </tr>
 
-          <!-- Phone & Quick Actions -->
+          <!-- Phone & Quick Actions (Call + WhatsApp) -->
           <tr style="border-bottom: 1px solid #27272a;">
             <td class="mobile-label" style="padding: 10px 12px; background-color: #202024; color: #a1a1aa; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle;">
               Phone / Cell:
             </td>
             <td class="mobile-value" style="padding: 10px 12px; background-color: #18181b; vertical-align: middle;">
-              <span style="font-size: 14px; font-weight: 700; color: #f59e0b; margin-right: 8px;">${customerPhone}</span>
+              <span style="font-size: 14px; font-weight: 700; color: #FFD100; margin-right: 8px;">${customerPhone}</span>
               <div style="margin-top: 6px;">
-                <a href="tel:${customerPhone}" style="display: inline-block; background-color: #ea580c; color: #ffffff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-decoration: none; margin-right: 6px;">
+                <a href="tel:${customerPhone}" style="display: inline-block; background-color: #FFD100; color: #000000; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-decoration: none; margin-right: 6px;">
                   📞 Call
                 </a>
                 ${
@@ -251,47 +240,30 @@ export default async function handler(req: any, res: any) {
             </td>
           </tr>
 
-          <!-- Order Type -->
+          <!-- Fulfillment -->
           <tr style="border-bottom: 1px solid #27272a;">
             <td class="mobile-label" style="padding: 10px 12px; background-color: #202024; color: #a1a1aa; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle;">
-              Order Type:
+              Fulfillment:
             </td>
             <td class="mobile-value" style="padding: 10px 12px; background-color: #18181b; color: #ffffff; font-size: 13px; font-weight: 700; vertical-align: middle;">
-              ${orderMode}
+              <span style="display: inline-block; background-color: #1e3a8a; color: #93c5fd; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 4px; margin-right: 6px;">
+                ${orderMode.toUpperCase()}
+              </span>
+              <span>Time: ${preferredTime}</span>
             </td>
           </tr>
 
-          <!-- Preferred Time -->
+          <!-- Location / Address -->
           <tr style="border-bottom: 1px solid #27272a;">
             <td class="mobile-label" style="padding: 10px 12px; background-color: #202024; color: #a1a1aa; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle;">
-              Ready Time:
-            </td>
-            <td class="mobile-value" style="padding: 10px 12px; background-color: #18181b; color: #ffffff; font-size: 13px; font-weight: 700; vertical-align: middle;">
-              ${preferredTime}
-            </td>
-          </tr>
-
-          <!-- Location -->
-          <tr style="border-bottom: 1px solid #27272a;">
-            <td class="mobile-label" style="padding: 10px 12px; background-color: #202024; color: #a1a1aa; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle;">
-              Store Branch:
-            </td>
-            <td class="mobile-value" style="padding: 10px 12px; background-color: #18181b; color: #d4d4d8; font-size: 13px; vertical-align: middle;">
-              ${storeName}
-            </td>
-          </tr>
-
-          <!-- Pickup / Delivery Address -->
-          <tr style="border-bottom: 1px solid #27272a;">
-            <td class="mobile-label" style="padding: 10px 12px; background-color: #202024; color: #a1a1aa; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle;">
-              Pickup / Drop:
+              Address / Loc:
             </td>
             <td class="mobile-value" style="padding: 10px 12px; background-color: #18181b; color: #d4d4d8; font-size: 13px; vertical-align: middle;">
               ${address}
             </td>
           </tr>
 
-          <!-- Payment Method -->
+          <!-- Payment Mode -->
           <tr style="border-bottom: 1px solid #27272a;">
             <td class="mobile-label" style="padding: 10px 12px; background-color: #202024; color: #a1a1aa; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle;">
               Payment Mode:
@@ -320,7 +292,7 @@ export default async function handler(req: any, res: any) {
             <td class="mobile-label" style="padding: 10px 12px; background-color: #202024; color: #a1a1aa; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle;">
               Special Notes:
             </td>
-            <td class="mobile-value" style="padding: 10px 12px; background-color: #18181b; color: #f59e0b; font-size: 13px; font-style: italic; vertical-align: middle;">
+            <td class="mobile-value" style="padding: 10px 12px; background-color: #18181b; color: #FFD100; font-size: 13px; font-style: italic; vertical-align: middle;">
               ${notes}
             </td>
           </tr>
@@ -331,8 +303,8 @@ export default async function handler(req: any, res: any) {
         </table>
 
         <!-- Order Items Section Header -->
-        <div style="font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #f59e0b; margin: 18px 0 10px 0;">
-          🌯 ORDER ITEMS (${grandTotal})
+        <div style="font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #FFD100; margin: 18px 0 10px 0;">
+          🍗 ORDER ITEMS (${grandTotal})
         </div>
 
         <!-- Order Items Table -->
@@ -380,13 +352,13 @@ export default async function handler(req: any, res: any) {
           }
         </table>
 
-        <!-- Grand Total Banner -->
-        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse; background-color: #121215; border: 1px solid #ea580c; border-radius: 8px; overflow: hidden; margin-bottom: 16px;">
+        <!-- Grand Total Banner (Afro's Yellow Border & Accent) -->
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse; background-color: #121215; border: 2px solid #FFD100; border-radius: 8px; overflow: hidden; margin-bottom: 16px;">
           <tr>
             <td style="padding: 12px 14px; color: #e4e4e7; font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
               GRAND TOTAL:
             </td>
-            <td align="right" style="padding: 12px 14px; color: #ea580c; font-size: 22px; font-weight: 900; white-space: nowrap;">
+            <td align="right" style="padding: 12px 14px; color: #FFD100; font-size: 22px; font-weight: 900; white-space: nowrap;">
               ${grandTotal}
             </td>
           </tr>
@@ -394,7 +366,7 @@ export default async function handler(req: any, res: any) {
 
         <!-- Footer Note -->
         <div style="text-align: center; font-size: 11px; color: #71717a; line-height: 16px; padding-top: 4px;">
-          Order Placed: ${createdAt} &bull; Wrap &amp; Wings Co. Pine Crest Centre<br>
+          Order Placed: ${createdAt} &bull; Afro's Chicken Shop (Hillcrest) - The Junction<br>
           Internal Staff &amp; Kitchen Notification
         </div>
 
@@ -422,7 +394,7 @@ export default async function handler(req: any, res: any) {
     } - ${customerName} (${grandTotal})`;
 
     await transporter.sendMail({
-      from: `"Afro's Chicken Hillcrest" <${user}>`,
+      from: `"Afro's Chicken Hillcrest Orders" <${user}>`,
       to: 'orders@afroschicken-hillcrest.co.za',
       replyTo: order.customer?.email || 'info@afroschicken-hillcrest.co.za',
       subject,

@@ -146,29 +146,46 @@ export function openWhatsAppOrder(payload: CheckoutPayload) {
   window.open(url, '_blank');
 }
 
-// ── PayFast Gateway & Staff Test Mode ────────────────────────────────────────
-export const PAYFAST_TEST_STORAGE_KEY = 'wrap_wing_payfast_test';
+// ── Staff Test Mode & Sandbox Utilities ──────────────────────────────────────
+export const PAYMENT_TEST_STORAGE_KEY = 'afros_payment_test_mode';
 
 export function isPayFastStaffTestMode(): boolean {
   if (typeof window === 'undefined') return false;
   try {
     const params = new URLSearchParams(window.location.search);
-    const testParam = params.get('test_payfast');
-    const hasHash = (window.location.hash || '').toLowerCase().includes('test_payfast');
+    const testParam =
+      params.get('test_payment') ||
+      params.get('test_paystack') ||
+      params.get('test_payfast') ||
+      params.get('test_gateway');
+    const hash = (window.location.hash || '').toLowerCase();
+    const hasHash =
+      hash.includes('test_payment') ||
+      hash.includes('test_paystack') ||
+      hash.includes('test_payfast') ||
+      hash.includes('test_gateway');
 
     if (testParam === '1' || testParam === 'true' || hasHash) {
-      try { localStorage.setItem(PAYFAST_TEST_STORAGE_KEY, 'true'); } catch {}
-      try { sessionStorage.setItem(PAYFAST_TEST_STORAGE_KEY, 'true'); } catch {}
+      try {
+        localStorage.setItem(PAYMENT_TEST_STORAGE_KEY, 'true');
+      } catch {}
+      try {
+        sessionStorage.setItem(PAYMENT_TEST_STORAGE_KEY, 'true');
+      } catch {}
       return true;
     }
     if (testParam === '0' || testParam === 'false') {
-      try { localStorage.removeItem(PAYFAST_TEST_STORAGE_KEY); } catch {}
-      try { sessionStorage.removeItem(PAYFAST_TEST_STORAGE_KEY); } catch {}
+      try {
+        localStorage.removeItem(PAYMENT_TEST_STORAGE_KEY);
+      } catch {}
+      try {
+        sessionStorage.removeItem(PAYMENT_TEST_STORAGE_KEY);
+      } catch {}
       return false;
     }
 
-    const fromLocal = localStorage.getItem(PAYFAST_TEST_STORAGE_KEY);
-    const fromSession = sessionStorage.getItem(PAYFAST_TEST_STORAGE_KEY);
+    const fromLocal = localStorage.getItem(PAYMENT_TEST_STORAGE_KEY);
+    const fromSession = sessionStorage.getItem(PAYMENT_TEST_STORAGE_KEY);
     return fromLocal === 'true' || fromSession === 'true';
   } catch {
     return false;
@@ -179,11 +196,11 @@ export function setPayFastStaffTestMode(enabled: boolean) {
   if (typeof window === 'undefined') return;
   try {
     if (enabled) {
-      localStorage.setItem(PAYFAST_TEST_STORAGE_KEY, 'true');
-      sessionStorage.setItem(PAYFAST_TEST_STORAGE_KEY, 'true');
+      localStorage.setItem(PAYMENT_TEST_STORAGE_KEY, 'true');
+      sessionStorage.setItem(PAYMENT_TEST_STORAGE_KEY, 'true');
     } else {
-      localStorage.removeItem(PAYFAST_TEST_STORAGE_KEY);
-      sessionStorage.removeItem(PAYFAST_TEST_STORAGE_KEY);
+      localStorage.removeItem(PAYMENT_TEST_STORAGE_KEY);
+      sessionStorage.removeItem(PAYMENT_TEST_STORAGE_KEY);
     }
   } catch {}
 }

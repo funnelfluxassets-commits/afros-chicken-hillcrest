@@ -84,13 +84,17 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
   const [gateCode, setGateCode] = useState(() => savedProfile.gateCode || '');
   const [notes, setNotes] = useState(() => savedProfile.notes || '');
   const [preferredTime, setPreferredTime] = useState('ASAP');
-  const [paymentMethod, setPaymentMethod] = useState<PaymentGatewayType>('paystack');
+  const [paymentMethod, setPaymentMethod] = useState<PaymentGatewayType>('cod');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isStaffTest, setIsStaffTest] = useState(() => isPayFastStaffTestMode());
 
   useEffect(() => {
     if (isOpen) {
-      setIsStaffTest(isPayFastStaffTestMode());
+      const staffActive = isPayFastStaffTestMode();
+      setIsStaffTest(staffActive);
+      if (!staffActive) {
+        setPaymentMethod('cod');
+      }
       try {
         logCheckoutStart();
       } catch {}
@@ -547,7 +551,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                   onClick={() => {
                     setPayFastStaffTestMode(false);
                     setIsStaffTest(false);
-                    if (paymentMethod === 'payfast') setPaymentMethod('paystack');
+                    setPaymentMethod('cod');
                   }}
                   className="text-xs text-amber-700 hover:text-black underline font-bold cursor-pointer"
                 >
@@ -556,110 +560,21 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
               )}
             </div>
 
+            {isStaffTest && (
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 animate-fadeIn">
+                <div className="flex items-center gap-2 font-semibold">
+                  <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
+                  <span>Staff Test Mode: Paystack Sandbox Unlocked (Zero real money charged)</span>
+                </div>
+              </div>
+            )}
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              {/* Paystack: Card & Apple Pay */}
-              <button
-                type="button"
-                onClick={() => setPaymentMethod('paystack')}
-                className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between shadow-xs ${
-                  paymentMethod === 'paystack'
-                    ? 'bg-[#FFD100]/25 border-2 border-black text-black font-black'
-                    : 'border-zinc-300 bg-zinc-100 hover:bg-zinc-200/70 text-zinc-900 font-bold'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`p-2 rounded-lg shrink-0 ${
-                      paymentMethod === 'paystack'
-                        ? 'bg-black text-[#FFD100]'
-                        : 'bg-white text-zinc-700 border border-zinc-200'
-                    }`}
-                  >
-                    <CreditCard className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-black flex items-center gap-2">
-                      <span>Card / Apple Pay</span>
-                      <span className="text-[9px] bg-sky-600 text-white px-2 py-0.5 rounded-full font-black uppercase tracking-wider">
-                        {PAYSTACK_PUBLIC_KEY.startsWith('pk_test_') ? 'PAYSTACK TEST' : 'PAYSTACK'}
-                      </span>
-                    </div>
-                    <div className="text-[11px] text-zinc-600 font-medium mt-0.5">
-                      Visa, Mastercard, Debit, Apple Pay
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all shrink-0 ml-2 ${
-                    paymentMethod === 'paystack'
-                      ? 'border-black bg-black'
-                      : 'border-zinc-400 bg-white'
-                  }`}
-                >
-                  {paymentMethod === 'paystack' && <div className="w-1.5 h-1.5 rounded-full bg-[#FFD100]" />}
-                </div>
-              </button>
-
-              {/* Ozow: Instant EFT & Capitec Pay */}
-              <button
-                type="button"
-                onClick={() => {
-                  if (!OZOW_SITE_CODE) {
-                    alert(
-                      'Ozow Instant EFT is currently completing verification with Ozow Support.\n\nPlease choose Card & Apple Pay (Paystack) or Pay On Handover in the meantime.'
-                    );
-                    return;
-                  }
-                  setPaymentMethod('ozow');
-                }}
-                className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between shadow-xs ${
-                  paymentMethod === 'ozow'
-                    ? 'bg-[#FFD100]/25 border-2 border-black text-black font-black'
-                    : 'border-zinc-300 bg-zinc-100 hover:bg-zinc-200/70 text-zinc-900 font-bold'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`p-2 rounded-lg shrink-0 ${
-                      paymentMethod === 'ozow'
-                        ? 'bg-black text-[#FFD100]'
-                        : 'bg-white text-zinc-700 border border-zinc-200'
-                    }`}
-                  >
-                    <Landmark className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-black flex items-center gap-2">
-                      <span>Instant EFT (Ozow)</span>
-                      <span
-                        className={`text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-wider ${
-                          OZOW_SITE_CODE ? 'bg-emerald-600 text-white' : 'bg-amber-100 text-amber-800 border border-amber-300'
-                        }`}
-                      >
-                        {OZOW_SITE_CODE ? 'OZOW' : 'ACTIVATING'}
-                      </span>
-                    </div>
-                    <div className="text-[11px] text-zinc-600 font-medium mt-0.5">
-                      Capitec Pay, ABSA, FNB, Standard Bank
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all shrink-0 ml-2 ${
-                    paymentMethod === 'ozow'
-                      ? 'border-black bg-black'
-                      : 'border-zinc-400 bg-white'
-                  }`}
-                >
-                  {paymentMethod === 'ozow' && <div className="w-1.5 h-1.5 rounded-full bg-[#FFD100]" />}
-                </div>
-              </button>
-
-              {/* Pay On Handover (Cash / Speedpoint) */}
+              {/* Pay On Handover (Cash / Speedpoint) - Always Active */}
               <button
                 type="button"
                 onClick={() => setPaymentMethod('cod')}
-                className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between shadow-xs sm:col-span-2 ${
+                className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between shadow-xs ${
                   paymentMethod === 'cod'
                     ? 'bg-[#FFD100]/25 border-2 border-black text-black font-black'
                     : 'border-zinc-300 bg-zinc-100 hover:bg-zinc-200/70 text-zinc-900 font-bold'
@@ -697,6 +612,98 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                   {paymentMethod === 'cod' && <div className="w-1.5 h-1.5 rounded-full bg-[#FFD100]" />}
                 </div>
               </button>
+
+              {/* Paystack: Card & Apple Pay */}
+              {isStaffTest ? (
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('paystack')}
+                  className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between shadow-xs ${
+                    paymentMethod === 'paystack'
+                      ? 'bg-[#FFD100]/25 border-2 border-black text-black font-black'
+                      : 'border-zinc-300 bg-zinc-100 hover:bg-zinc-200/70 text-zinc-900 font-bold'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`p-2 rounded-lg shrink-0 ${
+                        paymentMethod === 'paystack'
+                          ? 'bg-black text-[#FFD100]'
+                          : 'bg-white text-zinc-700 border border-zinc-200'
+                      }`}
+                    >
+                      <CreditCard className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-black flex items-center gap-2">
+                        <span>Card / Apple Pay</span>
+                        <span className="text-[9px] bg-sky-600 text-white px-2 py-0.5 rounded-full font-black uppercase tracking-wider">
+                          PAYSTACK TEST
+                        </span>
+                      </div>
+                      <div className="text-[11px] text-zinc-600 font-medium mt-0.5">
+                        Visa, Mastercard, Debit, Apple Pay
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all shrink-0 ml-2 ${
+                      paymentMethod === 'paystack'
+                        ? 'border-black bg-black'
+                        : 'border-zinc-400 bg-white'
+                    }`}
+                  >
+                    {paymentMethod === 'paystack' && <div className="w-1.5 h-1.5 rounded-full bg-[#FFD100]" />}
+                  </div>
+                </button>
+              ) : (
+                <div
+                  className="p-3.5 rounded-xl border border-zinc-200 bg-zinc-50 text-left flex items-center justify-between opacity-55 cursor-not-allowed select-none"
+                  title="Card and Apple Pay online payments coming soon!"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg shrink-0 bg-zinc-100 text-zinc-400 border border-zinc-200">
+                      <CreditCard className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-zinc-600 flex items-center gap-2">
+                        <span>Card / Apple Pay</span>
+                        <span className="text-[9px] bg-zinc-200 text-zinc-600 px-2 py-0.5 rounded-full font-black uppercase tracking-wider">
+                          COMING SOON
+                        </span>
+                      </div>
+                      <div className="text-[11px] text-zinc-400 font-medium mt-0.5">
+                        Visa, Mastercard, Debit, Apple Pay
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-4 h-4 rounded-full border border-zinc-300 bg-zinc-100 shrink-0 ml-2" />
+                </div>
+              )}
+
+              {/* Ozow: Instant EFT & Capitec Pay */}
+              <div
+                className="p-3.5 rounded-xl border border-zinc-200 bg-zinc-50 text-left flex items-center justify-between opacity-55 cursor-not-allowed select-none sm:col-span-2"
+                title="Instant EFT with Capitec Pay coming soon!"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg shrink-0 bg-zinc-100 text-zinc-400 border border-zinc-200">
+                    <Landmark className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-zinc-600 flex items-center gap-2">
+                      <span>Instant EFT (Ozow)</span>
+                      <span className="text-[9px] bg-zinc-200 text-zinc-600 px-2 py-0.5 rounded-full font-black uppercase tracking-wider">
+                        COMING SOON
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-zinc-400 font-medium mt-0.5">
+                      Capitec Pay, ABSA, FNB, Standard Bank & Nedbank
+                    </div>
+                  </div>
+                </div>
+                <div className="w-4 h-4 rounded-full border border-zinc-300 bg-zinc-100 shrink-0 ml-2" />
+              </div>
             </div>
           </div>
 

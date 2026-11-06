@@ -320,7 +320,11 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({ 
                 <div className="pt-1.5 text-xs text-zinc-700 font-semibold flex items-center justify-between">
                   <span>Payment Method:</span>
                   <span className="uppercase font-black text-black">
-                    {order.paymentMethod === 'payfast'
+                    {order.paymentMethod === 'paystack'
+                      ? 'Paystack (Card / Apple Pay)'
+                      : order.paymentMethod === 'ozow'
+                      ? 'Ozow (Instant EFT)'
+                      : order.paymentMethod === 'payfast'
                       ? 'PayFast (EFT / Card)'
                       : order.paymentMethod === 'yoco'
                       ? 'Yoco Checkout'

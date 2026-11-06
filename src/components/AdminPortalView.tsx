@@ -224,10 +224,10 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
 
     const filtered = orders.filter((o) => {
       if (!o || !o.orderId) return false;
-      // Do not count cancelled, test orders, or unpaid PayFast orders in meals sold
+      // Do not count cancelled, test orders, or unpaid online orders in meals sold
       if (o.status === 'cancelled') return false;
       if (isTestOrder(o)) return false;
-      if (o.paymentMethod === 'payfast' && o.paymentStatus !== 'paid') return false;
+      if ((o.paymentMethod === 'paystack' || o.paymentMethod === 'ozow' || o.paymentMethod === 'payfast') && o.paymentStatus !== 'paid') return false;
       const cName = (o.customer?.customerName || '').toLowerCase();
       if (cName.includes('test')) return false;
 
@@ -386,9 +386,10 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
     const targetDate = selectedOrderDate;
     const targetList = orders.filter((o) => {
       if (!o || !o.orderId) return false;
-      // Do not count cancelled, unpaid, or PayFast test orders in daily sales report
+      // Do not count cancelled, unpaid online orders, or test orders in daily sales report
       if (o.status === 'cancelled') return false;
-      if (o.paymentMethod === 'payfast') return false;
+      if (isTestOrder(o)) return false;
+      if ((o.paymentMethod === 'paystack' || o.paymentMethod === 'ozow' || o.paymentMethod === 'payfast') && o.paymentStatus !== 'paid') return false;
       const cName = (o.customer?.customerName || '').toLowerCase();
       if (cName.includes('test')) return false;
 
@@ -3292,10 +3293,14 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                   ) : (
                     Object.entries(dayOrdersData.paymentMethodsMap).map(([method, data]) => {
                       const label =
-                        method === 'payfast' || method === 'yoco'
+                        method === 'paystack'
+                          ? 'Paystack (Card / Apple Pay)'
+                          : method === 'ozow'
+                          ? 'Ozow (Instant EFT)'
+                          : method === 'payfast' || method === 'yoco'
                           ? 'Online Card / Instant EFT'
                           : method === 'cod'
-                          ? 'Cash on Delivery / Pickup'
+                          ? 'Pay on Handover (Cash / Speedpoint)'
                           : method === 'whatsapp'
                           ? 'WhatsApp Pay / Speedpoint'
                           : method.toUpperCase();

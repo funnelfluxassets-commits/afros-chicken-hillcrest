@@ -197,7 +197,11 @@ export const DriverTicketModal: React.FC<DriverTicketModalProps> = ({ order, onC
           <div className="p-3 rounded-xl bg-zinc-950 border border-white/10 flex items-center justify-between text-xs font-bold text-zinc-300">
             <span>Payment Status:</span>
             <span className="text-emerald-400 font-extrabold uppercase">
-              {order.paymentMethod === 'payfast'
+              {order.paymentMethod === 'paystack'
+                ? 'Paid via Paystack (Card/Apple Pay)'
+                : order.paymentMethod === 'ozow'
+                ? 'Paid via Ozow (Instant EFT)'
+                : order.paymentMethod === 'payfast'
                 ? 'Paid via PayFast'
                 : order.paymentMethod === 'yoco'
                 ? 'Paid via Yoco'

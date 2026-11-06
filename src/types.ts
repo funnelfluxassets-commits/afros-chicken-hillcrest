@@ -88,6 +88,7 @@ export interface StoreLocation {
 export interface DeliveryDetails {
   customerName: string;
   phone: string;
+  email?: string;
   address: string;
   suburb: string;
   complexOrUnit?: string;
@@ -97,7 +98,7 @@ export interface DeliveryDetails {
   createdAt?: string;
 }
 
-export type PaymentGatewayType = 'payfast' | 'yoco' | 'whatsapp' | 'cod';
+export type PaymentGatewayType = 'paystack' | 'ozow' | 'payfast' | 'yoco' | 'whatsapp' | 'cod';
 
 export type OrderStatus = 'received' | 'cooking' | 'ready' | 'dispatched' | 'completed' | 'cancelled';
 

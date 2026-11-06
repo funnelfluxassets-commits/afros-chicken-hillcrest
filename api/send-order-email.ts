@@ -75,8 +75,13 @@ export default async function handler(req: any, res: any) {
     const notes = order.customer?.notes || '';
     const createdAt = order.createdAt || new Date().toLocaleString('en-ZA');
 
+    const customerEmail = order.customer?.email || '';
     const paymentLabel =
-      order.paymentMethod === 'payfast'
+      order.paymentMethod === 'paystack'
+        ? '💳 Paystack (Card / Apple Pay - Confirmed Paid)'
+        : order.paymentMethod === 'ozow'
+        ? '🏦 Ozow (Instant EFT - Confirmed Paid)'
+        : order.paymentMethod === 'payfast'
         ? 'PayFast Online (Confirmed Paid)'
         : order.paymentMethod === 'whatsapp'
         ? 'WhatsApp Order'
@@ -240,6 +245,20 @@ export default async function handler(req: any, res: any) {
             </td>
           </tr>
 
+          ${
+            customerEmail
+              ? `<!-- Customer Email -->
+          <tr style="border-bottom: 1px solid #27272a;">
+            <td class="mobile-label" style="padding: 10px 12px; background-color: #202024; color: #a1a1aa; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle;">
+              Email Receipt:
+            </td>
+            <td class="mobile-value" style="padding: 10px 12px; background-color: #18181b; color: #38bdf8; font-size: 13px; font-weight: 600; vertical-align: middle;">
+              <a href="mailto:${customerEmail}" style="color: #38bdf8; text-decoration: none;">${customerEmail}</a>
+            </td>
+          </tr>`
+              : ''
+          }
+
           <!-- Fulfillment -->
           <tr style="border-bottom: 1px solid #27272a;">
             <td class="mobile-label" style="padding: 10px 12px; background-color: #202024; color: #a1a1aa; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle;">
@@ -269,7 +288,12 @@ export default async function handler(req: any, res: any) {
               Payment Mode:
             </td>
             <td class="mobile-value" style="padding: 10px 12px; background-color: #18181b; color: #ffffff; font-size: 13px; vertical-align: middle;">
-              ${paymentLabel}
+              <strong style="color: #FFD100;">${paymentLabel}</strong>
+              ${
+                order.paymentReference
+                  ? `<div style="margin-top: 4px; font-size: 11px; color: #a1a1aa; font-family: monospace;">Ref: ${order.paymentReference}</div>`
+                  : ''
+              }
             </td>
           </tr>
 

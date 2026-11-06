@@ -7,16 +7,37 @@ import {
   isPayFastStaffTestMode,
   setPayFastStaffTestMode,
   initiatePayFastCheckout,
+  initiatePaystackCheckout,
+  PAYSTACK_PUBLIC_KEY,
+  OZOW_SITE_CODE,
 } from '../services/payment';
 import { createLiveOrder, playCustomerUpdateChime, generateNextOrderId } from '../services/orderService';
 import { logCheckoutStart, logOrderCompleted } from '../services/analyticsService';
 import { isItemOutOfStock } from '../services/stockService';
-import { X, CheckCircle, ShieldCheck, MapPin, Phone, CreditCard, Send, Navigation, ArrowRight, Clock, MessageSquare, ShoppingBag, AlertCircle } from 'lucide-react';
+import {
+  X,
+  CheckCircle,
+  ShieldCheck,
+  MapPin,
+  Phone,
+  CreditCard,
+  Send,
+  Navigation,
+  ArrowRight,
+  Clock,
+  MessageSquare,
+  ShoppingBag,
+  AlertCircle,
+  Landmark,
+  Banknote,
+  Mail,
+} from 'lucide-react';
 import { DeliveryMotorbikeIcon } from './icons/DeliveryMotorbikeIcon';
 
 interface SavedCustomerProfile {
   customerName?: string;
   phone?: string;
+  email?: string;
   address?: string;
   suburb?: string;
   complexOrUnit?: string;
@@ -24,12 +45,13 @@ interface SavedCustomerProfile {
   notes?: string;
 }
 
-const SAVED_PROFILE_KEY = 'wrap_wing_saved_customer_profile';
+const SAVED_PROFILE_KEY = 'afros_saved_customer_profile';
+const LEGACY_PROFILE_KEY = 'wrap_wing_saved_customer_profile';
 
 function loadSavedProfile(): SavedCustomerProfile {
   if (typeof window === 'undefined') return {};
   try {
-    const raw = localStorage.getItem(SAVED_PROFILE_KEY);
+    const raw = localStorage.getItem(SAVED_PROFILE_KEY) || localStorage.getItem(LEGACY_PROFILE_KEY);
     if (raw) return JSON.parse(raw);
   } catch {}
   return {};
@@ -55,13 +77,14 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
   const [hasAutofilled, setHasAutofilled] = useState(() => Boolean(savedProfile.customerName || savedProfile.phone));
   const [customerName, setCustomerName] = useState(() => savedProfile.customerName || '');
   const [phone, setPhone] = useState(() => savedProfile.phone || '');
+  const [email, setEmail] = useState(() => savedProfile.email || '');
   const [address, setAddress] = useState(() => savedProfile.address || '');
   const [suburb, setSuburb] = useState(() => savedProfile.suburb || 'Hillcrest');
   const [complexOrUnit, setComplexOrUnit] = useState(() => savedProfile.complexOrUnit || '');
   const [gateCode, setGateCode] = useState(() => savedProfile.gateCode || '');
   const [notes, setNotes] = useState(() => savedProfile.notes || '');
   const [preferredTime, setPreferredTime] = useState('ASAP');
-  const [paymentMethod, setPaymentMethod] = useState<PaymentGatewayType>('cod');
+  const [paymentMethod, setPaymentMethod] = useState<PaymentGatewayType>('paystack');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isStaffTest, setIsStaffTest] = useState(() => isPayFastStaffTestMode());
 
@@ -77,9 +100,11 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
   const handleClearSavedDetails = () => {
     try {
       localStorage.removeItem(SAVED_PROFILE_KEY);
+      localStorage.removeItem(LEGACY_PROFILE_KEY);
     } catch {}
     setCustomerName('');
     setPhone('');
+    setEmail('');
     setAddress('');
     setSuburb('Hillcrest');
     setComplexOrUnit('');
@@ -109,6 +134,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
     saveCustomerProfile({
       customerName,
       phone,
+      email: email.trim() || undefined,
       address,
       suburb,
       complexOrUnit: complexOrUnit.trim() || undefined,
@@ -121,6 +147,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
     const deliveryDetails: DeliveryDetails = {
       customerName,
       phone,
+      email: email.trim() || undefined,
       address,
       suburb,
       complexOrUnit: complexOrUnit.trim() || undefined,
@@ -147,12 +174,67 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
       createdAt: deliveryDetails.createdAt || 'Just now',
     };
 
-    // If customer selected PayFast, store pending order in browser memory and forward to PayFast.
-    // The order will ONLY be dispatched to the kitchen once payment approval is confirmed!
+    // ── Paystack Checkout Flow (Credit/Debit Card & Apple Pay) ───────────────
+    if (paymentMethod === 'paystack') {
+      try {
+        await initiatePaystackCheckout(payload, {
+          onSuccess: async (reference) => {
+            const confirmedPayload: CheckoutPayload = {
+              ...payload,
+              paymentMethod: 'paystack',
+              paymentReference: reference,
+            };
+
+            try {
+              await createLiveOrder(confirmedPayload);
+              logOrderCompleted(
+                items.map((i) => ({
+                  name: i.menuItem.name,
+                  quantity: i.quantity,
+                  flavour: i.customization?.flavour,
+                  extras: i.customization?.extras,
+                }))
+              );
+            } catch (err) {
+              console.warn('Error saving live order after Paystack approval:', err);
+            }
+
+            setIsProcessing(false);
+            clearCart();
+            onOrderSuccess(confirmedPayload);
+            onClose();
+          },
+          onCancel: () => {
+            setIsProcessing(false);
+          },
+          onError: (err) => {
+            setIsProcessing(false);
+            alert(`Unable to open card payment window: ${err?.message || 'Please check your internet connection.'}`);
+          },
+        });
+      } catch (err: any) {
+        setIsProcessing(false);
+        alert(`Payment error: ${err?.message || 'Could not start card payment.'}`);
+      }
+      return;
+    }
+
+    // ── Ozow Instant EFT Flow ────────────────────────────────────────────────
+    if (paymentMethod === 'ozow') {
+      if (!OZOW_SITE_CODE) {
+        setIsProcessing(false);
+        alert(
+          'Ozow Instant EFT is currently awaiting final activation from Ozow Support.\n\nPlease choose Card & Apple Pay (Paystack) or Pay On Handover to complete your order!'
+        );
+        return;
+      }
+    }
+
+    // ── PayFast Gateway Legacy Flow (if selected in staff test) ──────────────
     if (paymentMethod === 'payfast') {
       try {
-        localStorage.setItem('wrap_wing_pending_payfast_order', JSON.stringify(payload));
-        sessionStorage.setItem('wrap_wing_pending_payfast_order', JSON.stringify(payload));
+        localStorage.setItem('afros_pending_payfast_order', JSON.stringify(payload));
+        sessionStorage.setItem('afros_pending_payfast_order', JSON.stringify(payload));
       } catch {}
       setIsProcessing(false);
       clearCart();
@@ -161,7 +243,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
       return;
     }
 
-    // For Pay on Handover (Cash/Speedpoint), dispatch immediately to kitchen
+    // ── Pay On Handover (Cash / Speedpoint) ──────────────────────────────────
     await createLiveOrder(payload);
     try {
       logOrderCompleted(
@@ -282,6 +364,26 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                   placeholder="e.g. 082 123 4567"
                   className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-100/80 focus:bg-white border border-zinc-300 focus:border-black focus:ring-1 focus:ring-black text-xs text-black placeholder-zinc-400 focus:outline-none transition-all"
                 />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="text-xs font-bold text-zinc-700 block mb-1 flex items-center justify-between">
+                  <span>Email Address</span>
+                  <span className="text-[11px] font-normal text-zinc-500">For digital payment receipt & order updates</span>
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-400">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                  <input
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="e.g. name@example.com (recommended for card receipt)"
+                    className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-100/80 focus:bg-white border border-zinc-300 focus:border-black focus:ring-1 focus:ring-black text-xs text-black placeholder-zinc-400 focus:outline-none transition-all"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -436,7 +538,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                   <CreditCard className="w-3.5 h-3.5" />
                 </span>
                 <h3 className="text-xs sm:text-sm font-black uppercase tracking-wide text-black">
-                  Payment Method
+                  Select Payment Method
                 </h3>
               </div>
               {isStaffTest && (
@@ -445,46 +547,148 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                   onClick={() => {
                     setPayFastStaffTestMode(false);
                     setIsStaffTest(false);
-                    if (paymentMethod === 'payfast') setPaymentMethod('cod');
+                    if (paymentMethod === 'payfast') setPaymentMethod('paystack');
                   }}
                   className="text-xs text-amber-700 hover:text-black underline font-bold cursor-pointer"
                 >
-                  Exit Test Mode
+                  Exit Staff Test
                 </button>
               )}
             </div>
 
-            {isStaffTest && (
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 animate-fadeIn">
-                <div className="flex items-center gap-2 font-semibold">
-                  <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
-                  <span>Staff Test Mode: PayFast Sandbox Active (Zero real money charged)</span>
-                </div>
-              </div>
-            )}
-
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              {/* Pay On Handover (Active) */}
+              {/* Paystack: Card & Apple Pay */}
+              <button
+                type="button"
+                onClick={() => setPaymentMethod('paystack')}
+                className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between shadow-xs ${
+                  paymentMethod === 'paystack'
+                    ? 'bg-[#FFD100]/25 border-2 border-black text-black font-black'
+                    : 'border-zinc-300 bg-zinc-100 hover:bg-zinc-200/70 text-zinc-900 font-bold'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`p-2 rounded-lg shrink-0 ${
+                      paymentMethod === 'paystack'
+                        ? 'bg-black text-[#FFD100]'
+                        : 'bg-white text-zinc-700 border border-zinc-200'
+                    }`}
+                  >
+                    <CreditCard className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-black flex items-center gap-2">
+                      <span>Card / Apple Pay</span>
+                      <span className="text-[9px] bg-sky-600 text-white px-2 py-0.5 rounded-full font-black uppercase tracking-wider">
+                        {PAYSTACK_PUBLIC_KEY.startsWith('pk_test_') ? 'PAYSTACK TEST' : 'PAYSTACK'}
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-zinc-600 font-medium mt-0.5">
+                      Visa, Mastercard, Debit, Apple Pay
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all shrink-0 ml-2 ${
+                    paymentMethod === 'paystack'
+                      ? 'border-black bg-black'
+                      : 'border-zinc-400 bg-white'
+                  }`}
+                >
+                  {paymentMethod === 'paystack' && <div className="w-1.5 h-1.5 rounded-full bg-[#FFD100]" />}
+                </div>
+              </button>
+
+              {/* Ozow: Instant EFT & Capitec Pay */}
+              <button
+                type="button"
+                onClick={() => {
+                  if (!OZOW_SITE_CODE) {
+                    alert(
+                      'Ozow Instant EFT is currently completing verification with Ozow Support.\n\nPlease choose Card & Apple Pay (Paystack) or Pay On Handover in the meantime.'
+                    );
+                    return;
+                  }
+                  setPaymentMethod('ozow');
+                }}
+                className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between shadow-xs ${
+                  paymentMethod === 'ozow'
+                    ? 'bg-[#FFD100]/25 border-2 border-black text-black font-black'
+                    : 'border-zinc-300 bg-zinc-100 hover:bg-zinc-200/70 text-zinc-900 font-bold'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`p-2 rounded-lg shrink-0 ${
+                      paymentMethod === 'ozow'
+                        ? 'bg-black text-[#FFD100]'
+                        : 'bg-white text-zinc-700 border border-zinc-200'
+                    }`}
+                  >
+                    <Landmark className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-black flex items-center gap-2">
+                      <span>Instant EFT (Ozow)</span>
+                      <span
+                        className={`text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-wider ${
+                          OZOW_SITE_CODE ? 'bg-emerald-600 text-white' : 'bg-amber-100 text-amber-800 border border-amber-300'
+                        }`}
+                      >
+                        {OZOW_SITE_CODE ? 'OZOW' : 'ACTIVATING'}
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-zinc-600 font-medium mt-0.5">
+                      Capitec Pay, ABSA, FNB, Standard Bank
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all shrink-0 ml-2 ${
+                    paymentMethod === 'ozow'
+                      ? 'border-black bg-black'
+                      : 'border-zinc-400 bg-white'
+                  }`}
+                >
+                  {paymentMethod === 'ozow' && <div className="w-1.5 h-1.5 rounded-full bg-[#FFD100]" />}
+                </div>
+              </button>
+
+              {/* Pay On Handover (Cash / Speedpoint) */}
               <button
                 type="button"
                 onClick={() => setPaymentMethod('cod')}
-                className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between shadow-xs ${
+                className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between shadow-xs sm:col-span-2 ${
                   paymentMethod === 'cod'
                     ? 'bg-[#FFD100]/25 border-2 border-black text-black font-black'
                     : 'border-zinc-300 bg-zinc-100 hover:bg-zinc-200/70 text-zinc-900 font-bold'
                 }`}
               >
-                <div>
-                  <div className="text-xs font-black flex items-center gap-2">
-                    <span>Pay On Handover</span>
-                    <span className="text-[9px] bg-emerald-600 text-white px-2 py-0.5 rounded-full font-black uppercase tracking-wider">
-                      ACTIVE
-                    </span>
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`p-2 rounded-lg shrink-0 ${
+                      paymentMethod === 'cod'
+                        ? 'bg-black text-[#FFD100]'
+                        : 'bg-white text-zinc-700 border border-zinc-200'
+                    }`}
+                  >
+                    <Banknote className="w-5 h-5" />
                   </div>
-                  <div className="text-[11px] text-zinc-600 font-medium mt-0.5">Cash or Speedpoint card machine</div>
+                  <div>
+                    <div className="text-xs font-black flex items-center gap-2">
+                      <span>Pay On Handover</span>
+                      <span className="text-[9px] bg-emerald-600 text-white px-2 py-0.5 rounded-full font-black uppercase tracking-wider">
+                        ACTIVE
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-zinc-600 font-medium mt-0.5">
+                      Cash or Speedpoint card machine on {orderMode === 'collection' ? 'collection' : 'delivery'}
+                    </div>
+                  </div>
                 </div>
                 <div
-                  className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
+                  className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all shrink-0 ml-2 ${
                     paymentMethod === 'cod'
                       ? 'border-black bg-black'
                       : 'border-zinc-400 bg-white'
@@ -493,54 +697,6 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                   {paymentMethod === 'cod' && <div className="w-1.5 h-1.5 rounded-full bg-[#FFD100]" />}
                 </div>
               </button>
-
-              {/* PayFast */}
-              {isStaffTest ? (
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod('payfast')}
-                  className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between shadow-xs ${
-                    paymentMethod === 'payfast'
-                      ? 'bg-[#FFD100]/25 border-2 border-black text-black font-black'
-                      : 'border-zinc-300 bg-zinc-100 hover:bg-zinc-200/70 text-zinc-900 font-bold'
-                  }`}
-                >
-                  <div>
-                    <div className="text-xs font-black flex items-center gap-2">
-                      <span>PayFast</span>
-                      <span className="text-[9px] bg-sky-600 text-white px-2 py-0.5 rounded-full font-black uppercase">
-                        SANDBOX TEST
-                      </span>
-                    </div>
-                    <div className="text-[11px] text-zinc-600 font-medium mt-0.5">Instant EFT, Capitec Pay, Cards</div>
-                  </div>
-                  <div
-                    className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
-                      paymentMethod === 'payfast'
-                        ? 'border-black bg-black'
-                        : 'border-zinc-400 bg-white'
-                    }`}
-                  >
-                    {paymentMethod === 'payfast' && <div className="w-1.5 h-1.5 rounded-full bg-[#FFD100]" />}
-                  </div>
-                </button>
-              ) : (
-                <div
-                  className="p-3.5 rounded-xl border border-zinc-200 bg-zinc-50 text-left flex items-center justify-between opacity-60 cursor-not-allowed select-none"
-                  title="Online payments coming soon"
-                >
-                  <div>
-                    <div className="text-xs font-bold text-zinc-500 flex items-center gap-2">
-                      <span>PayFast</span>
-                      <span className="text-[9px] bg-zinc-200 text-zinc-600 px-2 py-0.5 rounded-full font-black uppercase">
-                        COMING SOON
-                      </span>
-                    </div>
-                    <div className="text-[11px] text-zinc-400 font-medium mt-0.5">Instant EFT, Capitec Pay, Cards</div>
-                  </div>
-                  <div className="w-4 h-4 rounded-full border border-zinc-300 bg-zinc-100" />
-                </div>
-              )}
             </div>
           </div>
 
@@ -636,7 +792,17 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                   disabled={isProcessing}
                   className="w-full py-4 px-5 rounded-2xl bg-[#FFD100] hover:bg-[#e6bd00] text-black font-black text-sm sm:text-base tracking-wide shadow-md hover:shadow-lg transition-all flex items-center justify-between cursor-pointer border-2 border-black disabled:opacity-50"
                 >
-                  <span>{isProcessing ? 'CONFIRMING ORDER...' : 'CONFIRM & PLACE ORDER'}</span>
+                  <span>
+                    {isProcessing
+                      ? paymentMethod === 'paystack'
+                        ? 'OPENING SECURE CARD PAYMENT...'
+                        : 'CONFIRMING ORDER...'
+                      : paymentMethod === 'paystack'
+                      ? 'PAY WITH CARD / APPLE PAY'
+                      : paymentMethod === 'ozow'
+                      ? 'PAY VIA OZOW INSTANT EFT'
+                      : 'CONFIRM & PLACE ORDER'}
+                  </span>
                   <span className="text-base sm:text-lg">R{grandTotal.toFixed(2)}</span>
                 </button>
               );

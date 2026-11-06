@@ -1,4 +1,4 @@
-import { CartItem, DeliveryDetails, OrderMode, StoreLocation } from '../types';
+import { CartItem, DeliveryDetails, OrderMode, StoreLocation, PaymentGatewayType } from '../types';
 import { ORDER_WHATSAPP_NUMBER } from '../data/stores';
 
 export interface CheckoutPayload {
@@ -11,9 +11,10 @@ export interface CheckoutPayload {
   grandTotal: number;
   customer: DeliveryDetails;
   store: StoreLocation;
-  paymentMethod: 'payfast' | 'yoco' | 'whatsapp' | 'cod';
+  paymentMethod: PaymentGatewayType;
   preferredTime?: string;
   createdAt: string;
+  paymentReference?: string;
 }
 
 // ── Google Maps & Waze Deep-link Generators ──────────────────────────────────
@@ -113,7 +114,11 @@ export function buildWhatsAppOrderMessage(payload: CheckoutPayload): string {
   }
   msg += `*TOTAL DUE:* *R${(typeof grandTotal === 'number' ? grandTotal : 0).toFixed(2)}*\n`;
   msg += `*Payment:* ${
-    paymentMethod === 'payfast'
+    paymentMethod === 'paystack'
+      ? '✅ Paid via Card / Apple Pay (Paystack)'
+      : paymentMethod === 'ozow'
+      ? '✅ Paid via Instant EFT (Ozow)'
+      : paymentMethod === 'payfast'
       ? '✅ Paid via PayFast (Instant EFT / Card)'
       : paymentMethod === 'yoco'
       ? '✅ Paid via Yoco (Card / Apple Pay)'
@@ -121,6 +126,9 @@ export function buildWhatsAppOrderMessage(payload: CheckoutPayload): string {
       ? '💵 Pay on Handover (Cash / Speedpoint)'
       : '💬 Direct WhatsApp Confirmation'
   }\n`;
+  if (payload.paymentReference) {
+    msg += `*Payment Ref:* \`${payload.paymentReference}\`\n`;
+  }
   msg += `─────────────────────────\n`;
   msg += `_Thank you for ordering with Afro’s Chicken (Hillcrest)!_`;
 
@@ -253,4 +261,130 @@ export function initiatePayFastCheckout(payload: CheckoutPayload, options?: { is
   document.body.appendChild(form);
   form.submit();
 }
+
+// ── Paystack Gateway Integration (Card & Apple Pay) ──────────────────────────
+export const PAYSTACK_PUBLIC_KEY =
+  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_PAYSTACK_PUBLIC_KEY) ||
+  'pk_test_de1955ffaf363a9d94aae19761b9e1ef7f8d8d2c';
+
+/**
+ * Loads Paystack Inline popup script dynamically if not yet available in the window.
+ */
+export function loadPaystackScript(): Promise<boolean> {
+  return new Promise((resolve) => {
+    if (typeof window === 'undefined') return resolve(false);
+    if ((window as any).PaystackPop) return resolve(true);
+
+    const existing = document.getElementById('paystack-inline-js');
+    if (existing) {
+      existing.addEventListener('load', () => resolve(true));
+      existing.addEventListener('error', () => resolve(false));
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.id = 'paystack-inline-js';
+    script.src = 'https://js.paystack.co/v1/inline.js';
+    script.async = true;
+    script.onload = () => resolve(true);
+    script.onerror = () => {
+      console.warn('Unable to load Paystack inline script.');
+      resolve(false);
+    };
+    document.body.appendChild(script);
+  });
+}
+
+export interface PaystackCheckoutOptions {
+  onSuccess: (reference: string) => void;
+  onCancel: () => void;
+  onError?: (err: Error) => void;
+}
+
+export async function initiatePaystackCheckout(
+  payload: CheckoutPayload,
+  options: PaystackCheckoutOptions
+) {
+  if (typeof window === 'undefined') return;
+
+  const scriptLoaded = await loadPaystackScript();
+  const PaystackPop = (window as any).PaystackPop;
+
+  if (!scriptLoaded || !PaystackPop) {
+    options.onError?.(
+      new Error('Unable to open Paystack payment window. Please check your internet connection and try again.')
+    );
+    return;
+  }
+
+  const cleanId = String(payload.orderId).replace('#', '').trim();
+  const rawName = (payload.customer.customerName || "Afro's Guest").trim();
+  const phone = payload.customer.phone || '';
+  const emailPhoneTag = phone.replace(/\D/g, '') || 'guest';
+  const customerEmail =
+    payload.customer.email && payload.customer.email.trim().includes('@')
+      ? payload.customer.email.trim()
+      : `order-${cleanId}-${emailPhoneTag}@afroschicken-hillcrest.co.za`;
+
+  // Paystack expects amount in cents (e.g. R158.00 -> 15800)
+  const amountInCents = Math.round(payload.grandTotal * 100);
+  const reference = `AFR-${cleanId}-${Date.now().toString(36).toUpperCase()}`;
+
+  try {
+    const handler = PaystackPop.setup({
+      key: PAYSTACK_PUBLIC_KEY,
+      email: customerEmail,
+      amount: amountInCents,
+      currency: 'ZAR',
+      ref: reference,
+      channels: ['card', 'apple_pay'],
+      metadata: {
+        custom_fields: [
+          {
+            display_name: 'Customer Name',
+            variable_name: 'customer_name',
+            value: rawName,
+          },
+          {
+            display_name: 'Phone Number',
+            variable_name: 'phone_number',
+            value: phone,
+          },
+          {
+            display_name: 'Order Number',
+            variable_name: 'order_number',
+            value: `#${cleanId}`,
+          },
+          {
+            display_name: 'Order Type',
+            variable_name: 'order_type',
+            value: payload.orderMode === 'delivery' ? 'Home Delivery' : 'Store Collection',
+          },
+          {
+            display_name: 'Store',
+            variable_name: 'store',
+            value: payload.store.name || "Afro's Chicken Shop (Hillcrest)",
+          },
+        ],
+      },
+      callback: function (response: { reference?: string; trxref?: string; status?: string }) {
+        const confirmedRef = response?.reference || response?.trxref || reference;
+        options.onSuccess(confirmedRef);
+      },
+      onClose: function () {
+        options.onCancel();
+      },
+    });
+
+    handler.openIframe();
+  } catch (err: any) {
+    console.error('Paystack popup setup error:', err);
+    options.onError?.(err instanceof Error ? err : new Error(String(err)));
+  }
+}
+
+// ── Ozow Gateway Integration (Instant EFT & Capitec Pay) ─────────────────────
+export const OZOW_SITE_CODE =
+  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_OZOW_SITE_CODE) || '';
+
 

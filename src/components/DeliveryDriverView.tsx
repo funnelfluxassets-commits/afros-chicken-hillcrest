@@ -113,11 +113,11 @@ export const DeliveryDriverView: React.FC<DeliveryDriverViewProps> = ({
     }
   };
 
-  // Filter only home delivery orders (must be COD or successfully paid via PayFast)
+  // Filter only home delivery orders (must be COD or successfully paid via online gateway)
   const deliveryOrders = orders.filter(
     (o): o is LiveOrder => Boolean(
       o && typeof o === 'object' && o.orderId && o.orderMode === 'delivery' &&
-      (o.paymentMethod !== 'payfast' || o.paymentStatus === 'paid')
+      ((o.paymentMethod !== 'payfast' && o.paymentMethod !== 'paystack' && o.paymentMethod !== 'ozow') || o.paymentStatus === 'paid')
     )
   );
   

@@ -51,6 +51,13 @@ interface KitchenDisplayViewProps {
   onLogout?: () => void;
 }
 
+function isUnpaidOnlineOrder(o: { paymentMethod?: string; paymentStatus?: string }): boolean {
+  if (!o) return false;
+  const method = o.paymentMethod;
+  const isOnline = method === 'paystack' || method === 'ozow' || method === 'payfast' || method === 'yoco';
+  return isOnline && o.paymentStatus !== 'paid';
+}
+
 // Compute accurate cooking start timestamp from order metadata or timeline
 function getOrderCookingStartTime(order: LiveOrder): number {
   if (typeof order.cookingStartedAt === 'number' && order.cookingStartedAt > 0) {
@@ -166,7 +173,7 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
       const newIncoming = cleanOrders.filter((o) => {
         const cleanId = String(o.orderId).replace('#', '').trim();
         if (currentKnown.has(cleanId) || currentKnown.has(o.orderId)) return false;
-        if (o.paymentMethod === 'payfast' && o.paymentStatus !== 'paid') return false;
+        if (isUnpaidOnlineOrder(o)) return false;
         return true;
       });
       if (isInitializedRef.current && newIncoming.length > 0 && soundEnabled) {
@@ -174,7 +181,7 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
       }
       cleanOrders.forEach((o) => {
         const cleanId = String(o.orderId).replace('#', '').trim();
-        if (o.paymentMethod !== 'payfast' || o.paymentStatus === 'paid') {
+        if (!isUnpaidOnlineOrder(o)) {
           currentKnown.add(cleanId);
           currentKnown.add(o.orderId);
         }
@@ -193,7 +200,7 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
         // 1. Unaccepted Incoming Orders (Ring continuously every 3 seconds until staff accept & start grilling)
         const hasUnacceptedOrder = currentOrders.some((order) => {
           if (order.status !== 'received') return false;
-          if (order.paymentMethod === 'payfast' && order.paymentStatus !== 'paid') return false;
+          if (isUnpaidOnlineOrder(order)) return false;
           if (silencedAlarms.has(order.orderId)) return false;
           return true;
         });
@@ -229,7 +236,7 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
       const newIncoming = cleanOrders.filter((o) => {
         const cleanId = String(o.orderId).replace('#', '').trim();
         if (currentKnown.has(cleanId) || currentKnown.has(o.orderId)) return false;
-        if (o.paymentMethod === 'payfast' && o.paymentStatus !== 'paid') return false;
+        if (isUnpaidOnlineOrder(o)) return false;
         return true;
       });
       if (isInitializedRef.current && newIncoming.length > 0 && soundEnabled) {
@@ -237,7 +244,7 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
       }
       cleanOrders.forEach((o) => {
         const cleanId = String(o.orderId).replace('#', '').trim();
-        if (o.paymentMethod !== 'payfast' || o.paymentStatus === 'paid') {
+        if (!isUnpaidOnlineOrder(o)) {
           currentKnown.add(cleanId);
           currentKnown.add(o.orderId);
         }
@@ -363,8 +370,8 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
   // Filter orders safely: Only display real non-test orders, and only paid PayFast orders or COD orders to the kitchen!
   const validOrders = orders.filter((o): o is LiveOrder => Boolean(o && typeof o === 'object' && o.orderId && !isTestOrder(o)));
   const kitchenEligibleOrders = validOrders.filter((o) => {
-    // If order was placed via PayFast, ONLY show to kitchen once payment is approved (paid)
-    if (o.paymentMethod === 'payfast' && o.paymentStatus !== 'paid') {
+    // If order was placed via Paystack / Ozow / PayFast, ONLY show to kitchen once payment is approved (paid)
+    if (isUnpaidOnlineOrder(o)) {
       return false;
     }
     return true;

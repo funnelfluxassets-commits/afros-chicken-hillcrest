@@ -151,6 +151,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onOpenCheckout }) => {
 
                   {/* Customizations */}
                   <div className="text-[11px] text-zinc-700 mt-1 space-y-0.5">
+                    {item.customization?.preparationStyle && (
+                      <div className="uppercase text-black font-black bg-zinc-200 px-1.5 py-0.5 rounded inline-block text-[10px] mr-1 border border-zinc-300">
+                        {item.customization.preparationStyle}
+                      </div>
+                    )}
                     {item.customization?.flavour && (
                       <div className="capitalize text-black font-black bg-[#FFD100]/40 px-1.5 py-0.5 rounded inline-block text-[10px] mr-1">
                         Flavour: {item.customization.flavour}

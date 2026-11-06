@@ -35,6 +35,8 @@ export interface MenuCategory {
   tagBox?: string;
 }
 
+export type PreparationStyle = 'GRILLED' | 'CRISPY PANKO';
+
 export interface MenuItem {
   id: string;
   categoryId: CategoryId;
@@ -45,6 +47,7 @@ export interface MenuItem {
   popular?: boolean;
   isSpicy?: boolean;
   hasFlavourChoice?: boolean;
+  hasPreparationChoice?: boolean;
   includesSide?: boolean;
   sideOptions?: string[];
   badge?: string;
@@ -52,6 +55,7 @@ export interface MenuItem {
 }
 
 export interface CartCustomization {
+  preparationStyle?: PreparationStyle;
   flavour?: FlavourId;
   side?: string;
   notes?: string;

@@ -271,6 +271,11 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({ 
                           {item.quantity}x {item.menuItem.name}
                         </span>
                         <div className="text-[11px] text-zinc-700 mt-1 space-y-0.5">
+                          {item.customization?.preparationStyle && (
+                            <div className="text-black font-black bg-zinc-200 border border-zinc-300 px-1.5 py-0.5 rounded inline-block text-[10px] mr-1 uppercase">
+                              {item.customization.preparationStyle}
+                            </div>
+                          )}
                           {item.customization?.flavour && (
                             <div className="text-black font-black bg-[#FFD100]/40 px-1.5 py-0.5 rounded inline-block text-[10px] mr-1 capitalize">
                               Baste: {item.customization.flavour}
@@ -438,6 +443,11 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({ 
                           {item.quantity}x {item.menuItem.name}
                         </span>
                         <div className="text-[11px] text-zinc-700 mt-1">
+                          {item.customization?.preparationStyle && (
+                            <span className="text-black font-black bg-zinc-200 border border-zinc-300 px-1.5 py-0.5 rounded mr-2 uppercase">
+                              {item.customization.preparationStyle}
+                            </span>
+                          )}
                           {item.customization?.flavour && (
                             <span className="text-black font-black bg-[#FFD100]/40 px-1.5 py-0.5 rounded mr-2 capitalize">
                               Baste: {item.customization.flavour}

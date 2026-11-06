@@ -801,6 +801,12 @@ export const OrderTrackerView: React.FC<OrderTrackerViewProps> = ({
 
                     {/* Baste & Side Badges */}
                     <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                      {item.customization?.preparationStyle && (
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-yellow-100/90 border border-yellow-300 text-yellow-950 text-[13px] font-black uppercase tracking-wide shadow-sm">
+                          <span>🍗 PREP:</span>
+                          <span>{item.customization.preparationStyle}</span>
+                        </span>
+                      )}
                       {item.customization?.flavour && (
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-amber-100/90 border border-amber-300 text-amber-950 text-[13px] font-black uppercase tracking-wide shadow-sm">
                           <span>🔥 BASTE:</span>

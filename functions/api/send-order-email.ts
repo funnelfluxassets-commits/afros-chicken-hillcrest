@@ -70,6 +70,9 @@ export async function onRequestPost(context: any) {
     const itemsRows = (order.items || [])
       .map((item: any, idx: number) => {
         const details: string[] = [];
+        if (item.customization?.preparationStyle) {
+          details.push(`Prep: <strong style="color: #ffffff;">${item.customization.preparationStyle}</strong>`);
+        }
         if (item.customization?.flavour) {
           details.push(`Flavour: <strong style="color: #FFD100;">${item.customization.flavour}</strong>`);
         }

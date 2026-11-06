@@ -90,6 +90,9 @@ export function buildWhatsAppOrderMessage(payload: CheckoutPayload): string {
     const safeTotal = typeof rawTotal === 'number' && !isNaN(rawTotal) ? rawTotal : 0;
     const itemName = item?.menuItem?.name || 'Meal';
     msg += `${idx + 1}. *${qty}x ${itemName}* (R${safeTotal.toFixed(2)})\n`;
+    if (item?.customization?.preparationStyle) {
+      msg += `   • Style: *${item.customization.preparationStyle}*\n`;
+    }
     if (item?.customization?.flavour) {
       msg += `   • Flavour: *${String(item.customization.flavour).toUpperCase()}*\n`;
     }

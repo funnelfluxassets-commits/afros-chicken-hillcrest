@@ -559,6 +559,9 @@ export const DeliveryDriverView: React.FC<DeliveryDriverViewProps> = ({
                         </span>
                         <div className="text-zinc-200 leading-tight space-y-0.5 flex-1">
                           <span className="font-bold text-white">{item.menuItem?.name || 'Meal'}</span>
+                          {item.customization?.preparationStyle && (
+                            <span className="text-yellow-400 ml-1 font-semibold">[{item.customization.preparationStyle}]</span>
+                          )}
                           {item.customization?.flavour && (
                             <span className="text-rose-400 ml-1 font-semibold">({item.customization.flavour})</span>
                           )}

@@ -1281,6 +1281,9 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                               <div key={idx} className="flex justify-between text-zinc-300">
                                 <span className="truncate pr-2">
                                   <strong className="text-white">{it.quantity || 1}x</strong> {it.menuItem?.name || 'Meal Item'}
+                                  {it.customization?.preparationStyle && (
+                                    <span className="text-yellow-400 ml-1">[{it.customization.preparationStyle}]</span>
+                                  )}
                                   {it.customization?.flavour && (
                                     <span className="text-rose-400 ml-1">({it.customization.flavour})</span>
                                   )}
@@ -1411,6 +1414,11 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
                                   <div key={idx} className="text-[11px] text-zinc-200">
                                     <span className="font-bold text-white">{it.quantity || 1}x</span>{' '}
                                     {it.menuItem?.name || 'Meal'}
+                                    {it.customization?.preparationStyle && (
+                                      <span className="text-yellow-400 font-semibold ml-1">
+                                        [{it.customization.preparationStyle}]
+                                      </span>
+                                    )}
                                     {it.customization?.flavour && (
                                       <span className="text-rose-400 font-semibold ml-1">
                                         ({it.customization.flavour})

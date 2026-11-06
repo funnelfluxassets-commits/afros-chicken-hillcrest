@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { MenuItem, FlavourId } from '../types';
+import React, { useState, useEffect } from 'react';
+import { MenuItem, FlavourId, PreparationStyle } from '../types';
 import { FLAVOURS, SIDES_LIST, MENU_ITEMS } from '../data/menuData';
 import { useCart } from '../context/CartContext';
 import { isItemOutOfStock } from '../services/stockService';
@@ -61,6 +61,15 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
   if (!item) return null;
 
   const [quantity, setQuantity] = useState(1);
+  const hasPrepChoice = Boolean(
+    item.hasPreparationChoice || ['strips', 'burgers', 'wraps'].includes(item.categoryId)
+  );
+  const [selectedPrep, setSelectedPrep] = useState<PreparationStyle>('GRILLED');
+
+  useEffect(() => {
+    setSelectedPrep('GRILLED');
+  }, [item?.id]);
+
   const [selectedFlavour, setSelectedFlavour] = useState<FlavourId>(
     item.hasFlavourChoice ? 'lemony' : 'lemony'
   );
@@ -115,6 +124,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
 
   const handleAddToCart = () => {
     addItem(item, quantity, {
+      preparationStyle: hasPrepChoice ? selectedPrep : undefined,
       flavour: item.hasFlavourChoice ? selectedFlavour : undefined,
       side: availableSides.length > 0 ? selectedSide : undefined,
       extras: selectedExtras.length > 0 ? selectedExtras : undefined,
@@ -165,6 +175,38 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, onClose }) => {
             </div>
             <p className="text-[13px] sm:text-[15px] text-zinc-600 mt-1 leading-relaxed font-medium">{item.description}</p>
           </div>
+
+          {/* Preparation Choice: GRILLED or CRISPY PANKO (Matches Choose Your Side) */}
+          {hasPrepChoice && (
+            <div className="space-y-3 pt-2 border-t border-zinc-200">
+              <div className="flex items-center justify-between">
+                <label className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-zinc-800">
+                  CHOOSE GRILLED OR CRISPY PANKO
+                </label>
+                <span className="text-[11px] font-bold text-[#FFD100] uppercase">Included</span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
+                {(['GRILLED', 'CRISPY PANKO'] as const).map((style) => {
+                  const isSelected = selectedPrep === style;
+                  return (
+                    <button
+                      key={style}
+                      type="button"
+                      onClick={() => setSelectedPrep(style)}
+                      className={`py-2.5 sm:py-3 px-2 sm:px-3 rounded-xl border text-center transition-all cursor-pointer font-black whitespace-nowrap flex items-center justify-center min-h-[46px] sm:min-h-[50px] ${
+                        isSelected
+                          ? 'bg-[#FFD100] border-2 border-black text-black shadow-xs'
+                          : 'bg-zinc-100 hover:bg-zinc-200/70 border-zinc-300 text-black'
+                      }`}
+                    >
+                      <span className="font-black text-[13px] sm:text-[15px] leading-none">{style}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {/* 1. Flavour / Heat Choice */}
           {item.hasFlavourChoice && (

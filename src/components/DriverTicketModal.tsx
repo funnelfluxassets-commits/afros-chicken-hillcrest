@@ -162,6 +162,11 @@ export const DriverTicketModal: React.FC<DriverTicketModalProps> = ({ order, onC
                       {item.quantity}x {item.menuItem.name}
                     </span>
                     <div className="text-[11px] text-zinc-200 mt-0.5 space-y-0.5">
+                      {item.customization?.preparationStyle && (
+                        <div className="text-yellow-400 font-semibold">
+                          🍗 Prep: {item.customization.preparationStyle}
+                        </div>
+                      )}
                       {item.customization?.flavour && (
                         <div className="text-rose-400 font-semibold capitalize">
                           Flavour: {item.customization.flavour}

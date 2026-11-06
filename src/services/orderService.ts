@@ -1424,6 +1424,7 @@ export async function sendOrderToGoogleSheets(order: LiveOrder): Promise<boolean
     const itemsSummary = (order.items || [])
       .map((it) => {
         let txt = `${it.quantity || 1}x ${it.menuItem?.name || 'Meal'}`;
+        if (it.customization?.preparationStyle) txt += ` [${it.customization.preparationStyle}]`;
         if (it.customization?.flavour) txt += ` (${it.customization.flavour})`;
         if (it.customization?.side) txt += ` + ${it.customization.side}`;
         return txt;
@@ -1499,6 +1500,7 @@ export async function sendOrderEmailNotification(order: LiveOrder): Promise<bool
       .map((it, idx) => {
         let txt = `${idx + 1}. ${it.quantity || 1}x ${it.menuItem?.name || 'Meal'}`;
         const details: string[] = [];
+        if (it.customization?.preparationStyle) details.push(`Prep: ${it.customization.preparationStyle}`);
         if (it.customization?.flavour) details.push(`Flavour: ${it.customization.flavour}`);
         if (it.customization?.side) details.push(`Side: ${it.customization.side}`);
         if (it.customization?.extras && it.customization.extras.length > 0) {
@@ -1607,6 +1609,7 @@ export function exportOrdersToCsv(orders: LiveOrder[], filenamePrefix = 'wrap-an
       .map((it) => {
         let details = `${it.quantity || 1}x ${it.menuItem?.name || 'Meal'}`;
         const parts: string[] = [];
+        if (it.customization?.preparationStyle) parts.push(`Prep: ${it.customization.preparationStyle}`);
         if (it.customization?.flavour) parts.push(`Baste: ${it.customization.flavour}`);
         if (it.customization?.side) parts.push(`Side: ${it.customization.side}`);
         if (it.customization?.extras?.length) {

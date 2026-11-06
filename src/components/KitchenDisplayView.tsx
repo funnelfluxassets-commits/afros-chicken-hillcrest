@@ -342,6 +342,7 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
               (i) => `
             <div class="item">
               <div class="bold">${i.quantity}x ${i.menuItem?.name || 'Meal'}</div>
+              ${i.customization?.preparationStyle ? `<div>- Prep: ${i.customization.preparationStyle}</div>` : ''}
               ${i.customization?.flavour ? `<div>- Baste: ${i.customization.flavour.toUpperCase()}</div>` : ''}
               ${i.customization?.side ? `<div>- Side: ${i.customization.side}</div>` : ''}
               ${i.customization?.notes ? `<div>- Notes: ${i.customization.notes}</div>` : ''}
@@ -1056,6 +1057,11 @@ export const KitchenDisplayView: React.FC<KitchenDisplayViewProps> = ({
                         </div>
 
                         <div className="flex flex-wrap gap-2 pt-0.5">
+                          {item.customization?.preparationStyle && (
+                            <span className="px-2.5 py-1 rounded-xl bg-yellow-500/25 text-yellow-300 font-black text-xs sm:text-sm uppercase border border-yellow-500/35">
+                              🍗 {item.customization.preparationStyle}
+                            </span>
+                          )}
                           {item.customization?.flavour && (
                             <span className="px-2.5 py-1 rounded-xl bg-rose-500/25 text-rose-300 font-black text-xs sm:text-sm uppercase border border-rose-500/35">
                               🔥 BASTE: {item.customization.flavour}

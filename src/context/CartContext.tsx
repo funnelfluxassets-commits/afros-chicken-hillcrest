@@ -67,7 +67,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const singleUnitPrice = menuItem.price + extrasTotal;
     const itemTotal = singleUnitPrice * quantity;
 
-    const lineId = `${menuItem.id}_${customization?.flavour || 'noflav'}_${customization?.side || 'noside'}_${Date.now()}`;
+    const lineId = `${menuItem.id}_${customization?.preparationStyle || 'noprep'}_${customization?.flavour || 'noflav'}_${customization?.side || 'noside'}_${Date.now()}`;
 
     const newItem: CartItem = {
       id: lineId,
